@@ -1,0 +1,366 @@
+{
+  "vt1_Helsinki_Munkkiniemi_Hki": {
+    "morning": {
+      "dir1": 0,
+      "dir2": 0
+    },
+    "day": {
+      "dir1": 0,
+      "dir2": 0
+    },
+    "evening": {
+      "dir1": 0,
+      "dir2": 0
+    }
+  },
+  "vt1_Helsinki_Lankiniemi_Hki": {
+    "morning": {
+      "dir1": 0,
+      "dir2": 0
+    },
+    "day": {
+      "dir1": 0,
+      "dir2": 0
+    },
+    "evening": {
+      "dir1": 0,
+      "dir2": 0
+    }
+  },
+  "st170_Kulosaari_LML": {
+    "morning": {
+      "dir1": 0,
+      "dir2": 0
+    },
+    "day": {
+      "dir1": 0,
+      "dir2": 0
+    },
+    "evening": {
+      "dir1": 0,
+      "dir2": 0
+    }
+  },
+  "st101_Helsinki_Vartiokyla": {
+    "morning": {
+      "dir1": 1683,
+      "dir2": 1514
+    },
+    "day": {
+      "dir1": 1438,
+      "dir2": 1964
+    },
+    "evening": {
+      "dir1": 1514,
+      "dir2": 2271
+    }
+  },
+  "kt51_Hanasaari": {
+    "morning": {
+      "dir1": 672,
+      "dir2": 1422
+    },
+    "day": {
+      "dir1": 1180,
+      "dir2": 3359
+    },
+    "evening": {
+      "dir1": 1472,
+      "dir2": 2248
+    }
+  },
+  "vt4_Jakomaki": {
+    "morning": {
+      "dir1": 1085,
+      "dir2": 1319
+    },
+    "day": {
+      "dir1": 1938,
+      "dir2": 2888
+    },
+    "evening": {
+      "dir1": 1386,
+      "dir2": 1946
+    }
+  },
+  "vt1_Munkkiniemi": {
+    "morning": {
+      "dir1": 836,
+      "dir2": 830
+    },
+    "day": {
+      "dir1": 1780,
+      "dir2": 1736
+    },
+    "evening": {
+      "dir1": 812,
+      "dir2": 1147
+    }
+  },
+  "vt7_Helsinki_Itasalmi": {
+    "morning": {
+      "dir1": 813,
+      "dir2": 695
+    },
+    "day": {
+      "dir1": 1624,
+      "dir2": 1750
+    },
+    "evening": {
+      "dir1": 713,
+      "dir2": 1132
+    }
+  },
+  "st101_Konala": {
+    "morning": {
+      "dir1": 3521,
+      "dir2": 2210
+    },
+    "day": {
+      "dir1": 3815,
+      "dir2": 3852
+    },
+    "evening": {
+      "dir1": 2355,
+      "dir2": 4307
+    }
+  },
+  "kt45_Helsinki_Tuomarinkartano": {
+    "morning": {
+      "dir1": 2237,
+      "dir2": 1685
+    },
+    "day": {
+      "dir1": 3088,
+      "dir2": 3635
+    },
+    "evening": {
+      "dir1": 1921,
+      "dir2": 2930
+    }
+  },
+  "st101_Kannelmaki": {
+    "morning": {
+      "dir1": 3425,
+      "dir2": 2372
+    },
+    "day": {
+      "dir1": 4148,
+      "dir2": 4325
+    },
+    "evening": {
+      "dir1": 2432,
+      "dir2": 4298
+    }
+  },
+  "st101_Lansi-Pakila": {
+    "morning": {
+      "dir1": 4253,
+      "dir2": 2946
+    },
+    "day": {
+      "dir1": 4847,
+      "dir2": 5384
+    },
+    "evening": {
+      "dir1": 3148,
+      "dir2": 5094
+    }
+  },
+  "st101_Pakila": {
+    "morning": {
+      "dir1": 4143,
+      "dir2": 2803
+    },
+    "day": {
+      "dir1": 4402,
+      "dir2": 4921
+    },
+    "evening": {
+      "dir1": 3041,
+      "dir2": 4791
+    }
+  },
+  "st101_Pukinmaki": {
+    "morning": {
+      "dir1": 986,
+      "dir2": 1051
+    },
+    "day": {
+      "dir1": 1075,
+      "dir2": 2910
+    },
+    "evening": {
+      "dir1": 1089,
+      "dir2": 3026
+    }
+  },
+  "st101_Malmi": {
+    "morning": {
+      "dir1": 936,
+      "dir2": 903
+    },
+    "day": {
+      "dir1": 1110,
+      "dir2": 2663
+    },
+    "evening": {
+      "dir1": 892,
+      "dir2": 3120
+    }
+  },
+  "st120_Pitajanmaki": {
+    "morning": {
+      "dir1": 573,
+      "dir2": 709
+    },
+    "day": {
+      "dir1": 1411,
+      "dir2": 1439
+    },
+    "evening": {
+      "dir1": 742,
+      "dir2": 837
+    }
+  },
+  "vt3_Pirkkola": {
+    "morning": {
+      "dir1": 1312,
+      "dir2": 1197
+    },
+    "day": {
+      "dir1": 2356,
+      "dir2": 2484
+    },
+    "evening": {
+      "dir1": 1317,
+      "dir2": 1471
+    }
+  },
+  "kt45_Oulunkyla": {
+    "morning": {
+      "dir1": 1049,
+      "dir2": 1182
+    },
+    "day": {
+      "dir1": 2213,
+      "dir2": 2331
+    },
+    "evening": {
+      "dir1": 1232,
+      "dir2": 1570
+    }
+  },
+  "vt4_Viikinmaki": {
+    "morning": {
+      "dir1": 944,
+      "dir2": 1162
+    },
+    "day": {
+      "dir1": 2325,
+      "dir2": 2734
+    },
+    "evening": {
+      "dir1": 1157,
+      "dir2": 1397
+    }
+  },
+  "st170_Kulosaari": {
+    "morning": {
+      "dir1": 856,
+      "dir2": 1211
+    },
+    "day": {
+      "dir1": 2004,
+      "dir2": 2365
+    },
+    "evening": {
+      "dir1": 1181,
+      "dir2": 1447
+    }
+  },
+  "vt3_Kivihaka": {
+    "morning": {
+      "dir1": 950,
+      "dir2": 982
+    },
+    "day": {
+      "dir1": 1687,
+      "dir2": 1869
+    },
+    "evening": {
+      "dir1": 1042,
+      "dir2": 1196
+    }
+  },
+  "vt3_Hakuninmaa": {
+    "morning": {
+      "dir1": 1799,
+      "dir2": 1487
+    },
+    "day": {
+      "dir1": 2933,
+      "dir2": 3273
+    },
+    "evening": {
+      "dir1": 1556,
+      "dir2": 2333
+    }
+  },
+  "vt7_Helsinki_Backnas": {
+    "morning": {
+      "dir1": 798,
+      "dir2": 669
+    },
+    "day": {
+      "dir1": 1578,
+      "dir2": 1735
+    },
+    "evening": {
+      "dir1": 681,
+      "dir2": 1130
+    }
+  },
+  "st103_Satamatie": {
+    "morning": {
+      "dir1": 0,
+      "dir2": 0
+    },
+    "day": {
+      "dir1": 0,
+      "dir2": 0
+    },
+    "evening": {
+      "dir1": 0,
+      "dir2": 0
+    }
+  },
+  "Niinisaarentie": {
+    "morning": {
+      "dir1": 102,
+      "dir2": 63
+    },
+    "day": {
+      "dir1": 47,
+      "dir2": 79
+    },
+    "evening": {
+      "dir1": 72,
+      "dir2": 128
+    }
+  },
+  "st100_Kivihaan_tunneli": {
+    "morning": {
+      "dir1": 1691,
+      "dir2": 936
+    },
+    "day": {
+      "dir1": 1094,
+      "dir2": 1675
+    },
+    "evening": {
+      "dir1": 1092,
+      "dir2": 1663
+    }
+  }
+}

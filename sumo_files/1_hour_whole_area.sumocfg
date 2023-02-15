@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-24 13:47:15 by Eclipse SUMO GUI Version 1.14.1
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="whole_area.net.xml"/>
+        <route-files value="verified_trips.rou.xml"/>
+        <additional-files value="whole_area_zones.poly.xml, 1_hour.add.xml"/>
+    </input>
+
+    <output>
+        <!-- <netstate-dump value="simulation_output/results.xml"/>
+        <emission-output value="simulation_output/emissionresults.xml" />
+        <amitran-output value="simulation_output/trajresults.xml"/> -->
+        <fcd-output value="simulation_output/fcdresults.xml"/>
+        <fcd-output.geo value="true"/>
+    </output>
+
+    <!-- <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time> -->
+
+</configuration>
