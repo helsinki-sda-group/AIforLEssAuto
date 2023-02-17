@@ -27,7 +27,7 @@ In this step a reduced OD matrix is created for in-out, out-in and out-out vehic
 
 After `fcdDataAnalysisV5.py` has been run `departure_times_V5.xlsx` is used to generate a new trip file for the simulation of the smaller area, which in this case Helsinki. `coordinateODToTripsV2.py` generates the trip file using `departure_times_V5.xlsx` for the external traffic and the original OD matrix for in-in traffic. After that the same preparation process is run as before the large simulation.
 
-## Step 4 Running the reduced simulation
+## Step 4: Running the reduced simulation
 As a last step the reduced simulation is launched through TraCI in `geoRunnerV2.py`. After that `statistics.py` is run to create a file where real world traffic counts are compared to the corresponding points in the simulation (implemented using induction loops in SUMO).
 
 <!-- ## Changes that could improve the project
