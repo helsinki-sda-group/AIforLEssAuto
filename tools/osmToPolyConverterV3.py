@@ -19,7 +19,6 @@ def main():
     writePolyFile(nodes, polys)
 
 
-
 def getNodes(bs):
     nodeResults = bs.find_all("node")
     nodes = {}
@@ -69,7 +68,6 @@ def findNormalPolygons(bs, polys):
             nodeIds.append(node["ref"])
         polys[polyId] = nodeIds
     return polys
-
 
 def writePolyFile(nodes, polys):
     with open(OUTPUT_FILE, 'w') as fOut:

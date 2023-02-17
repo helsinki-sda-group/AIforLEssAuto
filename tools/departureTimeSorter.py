@@ -18,12 +18,6 @@ def main():
     mainTree = ET.parse(INPUT_FILE)
     mainRoot = mainTree.getroot()
     mainRoot[:] = sorted(mainRoot, key=lambda child: int(re.findall(r"([0-9]+).*", child.get("depart"))[0]))
-
-    # id = 0
-    # for route in mainRoot:
-    #     route.set("id", str(id))
-    #     id += 1
-
     mainTree.write(OUTPUT_FILE)
 
 

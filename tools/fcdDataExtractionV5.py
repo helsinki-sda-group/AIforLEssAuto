@@ -29,14 +29,6 @@ REDUCED_AREA_MAX_LON = 25.427476
 print("Reading the network (whole Helmet area)")
 NET = sumolib.net.readNet(NET_FILE)
 
-# def readHelsinkiEdges():
-#     tree = ET.parse(HELSINKI_TAZ_FILE)
-#     tazs = tree.getroot()
-#     helsinkiEdges = set()
-#     helsinki = tazs[0]
-#     helsinkiEdges.update(helsinki.attrib["edges"].split(" "))
-#     return helsinkiEdges
-
 def readHelsinkiTazs():
     table = Dbf5(HELSINKI_ZONES_FILE).to_dataframe()
     tazs = set(np.array(["po_" + str(int(zone)) for zone in table["SIJ2019"].iloc[HELSINKI_BEG_INDEX:HELSINKI_END_INDEX]]))
@@ -121,7 +113,6 @@ class fcdInformationExtracter:
         print("Getting the time steps...")
         timeSteps = tree.getroot()
         for timeStep in timeSteps:
-            # print(self.getTimeFromTimeStep(timeStep))
             if self.getTimeFromTimeStep(timeStep) == "3599.00":
                 self.finalTimeStepProcedure(timeStep)
             else:
@@ -143,6 +134,7 @@ class fcdInformationExtracter:
                     if self.vehicleInVehicleSet(id, self.helsinkiVehicles):
                         if not self.destinationInHelsinki(destinationTazs[id]):# in-out vehicle
                             self.destinationMemory[id] = self.createVehicleCoordinates(vehicle)
+                    # Old code that seemed to be an unnecessary case which only caused errors
                     # elif self.vehicleInVehicleSet(id, self.outVehicles):
                     #     if id in self.originMemory.keys():# out-out vehicle
                             # self.destinationMemory[id] = self.createVehicleCoordinates(vehicle)

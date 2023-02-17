@@ -43,12 +43,10 @@ def main():
     # orderIds()
 
 
-# Code from visumRouteGenerationV2.py
 def createInInTrips(existingIds):
     zoneIdMap, zoneIndexes = createHelsinkiZoneIdMap()
     helsinkiTripTriple = createHelsinkiTrips(zoneIdMap, zoneIndexes)
     return createTrips(helsinkiTripTriple[0], helsinkiTripTriple[1], helsinkiTripTriple[2], existingIds, OUTPUT_FILE)
-
 
 def createTrips(origins, destinations, nCars, existingIds, outputFile):
     id = existingIds
@@ -56,19 +54,15 @@ def createTrips(origins, destinations, nCars, existingIds, outputFile):
     with open(outputFile, "a") as f:
         for i in range(len(origins)):
             if origins[i] not in IGNORED_ZONES and destinations[i] not in IGNORED_ZONES:
-                # print(i)
-                # TODO CONTINUE FROM HERE
                 for j in range(nCars[i]):
                     depart = random.randint(0, SIMULATION_END)
                     originTazInt = origins[i]
                     randomOriginEdgeIndex = random.randint(0, len(tazEdges[originTazInt])-1)
                     originEdges = tazEdges[originTazInt]
-                    # print("origins", originEdges)
                     originEdge = originEdges[randomOriginEdgeIndex]
                     destinationTazInt = destinations[i]
                     randomDestinationEdgeIndex = random.randint(0, len(tazEdges[destinationTazInt])-1)
                     destinationEdges = tazEdges[destinationTazInt]
-                    # print("destinations", destinationEdges)
                     destinationEdge = destinationEdges[randomDestinationEdgeIndex]
                     f.write("    <trip id=\"{}\" depart=\"{}.00\" from=\"{}\" to=\"{}\" departLane=\"free\" departSpeed=\"max\"/>\n".format(str(id), str(depart), originEdge, destinationEdge))
                     id += 1
@@ -83,16 +77,6 @@ def readTazs():
         intId = int(re.findall(r"po_(\d+)", id)[0])
         intTazs[intId] = taz.attrib["edges"].split(" ")
     return intTazs
-
-# def readStringTazs():
-#     tazs = {}
-#     tree = ET.parse(HELSINKI_TAZ_FILE)
-#     root = tree.getroot()
-#     for taz in root:
-#         id = taz.attrib["id"]
-#         id = re.findall(r"(po_\d+)", id)[0]
-#         tazs[id] = taz.attrib["edges"].split(" ")
-#     return tazs
 
 def createHelsinkiZoneIdMap():
     zoneIds, zoneIndexes = readHelsinkiZonesAndIndexes()
@@ -153,7 +137,6 @@ def orderIds():
     root = tree.getroot()
     for i in range(len(root)):
         root[i].attrib["id"] = str(i)
-    # root[:] = sorted(root, key=lambda child: float(child.get("depart")))
     tree.write(OUTPUT_FILE)
 
 def writeFileBeginning(outputFile=OUTPUT_FILE):
@@ -179,13 +162,7 @@ def writeExtTrips(existingIds):
     id = existingIds
     global outOfBoundsErrors
     outOfBoundsErrors = 0
-    # tripClassTables = extTripsByClass(table)
-    # tripCreationFunctions = [createInOutTrips, createOutInTrips, createOutInTrips]
     inOutTrips, outInTrips, outOutTrips = extTripsByClass(table)
-
-    # for tripClassTable, tripCreationFunction in tripClassTables, tripCreationFunctions:
-    #     outputExtension, id = tripCreationFunction(tripClassTable, id)
-    #     output += outputExtension
     outputExtension, id = createInOutTrips(inOutTrips, id)
     output += outputExtension
     outputExtension, id = createOutInTrips(outInTrips, id)
@@ -193,7 +170,6 @@ def writeExtTrips(existingIds):
     outputExtension, id = createOutOutTrips(outOutTrips, id)
     output += outputExtension
     print("Out of bounds errors:", outOfBoundsErrors)
-
     appendToOutputFile(output)
 
 def extTripsByClass(table):
@@ -255,19 +231,11 @@ def createOutOutTrips(outOutTrips, id):
     return outputExtension, id
 
 def findClosestEdge(lon, lat, radius=40):
-    # print(lon, lat)
     x, y = NET.convertLonLat2XY(lon, lat)
     edges = NET.getNeighboringEdges(x, y, radius)
-    # print(x, y)
-    # print(edges)
-    # if len(edges) == 0:
-    #     print("No edges found")
-    # Example from SUMO's documentation, causes errors when there are two edges with the same distance
-    # distancesAndEdges = sorted([(edge) for edge, dist in edges])
     distancesAndEdges = sorted(edges, key=lambda x: x[1])
-    # print(distancesAndEdges)
     closestEdge, dist = distancesAndEdges[0]
-    return closestEdge.getID()# edges[0][0].getID()
+    return closestEdge.getID()
 
 def pickRandomEdgeFromTaz(tazEdges, taz):
     edges = tazEdges[int(taz[3:len(taz)])]

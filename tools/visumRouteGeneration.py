@@ -29,7 +29,6 @@ def main():
     writeOdPart(tripTriple[0], tripTriple[1], tripTriple[2], OUTPUT_FILE)
 
 
-
 def createOdTrips(zoneIdMap, zoneIndexes):
     origins = []
     destinations = []
@@ -55,7 +54,6 @@ def getWholeCars(tripCars):
     if random.random() < probabilityForExtraCar:
         wholeCars += 1
     return wholeCars
-
 
 def writeOdPart(origins, destinations, nCars, outputFile):
     with open(outputFile, "a") as f:
@@ -86,7 +84,6 @@ def getWantedMatrices():
 
 def readOdMatrixFile(file):
     return omx.open_file(file, "r")
-
 
 def writeFileBeginning():
     with open(OUTPUT_FILE, "w") as f:
