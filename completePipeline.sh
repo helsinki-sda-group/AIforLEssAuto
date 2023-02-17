@@ -53,6 +53,14 @@
 # Change or remove the polygon files from the .sumocfg files
 
 
+# Setting up needed empty directories (not included in the GitHub repo)
+mkdir calibration/data/randomness
+mkdir data
+mkdir data/fcd_analysis
+mkdir sumo_files/simulation_output
+mkdir sumo_files/simulation_output/detector_outputs
+mkdir sumo_files/simulation_output/reduced_detector_outputs
+
 # The pipeline
 # Whole area
 python3 tools/visumRouteGeneration.py
