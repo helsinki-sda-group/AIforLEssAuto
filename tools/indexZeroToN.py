@@ -5,7 +5,6 @@ try:
     ROU_FILE = sys.argv[1]
 except:
     ROU_FILE = "sumo_files/verified_trips.rou.xml"
-SIMULATION_END = 3600
 
 def main():
     tree = ET.parse(ROU_FILE)

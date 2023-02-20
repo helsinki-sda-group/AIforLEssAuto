@@ -77,7 +77,6 @@ def readZonesAndIndexes():
         indexes.append(table[DBF_INDICES_COLUMN][i])
     return (ids, indexes)
 
-
 def getWantedMatrices():
     od = readOdMatrixFile(OD_MATRIX_FILE)
     return [od[matrix] for matrix in MATRICES]
