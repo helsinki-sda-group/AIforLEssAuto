@@ -66,9 +66,9 @@ mkdir sumo_files/simulation_output/reduced_detector_outputs
 python3 tools/visumRouteGeneration.py
 od2trips -c sumo_files/od2trips.config.xml
 # If multithreading is enabled
-# duarouter -c sumo_files/duarcfg_file.trips2routes.duarcfg --routing-threads 4 --write-trips true
+# duarouter -c sumo_files/duarcfg_file.trips2routes.duarcfg --routing-threads 4 --write-trips true --ignore-errors true
 # Otherwise
-duarouter -c sumo_files/duarcfg_file.trips2routes.duarcfg --write-trips true
+duarouter -c sumo_files/duarcfg_file.trips2routes.duarcfg --write-trips true --ignore-errors true
 python3 tools/randomDepartureTimes.py sumo_files/verified_trips.rou.xml
 python3 tools/departureTimeSorter.py
 python3 tools/indexZeroToN.py
@@ -78,9 +78,9 @@ python3 sumo_files/runner.py
 python3 tools/fcdDataExtractionV5.py
 python3 tools/coordinateODToTripsV2.py
 # If multithreading is enabled
-# duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --routing-threads 4 --write-trips true
+# duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --routing-threads 4 --write-trips true --ignore-errors true
 # Otherwise
-duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --write-trips true
+duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --write-trips true --ignore-errors true
 python3 tools/departureTimeSorter.py sumo_files/verified_reduced_geo_trips_V2.rou.xml sumo_files/verified_reduced_geo_trips_V2.rou.xml
 python3 sumo_files/geoRunnerV2.py
 python3 calibration/tools/statistics.py 1 sumo_files/simulation_output/reduced_detector_outputs
@@ -90,7 +90,7 @@ python3 calibration/tools/statistics.py 1 sumo_files/simulation_output/reduced_d
 # for number in 1 2 3 4 5 6 7 8 9 10
 # do
 #     python3 tools/coordinateODToTripsV2.py
-#     duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --routing-threads 4 --write-trips true
+#     duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --routing-threads 4 --write-trips true --ignore-errors true
 #     python3 tools/departureTimeSorter.py sumo_files/verified_reduced_geo_trips_V2.rou.xml sumo_files/verified_reduced_geo_trips_V2.rou.xml
 #     python3 sumo_files/geoRunnerV2.py
 #     python3 calibration/tools/statistics.py 1 sumo_files/simulation_output/reduced_detector_outputs

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 2022-10-25 11:35:46.532581 by edgesInDistricts.py UNKNOWN
-  options: -n sumo_files/helmet_area.net.xml -t sumo_files/helmet_zones.poly.xml -o sumo_files/districts.taz.xml
+  options: -n sumo_files/whole_area.net.xml -t sumo_files/helmet_zones.poly.xml -o sumo_files/districts.taz.xml
 -->
 
 <tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">

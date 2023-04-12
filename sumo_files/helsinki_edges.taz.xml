@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 2022-11-01 17:31:30.139644 by edgesInDistricts.py UNKNOWN
-  options: -n sumo_files/helmet_area.net.xml -t sumo_files/helsinki_borders.poly.xml -o sumo_files/helsinki_edges.taz.xml
+  options: -n sumo_files/whole_area.net.xml -t sumo_files/helsinki_borders.poly.xml -o sumo_files/helsinki_edges.taz.xml
 -->
 
 <tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">

@@ -4,7 +4,7 @@
 # @author  Anton Taleiko
 # @date    Wed Feb 15 2023
 # ----------------------------------------------------------------------
-HELSINKI_TAZS = set([
+REDUCED_AREA_TAZS = set([
     "po_101",
     "po_102",
     "po_103",
