@@ -25,6 +25,9 @@ SUMO's built-in tool Duarouter is used for verifying these trips. The extra keyw
 ## Step 3: Reduction of the large simulation
 In this step a reduced OD matrix is created for in-out, out-in and out-out vehicles with `fcdDataAnalysisV5.py`. The vehicle positions in `fcdresults.xml` are used to determine when and where vehicles enter and exit Helsinki (or any chosen smaller area in the large simulation). The output is an Excel file called `departure_times_V5.xlsx`, with each row representing a vehicle. The origin, destination and departure time is included. If a vehicle's origin or destination is in Helsinki, it is saved as a TAZ id and otherwise it is represented as coordinates.
 
+![departure_times_V5.xlsx example](media/departure_times_V5_example.png)\
+*An example of the output of fcdDataExtractionV5*
+
 After `fcdDataAnalysisV5.py` has been run `departure_times_V5.xlsx` is used to generate a new trip file for the simulation of the smaller area, which in this case Helsinki. `coordinateODToTripsV2.py` generates the trip file using `departure_times_V5.xlsx` for the external traffic and the original OD matrix for in-in traffic. After that the same preparation process is run as before the large simulation.
 
 ## Step 4: Running the reduced simulation
