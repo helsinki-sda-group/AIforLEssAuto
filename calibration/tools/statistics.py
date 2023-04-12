@@ -1,3 +1,9 @@
+# ----------------------------------------------------------------------
+# Copyright (c) 2023 University of Helsinki SDA group
+# @file    statistics.py
+# @author  Anton Taleiko
+# @date    Wed Feb 15 2023
+# ----------------------------------------------------------------------
 import sys
 import os
 import json
@@ -37,6 +43,7 @@ def main():
             df = statisticsProcedure(df, stationName, "_1_output.xml", DIR_1, "_1")
             df = statisticsProcedure(df, stationName, "_2_output.xml", DIR_2, "_2")
     df["RMSE"] = np.append(np.array(calculateRMSE(df)), np.full((len(df["MAPE"])-1), np.nan))
+    df = addSumRow(df)
     df.to_excel(OUTPUT_FILE)
 
 
@@ -78,6 +85,13 @@ def countVehicles(file):
 def calculateRMSE(df):
     rmse = math.sqrt(sum(df["MAPE"]**2) / len(df["MAPE"]))
     return rmse
+
+def addSumRow(df):
+    totalRealCounts = np.sum(df[COLUMNS[0]])
+    totalSumoCounts = np.sum(df[COLUMNS[1]])
+    dfRow = pd.DataFrame(np.array([[totalRealCounts, totalSumoCounts, np.nan]]), index=["sum"], columns=COLUMNS)
+    df = pd.concat([df, dfRow])
+    return df
 
     
 if __name__ == '__main__':

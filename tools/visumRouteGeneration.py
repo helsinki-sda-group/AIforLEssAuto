@@ -1,3 +1,9 @@
+# ----------------------------------------------------------------------
+# Copyright (c) 2023 University of Helsinki SDA group
+# @file    visumRouteGeneration.py
+# @author  Anton Taleiko
+# @date    Wed Feb 15 2023
+# ----------------------------------------------------------------------
 import sys
 import openmatrix as omx
 import math
@@ -27,7 +33,6 @@ def main():
     tripTriple = createOdTrips(zoneIdMap, zoneIndexes)
     writeFileBeginning()
     writeOdPart(tripTriple[0], tripTriple[1], tripTriple[2], OUTPUT_FILE)
-
 
 def createOdTrips(zoneIdMap, zoneIndexes):
     origins = []

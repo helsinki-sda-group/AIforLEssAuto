@@ -1,7 +1,12 @@
+# ----------------------------------------------------------------------
+# Copyright (c) 2023 University of Helsinki SDA group
+# @file    departureTimeSorter.py
+# @author  Anton Taleiko
+# @date    Wed Feb 15 2023
+# ----------------------------------------------------------------------
 import sys
 import xml.etree.ElementTree as ET
 import re
-
 
 try:
     INPUT_FILE = sys.argv[1]

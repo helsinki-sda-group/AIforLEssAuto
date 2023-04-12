@@ -1,3 +1,9 @@
+# ----------------------------------------------------------------------
+# Copyright (c) 2023 University of Helsinki SDA group
+# @file    indexZeroToN.py
+# @author  Anton Taleiko
+# @date    Wed Feb 15 2023
+# ----------------------------------------------------------------------
 import sys
 import xml.etree.ElementTree as ET
 

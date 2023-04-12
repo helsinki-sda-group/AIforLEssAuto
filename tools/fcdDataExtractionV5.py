@@ -1,3 +1,13 @@
+# ----------------------------------------------------------------------
+# Copyright (c) 2023 University of Helsinki SDA group
+# @file    fcdDataExtractionV5.py
+# @author  Anton Taleiko
+# @date    Wed Feb 15 2023
+# ----------------------------------------------------------------------
+# For creating a reduced simulation with randomness for edges in Helsinki from
+# fcd output from an instance of the large simulation.
+# The first working version.
+
 import sys
 import xml.etree.ElementTree as ET
 import numpy as np
@@ -15,10 +25,13 @@ FCD_FILE = "sumo_files/simulation_output/fcdresults.xml"
 HELSINKI_ZONES_FILE = "data/sijoittelualueet2019.dbf"
 HELSINKI_BEG_INDEX = 1013
 HELSINKI_END_INDEX = 1394
-HELSINKI_TAZ_FILE = "sumo_files/helsinki_edges.taz.xml"
+REDUCED_AREA_TAZ_FILE = "sumo_files/helsinki_edges.taz.xml"
 ROU_FILE = "sumo_files/verified_trips.rou.xml"
 NET_FILE = "sumo_files/whole_area.net.xml"
-DEPARTURE_OUTPUT_FILE = "data/fcd_analysis/departure_times_V5.xlsx"
+try:
+    DEPARTURE_OUTPUT_FILE = sys.argv[1]
+except:
+    DEPARTURE_OUTPUT_FILE = "data/fcd_analysis/departure_times_V5.xlsx"
 OUTPUT_COLUMNS = ["fromX", "fromY", "toX", "toY", "depart"]
 MOCK_ROU_FILE = "tests/test_files/mock_trips.rou.xml"
 REDUCED_AREA_MIN_LAT = 60.130824
@@ -34,10 +47,10 @@ def readHelsinkiTazs():
     tazs = set(np.array(["po_" + str(int(zone)) for zone in table["SIJ2019"].iloc[HELSINKI_BEG_INDEX:HELSINKI_END_INDEX]]))
     return tazs
 
-HELSINKI_TAZS = readHelsinkiTazs()
+REDUCED_AREA_TAZS = readHelsinkiTazs()
 
 def readHelsinkiEdges():
-    tree = ET.parse(HELSINKI_TAZ_FILE)
+    tree = ET.parse(REDUCED_AREA_TAZ_FILE)
     tazs = tree.getroot()
     helsinkiEdges = set()
     for taz in tazs:
@@ -106,7 +119,6 @@ class fcdInformationExtracter:
         self.destinationMemory = {}
         self.vehicleMemoryMisses = 0
 
-
     def extractInformationFromFcdFile(self, file=FCD_FILE):
         print("Parsing the trajectory file...")
         tree = ET.parse(file)
@@ -117,14 +129,12 @@ class fcdInformationExtracter:
                 self.finalTimeStepProcedure(timeStep)
             else:
                 self.regularVehicleProcedure(timeStep)
-        self.postProcess()
+        self.saveOutOutVehicles()
         self.outputResults()
-
 
     def outputResults(self, departureOutputFile=DEPARTURE_OUTPUT_FILE):
         print("Saving vehicle information...")
         self.extVehicleGeoDepartures.to_excel(departureOutputFile)
-
 
     def finalTimeStepProcedure(self, timeStep, originTazs=VEH_TO_ORIGIN_TAZ, destinationTazs=VEH_TO_DESTINATION_TAZ):
         for vehicle in timeStep:
@@ -197,10 +207,6 @@ class fcdInformationExtracter:
                 # but was classified as having started indside, because it was on an edge
                 # that stretches within the area
 
-    def postProcess(self):
-        self.saveOutOutVehicles()
-        self.wipeMemoryDetails()
-
     def saveOutOutVehicles(self):
         for id in self.destinationMemory.keys():
             try:
@@ -216,25 +222,19 @@ class fcdInformationExtracter:
         if not TESTING:
             print("Out out vehicle save fail rate:", self.vehicleMemoryMisses / len(self.destinationMemory))
 
-    def wipeMemoryDetails(self):
-        self.originMemory.clear()
-        self.destinationMemory.clear()
-        self.departureMemory.clear()
-        self.processedVehicles.clear()
-
     def vehicleAlreadyInMemory(self, id, memory):
         return id in memory.keys()
 
     def vehicleIsOutOutVehicle(self, id, originTazs, destinationTazs):
-        originOutsideHelsinki = originTazs[id] not in ht.HELSINKI_TAZS
-        destinationOutsideHelsinki = destinationTazs[id] not in ht.HELSINKI_TAZS
+        originOutsideHelsinki = originTazs[id] not in ht.REDUCED_AREA_TAZS
+        destinationOutsideHelsinki = destinationTazs[id] not in ht.REDUCED_AREA_TAZS
         if originOutsideHelsinki and destinationOutsideHelsinki:
             return True
         return False
 
     def vehicleIsInInVehicle(self, id, originTazs, destinationTazs):
-        originInHelsinki = originTazs[id] in ht.HELSINKI_TAZS
-        destinationInHelsinki = destinationTazs[id] in ht.HELSINKI_TAZS
+        originInHelsinki = originTazs[id] in ht.REDUCED_AREA_TAZS
+        destinationInHelsinki = destinationTazs[id] in ht.REDUCED_AREA_TAZS
         if originInHelsinki and destinationInHelsinki:
             return True
         return False
@@ -253,11 +253,10 @@ class fcdInformationExtracter:
         return edge not in HELSINKI_EDGES
 
     def originInHelsinki(self, origin):
-        return origin in ht.HELSINKI_TAZS
+        return origin in ht.REDUCED_AREA_TAZS
 
     def destinationInHelsinki(self, destination):
-        return destination in ht.HELSINKI_TAZS
-
+        return destination in ht.REDUCED_AREA_TAZS
 
     def addGeoDeparture(self, origin, destination, time):
         originCoords = origin.split(" ")
@@ -271,14 +270,6 @@ class fcdInformationExtracter:
             newEntry = {"fromX": originCoords[0], "fromY": np.nan, "toX": float(destinationCoords[0]), "toY": float(destinationCoords[1]), "depart": time}
         self.extVehicleGeoDepartures.iloc[self.addedDepartures] = newEntry
         self.addedDepartures += 1
-
-    # def addRandomDeparture(self, origin, destination, time):
-    #     originCoords = origin.split(" ")
-    #     if len(originCoords) == 2:
-    #         newEntry = {"fromX": float(originCoords[0]), "fromY": float(originCoords[1]), "toX": destination, "toY": np.nan, "depart": time}
-    #     else:
-    #         newEntry = {"fromX": float(originCoords[0]), "fromY": np.nan, "toX": destination, "toY": np.nan, "depart": time}
-
 
     def addVehicleToVehicleSet(self, id, vehicleSet):
         vehicleSet.add(id)

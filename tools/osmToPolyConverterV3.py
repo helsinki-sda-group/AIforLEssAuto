@@ -1,12 +1,20 @@
+# ----------------------------------------------------------------------
+# Copyright (c) 2023 University of Helsinki SDA group
+# @file    osmToPolyConverterV3.py
+# @author  Anton Taleiko
+# @date    Wed Feb 15 2023
+# ----------------------------------------------------------------------
 import sys
 import os
 from bs4 import BeautifulSoup
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib
 
-OSM_FILE = os.path.join(os.getcwd(), "data/shape_files/sijoittelualueet2019.osm")
-OUTPUT_FILE = os.path.join(os.getcwd(), "sumo_files/helmet_zones.poly.xml")
-NETFILE = "sumo_files/helmet_area.net.xml"
+# OSM_FILE = os.path.join(os.getcwd(), "data/shape_files/sijoittelualueet2019.osm")
+# OUTPUT_FILE = os.path.join(os.getcwd(), "sumo_files/whole_area_zones.poly.xml")
+OSM_FILE = os.path.join(os.getcwd(), "data/shape_files/helsinki_zones.osm")
+OUTPUT_FILE = os.path.join(os.getcwd(), "sumo_files/helsinki_zones.poly.xml")
+NETFILE = "sumo_files/whole_area.net.xml"
 NET = sumolib.net.readNet(NETFILE)
 
 def main():

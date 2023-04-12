@@ -1,3 +1,9 @@
+# ----------------------------------------------------------------------
+# Copyright (c) 2023 University of Helsinki SDA group
+# @file    coordinateODToTripsV2.py
+# @author  Anton Taleiko
+# @date    Wed Feb 15 2023
+# ----------------------------------------------------------------------
 import sys
 import pandas as pd
 import sumolib
@@ -9,12 +15,20 @@ from simpledbf import Dbf5
 from datetime import datetime
 import re
 
+# Change to whatever file is used to generate traffic (output from fcdDataExtraction)
 INPUT_FILE = "data/fcd_analysis/departure_times_V5.xlsx"
+# INPUT_FILE = "data/fcd_analysis/departure_times_V8.xlsx"
 OUTPUT_FILE = "sumo_files/reduced_geo_trips_V2.rou.xml"
-NET_FILE = "sumo_files/reduced_area.net.xml"
+# From an older version before the educed network was cut using Netconvert
+# NET_FILE = "sumo_files/reduced_area.net.xml"
+NET_FILE = "sumo_files/reduced_cut_area.net.xml"
+# Demand OD matrix
 OD_MATRIX_FILE = "data/demand_aht.omx"
+# A file used to pair the OD indexes with their zone names
 DBF_FILE = "data/sijoittelualueet2019.dbf"
-HELSINKI_TAZ_FILE = "sumo_files/reduced_districts.taz.xml"
+# From an older version before the educed network was cut using Netconvert
+# HELSINKI_TAZ_FILE = "sumo_files/reduced_districts.taz.xml"
+REDUCED_AREA_TAZ_FILE = "sumo_files/reduced_cut_districts.taz.xml"
 
 ORIGIN_X_COLUMN = "fromX"
 ORIGIN_Y_COLUMN = "fromY"
@@ -38,10 +52,8 @@ def main():
     id += createInInTrips(id)
     writeExtTrips(id)
     writeFileEnd()
-    # Messes up duarouter's process for some reason
-    # sortTrips()
-    # orderIds()
-
+    sortTrips()
+    orderIds()
 
 def createInInTrips(existingIds):
     zoneIdMap, zoneIndexes = createHelsinkiZoneIdMap()
@@ -70,7 +82,7 @@ def createTrips(origins, destinations, nCars, existingIds, outputFile):
 
 def readTazs():
     intTazs = {}
-    tree = ET.parse(HELSINKI_TAZ_FILE)
+    tree = ET.parse(REDUCED_AREA_TAZ_FILE)
     root = tree.getroot()
     for taz in root:
         id = taz.attrib["id"]
@@ -99,7 +111,6 @@ def createHelsinkiTrips(zoneIdMap, zoneIndexes):
     destinations = []
     nCars = []
     matrices = getWantedMatrices()
-
     for origin in zoneIndexes:
         for destination in zoneIndexes:
             tripCars = 0.0
@@ -240,7 +251,6 @@ def findClosestEdge(lon, lat, radius=40):
 def pickRandomEdgeFromTaz(tazEdges, taz):
     edges = tazEdges[int(taz[3:len(taz)])]
     return edges[random.randint(0, len(edges)-1)]
-
 
 def readGeoTable():
     table = pd.read_excel(INPUT_FILE, index_col=0)
