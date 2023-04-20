@@ -1,4 +1,5 @@
-/data/demand_aht.omx
-/data/sijoittelualueet2019.dbf
-/sumo_files/reduced_area.net.xml
-/sumo_files/whole_area.net.xml
+# WP4
+/WP4/data/demand_aht.omx
+/WP4/data/sijoittelualueet2019.dbf
+/WP4/sumo_files/reduced_area.net.xml
+/WP4/sumo_files/whole_area.net.xml
