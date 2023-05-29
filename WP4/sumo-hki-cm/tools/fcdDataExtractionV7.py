@@ -10,10 +10,10 @@
 # resource efficiency by not having to store out-out vehicles until the end of the
 # program's exection.
 # The sets used in the class fcdInformationExtracter have also been replaced by
-# NumPy arrays to optimize performance.
+# NumPy arrays to improve performance.
 
 # NOTE: It has not been checked how well the results of this version correspond to
-# those produced by version 5 since version 7 was only a middle step towards
+# those produced by version 5 since version 7 was only an intermediate step towards
 # version 8.
 
 import sys
@@ -34,7 +34,7 @@ HELSINKI_ZONES_FILE = "data/sijoittelualueet2019.dbf"
 HELSINKI_BEG_INDEX = 1013
 HELSINKI_END_INDEX = 1394
 REDUCED_AREA_TAZ_FILE = "sumo_files/helsinki_box_edges.taz.xml"
-ROU_FILE = "sumo_files/verified_trips.rou.xml"
+ROU_FILE = "sumo_files/geo_reduction/verified_trips.rou.xml"
 NET_FILE = "sumo_files/whole_area.net.xml"
 try:
     DEPARTURE_OUTPUT_FILE = sys.argv[1]

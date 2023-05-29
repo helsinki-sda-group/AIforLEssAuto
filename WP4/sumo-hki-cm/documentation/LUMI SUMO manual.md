@@ -1,7 +1,6 @@
 # LUMI SUMO manual
 
 ## Installation script
-
 If everything still works as it did in the spring of 2023, then the following bottom-up installation script should install SUMO with all things needed. The only thing that needs to be changed is the project ID when setting the environment variable `START_DIR`. Just replace `<PROJECT_ID>` with the current LUMI project's ID.
 
 ```
@@ -128,11 +127,9 @@ cp $SUMO_HOME/bin/duarouter duarouter/1.0.0/bin
 ## Notes
 
 ### LUMI partitions
-
 One important part of the script is when the C partition is loaded. If the user does not know about the architecture in LUMI running batch jobs can be quite a headache. For modules to be detected during batch jobs, they should always installed in the correct partition. The two common alternatives would be the C and G partitions. C stands for CPU (serial) jobs and G for GPU (parallell computing) jobs. Since SUMO does not support parallell computing (except for its pathfinding processes) the C partition is a suitable alternative. When running batch jobs, the same partition that SUMO has been installed in should always be loaded.
 
 ## Example batch job
-
 The following batch job can be used to test if SUMO has been installed correctly and works in LUMI, assuming there is a directory called `sumo_simulation` containing a .sumocfg file with the needed files.
 
 ```

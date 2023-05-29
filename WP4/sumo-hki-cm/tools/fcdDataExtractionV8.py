@@ -10,6 +10,14 @@
 # line by line and extracts information with regular expressions instead of parsing it
 # using the ElementTree module.
 
+# Changes in versions 6 and 7:
+# Version 6 uses iterative parsing instead of reading the whole trajectory file at once.
+# In version 7 it is assumed that the reduced area is a square. This is to improve
+# resource efficiency by not having to store out-out vehicles until the end of the
+# program's exection.
+# The sets used in the class fcdInformationExtracter have also been replaced by
+# NumPy arrays to optimize performance.
+
 import sys
 import xml.etree.ElementTree as ET
 import numpy as np

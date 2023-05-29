@@ -1,7 +1,6 @@
 # UH HPC SUMO manual
 
 ## Explanation of the title
-
 UH = University of Helsinki
 
 HPC = High Performance Computing service
@@ -9,11 +8,9 @@ HPC = High Performance Computing service
 SUMO = Simulation of Urban MObility
 
 ## Intro
-
 This manual guides the user through setting up the traffic simulator SUMO in the HPC cluster at the University of Helsinki. It will involve importing the needed modules and compiling SUMO in the HPC cluster. The steps in this guide roughly follow the instructions on the [HPC instruction page](https://wiki.helsinki.fi/pages/viewpage.action?pageId=250101610#FAQ&ScientificSoftwareUseCases-7.0SUMO).
 
 ## The guide
-
 First, log into the HPC cluster.
 
 ```
@@ -118,7 +115,6 @@ module load sumo
 ```
 
 ## Creating modules for shared use
-
 If you install modules in your research group's shared directory you can create a directory there and include it in places to look for modules in. The process would be the same, but instead of installing the modules in `$PROJ/MyModules` you should create an environment variable
 
 ```
@@ -131,11 +127,9 @@ module use $GROUP/HPCModules
 ```
 
 ## Note about parallell pathfinding
-
 For some reason SUMO's pathfinding tool Duarouter complains about that parallell computing is only available when SUMO is compiled with Fox. This can lead to bottlenecks when doing pathfinding and it could be good to find out why this happens.
 
 # Links and other things that might be of help
-
 The path to your research group's directory
 
 `/proj/group/<YOUR_GROUP>`
