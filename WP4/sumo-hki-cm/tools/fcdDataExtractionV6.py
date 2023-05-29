@@ -28,7 +28,7 @@ HELSINKI_ZONES_FILE = "data/sijoittelualueet2019.dbf"
 HELSINKI_BEG_INDEX = 1013
 HELSINKI_END_INDEX = 1394
 REDUCED_AREA_TAZ_FILE = "sumo_files/helsinki_edges.taz.xml"
-ROU_FILE = "sumo_files/geo_reduction/verified_trips.rou.xml"
+ROU_FILE = "sumo_files/verified_trips.rou.xml"
 NET_FILE = "sumo_files/whole_area.net.xml"
 try:
     DEPARTURE_OUTPUT_FILE = sys.argv[1]
