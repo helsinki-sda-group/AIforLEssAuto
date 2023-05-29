@@ -124,7 +124,6 @@ Run the section "Reduced area simulation" in completePipeline.sh.
 | sumo_files/geoRunnerV2.py | a Python file which runs the reduced simulation through TraCI and stops it after 1 hour simulation time has passed |
 | sumo_files/1_hour_reduced_area_geo_V2.sumocfg | the SUMO simulation configuration file for the reduced simulation |
 | sumo_files/1_hour_reduced.add.xml | a file containing additional simulation elements for the reduced simulation, in this case mainly vehicle detectors (induction loops) |
-|  |  |
 
 ### Modifying the reduced area continued
 **NOTE:** If the wanted reduced area is another than Helsinki and the needed changes in the reduction process in the previous section have already been made, then proceed with the following changes in coordinateODToTripsV2.py before running it:
