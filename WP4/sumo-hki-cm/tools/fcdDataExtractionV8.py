@@ -175,15 +175,12 @@ class fcdInformationExtracter:
     def vehicleProcedure(self, id, vehicleLine, originTazs, destinationTazs):
         if self.vehicleIsOutOutVehicle(id, originTazs, destinationTazs):# out-out vehicle
             self.addGeoDeparture(self.originMemory[id], self.createVehicleCoordinates(vehicleLine), self.departureMemory[id])
-        else:#in-out
-            originTaz = originTazs[id]
-            if self.originInHelsinki(originTaz):# in-out vehicle
-                self.addGeoDeparture(originTaz, self.createVehicleCoordinates(vehicleLine), self.departureMemory[id])
-            # The other case would be that the vehicle actually started outside Helsinki,
-            # but was classified as having started indside, because it was on an edge
-            # that stretches within the area
-        self.removeVehicleFromVehicleSet(id, self.reducedAreaVehicles)
-        self.addVehicleToVehicleSet(id, self.processedVehicles)
+            self.removeVehicleFromVehicleSet(id, self.reducedAreaVehicles)
+            self.addVehicleToVehicleSet(id, self.processedVehicles)
+        elif self.vehicleIsInOutVehicle(id, originTazs, destinationTazs):#in-out
+            self.addGeoDeparture(originTazs[id], self.createVehicleCoordinates(vehicleLine), self.departureMemory[id])
+            self.removeVehicleFromVehicleSet(id, self.reducedAreaVehicles)
+            self.addVehicleToVehicleSet(id, self.processedVehicles)
 
     def postProcess(self):
         self.saveRemainingVehicles()
