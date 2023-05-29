@@ -181,7 +181,7 @@ After the first working version of the external traffic extracter (version 5) wa
 ## Version 8
 - The XML parsing was replaced by reading the file line by line (with Python's `open()` and `readline()` methods) and searching for the wanted fields with regular expressions (regex) using (Python's `re` module). One may ask why this was done. Wouldn't the best thing to do be to read the XML file with and XML parser? The answer in this case was strangely no. During a race between the XML parsing module (`xml.etree.ElementTree`) and the regular expression module (`re`) where both were tasked with going through the XML file and printing the time steps on the time step rows without doing anything else the regex module was almost twice as fast in this case. It also seemed to perform better in the context of extracting the external traffic from the XML file.
 
-### Comment form the author
+### Comment from the author
 The point of the changes in version 8 is not to imply that it is better to use regex reading instead of XML parsers, but that it worked better in this context. The results may be different in other computing environments. If the user wishes to experiment with the different versions, then version 7 is also available to try out. It may be worth checking that that the output is as expected since version 7 was never tested thoroughly because it was only an intermediate step towards version 8.
 
 # Leftovers from side projects
