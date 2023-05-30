@@ -174,7 +174,7 @@ The most important ones are `FID_1`, which is the index, `KUNTANIMI`, which is t
 After the first working version of the external traffic extracter (version 5) was completed improvements were made in 3 new versions. The changes are listed below.
 
 ## Version 6
-- Iterative parsing of the XML file instead of reading the whole file at once. NOTE: XML parsing removed completely in version 8.
+- Iterative parsing of the XML file instead of reading the whole file at once to improve memory efficiency. If the file is too big to be read into a computer's memory, then version 5 won't run properly. NOTE: XML parsing removed completely in version 8.
 
 ## Version 7
 - It is assumed that the reduced area is a square. This is to improve resource efficiency by not having to store out-out vehicles until the end of the program's execution.
