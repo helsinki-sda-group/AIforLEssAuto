@@ -1,5 +1,5 @@
 # Setting up the basic stuff such as districts (zones)
-# edgesInDistrict.py
+# edgesInDistricts.py
 
 # Needed directories:
 # calibration
@@ -53,47 +53,60 @@
 # Change or remove the polygon files from the .sumocfg files
 
 
-# Setting up needed empty directories (not included in the GitHub repo)
-mkdir calibration/data/randomness
-mkdir data
-mkdir data/fcd_analysis
-mkdir sumo_files/simulation_output
-mkdir sumo_files/simulation_output/detector_outputs
-mkdir sumo_files/simulation_output/reduced_detector_outputs
+# # Setting up needed empty directories (not included in the GitHub repo)
+# mkdir calibration/data/randomness
+# mkdir data
+# mkdir data/fcd_analysis
+# mkdir data/od_matrix_reduction
+# mkdir sumo_files/simulation_output
+# mkdir sumo_files/simulation_output/detector_outputs
+# mkdir sumo_files/simulation_output/reduced_detector_outputs
+
 
 # The pipeline
-# Whole area
+# Whole area simulation
 python3 tools/visumRouteGeneration.py
 od2trips -c sumo_files/od2trips.config.xml
 # If multithreading is enabled
-# duarouter -c sumo_files/duarcfg_file.trips2routes.duarcfg --routing-threads 4 --write-trips true --ignore-errors true
+duarouter -c sumo_files/duarcfg_file.trips2routes.duarcfg --routing-threads 4 --write-trips true --ignore-errors true
 # Otherwise
-duarouter -c sumo_files/duarcfg_file.trips2routes.duarcfg --write-trips true --ignore-errors true
-python3 tools/randomDepartureTimes.py sumo_files/verified_trips.rou.xml
+# duarouter -c sumo_files/duarcfg_file.trips2routes.duarcfg --write-trips true --ignore-errors true
+python3 tools/randomDepartureTimes.py sumo_files/verified_trips.rou.xml sumo_files/verified_trips.rou.xml 0 3600
 python3 tools/departureTimeSorter.py
 python3 tools/indexZeroToN.py
 # NOTE: Will generate a 33 GB vehicle trajectory output file if the output is set in the .sumocfg file!
 python3 sumo_files/runner.py
 
 # Reduction
-python3 tools/fcdDataExtractionV5.py
+# python3 tools/fcdDataExtractionV5.py
+python3 tools/fcdDataExtractionV8.py
+
+# Reduced area simulation
 python3 tools/coordinateODToTripsV2.py
 # If multithreading is enabled
-# duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --routing-threads 4 --write-trips true --ignore-errors true
+duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --routing-threads 4 --write-trips true --ignore-errors true
 # Otherwise
-duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --write-trips true --ignore-errors true
+# duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --write-trips true --ignore-errors true
 python3 tools/departureTimeSorter.py sumo_files/verified_reduced_geo_trips_V2.rou.xml sumo_files/verified_reduced_geo_trips_V2.rou.xml
+python3 tools/indexZeroToN.py sumo_files/verified_reduced_geo_trips_V2.rou.xml
 python3 sumo_files/geoRunnerV2.py
 python3 calibration/tools/statistics.py 1 sumo_files/simulation_output/reduced_detector_outputs
 
 
 # # Randomness testing
-# for number in 1 2 3 4 5 6 7 8 9 10
+# for number in 6 7 8 9 10
 # do
 #     python3 tools/coordinateODToTripsV2.py
 #     duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --routing-threads 4 --write-trips true --ignore-errors true
 #     python3 tools/departureTimeSorter.py sumo_files/verified_reduced_geo_trips_V2.rou.xml sumo_files/verified_reduced_geo_trips_V2.rou.xml
 #     python3 sumo_files/geoRunnerV2.py
 #     python3 calibration/tools/statistics.py 1 sumo_files/simulation_output/reduced_detector_outputs
-#     mv calibration/data/real_world_comparison_sc_1_2021.xlsx calibration/data/randomness/real_world_comparison_sc_1_2021\ ${number}.xlsx
+#     mv calibration/data/real_world_comparison_sc_1_2021.xlsx calibration/data/Randomness\ 2023-02-23/real_world_comparison_sc_1_2021\ ${number}.xlsx
 # done
+
+# # EXPERIMENTS, SUMO's tool calibrator should be used
+# # Calibration
+# duarouter -c sumo_files/calibration_routes.duarcfg --routing-threads 4 --ignore-errors true
+# python3 tools/tripCalibrator.py sumo_files/calibration_routes.rou.xml calibration/data/real_world_comparison_sc_1_2021_V8.xlsx sumo_files/verified_reduced_geo_trips_V2.rou.xml
+# python3 tools/departureTimeSorter.py tests/test_output/tripCalibrator/calibrated_trips.rou.xml tests/test_output/tripCalibrator/calibrated_trips.rou.xml
+# python3 tools/indexZeroToN.py tests/test_output/tripCalibrator/calibrated_trips.rou.xml
