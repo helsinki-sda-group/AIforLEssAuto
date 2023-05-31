@@ -1,5 +1,25 @@
 # LUMI SUMO manual
 
+## Logging into LUMI
+
+Before running the installation script, log into LUMI. Please refer to the following guide for setting up an SSH key pair:
+
+https://docs.lumi-supercomputer.eu/firststeps/SSH-keys/
+
+Then you should be able to log into LUMI.
+
+```
+ssh -i <path-to-private-key> <username>@lumi.csc.fi
+```
+
+The following manual may also be of use:
+
+https://docs.lumi-supercomputer.eu/firststeps/loggingin/
+
+More guides for getting started with using LUMI can be found here:
+
+https://docs.lumi-supercomputer.eu/firststeps/getstarted/
+
 ## Installation script
 If everything still works as it did in the spring of 2023, then the following bottom-up installation script should install SUMO with all things needed. The only thing that needs to be changed is the project ID when setting the environment variable `START_DIR`. Just replace `<PROJECT_ID>` with the current LUMI project's ID.
 
