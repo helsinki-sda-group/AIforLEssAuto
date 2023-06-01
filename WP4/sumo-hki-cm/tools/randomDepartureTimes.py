@@ -17,6 +17,7 @@ try:
     DEPART_END = int(sys.argv[4])-1
 except:
     ROU_FILE = "sumo_files/verified_trips.rou.xml"
+    OUTPUT_FILE = ROU_FILE
     DEPART_START = 0
     DEPART_END = SIMULATION_END-1
 
