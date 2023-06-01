@@ -6,16 +6,17 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="reduced_area.net.xml"/>
+        <net-file value="reduced_cut_area.net.xml"/>
         <route-files value="verified_reduced_geo_trips_V2.rou.xml"/>
-        <additional-files value="1_hour_reduced_detectors.add.xml"/>
+        <!-- <additional-files value="1_hour_reduced_cut_detectors.add.xml"/> -->
+        <additional-files value="1_hour_reduced_cut.add.xml"/>
     </input>
 
     <!-- <output>
-        <netstate-dump value="simulation_output/results.xml"/>
-        <emission-output value="simulation_output/emissionresults.xml" />
-        <amitran-output value="simulation_output/trajresults.xml"/>
-        <fcd-output value="simulation_output/fcdresults.xml"/>
+        <netstate-dump value="simulation_output/reduced_cut_results.xml"/>
+        <emission-output value="simulation_output/reduced_cut_emissionresults.xml" />
+        <amitran-output value="simulation_output/reduced_cut_trajresults.xml"/>
+        <fcd-output value="simulation_output/reduced_cut_fcdresults.xml"/>
         <fcd-output.geo value="true"/>
     </output> -->
 

@@ -41,29 +41,12 @@ def run():
     sys.stdout.flush()
     traci.close()
 
-    try:
-        df = pd.read_excel(STATISTICS_FILE, index_col=[0])
-    except:
-        df = pd.DataFrame(columns=["TELEPORTS", "UNIQUE_VEH_TELEPORTS"])
-    df = df.append({"TELEPORTS": teleports, "UNIQUE_VEH_TELEPORTS": len(teleportedVehicles)}, ignore_index=True)
-    df.to_excel(STATISTICS_FILE)
-
-def co2Module():
-    for vehicleId in traci.simulation.getLoadedIDList():
-        vehicleParameters = getVehicleParameters(vehicleId)
-        # perform CO2 module actions
-
-def getVehicleParameters(vehicleId):
-    speed = traci.vehicle.getSpeed(vehicleId)
-    accel = traci.vehicle.getAccel(vehicleId)
-    time = traci.simulation.getTime()
-    type = traci.vehicle.getTypeID(vehicleId)
-    emissionClass = traci.vehicle.getEmissionClass(vehicleId)
-    position = traci.vehicle.getPosition(vehicleId)
-    laneLabel = traci.vehicle.getLaneID(vehicleId)
-    # laneLabel = traci.vehicle.getLaneIndex(vehicleId)
-    edgeLabel = traci.vehicle.getRoadID(vehicleId)
-    return np.array([vehicleId, speed, accel, time, type, emissionClass, position, laneLabel, edgeLabel])
+    # try:
+    #     df = pd.read_excel(STATISTICS_FILE, index_col=[0])
+    # except:
+    #     df = pd.DataFrame(columns=["TELEPORTS", "UNIQUE_VEH_TELEPORTS"])
+    # df = df.append({"TELEPORTS": teleports, "UNIQUE_VEH_TELEPORTS": len(teleportedVehicles)}, ignore_index=True)
+    # df.to_excel(STATISTICS_FILE)
 
 
 def get_options():
@@ -85,5 +68,5 @@ if __name__ == "__main__":
     # traci.start([sumoBinary, '-c', 'sumo_files/1_hour_reduced_area_geo_V2.sumocfg'])
 
     # With output prefix
-    # traci.start(["sumo", '-c', 'sumo_files/1_hour.sumocfg', '--output-prefix', OUTPUT_DIR])
+    # traci.start(["sumo", '-c', 'sumo_files/1_hour_reduced_area_geo_V2.sumocfg', '--output-prefix', OUTPUT_DIR])
     run()
