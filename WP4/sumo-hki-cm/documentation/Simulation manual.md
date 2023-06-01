@@ -83,7 +83,6 @@ If the user wants to change the reduced area, the following things need to be do
 |----|-----|
 | tools/fcdDataExtractionV8.py | a tool that analyzes where vehicles enter and exit a reduced area |
 | tools/helsinkiTazs.py | a file containing the reduced area TAZs |
-| tools/coordinateODToTripsV2.py | a tool that makes a SUMO trip file from the table produced by fcdDataExtractionV8.py (and the original OD matrix for the zones within the reduced area) |
 
 ### Commands
 ```
@@ -135,6 +134,7 @@ Run the section "Reduced area simulation" in completePipeline.sh.
 ### Needed files
 |File|Explanation|
 |----|-----|
+| tools/coordinateODToTripsV2.py | a tool that makes a SUMO trip file from the table produced by fcdDataExtractionV8.py (and the original OD matrix for the zones within the reduced area) |
 | sumo_files/reduced_cut_area.net.xml | the network for the reduced area |
 | sumo_files/reduced_cut_districts.taz.xml | a file containing the SUMO TAZs corresponding to the Helmet zones within the reduced area |
 | tools/departureTimeSorter.py | for sorting the vehicles according to their departure time, they need to be sorted when the simulation is started
@@ -201,5 +201,5 @@ After the first working version of the external traffic extracter (version 5) wa
 ### Comment from the author
 The point of the changes in version 8 is not to imply that it is better to use regex reading instead of XML parsers, but that it worked better in this context. The results may be different in other computing environments. If the user wishes to experiment with the different versions, then version 7 is also available to try out. It may be worth checking that that the output is as expected since version 7 was never tested thoroughly because it was only an intermediate step towards version 8.
 
-# Leftovers from side projects
-Not all files are used for the main simulation process. In the sumo_files directory there are many files that have been used for side projects. These have been experiments such as comparing SUMO’s cutRoutes tool with the geo based simulation reduction. Another experiment was to create a 2 hour instance of the simulation to see if the traffic counts at the traffic counting stations were any better, since the total number of vehicle detections in the simulation seemed to be smaller than the number of detections in the real world.
+# Leftovers from side projects in the original project directories
+Only the necessary files (excluding the data files) have been included in the GitHub repository. If the user uses the original working direcotories they will find a lot of files that are not used in the main simulation process. In the sumo_files directory there are many files that have been used for side projects. These have been experiments such as comparing SUMO’s cutRoutes tool with the geo based simulation reduction. Another experiment was to create a 2 hour instance of the simulation to see if the traffic counts at the traffic counting stations were any better, since the total number of vehicle detections in the simulation seemed to be smaller than the number of detections in the real world.
