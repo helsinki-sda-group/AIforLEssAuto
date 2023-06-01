@@ -114,6 +114,8 @@ Once the large simulation is done the tool fcdDataExtractionV5.py or fcdDataExtr
 
 For vehicles that start within the reduced area, the departure time is picked directly form the original SUMO traffic file (.rou.xml) and for the rest the departure time will be the time step at which they entered the reduced area.
 
+The reduction tool will print out the time step it is going through. Since the simulation (at the time of writing) is one hour long the number of time steps will be 3600.
+
 NOTE: In version 8 it is assumed that the reduced area is a square. Originally in version 5 (the first working version) the area was assumed to be a random shape. SUMO's polygon format and its tool edgesInDistrict.py was used to define a set of edges that made up the reduced area. To avoid having the program check if every vehicle was in the area by checking if its edge was in this set up edges, versions 6, 7 and 8 were developed. Version 8 was the goal of version 6 and 7, but the changes were implemented in smaller steps.
 
 ## Reduced simulation
