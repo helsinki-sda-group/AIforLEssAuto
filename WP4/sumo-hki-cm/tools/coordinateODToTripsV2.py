@@ -16,10 +16,10 @@ from datetime import datetime
 import re
 
 # Change to whatever file is used to generate traffic (output from fcdDataExtraction)
-INPUT_FILE = "data/fcd_analysis/departure_times_V5.xlsx"
-# INPUT_FILE = "data/fcd_analysis/departure_times_V8.xlsx"
+# INPUT_FILE = "data/fcd_analysis/departure_times_V5.xlsx"
+INPUT_FILE = "data/fcd_analysis/departure_times_V8.xlsx"
 OUTPUT_FILE = "sumo_files/reduced_geo_trips_V2.rou.xml"
-# From an older version before the educed network was cut using Netconvert
+# From an older version before the reduced network was cut using Netconvert
 # NET_FILE = "sumo_files/reduced_area.net.xml"
 NET_FILE = "sumo_files/reduced_cut_area.net.xml"
 # Demand OD matrix
@@ -38,6 +38,7 @@ DEPART_COLUMN = "depart"
 MATRICES = ["car_work", "car_leisure", "van"]
 HELSINKI_BEG_INDEX = 1013
 HELSINKI_END_INDEX = 1394
+REDUCED_AREA_INDICES = range(HELSINKI_BEG_INDEX, HELSINKI_END_INDEX)
 IGNORED_ZONES = set([231, 291, 368, 381, 1246, 1247, 1313, 1331, 1531, 1532, 1351, 1570])
 SIMULATION_END = 3600
 
@@ -56,7 +57,7 @@ def main():
     orderIds()
 
 def createInInTrips(existingIds):
-    zoneIdMap, zoneIndexes = createHelsinkiZoneIdMap()
+    zoneIdMap, zoneIndexes = createReducedAreaZoneIdMap()
     helsinkiTripTriple = createHelsinkiTrips(zoneIdMap, zoneIndexes)
     return createTrips(helsinkiTripTriple[0], helsinkiTripTriple[1], helsinkiTripTriple[2], existingIds, OUTPUT_FILE)
 
@@ -90,18 +91,18 @@ def readTazs():
         intTazs[intId] = taz.attrib["edges"].split(" ")
     return intTazs
 
-def createHelsinkiZoneIdMap():
-    zoneIds, zoneIndexes = readHelsinkiZonesAndIndexes()
+def createReducedAreaZoneIdMap():
+    zoneIds, zoneIndexes = readReducedZonesAndIndexes()
     zoneIdMap = {}
     for i in range(len(zoneIds)):
         zoneIdMap[zoneIndexes[i]] = zoneIds[i]
     return zoneIdMap, zoneIndexes
 
-def readHelsinkiZonesAndIndexes():
+def readReducedZonesAndIndexes():
     table = Dbf5(DBF_FILE).to_dataframe()
     ids = []
     indexes = []
-    for i in range(HELSINKI_BEG_INDEX, HELSINKI_END_INDEX):
+    for i in REDUCED_AREA_INDICES:
         ids.append(int(table["SIJ2019"][i]))
         indexes.append(table["FID_1"][i])
     return (ids, indexes)
