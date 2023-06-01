@@ -1,6 +1,6 @@
 <configuration>
     <input>
-        <net-file value="reduced_area.net.xml"/>
+        <net-file value="reduced_cut_area.net.xml"/>
         <route-files value="reduced_geo_trips_V2.rou.xml"/>
     </input>
 
