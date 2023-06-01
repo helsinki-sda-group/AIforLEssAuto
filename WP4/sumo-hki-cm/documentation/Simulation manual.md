@@ -14,6 +14,9 @@ The tools directory contains Python files used for different processes in creati
 ### Short instructions
 Run the section "Whole area simulation" in completePipeline.sh.
 
+### Needed packages
+pytables, openmatrix, simpledbf
+
 ### Needed directories
 |Directory|
 |----|
