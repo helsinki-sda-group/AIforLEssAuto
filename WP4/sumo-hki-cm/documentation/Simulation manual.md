@@ -14,9 +14,6 @@ The tools directory contains Python files used for different processes in creati
 ### Short instructions
 Run the section "Whole area simulation" in completePipeline.sh.
 
-### Needed packages
-pytables, openmatrix, simpledbf
-
 ### Needed directories
 |Directory|
 |----|
@@ -58,9 +55,6 @@ python3 tools/indexZeroToN.py
 python3 sumo_files/runner.py
 ```
 
-### Notes
-duarouter execution takes around 30 minutes in multi-threaded mode, runner.py execution takes around 6 hours (tested at i5-1135G7). The output of successfull execution of runner.py is the output file sumo_files/simulation_output/fcdresult.xml (~33GB). 
-
 ### Explanation
 The traffic simulation process is run in 2 parts: the large area (whole_area) and the reduced area (reduced_cut_area). The "cut" in the name reduced_cut_area comes from that the network is a subnetwork from the large network that was cut using the SUMO tool netconvert. Originally this was only done by downloading a smaller network using OSMWebWizard, so when the change was made, "cut" was added to the file name to emphasize that it was a subset of the large network. The pipleine of this process can be found in the executable shell script file completePipeline.sh. First the file visumRouteGeneration.py creates an origin-destination (OD) file in SUMO's O-format (VISUM/VISSIM). The input is the Helmet OD matrix file (demand_aht.omx) and the output is a file called OD_file.od. This file is given to the SUMO tool od2trips and picks a random edge from the origin and destination zone (or TAZ, as they are called in SUMO). The TAZs and their edges are stored in the file whole_area_zones.taz.xml. Then duarouter is used to check if there actually are paths between the OD pairs. Then the trips get random departure times, get sorted by departure time, get indexes from 0 to n and then the large simulation is run. On a modern Lenovo ThinkPad laptop (2022) this simulation takes around 6.5 hours. The configuration file (1_hour_whole_area.sumocfg) is set to output vehicle trajectories (fcd output) to sumo_files/simulation_output/fcdresults.xml. **NOTE: This file will be around 33 GB in size.** It is used for reducing the simulation to a smaller area, in this case Helsinki.
 
@@ -70,7 +64,7 @@ In this step the file whole_area_zones.taz.xml was used to distinguish between d
 ## The reduction
 
 ### Short instructions
-Run the section "Whole area simulation" in completePipeline.sh.
+Run the section "Reduction" in completePipeline.sh.
 
 ### Modifying the reduced area
 If the user wants to change the reduced area, the following things need to be done:
@@ -207,10 +201,5 @@ After the first working version of the external traffic extracter (version 5) wa
 ### Comment from the author
 The point of the changes in version 8 is not to imply that it is better to use regex reading instead of XML parsers, but that it worked better in this context. The results may be different in other computing environments. If the user wishes to experiment with the different versions, then version 7 is also available to try out. It may be worth checking that that the output is as expected since version 7 was never tested thoroughly because it was only an intermediate step towards version 8.
 
-<<<<<<< HEAD
 # Leftovers from side projects in the original project directories
 Only the necessary files (excluding the data files) have been included in the GitHub repository. If the user uses the original working direcotories they will find a lot of files that are not used in the main simulation process. In the sumo_files directory there are many files that have been used for side projects. These have been experiments such as comparing SUMO’s cutRoutes tool with the geo based simulation reduction. Another experiment was to create a 2 hour instance of the simulation to see if the traffic counts at the traffic counting stations were any better, since the total number of vehicle detections in the simulation seemed to be smaller than the number of detections in the real world.
-=======
-# Leftovers from side projects
-Not all files are used for the main simulation process. In the sumo_files directory there are many files that have been used for side projects. These have been experiments such as comparing SUMO’s cutRoutes tool with the geo based simulation reduction. Another experiment was to create a 2 hour instance of the simulation to see if the traffic counts at the traffic counting stations were any better, since the total number of vehicle detections in the simulation seemed to be smaller than the number of detections in the real world.
->>>>>>> 7c163c8faf4fccc2faa3f8398320b2a003ff230b
