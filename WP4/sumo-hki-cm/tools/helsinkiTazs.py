@@ -1,3 +1,9 @@
+# ----------------------------------------------------------------------
+# Copyright (c) 2023 University of Helsinki SDA group
+# @file    helsinkiTazs.py
+# @author  Anton Taleiko
+# @date    Wed Feb 15 2023
+# ----------------------------------------------------------------------
 REDUCED_AREA_TAZS = set([
     "po_101",
     "po_102",
