@@ -70,7 +70,7 @@ In this step the file whole_area_zones.taz.xml was used to distinguish between d
 ## The reduction
 
 ### Short instructions
-Run the section "Whole area simulation" in completePipeline.sh.
+Run the section "Reduction" in completePipeline.sh.
 
 ### Modifying the reduced area
 If the user wants to change the reduced area, the following things need to be done:
