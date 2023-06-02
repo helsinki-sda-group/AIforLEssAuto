@@ -42,6 +42,10 @@ def run():
     sys.stdout.flush()
     traci.close()
 
+    # For counting how many teleports have occurred during the simulation
+    # NOTE: This part sometimes causes an error message to appear related to the odf module.
+    # Do some testing before yo run the simulation if you plan to use this part so you don't
+    # waste hours just to find out there was an error.
     try:
         df = pd.read_excel(STATISTICS_FILE, index_col=[0])
     except:
@@ -49,22 +53,23 @@ def run():
     df = df.append({"TELEPORTS": teleports, "UNIQUE_VEH_TELEPORTS": len(teleportedVehicles)}, ignore_index=True)
     df.to_excel(STATISTICS_FILE)
 
-def co2Module():
-    for vehicleId in traci.simulation.getLoadedIDList():
-        vehicleParameters = getVehicleParameters(vehicleId)
-        # perform CO2 module actions
+# For using the CO2 module from WP5.
+# def co2Module():
+#     for vehicleId in traci.simulation.getLoadedIDList():
+#         vehicleParameters = getVehicleParameters(vehicleId)
+#         # perform CO2 module actions
 
-def getVehicleParameters(vehicleId):
-    speed = traci.vehicle.getSpeed(vehicleId)
-    accel = traci.vehicle.getAccel(vehicleId)
-    time = traci.simulation.getTime()
-    type = traci.vehicle.getTypeID(vehicleId)
-    emissionClass = traci.vehicle.getEmissionClass(vehicleId)
-    position = traci.vehicle.getPosition(vehicleId)
-    laneLabel = traci.vehicle.getLaneID(vehicleId)
-    # laneLabel = traci.vehicle.getLaneIndex(vehicleId)
-    edgeLabel = traci.vehicle.getRoadID(vehicleId)
-    return np.array([vehicleId, speed, accel, time, type, emissionClass, position, laneLabel, edgeLabel])
+# def getVehicleParameters(vehicleId):
+#     speed = traci.vehicle.getSpeed(vehicleId)
+#     accel = traci.vehicle.getAccel(vehicleId)
+#     time = traci.simulation.getTime()
+#     type = traci.vehicle.getTypeID(vehicleId)
+#     emissionClass = traci.vehicle.getEmissionClass(vehicleId)
+#     position = traci.vehicle.getPosition(vehicleId)
+#     laneLabel = traci.vehicle.getLaneID(vehicleId)
+#     # laneLabel = traci.vehicle.getLaneIndex(vehicleId)
+#     edgeLabel = traci.vehicle.getRoadID(vehicleId)
+#     return np.array([vehicleId, speed, accel, time, type, emissionClass, position, laneLabel, edgeLabel])
 
 
 def get_options():
