@@ -69,7 +69,7 @@ The repository is partitioned into the following files:
 * `kamppi.net.xml` is the road network used in the simulation.
 * `outputPlots.py` is used to plot the results of the simulation.
 * `trafficCreator.py` is used to create traffic inside the simulation. The file takes as an argument the number of simulated vehicles.
-* The files with `Traci_demo` -prefix are used to configure TraCI to run SUMO and produce the results of the simulation. The `TraCI_demo.py` takes as an argument the suffix of the teleport output file.
+* The files with `Traci_demo` -prefix are used to configure TraCI to run SUMO and produce the results of the simulation. The `TraCI_demo.py` takes as arguments the option to run SUMO via GUI and the suffix of the teleport output file.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
