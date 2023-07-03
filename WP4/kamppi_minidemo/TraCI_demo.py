@@ -16,18 +16,13 @@ import randomTrips
 
 SIMULATION_END = 600
 
-try:
-    N_ITER = int(sys.argv[1])
-except:
-    N_ITER = 0
-
-def run():
+def run(args):
     teleports = []
     while traci.simulation.getTime() < SIMULATION_END:
         traci.simulationStep()
         teleports.append(traci.simulation.getStartingTeleportNumber())
 
-    with open(f"simulation_output/teleports_{N_ITER}.txt","w") as f:
+    with open(f"simulation_output/teleports_{args[0]}.txt","w") as f:
         for item in teleports:
             f.write(f"{item}\n")
     sys.stdout.flush()
@@ -37,18 +32,19 @@ def run():
 def get_options():
     """define options for this script and interpret the command line"""
     optParser = optparse.OptionParser()
-    optParser.add_option("--nogui", action="store_true",
-                         default=False, help="run the commandline version of sumo")
+    optParser.add_option("--gui", action="store_true",
+                         default=False, help="run the GUI version of sumo")
     options, args = optParser.parse_args()
-    return options
+    return options,args
 
 
 if __name__ == "__main__":
-    options = get_options()
-    if options.nogui:
-        sumoBinary = checkBinary('sumo')
-    else:
+    options,args = get_options()
+    # Run in GUI
+    if options.gui:
         sumoBinary = checkBinary('sumo-gui')
-    traci.start(["sumo", '-c', 'TraCI_demo.sumocfg'])
-    # traci.start([sumoBinary, '-c', 'TraCI_demo.sumocfg'])
-    run()
+        traci.start([sumoBinary, '-c', 'TraCI_demo.sumocfg'])
+    # Run in CLI
+    else:
+        traci.start(["sumo", '-c', 'TraCI_demo.sumocfg'])
+    run(args)
