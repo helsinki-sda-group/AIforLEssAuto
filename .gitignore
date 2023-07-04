@@ -1,9 +1,16 @@
 # WP4
+
+# simulation output files
 WP4/sumo-hki-cm/sumo_files/simulation_output/
 WP4/sumo-hki-cm/sumo_files/reduced_cut_area.net.xml
 WP4/sumo-hki-cm/sumo_files/whole_area.net.xml
+WP4/sumo-hki-cm/sumo_files/verified_trips.rou.xml
+WP4/sumo-hki-cm/sumo_files/verified_reduced_geo_trips_V2.rou.xml
+WP4/sumo-hki-cm/sumo_files/reduced_geo_trips_V2.rou.xml
+WP4/sumo-hki-cm/sumo_files/reduced_routesampler_routes.rou.xml
 WP4/sumo-hki-cm/data/
 WP4/sumo-hki-cm/calibration/data/*.xlsx
+
 
 .vscode
 __pycache__/
