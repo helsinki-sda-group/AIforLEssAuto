@@ -63,7 +63,7 @@ if __name__ == "__main__":
         sumoBinary = checkBinary('sumo')
     else:
         sumoBinary = checkBinary('sumo-gui')
-    traci.start(["sumo", '-c', 'sumo_files/1_hour_reduced_area_geo_V2.sumocfg'])
+    traci.start(["sumo", '-c', 'sumo_files/1_hour_reduced_automatic_routing.sumocfg'])
     # traci.start([sumoBinary, '-c', 'sumo_files/1_hour_reduced_area_geo_V2.sumocfg'])
 
     # With output prefix
