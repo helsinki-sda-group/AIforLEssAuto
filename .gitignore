@@ -1,7 +1,9 @@
 # WP4
-/WP4/data/demand_aht.omx
-/WP4/data/sijoittelualueet2019.dbf
-/WP4/sumo_files/reduced_area.net.xml
-/WP4/sumo_files/whole_area.net.xml
+WP4/sumo-hki-cm/sumo_files/simulation_output/
+WP4/sumo-hki-cm/sumo_files/reduced_cut_area.net.xml
+WP4/sumo-hki-cm/sumo_files/whole_area.net.xml
+WP4/sumo-hki-cm/data/
+WP4/sumo-hki-cm/calibration/data/*.xlsx
 
 .vscode
+__pycache__/
