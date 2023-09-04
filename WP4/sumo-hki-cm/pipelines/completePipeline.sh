@@ -54,19 +54,46 @@
 
 
 # Setting up needed empty directories (not included in the GitHub repo)
+
+echo -e "\nSETTING UP DIRECTORIES..."
+
 /bin/bash ./pipelines/setupFolders.sh
+
+echo -e "\nSETTING UP DIRECTORIES COMPLETE"
 
 
 # The pipeline
 
+# Data preprocessing
+echo -e "\nDATA PREPROCESSING..."
+
+/bin/bash ./pipelines/dataPreprocessing.sh
+
+echo -e "\nDATA PREPROCESSING COMPLETE"
+
+
 # Whole area simulation
+echo -e "\nWHOLE AREA SIMULATION..."
+
 /bin/bash ./pipelines/wholeAreaSimulation.sh
 
+echo -e "\nWHOLE AREA SIMULATION COMPLETE"
+
+
 # Reduction
+echo -e "\nREDUCTION..."
+
 /bin/bash ./pipelines/reduction.sh
 
+echo -e "\nREDUCTION COMPLETE"
+
+
 # Reduced area simulation
+echo -e "\REDUCED AREA SIMULATION..."
+
 /bin/bash ./pipelines/reducedAreaSimulation.sh
+
+echo -e "\REDUCED AREA SIMULATION COMPLETE"
 
 
 # # Randomness testing

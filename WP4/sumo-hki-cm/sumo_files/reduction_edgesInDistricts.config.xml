@@ -1,0 +1,10 @@
+<configuration>
+    <net-file value="sumo_files/data/reduced_cut_area_2.net.xml"/>
+    <taz-files value="sumo_files/data/whole_area_zones.poly.xml"/>
+    <output value="sumo_files/data/reduced_cut_districts_2.taz.xml"/>
+</configuration>
+
+<!--
+command:
+python3 $SUMO_HOME/tools/edgesInDistricts.py -c sumo_files/reduction_edgesInDistricts.config.xml
+-->

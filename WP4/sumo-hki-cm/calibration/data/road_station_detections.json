@@ -1,22 +1,42 @@
 {
-  "st170_Kulosaari": {
+  "kt45_Helsinki_Tuomarinkartano": {
     "morning": {
-      "dir1": 800,
-      "dir2": 2184
+      "early": {
+        "dir1": 0,
+        "dir2": 0
+      },
+      "mid": {
+        "dir1": 0,
+        "dir2": 0
+      },
+      "late": {
+        "dir1": 0,
+        "dir2": 0
+      }
     },
     "day": {
-      "dir1": 6665,
-      "dir2": 7058
+      "dir1": 0,
+      "dir2": 0
     },
     "evening": {
-      "dir1": 2633,
-      "dir2": 1218
+      "dir1": 0,
+      "dir2": 0
     }
   },
   "st170_Kulosaari_LML": {
     "morning": {
-      "dir1": 0,
-      "dir2": 0
+      "early": {
+        "dir1": 0,
+        "dir2": 0
+      },
+      "mid": {
+        "dir1": 0,
+        "dir2": 0
+      },
+      "late": {
+        "dir1": 0,
+        "dir2": 0
+      }
     },
     "day": {
       "dir1": 0,
@@ -25,54 +45,22 @@
     "evening": {
       "dir1": 0,
       "dir2": 0
-    }
-  },
-  "st101_Helsinki_Vartiokyla": {
-    "morning": {
-      "dir1": 1754,
-      "dir2": 1443
-    },
-    "day": {
-      "dir1": 8476,
-      "dir2": 8451
-    },
-    "evening": {
-      "dir1": 1824,
-      "dir2": 2201
-    }
-  },
-  "kt51_Hanasaari": {
-    "morning": {
-      "dir1": 1919,
-      "dir2": 3656
-    },
-    "day": {
-      "dir1": 10687,
-      "dir2": 10884
-    },
-    "evening": {
-      "dir1": 3798,
-      "dir2": 2331
-    }
-  },
-  "vt4_Jakomaki": {
-    "morning": {
-      "dir1": 1636,
-      "dir2": 2914
-    },
-    "day": {
-      "dir1": 8203,
-      "dir2": 7949
-    },
-    "evening": {
-      "dir1": 3048,
-      "dir2": 2012
     }
   },
   "vt1_Munkkiniemi": {
     "morning": {
-      "dir1": 1090,
-      "dir2": 1981
+      "early": {
+        "dir1": 494,
+        "dir2": 1743
+      },
+      "mid": {
+        "dir1": 1090,
+        "dir2": 1981
+      },
+      "late": {
+        "dir1": 1045,
+        "dir2": 1687
+      }
     },
     "day": {
       "dir1": 5265,
@@ -85,8 +73,18 @@
   },
   "vt7_Helsinki_Itasalmi": {
     "morning": {
-      "dir1": 1015,
-      "dir2": 2203
+      "early": {
+        "dir1": 816,
+        "dir2": 1771
+      },
+      "mid": {
+        "dir1": 1015,
+        "dir2": 2203
+      },
+      "late": {
+        "dir1": 762,
+        "dir2": 1459
+      }
     },
     "day": {
       "dir1": 4396,
@@ -97,108 +95,92 @@
       "dir2": 1287
     }
   },
-  "st101_Konala": {
+  "st170_Kulosaari": {
     "morning": {
-      "dir1": 4023,
-      "dir2": 4158
+      "early": {
+        "dir1": 544,
+        "dir2": 1575
+      },
+      "mid": {
+        "dir1": 800,
+        "dir2": 2184
+      },
+      "late": {
+        "dir1": 933,
+        "dir2": 1895
+      }
     },
     "day": {
-      "dir1": 13711,
-      "dir2": 12881
+      "dir1": 6665,
+      "dir2": 7058
     },
     "evening": {
-      "dir1": 2971,
-      "dir2": 4506
+      "dir1": 2633,
+      "dir2": 1218
     }
   },
-  "kt45_Helsinki_Tuomarinkartano": {
+  "st101_Helsinki_Vartiokyla": {
     "morning": {
-      "dir1": 0,
-      "dir2": 0
+      "early": {
+        "dir1": 1515,
+        "dir2": 1108
+      },
+      "mid": {
+        "dir1": 1754,
+        "dir2": 1443
+      },
+      "late": {
+        "dir1": 1688,
+        "dir2": 1239
+      }
     },
     "day": {
-      "dir1": 0,
-      "dir2": 0
+      "dir1": 8476,
+      "dir2": 8451
     },
     "evening": {
-      "dir1": 0,
-      "dir2": 0
+      "dir1": 1824,
+      "dir2": 2201
     }
   },
-  "st101_Kannelmaki": {
+  "vt4_Jakomaki": {
     "morning": {
-      "dir1": 4186,
-      "dir2": 4579
+      "early": {
+        "dir1": 1141,
+        "dir2": 2962
+      },
+      "mid": {
+        "dir1": 1636,
+        "dir2": 2914
+      },
+      "late": {
+        "dir1": 1291,
+        "dir2": 2403
+      }
     },
     "day": {
-      "dir1": 15126,
-      "dir2": 14716
+      "dir1": 8203,
+      "dir2": 7949
     },
     "evening": {
-      "dir1": 3703,
-      "dir2": 4708
-    }
-  },
-  "st101_Lansi-Pakila": {
-    "morning": {
-      "dir1": 4444,
-      "dir2": 5080
-    },
-    "day": {
-      "dir1": 17882,
-      "dir2": 16616
-    },
-    "evening": {
-      "dir1": 5026,
-      "dir2": 5056
-    }
-  },
-  "st101_Pakila": {
-    "morning": {
-      "dir1": 4580,
-      "dir2": 4492
-    },
-    "day": {
-      "dir1": 17646,
-      "dir2": 16021
-    },
-    "evening": {
-      "dir1": 4666,
-      "dir2": 5011
-    }
-  },
-  "st101_Pukinmaki": {
-    "morning": {
-      "dir1": 2450,
-      "dir2": 2545
-    },
-    "day": {
-      "dir1": 10539,
-      "dir2": 9975
-    },
-    "evening": {
-      "dir1": 2742,
-      "dir2": 2766
-    }
-  },
-  "st101_Malmi": {
-    "morning": {
-      "dir1": 2278,
-      "dir2": 2611
-    },
-    "day": {
-      "dir1": 10367,
-      "dir2": 10517
-    },
-    "evening": {
-      "dir1": 2553,
-      "dir2": 2989
+      "dir1": 3048,
+      "dir2": 2012
     }
   },
   "st120_Pitajanmaki": {
     "morning": {
-      "dir1": 537,
-      "dir2": 1606
+      "early": {
+        "dir1": 284,
+        "dir2": 1104
+      },
+      "mid": {
+        "dir1": 537,
+        "dir2": 1606
+      },
+      "late": {
+        "dir1": 570,
+        "dir2": 1457
+      }
     },
     "day": {
       "dir1": 4273,
@@ -209,66 +191,20 @@
       "dir2": 731
     }
   },
-  "vt3_Pirkkola": {
-    "morning": {
-      "dir1": 1270,
-      "dir2": 2663
-    },
-    "day": {
-      "dir1": 7527,
-      "dir2": 7190
-    },
-    "evening": {
-      "dir1": 3039,
-      "dir2": 1431
-    }
-  },
-  "kt45_Oulunkyla": {
-    "morning": {
-      "dir1": 1158,
-      "dir2": 2528
-    },
-    "day": {
-      "dir1": 8129,
-      "dir2": 7883
-    },
-    "evening": {
-      "dir1": 2581,
-      "dir2": 1578
-    }
-  },
-  "vt4_Viikinmaki": {
-    "morning": {
-      "dir1": 1032,
-      "dir2": 3177
-    },
-    "day": {
-      "dir1": 7629,
-      "dir2": 7951
-    },
-    "evening": {
-      "dir1": 2989,
-      "dir2": 1507
-    }
-  },
-  "vt3_Kivihaka": {
-    "morning": {
-      "dir1": 1034,
-      "dir2": 1706
-    },
-    "day": {
-      "dir1": 6406,
-      "dir2": 6119
-    },
-    "evening": {
-      "dir1": 2091,
-      "dir2": 1122
-    }
-  },
   "vt3_Hakuninmaa": {
     "morning": {
-      "dir1": 1880,
-      "dir2": 3061
+      "early": {
+        "dir1": 1251,
+        "dir2": 3190
+      },
+      "mid": {
+        "dir1": 1880,
+        "dir2": 3061
+      },
+      "late": {
+        "dir1": 1595,
+        "dir2": 2586
+      }
     },
     "day": {
       "dir1": 8780,
@@ -281,8 +217,18 @@
   },
   "vt7_Helsinki_Backnas": {
     "morning": {
-      "dir1": 1024,
-      "dir2": 2127
+      "early": {
+        "dir1": 811,
+        "dir2": 1757
+      },
+      "mid": {
+        "dir1": 1024,
+        "dir2": 2127
+      },
+      "late": {
+        "dir1": 764,
+        "dir2": 1364
+      }
     },
     "day": {
       "dir1": 4265,
@@ -295,8 +241,18 @@
   },
   "st103_Satamatie": {
     "morning": {
-      "dir1": 487,
-      "dir2": 318
+      "early": {
+        "dir1": 420,
+        "dir2": 261
+      },
+      "mid": {
+        "dir1": 487,
+        "dir2": 318
+      },
+      "late": {
+        "dir1": 362,
+        "dir2": 213
+      }
     },
     "day": {
       "dir1": 1222,
@@ -309,8 +265,18 @@
   },
   "Niinisaarentie": {
     "morning": {
-      "dir1": 110,
-      "dir2": 46
+      "early": {
+        "dir1": 104,
+        "dir2": 56
+      },
+      "mid": {
+        "dir1": 110,
+        "dir2": 46
+      },
+      "late": {
+        "dir1": 78,
+        "dir2": 42
+      }
     },
     "day": {
       "dir1": 359,
@@ -323,8 +289,18 @@
   },
   "st100_Kivihaan_tunneli": {
     "morning": {
-      "dir1": 2241,
-      "dir2": 1510
+      "early": {
+        "dir1": 1803,
+        "dir2": 997
+      },
+      "mid": {
+        "dir1": 2241,
+        "dir2": 1510
+      },
+      "late": {
+        "dir1": 2260,
+        "dir2": 1337
+      }
     },
     "day": {
       "dir1": 7579,
@@ -333,6 +309,270 @@
     "evening": {
       "dir1": 2228,
       "dir2": 1563
+    }
+  },
+  "vt3_Kivihaka": {
+    "morning": {
+      "early": {
+        "dir1": 599,
+        "dir2": 1840
+      },
+      "mid": {
+        "dir1": 1034,
+        "dir2": 1706
+      },
+      "late": {
+        "dir1": 992,
+        "dir2": 1518
+      }
+    },
+    "day": {
+      "dir1": 6406,
+      "dir2": 6119
+    },
+    "evening": {
+      "dir1": 2091,
+      "dir2": 1122
+    }
+  },
+  "st101_Pukinmaki": {
+    "morning": {
+      "early": {
+        "dir1": 2050,
+        "dir2": 2521
+      },
+      "mid": {
+        "dir1": 2450,
+        "dir2": 2545
+      },
+      "late": {
+        "dir1": 2123,
+        "dir2": 2092
+      }
+    },
+    "day": {
+      "dir1": 10539,
+      "dir2": 9975
+    },
+    "evening": {
+      "dir1": 2742,
+      "dir2": 2766
+    }
+  },
+  "kt51_Hanasaari": {
+    "morning": {
+      "early": {
+        "dir1": 805,
+        "dir2": 2298
+      },
+      "mid": {
+        "dir1": 1919,
+        "dir2": 3656
+      },
+      "late": {
+        "dir1": 1896,
+        "dir2": 3230
+      }
+    },
+    "day": {
+      "dir1": 10687,
+      "dir2": 10884
+    },
+    "evening": {
+      "dir1": 3798,
+      "dir2": 2331
+    }
+  },
+  "st101_Malmi": {
+    "morning": {
+      "early": {
+        "dir1": 1968,
+        "dir2": 2524
+      },
+      "mid": {
+        "dir1": 2278,
+        "dir2": 2611
+      },
+      "late": {
+        "dir1": 1958,
+        "dir2": 2193
+      }
+    },
+    "day": {
+      "dir1": 10367,
+      "dir2": 10517
+    },
+    "evening": {
+      "dir1": 2553,
+      "dir2": 2989
+    }
+  },
+  "vt3_Pirkkola": {
+    "morning": {
+      "early": {
+        "dir1": 751,
+        "dir2": 2304
+      },
+      "mid": {
+        "dir1": 1270,
+        "dir2": 2663
+      },
+      "late": {
+        "dir1": 1156,
+        "dir2": 2312
+      }
+    },
+    "day": {
+      "dir1": 7527,
+      "dir2": 7190
+    },
+    "evening": {
+      "dir1": 3039,
+      "dir2": 1431
+    }
+  },
+  "st101_Kannelmaki": {
+    "morning": {
+      "early": {
+        "dir1": 2969,
+        "dir2": 4116
+      },
+      "mid": {
+        "dir1": 4186,
+        "dir2": 4579
+      },
+      "late": {
+        "dir1": 3482,
+        "dir2": 4042
+      }
+    },
+    "day": {
+      "dir1": 15126,
+      "dir2": 14716
+    },
+    "evening": {
+      "dir1": 3703,
+      "dir2": 4708
+    }
+  },
+  "st101_Konala": {
+    "morning": {
+      "early": {
+        "dir1": 2769,
+        "dir2": 3798
+      },
+      "mid": {
+        "dir1": 4023,
+        "dir2": 4158
+      },
+      "late": {
+        "dir1": 3317,
+        "dir2": 3600
+      }
+    },
+    "day": {
+      "dir1": 13711,
+      "dir2": 12881
+    },
+    "evening": {
+      "dir1": 2971,
+      "dir2": 4506
+    }
+  },
+  "kt45_Oulunkyla": {
+    "morning": {
+      "early": {
+        "dir1": 812,
+        "dir2": 2164
+      },
+      "mid": {
+        "dir1": 1158,
+        "dir2": 2528
+      },
+      "late": {
+        "dir1": 1158,
+        "dir2": 2131
+      }
+    },
+    "day": {
+      "dir1": 8129,
+      "dir2": 7883
+    },
+    "evening": {
+      "dir1": 2581,
+      "dir2": 1578
+    }
+  },
+  "vt4_Viikinmaki": {
+    "morning": {
+      "early": {
+        "dir1": 611,
+        "dir2": 2931
+      },
+      "mid": {
+        "dir1": 1032,
+        "dir2": 3177
+      },
+      "late": {
+        "dir1": 996,
+        "dir2": 2641
+      }
+    },
+    "day": {
+      "dir1": 7629,
+      "dir2": 7951
+    },
+    "evening": {
+      "dir1": 2989,
+      "dir2": 1507
+    }
+  },
+  "st101_Pakila": {
+    "morning": {
+      "early": {
+        "dir1": 3498,
+        "dir2": 4046
+      },
+      "mid": {
+        "dir1": 4580,
+        "dir2": 4492
+      },
+      "late": {
+        "dir1": 3817,
+        "dir2": 3813
+      }
+    },
+    "day": {
+      "dir1": 17646,
+      "dir2": 16021
+    },
+    "evening": {
+      "dir1": 4666,
+      "dir2": 5011
+    }
+  },
+  "st101_Lansi-Pakila": {
+    "morning": {
+      "early": {
+        "dir1": 3459,
+        "dir2": 4512
+      },
+      "mid": {
+        "dir1": 4444,
+        "dir2": 5080
+      },
+      "late": {
+        "dir1": 3706,
+        "dir2": 4241
+      }
+    },
+    "day": {
+      "dir1": 17882,
+      "dir2": 16616
+    },
+    "evening": {
+      "dir1": 5026,
+      "dir2": 5056
     }
   }
 }

@@ -8,7 +8,7 @@ try:
     OUTPUT_FILE = sys.argv[2]
     sys.stdout.write("Output file set to {}.\n".format(OUTPUT_FILE))
 except:
-    ROUTES_INPUT_FILE = 'sumo_files/reduced_routesampler_routes.rou.xml'
+    ROUTES_INPUT_FILE = 'sumo_files/simulation_output/routesampler/routes.rou.xml'
     sys.stdout.write("Input file defaulted to {}, add a file path as argument to change.\n".format(ROUTES_INPUT_FILE))
     OUTPUT_FILE = ROUTES_INPUT_FILE
     sys.stdout.write("Output file defaulted to {}, add a file path as argument to change.\n".format(OUTPUT_FILE))

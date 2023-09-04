@@ -24,7 +24,8 @@ EVENING_END = calculateTimeNumber(16, 30, 0, 0)
 DIGITRAFFIC_DATA_DIR = "WP4/sumo-hki-cm/calibration/data/digitraffic_2018"
 DATE_DIRECTORIES = os.listdir(DIGITRAFFIC_DATA_DIR)
 STATIONS_FILE = "WP4/sumo-hki-cm/calibration/data/digitraffic_detectors.csv"
-OUTPUT_FILE = "WP4/sumo-hki-cm/calibration/data/road_station_detections.json"
+OUTPUT_ALL_DAYS_FILE = "WP4/sumo-hki-cm/calibration/data/road_station_detections_daily.json"
+OUTPUT_AVG_FILE = "WP4/sumo-hki-cm/calibration/data/road_station_detections_2.json"
 
 REPLACEMENTS = {"ä": "a", "Ä": "A", "ö": "o", "Ö": "O"}
 HOUR_COL = 3
@@ -80,33 +81,42 @@ class Counts:
         
 
 def main():
-    results = {}
+    avgResults = {}
     detectors = getDetectors()
+    dailyResults = {}
 
     for detector in detectors:
         print("Gathering averages for station", detector["tmsId"])
-        averages = getAverages(detector["tmsId"])
+        totalCounts, dailyCounts, nDays = countVehiclesInFiles(detector["tmsId"])
+        averages = getAverages(totalCounts, nDays)
+        transformDailyCounts(dailyCounts)
         safeName = createSafeName(detector["name"])
         detectorResults = dataclasses.asdict(averages)
         print("Adding results to dict for", detector["tmsId"])
-        results[safeName] = detectorResults
-    outputResults(results)
+        avgResults[safeName] = detectorResults
+        dailyResults[safeName] = dailyCounts
+    writeResults(avgResults, OUTPUT_AVG_FILE)
+    writeResults(dailyResults, OUTPUT_ALL_DAYS_FILE)
 
+
+def transformDailyCounts(dailyCounts):
+    for key in dailyCounts:
+        dailyCounts[key] = dataclasses.asdict(dailyCounts[key])
 
 # calculate average daily traffic counts for a specific TMS station
-def getAverages(tmsId) -> Counts:
+def getAverages(totalCounts: Counts, nDays: int) -> Counts:
     # print("Gathering averages for station", tmsId)
-    counts, nDays = countVehiclesInFiles(tmsId)
     if nDays == 0:  # avoid division by 0 error
         return Counts()
     print("Calculating averages")
-    return counts.avg(nDays)
+    return totalCounts.avg(nDays)
 
 
 # return traffic counts for a specific digitraffic TMS station for all days
 def countVehiclesInFiles(tmsId):
 
     totalCounts = Counts()
+    dailyCounts = {}
     days = 0
     root_dir = os.listdir(DIGITRAFFIC_DATA_DIR)
     root_dir.sort()  # sort so that folders are sorted by name for a more understandable console output
@@ -128,10 +138,13 @@ def countVehiclesInFiles(tmsId):
 
         # print("Counting evening cars")
         counts.evening = countAllCars(detectionDf, EVENING_BEG, EVENING_END)
+
+        dailyCounts[directory] = counts
         
         totalCounts += counts
         days += 1
-    return totalCounts, days
+    return totalCounts, dailyCounts, days
+
 
 
 # count all cars in both directions from pandas dataframe in interval [begTime; endTime]
@@ -194,7 +207,7 @@ def getDetectors():
 def createSafeName(name):
     return ''.join([ch if ch not in REPLACEMENTS.keys() else REPLACEMENTS[ch] for ch in name])
 
-def outputResults(results, outputFile=OUTPUT_FILE):
+def outputResults(results, outputFile=OUTPUT_AVG_FILE):
     print(results)
     existingDetections = lookForExistingDetections(outputFile)
     print(existingDetections)
@@ -202,11 +215,11 @@ def outputResults(results, outputFile=OUTPUT_FILE):
     print(updatedDetections)
     writeResults(updatedDetections)
 
-def writeResults(detectionStruct, outputFile=OUTPUT_FILE):
+def writeResults(detectionStruct, outputFile=OUTPUT_AVG_FILE):
     with open(outputFile, "w") as f:
         f.write(json.dumps(detectionStruct, indent=2))
 
-def lookForExistingDetections(outputFile=OUTPUT_FILE):
+def lookForExistingDetections(outputFile=OUTPUT_AVG_FILE):
     try:
         with open(outputFile, "r") as f:
             existingDetections = json.load(f)

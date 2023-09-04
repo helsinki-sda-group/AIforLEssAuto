@@ -1,0 +1,15 @@
+<configuration>
+    <network value="sumo_files/data/reduced_cut_area_2.net.xml"/>
+    <routeFiles value="sumo_files/output/tools/reduced_area_random_trips_past_iterations/reduced_area_random_trips_shorter/shorter_random_routes.rou.xml"/>
+    <verbose value="True"/>
+    <routes-output value="sumo_files/output/tools/reduced_area_random_trips_past_iterations/reduced_area_random_trips_shorter/shorter_random_routes_new_net.rou.xml"/>
+    <default.departLane value="best"/>
+    <default.departSpeed value="max"/>
+    <disconnected-action value="keep"/>
+    <discard-exit-times value="True"/>
+</configuration>
+
+<!-- 
+command: 
+python3 $SUMO_HOME/tools/route/cutRoutes.py -c sumo_files/reduced_random_trips_shorter_cutRoutes.config.xml 
+-->
