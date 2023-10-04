@@ -40,7 +40,7 @@
 ### Installation
 
 1. Check the prerequisites
-2. Clone the reposiotry
+2. Clone the repository
 3. Run `sh commands.sh` in the command line in the root folder and follow the instructions
 4. Success!
 
@@ -48,7 +48,7 @@
 
 * #### Python 3.9.x and sumolib tools
 
-Follow the installation instructions from [Python's official website.](https://www.python.org/downloads/). Anaconda or Pip are both fine as package installers. Then, install [the sumolib tools](https://sumo.dlr.de/docs/Tools/Sumolib.html) in the Python packages using your preferred package installer.
+Download the latest Python from [Python's official website](https://www.python.org/downloads/). Anaconda or Pip are both fine as package installers. Then, install [the sumolib tools](https://sumo.dlr.de/docs/Tools/Sumolib.html) in the Python packages using your preferred package installer.
 
 * #### Simulation for Urban MObility (SUMO)
 
