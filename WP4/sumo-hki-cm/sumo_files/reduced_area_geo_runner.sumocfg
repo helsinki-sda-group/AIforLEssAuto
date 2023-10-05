@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="data/reduced_cut_area_2.net.xml"/>
-        <route-files value="output/tools/reduced_area_routesampler_iterative/output.rou.xml"/>
+        <route-files value="data/bs_routes_too_lazy_to_save_smwr_else/sumo_c001_routes_fast.rou.xml"/>
         <additional-files value="data/reduced_cut.add.xml"/>
     </input>
 

@@ -22,16 +22,16 @@ def getRealRoadStationData():
         roadStationData = json.load(f)
     return roadStationData
 
-REAL_ROAD_STATION_DETECTIONS_FILE = "WP4/sumo-hki-cm/calibration/data/road_station_detections.json"
+REAL_ROAD_STATION_DETECTIONS_FILE = "calibration/data/road_station_detections.json"
 try:
-    OUTPUT_FILE = "WP4/sumo-hki-cm/calibration/data/real_world_comparison_sc_{}_2021.xlsx".format(sys.argv[1])
+    OUTPUT_FILE = "calibration/data/real_world_comparison_sc_{}_2021.xlsx".format(sys.argv[1])
 except:
-    OUTPUT_FILE = "WP4/sumo-hki-cm/calibration/data/real_world_comparison.xlsx"
+    OUTPUT_FILE = "calibration/data/real_world_comparison.xlsx"
 try:
     SUMO_DETECTOR_OUTPUT_DIR = sys.argv[2]
     print("SUMO detector count directory set to {}.".format(SUMO_DETECTOR_OUTPUT_DIR))
 except:
-    SUMO_DETECTOR_OUTPUT_DIR = "WP4/sumo-hki-cm/sumo_files/output/simulation/reduced_detector_outputs"
+    SUMO_DETECTOR_OUTPUT_DIR = "sumo_files/output/simulation/reduced_detector_outputs"
     print("SUMO detector output directory defaulted to {}.".format(SUMO_DETECTOR_OUTPUT_DIR))
 detectionData = getRealRoadStationData()
 DETECTORS_STATS_COLUMNS = ["real", "SUMO", "MAPE", "GEH"]
@@ -43,8 +43,8 @@ DIR_2 = "dir2"
 BEGIN_SUMO_COUNT_TIME = 0
 END_SUMO_COUNT_TIME = 111607984
 
-REAL_TAZRELATIONS_FILE = 'WP4/sumo-hki-cm/sumo_files/output/tools/reduction_route2OD/reduced_OD_one_hour.xml'
-SUMO_TAZRELATIONS_FILE = 'WP4/sumo-hki-cm/sumo_files/output/simulation/geo_runner/geo_runner_OD.xml'
+REAL_TAZRELATIONS_FILE = 'sumo_files/output/tools/reduction_route2OD/reduced_OD_one_hour.xml'
+SUMO_TAZRELATIONS_FILE = 'sumo_files/output/simulation/geo_runner/geo_runner_OD.xml'
 
 def main():
     df = pd.DataFrame(columns=DETECTORS_STATS_COLUMNS)

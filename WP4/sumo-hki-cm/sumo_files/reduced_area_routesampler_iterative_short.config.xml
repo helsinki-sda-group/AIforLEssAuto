@@ -15,4 +15,4 @@
 </configuration>
 
 
-<!-- python3 $SUMO_HOME/tools/routeSampler.py -c sumo_files/reduced_area_routesampler_iterative.config.xml 2>&1 1>sumo_files/output/tools/reduced_area_routesampler/routesampler_std.log -->
+<!-- python3 $SUMO_HOME/tools/routeSampler.py -c sumo_files/reduced_area_routesampler_iterative_short.config.xml 2>&1 1>sumo_files/output/tools/reduced_area_routesampler/routesampler_std.log -->

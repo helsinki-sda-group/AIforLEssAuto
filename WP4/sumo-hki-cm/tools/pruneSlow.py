@@ -23,7 +23,50 @@ OUTPUT_ROUTES = list(map(lambda x: x[:-8]+'_no_slow.rou.xml', INPUT_ROUTES))
 OUTPUT_THEORETICAL_PERFECT_COUNTS_AFTER_PRUNING = get_base_files_path('calibration/data/theoretical_perfect_counts_after_pruning.xml')
 
 
-def find_routes_without_special_roads(special_roads:list[str], xml_file=SUMO_EXIT_TIMES_ROUTES) -> list[str]:
+def keep_fast_that_visit_everything_in_time(routes_file, output_file, detector_edges):
+    # keep fast routes
+    vehs_tree = ET.parse(routes_file)
+    vehs_root = vehs_tree.getroot()
+    total_vehs = len(vehs_root)
+    
+    fast = set()
+    total_slow_pruned_detections = 0
+    total_inactive_pruned_vehicles = 0
+
+    for vehicle in vehs_root:
+        depart = float(vehicle.get('depart'))
+        visited_detectors = 0
+        visited_detectors_in_time = 0
+        arrival = depart
+        is_fast = True
+
+        route = vehicle[0]
+        edges = route.get('edges').split()
+
+        exit_times = [float(t) for t in route.get('exitTimes').split()]
+        for edge_id, exit_time in zip(edges, exit_times):
+            if edge_id in detector_edges:
+                visited_detectors += 1
+
+                # if at least one detector edge was not visited completely until the end of the simulation, route is slow
+                if exit_time > 3600:
+                    is_fast = False
+
+        if is_fast and visited_detectors != 0:  # if at least one detector is visited and the vehicle is fast (visits all detectors in time)
+            fast.add((vehicle.get('id')))
+        elif visited_detectors == 0:
+            total_inactive_pruned_vehicles += 1
+        else:
+            total_slow_pruned_detections += visited_detectors
+            
+
+    fast_elems = [veh for veh in vehs_root if veh.get('id') in fast]
+    vehs_root[:] = fast_elems
+    #vehs_tree.write(output_file)
+    print('Pruned', total_vehs - len(fast) - total_inactive_pruned_vehicles, 'slow vehicles, which made up', total_slow_pruned_detections, 'detections. Also pruned', total_inactive_pruned_vehicles, 'inactive vehicles.')
+         
+
+def find_routes_without_special_roads_or_slow(special_roads:list[str], xml_file=SUMO_EXIT_TIMES_ROUTES) -> list[str]:
     routes_without_special_roads = []
 
     tree = ET.parse(xml_file)
@@ -143,12 +186,15 @@ def counts_to_xml(counts_dict:DefaultDict[str,int]):
 
 if __name__ == "__main__":
     special_roads, real_counts = get_station_edges()
-    routes_without_special_roads = find_routes_without_special_roads(special_roads)
-    
-    print(f'Deleting {len(routes_without_special_roads)} vehicles...')
+    routes_without_special_roads = find_routes_without_special_roads_or_slow(special_roads)
 
-    theoretical_perfect_diff_after_pruning = defaultdict(lambda: 0)
     for i, o in zip(INPUT_ROUTES, OUTPUT_ROUTES):
-        deleteVehicles(i, o, routes_without_special_roads, theoretical_perfect_diff_after_pruning, real_counts, special_roads)
+        keep_fast_that_visit_everything_in_time(i, o, special_roads)
 
-    counts_to_xml(theoretical_perfect_diff_after_pruning).write(OUTPUT_THEORETICAL_PERFECT_COUNTS_AFTER_PRUNING)
+    # print(f'Deleting {len(routes_without_special_roads)} vehicles...')
+
+    # theoretical_perfect_diff_after_pruning = defaultdict(lambda: 0)
+    # for i, o in zip(INPUT_ROUTES, OUTPUT_ROUTES):
+    #     deleteVehicles(i, o, routes_without_special_roads, theoretical_perfect_diff_after_pruning, real_counts, special_roads)
+
+    #counts_to_xml(theoretical_perfect_diff_after_pruning).write(OUTPUT_THEORETICAL_PERFECT_COUNTS_AFTER_PRUNING)
