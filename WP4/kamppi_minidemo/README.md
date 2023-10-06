@@ -46,13 +46,17 @@
 
 ### Prerequisites
 
-* #### Python 3.9.x and sumolib tools
+* #### Python 3.9.x or later and sumolib tools
 
 Download the latest Python from [Python's official website](https://www.python.org/downloads/). Anaconda or Pip are both fine as package installers. Then, install [the sumolib tools](https://sumo.dlr.de/docs/Tools/Sumolib.html) in the Python packages using your preferred package installer.
 
 * #### Simulation for Urban MObility (SUMO)
 
 Follow the installation instructions from [SUMO's official website.](https://www.eclipse.org/sumo/)
+
+* #### Git for Windows, if using Windows
+
+Download the latest Git for Windows from [Git's official website](https://gitforwindows.org/).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
