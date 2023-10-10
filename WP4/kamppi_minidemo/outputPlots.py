@@ -100,6 +100,7 @@ def plot(scenarios, timestepArray, emissions, vehicles, teleports):
     co2_table = axs[1,0].table(rowLabels=rows, colLabels=co2_cols, cellText=co2_cells, loc='bottom', rowColours=colors, cellLoc='center')
     vehicle_table = axs[1,1].table(rowLabels=rows, colLabels=vehicle_cols, cellText=vehicle_cells, loc='bottom', rowColours=colors, cellLoc='center')
     co2_table.set_fontsize(8)
+    vehicle_table.set_fontsize(8)
     plt.subplots_adjust(left=0.3, bottom=0.2)
     plt.show()
     return co2_means, co2_vars, co2_stds, veh_means, veh_vars, veh_stds
