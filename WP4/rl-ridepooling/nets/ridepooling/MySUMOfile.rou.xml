@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-12-04 16:25:59 by Eclipse SUMO duarouter Version 1.13.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\MySUMOfile.net.xml"/>
+        <route-files value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\MySUMOfile.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\MySUMOfile.rou.xml"/>
+        <alternatives-output value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\MySUMOfile.rou.alt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="1500"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-24650 -23933 -12750 -12300 -9110 -8777 8765 9464 9901 10494 -20435 -19684 -9769 -9455 -7549 7547 7544 7739 10305 10820 -11653 -6657 6659 11295 13711 14568 15154 23796 -24499 -23790"/>
+    </vehicle>
+    <vehicle id="1" depart="30.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="20598 -20598 -19835 -18825 18824 -11792 -5977 -5778 -5581 -5470 -5188 -1004 -854 852 879 -991 -219 229 1915 1960 2213 6497 7230 -6889 6893 21656 -21654 20635 23440"/>
+    </vehicle>
+    <vehicle id="2" depart="60.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-22265 22267 -22327 -6887 -6484 -5204 -3507 -3343 -3195 -3076 -3059 3060 -3103 -2937 2435 -2238 2232 2440 -2426 2428 2492 4476 4479 6307 6512 7710 14119 -14116 14116"/>
+    </vehicle>
+    <vehicle id="3" depart="90.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-11628 -11259 -9162 -8945 -7875 -5053 -4853 -3100 -2924 2930 3102 -2396 2158 -2020 -184 -172 164 -162 -75 79 -844 854 1004 5188 5474 5602 22314 -22314"/>
+    </vehicle>
+    <vehicle id="4" depart="120.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="24898 -24898 -18981 18959 -17390 17386 -11919 -11441 -11434 -9136 9130 9255 13984 -23440 -20635 21654 -21656 -6893 6889 7596 7832 12881 -12991 -3055 -2405 -2402 -3046 4599 7082 7547 7544 7739 10305 -10305"/>
+    </vehicle>
+    <vehicle id="5" depart="150.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="24622 -23275 12295 -12297 -9894 12300 12742 -23804 -23169 -22265 22267 -22327 -6887 -6484 -5204 -3507 -3343 -3195 -3076 -3059 3060 -3103 -2937 2435"/>
+    </vehicle>
+    <vehicle id="6" depart="180.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-27703 -25475 25471 26526 -22277 -21315 21297 -13431 13439 20561 -22253 -21292 18771 -19901 -11445 -7832 -7256 -6497 -2213 -1960 -1915 -229 219 991 -879 -852 854 1004 5188 5470 5581 5778 5977 11792 -18824 -18189 18193 -19822"/>
+    </vehicle>
+    <vehicle id="7" depart="210.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-8700 -8297 -7858 -4493 -4316 2372 -2128 2126 9495 10036 -340 -199 3549 3806 -3930 -1004 1002 3587 3929 -3922 5070 8982 -9210 7544 7741 8533 8744"/>
+    </vehicle>
+    <vehicle id="8" depart="240.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-29575 29587 30450 -25821 -25194 -24360 24356 -24424 -23745 -17890 13225 -12956 10802 -9546 9313 -4358 -3660 -3498 -3236 -3193 3195 3341 -3200 6497 7256 7832 12881 -12991 -3055 -2405 -2402 -3046 4599 -4863 4889 -5070 4267 4330 4527 5961 6346 6659 11295 -18058 -16903 16897"/>
+    </vehicle>
+    <vehicle id="9" depart="270.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-22350 -17519 -16324 -11456 -11118 -10670 -7259 7260 7265 7274 -10673 10675 11145 -12902 -12581 12580 12900 13050 -16494 -15729 -14488 -13670 -13180 -12938 -12593 -12258 12262 12595 16501 17673 18501 19275 29533 29571 -29570 -28555"/>
+    </vehicle>
+    <vehicle id="10" depart="300.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-1470 1469 -1209 -1154 -1025 -991 -219 229 1915 1960 2213 3200 -3341 -3195 3193 3236 3498 3660 4358 -9313 9546 -10802 12956 -13225 17890 23745 -23770 -25424 -25184 -24358"/>
+    </vehicle>
+    <vehicle id="11" depart="330.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-16022 -14566 -13711 -11295 -6659 -6346 -5961 -4527 -4330 -4265 -3929 -3587 -1002 -854 844 -79 -60 -31 -23 -11 5 206 474 2165 2232 2468 6049 6647 6650 12962 13309 -15561 -15560 -13517 13515 -16494 -15729 -14488 14492 15737 25056 -24247 24249 25065 25801 -27195"/>
+    </vehicle>
+    <vehicle id="12" depart="360.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="15154 23796 -23796 -15154 -14568 -13711 -11295 -6659 -6346 -5961 -4527 -4330 -4267 5070 -4889 4863 -4599 3046 2402 2405 3055 12991 -12881 -7832 -7596 -6889 6893 21656 -21654 20635 23440 -13984 -9255 9259 -20646 -19866 19870 -19871 19871"/>
+    </vehicle>
+    <vehicle id="13" depart="390.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="27101 -27101 -24234 -20746 -20031 -19258 -13066 -12900 -12580 12581 12902 -11145 -10675 10673 -7274 -7265 -7260 7259 10670 11118 11456 16324 17519 22350 -21785 -21527 21526 27936"/>
+    </vehicle>
+    <vehicle id="14" depart="420.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-22388 -21804 -20752 -20033 -19258 -13066 13048 13517 15560 15561 -13309 -12962 -6650 -6647 -6049 -2468 -2232 -2165 -474 -206 -5 11 23 31 60 79 -844 854 1002 3587 3929 4265 4330 4527 5961 6346 6659 10302 10813 12618 -12283"/>
+    </vehicle>
+    <vehicle id="15" depart="450.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-21831 -20869 20866 -18503 -17687 -16501 -12595 12597 -15758 -15108 -13690 -10279 -6038 -5853 -5761 5555 -4358 -3660 -3498 -3236 -3193 3195 3343 3507 5204 6484 6889"/>
+    </vehicle>
+    <vehicle id="16" depart="480.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="30429 -30429 -27197 25795 -25065 -24249 -23612 -21831 -20869 20866 -18503 -17687 -16501 -12595 12601 13677 14520 16609 17693 22761 -22652 22618 23624 24358 25184 -24458 -23747 23749 24436 25401 26278 30729 -30703"/>
+    </vehicle>
+    <vehicle id="17" depart="510.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="11449 11456 -14959 -14371 -14352 -10037 10035 -1257 -1178 1186 1614 1758 -2230 2238 2326 2387 2650 2918 3095 3214 3503 3590 -3940 -3936 4279"/>
+    </vehicle>
+    <vehicle id="18" depart="540.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-30142 -29229 29215 30140 29231 -28292 -23336 -22314 -5602 -5474 -5188 -1004 -854 852 879 -991 -219 229 1915 1960 2213 3200 -3341 3343 3531 3677 5526 5727 8179 8685 8917 11112 11441 11959 19900 20704 21775 -23640"/>
+    </vehicle>
+    <vehicle id="19" depart="570.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="9888 10431 -9106 9110 12300 12742 12984 13449 22279 -21648 -7797 7781 -5717 -5526 -3939 -3665 3663 4279 -4276 4358 -5555 5761 5853 6038 9171 -9160 9162 11259 11628 12258 12593 12938 13180 13670 14488"/>
+    </vehicle>
+    <vehicle id="20" depart="600.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-13555 -12531 -12133 -8934 -8700 -8695 8696 8703 -2502 -2428 2426 -2440 -2232 2238 -2435 2937 3103 -3060 3059 3076 3195 3343 3507 5204 6484 6887 -6887"/>
+    </vehicle>
+    <vehicle id="21" depart="630.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-10681 -10078 1186 1614 1758 -2230 2232 2442 -2609 2936 5064 -5338 6043 -6176 -5854 5761 5853 6038 10201 -13685 15755 16632 -23620 23618 23624 24358 25184"/>
+    </vehicle>
+    <vehicle id="22" depart="660.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-2438 -3060 3059 3076 3195 3343 3531 3677 5526 5727 8179 8683 8913 9134 18317 18957 19875 20694 21667"/>
+    </vehicle>
+    <vehicle id="23" depart="690.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-16617 16609 -16639 -15757 13685 -10201 -6038 -5853 -5761 5854 6176 -6043 -3100 -2924 2930 3102 -2396 2158 -2020 -184 -172 164 -162 -75 79 -844 854 1000"/>
+    </vehicle>
+    <vehicle id="24" depart="720.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="30302 -29405 -28377 -27076 27074 -27081 -25768 -16477 -15559 -13046 -11139 11145 -12902 -12581 12580 12900 13050 -16494 -15729 -14488 -13670 -13181 -12940 -12593 -12258 12262 12601 13677 14520 16609 17693 22761 -22652 22618 23624 24360 25262 25827 -25827"/>
+    </vehicle>
+    <vehicle id="25" depart="750.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-25594 -24761 -20598 -19835 -18825 18824 -11792 -5977 -5778 -5581 -5470 -5188 -1004 -854 852 879 -991 -219 229 1915 1960 2213 6497 7230 -6889 6893 21656"/>
+    </vehicle>
+    <vehicle id="26" depart="780.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="12900 13048 13517 15560 15561 -13309 -12962 -6650 -6647 -6049 -2468 -2232 -2165 -474 462 -1992 -184 196 -1956 -1940 1946 1980 2173 2243 2335 2405 3051 3155 -20436 -19684"/>
+    </vehicle>
+    <vehicle id="27" depart="810.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="2343 -2344 -2251 -2173 2169 -1988 1987 2199 -2633 2632 2873 3060 -3102 -2930 2924 3100 5557 5565 -10190 10191 -16484 16488 17663 18383 -18487 -15729 15729"/>
+    </vehicle>
+    <vehicle id="28" depart="840.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-13990 13984 -23440 -21538 -7785 -7594 -5202 -3507 -3343 -3195 -3076 -3059 3060 -3103 -2937 2435 -2238 2232 2440 -2426 2428 2492 4476 4479 6307 6518 10064 10675 11139 13046 15559 16477 25766 27080"/>
+    </vehicle>
+    <vehicle id="29" depart="870.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="22337 -21665 -20694 20648 -19891 -19129 -11943 -11441 -11113 -10632 9138 -7567 -7117 -4718 -4297 -4276 4358 -5555 5761 5853 6038 10279 13690 15108 15758 -12597 12595 16505 17691 18521 -18521"/>
+    </vehicle>
+    <vehicle id="30" depart="900.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-21423 -20577 18796 -19714 -20435 20436 -3155 3153 12991 -12881 -7832 -7256 -6497 -2213 2199 -2633 2632 2873 3060 -3102 -2930 2924 3100 4853 5053 7875 8945 9162 11259 11628 12258 12593 12940 13205 -20042 20050 20869 21831 23612 24249 25065 -25795 27197 -30440"/>
+    </vehicle>
+    <vehicle id="31" depart="930.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-14119 13508 -13042 -11139 11145 -12902 -12581 12580 12900 13050 -16494 -15729 -14488 -13670 -13181 -12940 -12593 -12258 12262 12595 16505 17691 18511 19284 20088 21018"/>
+    </vehicle>
+    <vehicle id="32" depart="960.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="28948 -27702 -26528 26526 -22277 -21315 21297 18174 18781 23276 -21538 -7785 7781 -5717 -5526 -3939 -3665 3663 4279 -4276 4358 -5555 5761 5853 6038 10279 13690 14531 -14522"/>
+    </vehicle>
+    <vehicle id="33" depart="990.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-21971 -21936 -20058 -19284 -18511 -17691 -16505 -12595 -12262 -11628 -11259 -9162 -8945 -7875 -5053 -4853 -3100 -2924 2930 3102 -2396 2158 -2020 -184 190 219 991 1025 1154 1209 -1469 1474 3920 4265 4330 4527 5961 6346 6659 -11276 11280 -18736"/>
+    </vehicle>
+    <vehicle id="34" depart="1020.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-30873 -29959 -23781 -22120 22140 22901 23783 -20427 20423 -19675 -18763 -18058 -18056 24498 25451 30984 -30148 30142 -26757 -25604 -20628 -20597 20598 -20596 20580 21527 -17522 -16329 16327 -12500 -12072 12072"/>
+    </vehicle>
+    <vehicle id="35" depart="1050.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="20031 -20031 -19258 -13066 13048 13517 15560 15617 16484 -10191 -9535 -9307 -5055 5059 5337 5555 -4358 4276 -4279 -3663 3665 3939 5526 5717 -7781 7785 21538 -23276 23304"/>
+    </vehicle>
+    <vehicle id="36" depart="1080.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="9136 -9136 -8913 -8683 -8179 -5727 -5526 -3677 -3531 -3343 -3195 -3076 -2899 -2632 -2480 -2182 -1994 1992 -462 -206 -588 -334 340 4319 -14353 14352 14371 14959 16324 17511 -17520 -16329"/>
+    </vehicle>
+    <vehicle id="37" depart="1110.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-30310 -13504 -13028 14116 -14119 -7710 -6512 -6307 -4479 -4476 -2492 -2428 2426 -2440 2442 -2609 2936 -3096 -3092 3095 3214 3503 3590 -4298 -4276"/>
+    </vehicle>
+    <vehicle id="38" depart="1140.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-20635 21654 -21656 -6893 6889 7596 7832 12881 -12991 -3055 -2405 -2402 -3046 4599 -4863 4889 -5070 4267 4330 4527 5961 6346 6659 10302 10811"/>
+    </vehicle>
+    <vehicle id="39" depart="1170.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-23747 23747 24458 25424 23770 -23745 -17890 13225 -12956 10802 -9546 9313 5981 6176 -6043 5338 -5064 -2936 2609 -2442 2440 -2426 2428 2492 4476 4479 6307 6506 5733"/>
+    </vehicle>
+    <vehicle id="40" depart="1200.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="9913 -4716 -4297 4298 -3590 -3503 -3214 -3095 3092 3096 -2936 2609 -2442 2440 -2426 2428 2492 4476 4479 6307 6512 7710 14119 -14116 13028 13502 25762 27076 28377 29401 30306"/>
+    </vehicle>
+    <vehicle id="41" depart="1230.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="27702 -27704 -25475 -24635 24631 30007 -29373 -28350 -26809 -25731 -19871 19875 -19879 -18985 18981 -28358 -26935 26917 -30734 -29841 -28690 -27465 -25423 -24450 -23768 23762 -23749 23747 24458 -25184 25183 25194 25822 -20197"/>
+    </vehicle>
+    <vehicle id="42" depart="1260.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="7710 -7710 -6512 -6307 -4479 -4476 -2492 -2428 2426 -2440 2442 -2609 2936 5064 -5338 6043 -6176 -5981 -9313 -9177 9175 9543"/>
+    </vehicle>
+    <vehicle id="43" depart="1290.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-19129 12477 -9134 -8913 -8683 -8179 -5727 -5526 -3677 -3531 -3343 3341 -3200 -2213 -1960 -1915 -229 219 991 -879 -852 854 1004 5188 5470 5581 5778 5977 11792 -18824 -18800 18811 19826 20582 27936 28042 -29182"/>
+    </vehicle>
+    <vehicle id="44" depart="1320.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="8533 -8533 -7741 -7544 -7547 -7082 -4599 3046 2402 2405 3055 12991 -12881 -7832 -7256 -6497 3200 -3341 -3195 3193 3236 3498 3660 4358 -9313 9546 -10802 12956 13228 16744 17925 18581"/>
+    </vehicle>
+    <vehicle id="45" depart="1350.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-13225 13225 -12956 10802 -9546 9313 5981 6176 -6043 5338 -5064 -2936 2609 -2442 -2232 2230 -1758 -1614 -1186 1178 1249 4319 -4173 4179 14486 15078 -15188 16132 18187 18811"/>
+    </vehicle>
+    <vehicle id="46" depart="1380.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-14732 -12095 -11505 -11134 -10670 -7031 -3372 -3205 -2214 9495 10036 -340 334 588 206 462 -1992 -184 196 -1956 -1940 1946 1986 -2169"/>
+    </vehicle>
+    <vehicle id="47" depart="1410.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-30727 -29818 -27461 -26270 -25401 -24436 -23749 23747 24458 25424 23770 -23745 -17890 13225 -12956 10802 -9546 9313 5981 6176 -6043 5338 -5064 -2936 2609 -2442 -2232 2230 -1758 -1614 -1186 1178 1249 4319 -4173 4179 14486 15078 -15188 16132 18187 18804"/>
+    </vehicle>
+    <vehicle id="48" depart="1440.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-7765 -7554 -5466 -5178 -4921 12991 -12881 -7832 -7256 -6497 3200 -3341 -3195 3193 3236 3498 3660 4358 -5555 5761 5853 6042 6333"/>
+    </vehicle>
+    <vehicle id="49" depart="1470.00" departLane="best" departPos="random" departSpeed="max">
+        <route edges="-26405 -25447 -24498 18056 18058 -11295 -6659 6657 11653 -10820 -10305 -7739 -7544 -7547 7549 9455 9769 19684 20435 -10494 -9901 -9464 -8765 8777 9110 9894 12297 12736 23917 26522"/>
+    </vehicle>
+</routes>

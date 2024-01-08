@@ -1,0 +1,36 @@
+<configuration>
+    <input>
+        <net-file value="randgrid.net.xml"/>
+        <route-files value="randgridmixed.rou.xml"/>
+		<additional-files value="parkingareas.add.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="2500"/>
+    </time>
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="traci"/>
+        <!--<device.taxi.idle-algorithm value="randomCircling"/>-->
+		<device.taxi.idle-algorithm value="stop"/>
+		<device.taxi.dispatch-period value="1"/>
+		<device.taxi.dispatch-algorithm params="relLossThreshold:0.2"/>
+    </taxi_device>
+	<gui_only>
+		<gui-settings-file value="sumoview.xml"/>
+	</gui_only>
+	<output>
+		<!--<statistic-output value="tripstatonlyprivate.xml"/>-->
+		<tripinfo-output value="output/tripinfo.xml"/>
+		<!--<personroute-output value="output/personinfoonlyprivate.xml"/>-->
+		<!--<vehroute-output value="vehrouteinfoonlyprivate.xml"/>-->
+		<tripinfo-output.write-unfinished value="True"/>
+		<emission-output value="output/emissions.xml"/>
+		<tripinfo-output.write-undeparted value="True"/>
+	</output>
+	<report>
+		<verbose value="True"/>
+		<message-log value="message.xml"/>
+		<error-log value="error.xml"/>
+		<duration-log.statistics value="True"/>
+	</report>
+</configuration>
