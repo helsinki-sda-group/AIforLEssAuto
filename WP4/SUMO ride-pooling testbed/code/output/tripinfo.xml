@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-12-07 13:08:39 by Eclipse SUMO GUI Version 1.13.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\MYSUMOfile.net.xml"/>
+        <route-files value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\randgridmixed.rou.xml"/>
+        <additional-files value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\MySUMOparkingareas.add.xml"/>
+    </input>
+
+    <output>
+        <emission-output value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\output/emissions.xml"/>
+        <tripinfo-output value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\output/tripinfo.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <tripinfo-output.write-undeparted value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="3000"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+        <message-log value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\message.xml"/>
+        <error-log value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\error.xml"/>
+        <duration-log.statistics value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="greedyShared"/>
+        <device.taxi.dispatch-period value="1"/>
+        <device.taxi.idle-algorithm value="stop"/>
+    </taxi_device>
+
+    <gui_only>
+        <gui-settings-file value="C:\Users\bochenin\RL%20project\materials\ridesharing\toy%20example\sumoview.xml"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p1" depart="30.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="43.00" vehicle="t3" depart="73.00" arrival="438.00" arrivalPos="211.23" duration="365.00" routeLength="4617.79" timeLoss="40.52"/>
+    </personinfo>
+    <personinfo id="p3" depart="90.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="43.00" vehicle="t4" depart="133.00" arrival="469.00" arrivalPos="89.60" duration="336.00" routeLength="4049.60" timeLoss="44.67"/>
+    </personinfo>
+    <personinfo id="p2" depart="60.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="130.00" vehicle="t1" depart="190.00" arrival="581.00" arrivalPos="185.60" duration="391.00" routeLength="4567.15" timeLoss="46.84"/>
+    </personinfo>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="190.00" vehicle="t5" depart="190.00" arrival="588.00" arrivalPos="181.07" duration="398.00" routeLength="4286.27" timeLoss="51.89"/>
+    </personinfo>
+    <personinfo id="p7" depart="210.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="89.00" vehicle="t13" depart="299.00" arrival="632.00" arrivalPos="81.07" duration="333.00" routeLength="4231.55" timeLoss="41.81"/>
+    </personinfo>
+    <personinfo id="p5" depart="150.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="261.00" vehicle="t0" depart="411.00" arrival="717.00" arrivalPos="81.07" duration="306.00" routeLength="3594.12" timeLoss="50.82"/>
+    </personinfo>
+    <personinfo id="p4" depart="120.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="187.00" vehicle="t12" depart="307.00" arrival="723.00" arrivalPos="85.60" duration="416.00" routeLength="5026.99" timeLoss="56.51"/>
+    </personinfo>
+    <personinfo id="p9" depart="270.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="66.00" vehicle="t2" depart="336.00" arrival="780.00" arrivalPos="185.60" duration="444.00" routeLength="5414.36" timeLoss="51.98"/>
+    </personinfo>
+    <personinfo id="p10" depart="300.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="122.00" vehicle="t10" depart="422.00" arrival="787.00" arrivalPos="81.07" duration="365.00" routeLength="4620.04" timeLoss="44.06"/>
+    </personinfo>
+    <personinfo id="p8" depart="240.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="29.00" vehicle="t6" depart="269.00" arrival="826.00" arrivalPos="85.60" duration="557.00" routeLength="6995.34" timeLoss="60.80"/>
+    </personinfo>
+    <personinfo id="p6" depart="180.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="336.00" vehicle="t14" depart="516.00" arrival="971.00" arrivalPos="81.07" duration="455.00" routeLength="5586.82" timeLoss="45.14"/>
+    </personinfo>
+    <personinfo id="p17" depart="510.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="166.00" vehicle="t1" depart="676.00" arrival="1022.00" arrivalPos="122.50" duration="346.00" routeLength="3988.11" timeLoss="44.44"/>
+    </personinfo>
+    <personinfo id="p13" depart="390.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="252.00" vehicle="t9" depart="642.00" arrival="1048.00" arrivalPos="183.62" duration="406.00" routeLength="4459.06" timeLoss="53.64"/>
+    </personinfo>
+    <personinfo id="p11" depart="330.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="191.00" vehicle="t8" depart="521.00" arrival="1087.00" arrivalPos="122.50" duration="566.00" routeLength="6474.36" timeLoss="74.77"/>
+    </personinfo>
+    <personinfo id="p14" depart="420.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="259.00" vehicle="t11" depart="679.00" arrival="1150.00" arrivalPos="81.07" duration="471.00" routeLength="5577.98" timeLoss="67.73"/>
+    </personinfo>
+    <personinfo id="p12" depart="360.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="317.00" vehicle="t7" depart="677.00" arrival="1177.00" arrivalPos="183.62" duration="500.00" routeLength="5701.74" timeLoss="57.03"/>
+    </personinfo>
+    <personinfo id="p15" depart="450.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="427.00" vehicle="t3" depart="877.00" arrival="1203.00" arrivalPos="187.47" duration="326.00" routeLength="4058.52" timeLoss="42.19"/>
+    </personinfo>
+    <personinfo id="p18" depart="540.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="150.00" vehicle="t5" depart="690.00" arrival="1226.00" arrivalPos="196.80" duration="536.00" routeLength="5915.11" timeLoss="61.28"/>
+    </personinfo>
+    <personinfo id="p19" depart="570.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="232.00" vehicle="t13" depart="802.00" arrival="1236.00" arrivalPos="85.60" duration="434.00" routeLength="5328.24" timeLoss="66.87"/>
+    </personinfo>
+    <personinfo id="p20" depart="600.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="300.00" vehicle="t0" depart="900.00" arrival="1252.00" arrivalPos="85.60" duration="352.00" routeLength="4043.53" timeLoss="59.94"/>
+    </personinfo>
+    <personinfo id="p21" depart="630.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="329.00" vehicle="t12" depart="959.00" arrival="1274.00" arrivalPos="130.77" duration="315.00" routeLength="3825.88" timeLoss="41.83"/>
+    </personinfo>
+    <personinfo id="p23" depart="690.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="246.00" vehicle="t2" depart="936.00" arrival="1278.00" arrivalPos="81.07" duration="342.00" routeLength="4005.34" timeLoss="50.68"/>
+    </personinfo>
+    <personinfo id="p16" depart="480.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="415.00" vehicle="t4" depart="895.00" arrival="1279.00" arrivalPos="192.80" duration="384.00" routeLength="4650.94" timeLoss="49.05"/>
+    </personinfo>
+    <personinfo id="p25" depart="750.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="277.00" vehicle="t6" depart="1027.00" arrival="1364.00" arrivalPos="183.62" duration="337.00" routeLength="4197.95" timeLoss="37.38"/>
+    </personinfo>
+    <personinfo id="p22" depart="660.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="451.00" vehicle="t0" depart="1111.00" arrival="1447.00" arrivalPos="92.80" duration="336.00" routeLength="3776.53" timeLoss="55.33"/>
+    </personinfo>
+    <personinfo id="p27" depart="810.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="396.00" vehicle="t1" depart="1206.00" arrival="1566.00" arrivalPos="87.47" duration="360.00" routeLength="4049.95" timeLoss="54.16"/>
+    </personinfo>
+    <personinfo id="p26" depart="780.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="438.00" vehicle="t14" depart="1218.00" arrival="1581.00" arrivalPos="185.60" duration="363.00" routeLength="4225.63" timeLoss="50.90"/>
+    </personinfo>
+    <personinfo id="p24" depart="720.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="438.00" vehicle="t10" depart="1158.00" arrival="1584.00" arrivalPos="85.60" duration="426.00" routeLength="5184.41" timeLoss="59.61"/>
+    </personinfo>
+    <personinfo id="p35" depart="1050.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="219.00" vehicle="t13" depart="1269.00" arrival="1653.00" arrivalPos="92.80" duration="384.00" routeLength="4867.51" timeLoss="49.23"/>
+    </personinfo>
+    <personinfo id="p32" depart="960.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="432.00" vehicle="t3" depart="1392.00" arrival="1778.00" arrivalPos="81.07" duration="386.00" routeLength="4679.01" timeLoss="56.64"/>
+    </personinfo>
+    <personinfo id="p30" depart="900.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="421.00" vehicle="t11" depart="1321.00" arrival="1837.00" arrivalPos="205.99" duration="516.00" routeLength="6238.53" timeLoss="67.00"/>
+    </personinfo>
+    <personinfo id="p38" depart="1140.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="457.00" vehicle="t4" depart="1597.00" arrival="1876.00" arrivalPos="81.07" duration="279.00" routeLength="3510.60" timeLoss="28.07"/>
+    </personinfo>
+    <personinfo id="p37" depart="1110.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="436.00" vehicle="t2" depart="1546.00" arrival="1897.00" arrivalPos="205.99" duration="351.00" routeLength="4276.77" timeLoss="41.85"/>
+    </personinfo>
+    <personinfo id="p31" depart="930.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="701.00" vehicle="t7" depart="1631.00" arrival="1964.00" arrivalPos="176.55" duration="333.00" routeLength="3756.79" timeLoss="39.78"/>
+    </personinfo>
+    <personinfo id="p36" depart="1080.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="460.00" vehicle="t12" depart="1540.00" arrival="1973.00" arrivalPos="183.62" duration="433.00" routeLength="5145.19" timeLoss="60.85"/>
+    </personinfo>
+    <personinfo id="p28" depart="840.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="652.00" vehicle="t9" depart="1492.00" arrival="1994.00" arrivalPos="176.55" duration="502.00" routeLength="5509.69" timeLoss="64.83"/>
+    </personinfo>
+    <personinfo id="p40" depart="1200.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="426.00" vehicle="t0" depart="1626.00" arrival="2014.00" arrivalPos="94.67" duration="388.00" routeLength="4800.49" timeLoss="48.99"/>
+    </personinfo>
+    <personinfo id="p39" depart="1170.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="459.00" vehicle="t6" depart="1629.00" arrival="2056.00" arrivalPos="124.37" duration="427.00" routeLength="5060.28" timeLoss="65.35"/>
+    </personinfo>
+    <personinfo id="p29" depart="870.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="703.00" vehicle="t8" depart="1573.00" arrival="2078.00" arrivalPos="81.07" duration="505.00" routeLength="5675.22" timeLoss="74.95"/>
+    </personinfo>
+    <personinfo id="p45" depart="1350.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="523.00" vehicle="t13" depart="1873.00" arrival="2240.00" arrivalPos="81.07" duration="367.00" routeLength="4510.08" timeLoss="55.78"/>
+    </personinfo>
+    <personinfo id="p34" depart="1020.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="779.00" vehicle="t5" depart="1799.00" arrival="2258.00" arrivalPos="81.07" duration="459.00" routeLength="5071.51" timeLoss="53.40"/>
+    </personinfo>
+    <personinfo id="p43" depart="1290.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="558.00" vehicle="t14" depart="1848.00" arrival="2338.00" arrivalPos="189.60" duration="490.00" routeLength="5971.38" timeLoss="49.92"/>
+    </personinfo>
+    <personinfo id="p42" depart="1260.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="727.00" vehicle="t6" depart="1987.00" arrival="2347.00" arrivalPos="185.60" duration="360.00" routeLength="4076.98" timeLoss="57.94"/>
+    </personinfo>
+    <personinfo id="p46" depart="1380.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="682.00" vehicle="t3" depart="2062.00" arrival="2381.00" arrivalPos="117.97" duration="319.00" routeLength="3867.98" timeLoss="46.20"/>
+    </personinfo>
+    <personinfo id="p44" depart="1320.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="670.00" vehicle="t10" depart="1990.00" arrival="2394.00" arrivalPos="208.45" duration="404.00" routeLength="4977.91" timeLoss="54.43"/>
+    </personinfo>
+    <personinfo id="p48" depart="1440.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="664.00" vehicle="t4" depart="2104.00" arrival="2401.00" arrivalPos="85.60" duration="297.00" routeLength="3641.73" timeLoss="36.54"/>
+    </personinfo>
+    <personinfo id="p41" depart="1230.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="777.00" vehicle="t1" depart="2007.00" arrival="2460.00" arrivalPos="85.60" duration="453.00" routeLength="5198.39" timeLoss="59.79"/>
+    </personinfo>
+    <personinfo id="p33" depart="990.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="1004.00" vehicle="t8" depart="1994.00" arrival="2544.00" arrivalPos="117.97" duration="550.00" routeLength="6219.85" timeLoss="71.28"/>
+    </personinfo>
+    <personinfo id="p49" depart="1470.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="795.00" vehicle="t2" depart="2265.00" arrival="2656.00" arrivalPos="207.23" duration="391.00" routeLength="4505.18" timeLoss="59.54"/>
+    </personinfo>
+    <personinfo id="p47" depart="1410.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="817.00" vehicle="t11" depart="2227.00" arrival="2752.00" arrivalPos="76.55" duration="525.00" routeLength="6306.96" timeLoss="68.37"/>
+    </personinfo>
+    <tripinfo id="t0" depart="0.00" departLane="-1470_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="22025.52" waitingTime="12.00" waitingCount="3" stopTime="1156.00" timeLoss="272.93" rerouteNo="7" devices="tripinfo_t0 routing_t0 emissions_t0 taxi_t0 person_t0" vType="taxi" speedFactor="1.03" vaporized="">
+        <emissions CO_abs="61681.653064" CO2_abs="4905035.698354" HC_abs="395.338558" PMx_abs="82.604765" NOx_abs="1960.465120" fuel_abs="2108.461268" electricity_abs="0"/>
+        <taxi customers="4" occupiedDistance="14686.44" occupiedTime="1238.00"/>
+    </tripinfo>
+    <tripinfo id="t1" depart="0.00" departLane="2343_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="27355.96" waitingTime="14.00" waitingCount="4" stopTime="612.00" timeLoss="317.47" rerouteNo="9" devices="tripinfo_t1 routing_t1 emissions_t1 taxi_t1 person_t1" vType="taxi" speedFactor="0.97" vaporized="">
+        <emissions CO_abs="77407.278391" CO2_abs="6067231.022051" HC_abs="494.413802" PMx_abs="100.258917" NOx_abs="2420.516068" fuel_abs="2608.041652" electricity_abs="0"/>
+        <taxi customers="4" occupiedDistance="17803.61" occupiedTime="1558.00"/>
+    </tripinfo>
+    <tripinfo id="t2" depart="0.00" departLane="-22350_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="28125.59" waitingTime="15.00" waitingCount="5" stopTime="626.00" timeLoss="323.45" rerouteNo="9" devices="tripinfo_t2 routing_t2 emissions_t2 taxi_t2 person_t2" vType="taxi" speedFactor="1.01" vaporized="">
+        <emissions CO_abs="76574.691464" CO2_abs="6150856.304937" HC_abs="492.416120" PMx_abs="102.268964" NOx_abs="2451.507709" fuel_abs="2643.986566" electricity_abs="0"/>
+        <taxi customers="4" occupiedDistance="18201.65" occupiedTime="1536.00"/>
+    </tripinfo>
+    <tripinfo id="t3" depart="0.00" departLane="20598_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="28565.96" waitingTime="11.00" waitingCount="4" stopTime="673.00" timeLoss="315.10" rerouteNo="9" devices="tripinfo_t3 routing_t3 emissions_t3 taxi_t3 person_t3" vType="taxi" speedFactor="1.04" vaporized="">
+        <emissions CO_abs="77022.582823" CO2_abs="6285962.222812" HC_abs="497.497162" PMx_abs="105.858808" NOx_abs="2508.517276" fuel_abs="2702.060118" electricity_abs="0"/>
+        <taxi customers="4" occupiedDistance="17223.30" occupiedTime="1404.00"/>
+    </tripinfo>
+    <tripinfo id="t4" depart="0.00" departLane="-14522_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="27800.75" waitingTime="10.00" waitingCount="6" stopTime="712.00" timeLoss="288.88" rerouteNo="9" devices="tripinfo_t4 routing_t4 emissions_t4 taxi_t4 person_t4" vType="taxi" speedFactor="1.02" vaporized="">
+        <emissions CO_abs="70656.443247" CO2_abs="5901021.746319" HC_abs="459.402705" PMx_abs="97.040903" NOx_abs="2339.986215" fuel_abs="2536.593242" electricity_abs="0"/>
+        <taxi customers="4" occupiedDistance="15852.88" occupiedTime="1304.00"/>
+    </tripinfo>
+    <tripinfo id="t5" depart="0.00" departLane="6889_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="24537.35" waitingTime="9.00" waitingCount="4" stopTime="750.00" timeLoss="278.30" rerouteNo="7" devices="tripinfo_t5 routing_t5 emissions_t5 taxi_t5 person_t5" vType="taxi" speedFactor="0.92" vaporized="">
+        <emissions CO_abs="68600.903574" CO2_abs="5252965.646450" HC_abs="434.602741" PMx_abs="83.465287" NOx_abs="2078.931986" fuel_abs="2258.029960" electricity_abs="0"/>
+        <taxi customers="3" occupiedDistance="15272.90" occupiedTime="1399.00"/>
+    </tripinfo>
+    <tripinfo id="t6" depart="0.00" departLane="-29575_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="25415.55" waitingTime="16.00" waitingCount="6" stopTime="913.00" timeLoss="272.85" rerouteNo="7" devices="tripinfo_t6 routing_t6 emissions_t6 taxi_t6 person_t6" vType="taxi" speedFactor="1.02" vaporized="">
+        <emissions CO_abs="64851.720086" CO2_abs="5405274.911505" HC_abs="421.420246" PMx_abs="89.298846" NOx_abs="2145.546871" fuel_abs="2323.492710" electricity_abs="0"/>
+        <taxi customers="4" occupiedDistance="19644.57" occupiedTime="1609.00"/>
+    </tripinfo>
+    <tripinfo id="t7" depart="1.00" departLane="-22350_0" departPos="5.10" departSpeed="0.00" departDelay="1.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="2999.00" routeLength="18203.01" waitingTime="8.00" waitingCount="4" stopTime="1401.00" timeLoss="183.08" rerouteNo="5" devices="tripinfo_t7 routing_t7 emissions_t7 taxi_t7 person_t7" vType="taxi" speedFactor="0.94" vaporized="">
+        <emissions CO_abs="45692.602347" CO2_abs="3718089.251012" HC_abs="294.650105" PMx_abs="58.862909" NOx_abs="1465.421507" fuel_abs="1598.249228" electricity_abs="0"/>
+        <taxi customers="2" occupiedDistance="9458.54" occupiedTime="837.00"/>
+    </tripinfo>
+    <tripinfo id="t8" depart="0.00" departLane="-25594_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="25355.95" waitingTime="12.00" waitingCount="4" stopTime="803.00" timeLoss="280.12" rerouteNo="5" devices="tripinfo_t8 routing_t8 emissions_t8 taxi_t8 person_t8" vType="taxi" speedFactor="0.97" vaporized="">
+        <emissions CO_abs="69183.029301" CO2_abs="5548407.760255" HC_abs="444.557061" PMx_abs="90.085338" NOx_abs="2200.772437" fuel_abs="2385.023162" electricity_abs="0"/>
+        <taxi customers="3" occupiedDistance="17530.77" occupiedTime="1532.00"/>
+    </tripinfo>
+    <tripinfo id="t9" depart="0.00" departLane="-21971_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="17805.83" waitingTime="7.00" waitingCount="3" stopTime="1402.00" timeLoss="190.91" rerouteNo="5" devices="tripinfo_t9 routing_t9 emissions_t9 taxi_t9 person_t9" vType="taxi" speedFactor="0.93" vaporized="">
+        <emissions CO_abs="47196.040815" CO2_abs="3767945.763433" HC_abs="302.566014" PMx_abs="59.270828" NOx_abs="1484.560853" fuel_abs="1619.681582" electricity_abs="0"/>
+        <taxi customers="2" occupiedDistance="9968.75" occupiedTime="912.00"/>
+    </tripinfo>
+    <tripinfo id="t10" depart="0.00" departLane="10811_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="25953.67" waitingTime="5.00" waitingCount="2" stopTime="915.00" timeLoss="267.31" rerouteNo="7" devices="tripinfo_t10 routing_t10 emissions_t10 taxi_t10 person_t10" vType="taxi" speedFactor="1.05" vaporized="">
+        <emissions CO_abs="66415.866620" CO2_abs="5578077.516151" HC_abs="432.329269" PMx_abs="93.030125" NOx_abs="2217.606403" fuel_abs="2397.771404" electricity_abs="0"/>
+        <taxi customers="3" occupiedDistance="14782.36" occupiedTime="1201.00"/>
+    </tripinfo>
+    <tripinfo id="t11" depart="1.00" departLane="-29575_0" departPos="5.10" departSpeed="0.00" departDelay="1.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="2999.00" routeLength="27830.55" waitingTime="8.00" waitingCount="3" stopTime="676.00" timeLoss="307.05" rerouteNo="7" devices="tripinfo_t11 routing_t11 emissions_t11 taxi_t11 person_t11" vType="taxi" speedFactor="1.01" vaporized="">
+        <emissions CO_abs="76011.817584" CO2_abs="6121581.714761" HC_abs="489.149303" PMx_abs="102.306678" NOx_abs="2442.951801" fuel_abs="2631.401721" electricity_abs="0"/>
+        <taxi customers="3" occupiedDistance="18123.47" occupiedTime="1518.00"/>
+    </tripinfo>
+    <tripinfo id="t12" depart="0.00" departLane="25184_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="21939.65" waitingTime="12.00" waitingCount="4" stopTime="1156.00" timeLoss="265.57" rerouteNo="7" devices="tripinfo_t12 routing_t12 emissions_t12 taxi_t12 person_t12" vType="taxi" speedFactor="1.02" vaporized="">
+        <emissions CO_abs="61961.955140" CO2_abs="4940326.553655" HC_abs="397.742539" PMx_abs="83.353555" NOx_abs="1976.524814" fuel_abs="2123.630848" electricity_abs="0"/>
+        <taxi customers="3" occupiedDistance="13998.06" occupiedTime="1170.00"/>
+    </tripinfo>
+    <tripinfo id="t13" depart="0.00" departLane="15729_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="25213.72" waitingTime="11.00" waitingCount="3" stopTime="982.00" timeLoss="282.73" rerouteNo="9" devices="tripinfo_t13 routing_t13 emissions_t13 taxi_t13 person_t13" vType="taxi" speedFactor="1.06" vaporized="">
+        <emissions CO_abs="69039.913515" CO2_abs="5636724.353499" HC_abs="445.934415" PMx_abs="96.000361" NOx_abs="2254.662388" fuel_abs="2422.979623" electricity_abs="0"/>
+        <taxi customers="4" occupiedDistance="18937.38" occupiedTime="1526.00"/>
+    </tripinfo>
+    <tripinfo id="t14" depart="0.00" departLane="-13225_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="3000.00" routeLength="25722.64" waitingTime="8.00" waitingCount="3" stopTime="851.00" timeLoss="255.72" rerouteNo="7" devices="tripinfo_t14 routing_t14 emissions_t14 taxi_t14 person_t14" vType="taxi" speedFactor="1.00" vaporized="">
+        <emissions CO_abs="63772.208021" CO2_abs="5366366.874554" HC_abs="415.524131" PMx_abs="86.771504" NOx_abs="2119.933429" fuel_abs="2306.770040" electricity_abs="0"/>
+        <taxi customers="3" occupiedDistance="15783.84" occupiedTime="1314.00"/>
+    </tripinfo>
+</tripinfos>
