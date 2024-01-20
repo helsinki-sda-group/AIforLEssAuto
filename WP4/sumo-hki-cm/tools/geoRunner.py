@@ -16,9 +16,9 @@ import numpy as np
 import xml.etree.ElementTree as ET
 import traci
 
-CONFIG_FILE = 'sumo_files/reduced_area_geo_runner.sumocfg'
+CONFIG_FILE = 'sumo_files/output/simulation/geo_runner/final.sumocfg.xml'
 
-ADD_FILE = 'sumo_files/data/reduced_cut.add.xml'
+ADD_FILE = 'sumo_files/data/reduced_cut_modif_2.add.xml'
 
 OUTPUT_DETECTORS_VISITING_VEHICLES_FILE = 'sumo_files/output/simulation/geo_runner/detector_vehicles.xml'
 

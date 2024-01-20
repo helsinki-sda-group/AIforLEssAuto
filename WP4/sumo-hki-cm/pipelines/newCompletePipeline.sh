@@ -45,9 +45,9 @@ echo -e "\nIterative routesampler..."
 python3 tools/iterativeRoutesampler.py
 
 # SUMO
-echo -e "\nRunning geoRunner (SUMO simulation)..."
-python3 tools/geoRunner.py
+echo -e "\nRunning SUMO simulation..."
+sumo -c sumo_files/output/tools/reduced_area_routesampler_iterative/final/final.sumocfg.xml
 
 # statistics
 echo -e "\nCollecting statistics..."
-python3 calibration/tools/statistics.py 1 sumo_files/simulation_output/reduced_detector_outputs
+python3 calibration/tools/statistics.py

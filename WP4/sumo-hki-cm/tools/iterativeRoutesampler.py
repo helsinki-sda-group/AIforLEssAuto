@@ -14,11 +14,11 @@ else:
 import sumolib
 
 # main script parameters
-CYCLES = 1  # set to -1, if you want the script to run indefinitely (you will stop it when it converges well enough for you. NOTE: it won't create a final SUMO config automatically for you if you set it to -1)
-RS_ITERATIONS = 1  # how many times to sample routes using routesampler. If RUN_KEEP_FAST_ON_RS is set to False, 1 routesampler iteration is enough
-DUA_STEPS = 0  # if 0, doesn't run duaiterate. if steps are less than 2, will not work because the route files won't appear in the 000 folder (because we skip the first routing)
+CYCLES = 5 # 5 cycles is mostly enough to converge. set to -1, if you want the script to run indefinitely (you will stop it when it converges well enough for you. NOTE: it won't create a final SUMO config automatically for you if you set it to -1)
+RS_ITERATIONS = 3  # how many times to sample routes using routesampler. If RUN_KEEP_FAST_ON_RS is set to False, 1 routesampler iteration is enough
+DUA_STEPS = 50  # if 0, doesn't run duaiterate. if steps are less than 2, will not work because the route files won't appear in the 000 folder (because we skip the first routing)
 SUMO_ITERATIONS = 2  # how many times to run sumo iterations to remove slow routes
-RUN_KEEP_FAST_ON_RS = False  # if set to True, from each iteration of routesampler removes route that are too slow based on the provided network edges lengths and maximum speed
+RUN_KEEP_FAST_ON_RS = True  # if set to True, from each iteration of routesampler removes route that are too slow based on the provided network edges lengths and maximum speed
 
 
 # functions that take a config file path as a parameter and return a command (MODIFY THIS IF YOU'RE ON WINDOWS)
@@ -239,6 +239,7 @@ def main():
         stats_output_filename = 'stats.xml',
         errors_log_filename = 'stderr.log',
         add_files = [WORK_DIR + local_add_filename],
+        add_files_dir_name = 'reduced_detector_outputs',  # has to match the directories inside the 'file' properties of the add file you're copying
         begin=0,
         end=3600
     )
@@ -320,13 +321,25 @@ def run_duaiterate(cycle, route_files:list[str], steps):
 
 
 def create_sumo_dir(dir_path, net_file, route_files:list[str], output_config_filename, vehroute_output_filename, stats_output_filename, errors_log_filename, 
-                    add_files:list[str]=None, begin:float=None, end:float=None):
+                    add_files:list[str]=None, add_files_dir_name=None, begin:float=None, end:float=None):
     # create dir for this iteration
     create_dir_safe(dir_path)
     # copy input files because same as duarouter, sumo uses path to files in its config relative to where the config is located
     # copy net
     local_net_file = dir_path + SUMO_NET_DEF_FILENAME
     copy_file_safe(net_file, local_net_file)
+
+    # copy add files (if any)
+    local_add_filenames = []
+    if add_files != None:
+        for add_file in add_files:
+            local_add_filename = os.path.basename(add_file)
+            local_add_file = dir_path + local_add_filename
+            copy_file_safe(add_file, local_add_file)
+            local_add_filenames.append(local_add_filename)
+
+        # create a folder for the detector outputs
+        create_dir_safe(dir_path + add_files_dir_name)
 
     # copy routes
     local_route_filenames = []  # a list of filenames will be used in sumo.sumocfg.xml since dua will read files relative to its current folder
@@ -344,7 +357,7 @@ def create_sumo_dir(dir_path, net_file, route_files:list[str], output_config_fil
         vehroute_output_file = vehroute_output_filename, 
         stats_output_file = stats_output_filename, 
         errors_log_file = errors_log_filename, 
-        add_files = add_files,
+        add_files = local_add_filenames,
         begin_f = begin, 
         end_f = end)
     config_path = dir_path + output_config_filename
@@ -628,7 +641,7 @@ def get_sumo_dir(cycle):
 
 
 def get_final_sumo_dir():
-    return f'{WORK_DIR}/{FINAL_SUMO_DIR_NAME}/'
+    return BASE_DIR + 'sumo_files/output/simulation/geo_runner/'
 
 
 def get_rs_iter_dir(cycle, iter_number):

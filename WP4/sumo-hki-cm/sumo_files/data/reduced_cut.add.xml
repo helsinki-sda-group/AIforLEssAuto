@@ -1,254 +1,254 @@
 <additional>
     <!-- Digitraffic -->
-    <inductionLoop id="kt45_Helsinki_Tuomarinkartano_1_0" lane="201115549_0" pos="50" file="../output/simulation/reduced_detector_outputs/kt45_Helsinki_Tuomarinkartano_1_output.xml" period="3600"/>
-    <inductionLoop id="kt45_Helsinki_Tuomarinkartano_1_1" lane="201115549_1" pos="50" file="../output/simulation/reduced_detector_outputs/kt45_Helsinki_Tuomarinkartano_1_output.xml" period="3600"/>
-    <inductionLoop id="kt45_Helsinki_Tuomarinkartano_2_0" lane="571601808_0" pos="50" file="../output/simulation/reduced_detector_outputs/kt45_Helsinki_Tuomarinkartano_2_output.xml" period="3600"/>
-    <inductionLoop id="kt45_Helsinki_Tuomarinkartano_2_1" lane="571601808_1" pos="50" file="../output/simulation/reduced_detector_outputs/kt45_Helsinki_Tuomarinkartano_2_output.xml" period="3600"/>
-    <inductionLoop id="kt45_Helsinki_Tuomarinkartano_2_2" lane="571601808_2" pos="50" file="../output/simulation/reduced_detector_outputs/kt45_Helsinki_Tuomarinkartano_2_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Helsinki_Tuomarinkartano_1_0" lane="201115549_0" pos="50" file="reduced_detector_outputs/kt45_Helsinki_Tuomarinkartano_1_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Helsinki_Tuomarinkartano_1_1" lane="201115549_1" pos="50" file="reduced_detector_outputs/kt45_Helsinki_Tuomarinkartano_1_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Helsinki_Tuomarinkartano_2_0" lane="571601808_0" pos="50" file="reduced_detector_outputs/kt45_Helsinki_Tuomarinkartano_2_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Helsinki_Tuomarinkartano_2_1" lane="571601808_1" pos="50" file="reduced_detector_outputs/kt45_Helsinki_Tuomarinkartano_2_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Helsinki_Tuomarinkartano_2_2" lane="571601808_2" pos="50" file="reduced_detector_outputs/kt45_Helsinki_Tuomarinkartano_2_output.xml" period="3600"/>
     
-    <inductionLoop id="kt45_Oulunkyla_1_0" lane="131271487_0" pos="20" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_1_output.xml" period="3600"/>
-    <inductionLoop id="kt45_Oulunkyla_1_1" lane="131271487_1" pos="20" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_1_output.xml" period="3600"/>
-    <inductionLoop id="kt45_Oulunkyla_1_2" lane="131271487_2" pos="20" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_1_output.xml" period="3600"/>
-    <inductionLoop id="kt45_Oulunkyla_2_0" lane="117654832#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_2_output.xml" period="3600"/>
-    <inductionLoop id="kt45_Oulunkyla_2_1" lane="117654832#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_2_output.xml" period="3600"/>
-    <inductionLoop id="kt45_Oulunkyla_2_2" lane="117654832#0_2" pos="20" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_2_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Oulunkyla_1_0" lane="131271487_0" pos="20" file="reduced_detector_outputs/kt45_Oulunkyla_1_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Oulunkyla_1_1" lane="131271487_1" pos="20" file="reduced_detector_outputs/kt45_Oulunkyla_1_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Oulunkyla_1_2" lane="131271487_2" pos="20" file="reduced_detector_outputs/kt45_Oulunkyla_1_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Oulunkyla_2_0" lane="117654832#0_0" pos="20" file="reduced_detector_outputs/kt45_Oulunkyla_2_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Oulunkyla_2_1" lane="117654832#0_1" pos="20" file="reduced_detector_outputs/kt45_Oulunkyla_2_output.xml" period="3600"/>
+    <inductionLoop id="kt45_Oulunkyla_2_2" lane="117654832#0_2" pos="20" file="reduced_detector_outputs/kt45_Oulunkyla_2_output.xml" period="3600"/>
 
-    <inductionLoop id="kt51_Hanasaari_1_0" lane="98102535_0" pos="50" file="../output/simulation/reduced_detector_outputs/kt51_Hanasaari_1_output.xml" period="3600"/>
-    <inductionLoop id="kt51_Hanasaari_1_1" lane="98102535_1" pos="50" file="../output/simulation/reduced_detector_outputs/kt51_Hanasaari_1_output.xml" period="3600"/>
-    <inductionLoop id="kt51_Hanasaari_1_2" lane="98102535_2" pos="50" file="../output/simulation/reduced_detector_outputs/kt51_Hanasaari_1_output.xml" period="3600"/>
-    <inductionLoop id="kt51_Hanasaari_2_0" lane="29753283_0" pos="20" file="../output/simulation/reduced_detector_outputs/kt51_Hanasaari_2_output.xml" period="3600"/>
-    <inductionLoop id="kt51_Hanasaari_2_1" lane="29753283_1" pos="20" file="../output/simulation/reduced_detector_outputs/kt51_Hanasaari_2_output.xml" period="3600"/>
-    <inductionLoop id="kt51_Hanasaari_2_2" lane="29753283_2" pos="20" file="../output/simulation/reduced_detector_outputs/kt51_Hanasaari_2_output.xml" period="3600"/>
+    <inductionLoop id="kt51_Hanasaari_1_0" lane="98102535_0" pos="50" file="reduced_detector_outputs/kt51_Hanasaari_1_output.xml" period="3600"/>
+    <inductionLoop id="kt51_Hanasaari_1_1" lane="98102535_1" pos="50" file="reduced_detector_outputs/kt51_Hanasaari_1_output.xml" period="3600"/>
+    <inductionLoop id="kt51_Hanasaari_1_2" lane="98102535_2" pos="50" file="reduced_detector_outputs/kt51_Hanasaari_1_output.xml" period="3600"/>
+    <inductionLoop id="kt51_Hanasaari_2_0" lane="29753283_0" pos="20" file="reduced_detector_outputs/kt51_Hanasaari_2_output.xml" period="3600"/>
+    <inductionLoop id="kt51_Hanasaari_2_1" lane="29753283_1" pos="20" file="reduced_detector_outputs/kt51_Hanasaari_2_output.xml" period="3600"/>
+    <inductionLoop id="kt51_Hanasaari_2_2" lane="29753283_2" pos="20" file="reduced_detector_outputs/kt51_Hanasaari_2_output.xml" period="3600"/>
     
-    <inductionLoop id="Niinisaarentie_1_0" lane="284131378_0" pos="20" file="../output/simulation/reduced_detector_outputs/Niinisaarentie_1_output.xml" period="3600"/>
-    <inductionLoop id="Niinisaarentie_2_0" lane="-284131378_0" pos="20" file="../output/simulation/reduced_detector_outputs/Niinisaarentie_2_output.xml" period="3600"/>
+    <inductionLoop id="Niinisaarentie_1_0" lane="284131378_0" pos="20" file="reduced_detector_outputs/Niinisaarentie_1_output.xml" period="3600"/>
+    <inductionLoop id="Niinisaarentie_2_0" lane="-284131378_0" pos="20" file="reduced_detector_outputs/Niinisaarentie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st100_Kivihaan_tunneli_1_0" lane="25153048_0" pos="400" file="../output/simulation/reduced_detector_outputs/st100_Kivihaan_tunneli_1_output.xml" period="3600"/>
-    <inductionLoop id="st100_Kivihaan_tunneli_1_1" lane="25153048_1" pos="400" file="../output/simulation/reduced_detector_outputs/st100_Kivihaan_tunneli_1_output.xml" period="3600"/>
-    <inductionLoop id="st100_Kivihaan_tunneli_2_0" lane="25153039#0_0" pos="50" file="../output/simulation/reduced_detector_outputs/st100_Kivihaan_tunneli_2_output.xml" period="3600"/>
-    <inductionLoop id="st100_Kivihaan_tunneli_2_1" lane="25153039#0_1" pos="50" file="../output/simulation/reduced_detector_outputs/st100_Kivihaan_tunneli_2_output.xml" period="3600"/>
+    <inductionLoop id="st100_Kivihaan_tunneli_1_0" lane="25153048_0" pos="400" file="reduced_detector_outputs/st100_Kivihaan_tunneli_1_output.xml" period="3600"/>
+    <inductionLoop id="st100_Kivihaan_tunneli_1_1" lane="25153048_1" pos="400" file="reduced_detector_outputs/st100_Kivihaan_tunneli_1_output.xml" period="3600"/>
+    <inductionLoop id="st100_Kivihaan_tunneli_2_0" lane="25153039#0_0" pos="50" file="reduced_detector_outputs/st100_Kivihaan_tunneli_2_output.xml" period="3600"/>
+    <inductionLoop id="st100_Kivihaan_tunneli_2_1" lane="25153039#0_1" pos="50" file="reduced_detector_outputs/st100_Kivihaan_tunneli_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st101_Helsinki_Vartiokyla_1_0" lane="43547485_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Helsinki_Vartiokyla_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Helsinki_Vartiokyla_1_1" lane="43547485_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Helsinki_Vartiokyla_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Helsinki_Vartiokyla_2_0" lane="26344393_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Helsinki_Vartiokyla_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Helsinki_Vartiokyla_2_1" lane="26344393_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Helsinki_Vartiokyla_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Helsinki_Vartiokyla_1_0" lane="43547485_0" pos="20" file="reduced_detector_outputs/st101_Helsinki_Vartiokyla_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Helsinki_Vartiokyla_1_1" lane="43547485_1" pos="20" file="reduced_detector_outputs/st101_Helsinki_Vartiokyla_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Helsinki_Vartiokyla_2_0" lane="26344393_0" pos="20" file="reduced_detector_outputs/st101_Helsinki_Vartiokyla_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Helsinki_Vartiokyla_2_1" lane="26344393_1" pos="20" file="reduced_detector_outputs/st101_Helsinki_Vartiokyla_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st101_Kannelmaki_1_0" lane="78714806_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Kannelmaki_1_1" lane="78714806_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Kannelmaki_1_2" lane="78714806_2" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Kannelmaki_2_0" lane="301710114_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Kannelmaki_2_1" lane="301710114_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Kannelmaki_2_2" lane="301710114_2" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Kannelmaki_1_0" lane="78714806_0" pos="20" file="reduced_detector_outputs/st101_Kannelmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Kannelmaki_1_1" lane="78714806_1" pos="20" file="reduced_detector_outputs/st101_Kannelmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Kannelmaki_1_2" lane="78714806_2" pos="20" file="reduced_detector_outputs/st101_Kannelmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Kannelmaki_2_0" lane="301710114_0" pos="20" file="reduced_detector_outputs/st101_Kannelmaki_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Kannelmaki_2_1" lane="301710114_1" pos="20" file="reduced_detector_outputs/st101_Kannelmaki_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Kannelmaki_2_2" lane="301710114_2" pos="20" file="reduced_detector_outputs/st101_Kannelmaki_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st101_Konala_1_0" lane="330016493_0" pos="500" file="../output/simulation/reduced_detector_outputs/st101_Konala_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Konala_1_1" lane="330016493_1" pos="500" file="../output/simulation/reduced_detector_outputs/st101_Konala_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Konala_1_2" lane="330016493_2" pos="500" file="../output/simulation/reduced_detector_outputs/st101_Konala_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Konala_2_0" lane="330026282_0" pos="0" file="../output/simulation/reduced_detector_outputs/st101_Konala_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Konala_2_1" lane="330026282_1" pos="0" file="../output/simulation/reduced_detector_outputs/st101_Konala_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Konala_2_2" lane="330026282_2" pos="0" file="../output/simulation/reduced_detector_outputs/st101_Konala_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Konala_1_0" lane="330016493_0" pos="500" file="reduced_detector_outputs/st101_Konala_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Konala_1_1" lane="330016493_1" pos="500" file="reduced_detector_outputs/st101_Konala_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Konala_1_2" lane="330016493_2" pos="500" file="reduced_detector_outputs/st101_Konala_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Konala_2_0" lane="330026282_0" pos="0" file="reduced_detector_outputs/st101_Konala_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Konala_2_1" lane="330026282_1" pos="0" file="reduced_detector_outputs/st101_Konala_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Konala_2_2" lane="330026282_2" pos="0" file="reduced_detector_outputs/st101_Konala_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st101_Lansi-Pakila_1_0" lane="132816269_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Lansi-Pakila_1_1" lane="132816269_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Lansi-Pakila_1_2" lane="132816269_2" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Lansi-Pakila_2_0" lane="4952731_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Lansi-Pakila_2_1" lane="4952731_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Lansi-Pakila_2_2" lane="4952731_2" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Lansi-Pakila_2_3" lane="4952731_3" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Lansi-Pakila_1_0" lane="132816269_0" pos="20" file="reduced_detector_outputs/st101_Lansi-Pakila_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Lansi-Pakila_1_1" lane="132816269_1" pos="20" file="reduced_detector_outputs/st101_Lansi-Pakila_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Lansi-Pakila_1_2" lane="132816269_2" pos="20" file="reduced_detector_outputs/st101_Lansi-Pakila_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Lansi-Pakila_2_0" lane="4952731_0" pos="20" file="reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Lansi-Pakila_2_1" lane="4952731_1" pos="20" file="reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Lansi-Pakila_2_2" lane="4952731_2" pos="20" file="reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Lansi-Pakila_2_3" lane="4952731_3" pos="20" file="reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st101_Malmi_1_0" lane="354079392_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Malmi_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Malmi_1_1" lane="354079392_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Malmi_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Malmi_2_0" lane="132933319_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Malmi_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Malmi_2_1" lane="132933319_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Malmi_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Malmi_1_0" lane="354079392_0" pos="20" file="reduced_detector_outputs/st101_Malmi_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Malmi_1_1" lane="354079392_1" pos="20" file="reduced_detector_outputs/st101_Malmi_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Malmi_2_0" lane="132933319_0" pos="20" file="reduced_detector_outputs/st101_Malmi_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Malmi_2_1" lane="132933319_1" pos="20" file="reduced_detector_outputs/st101_Malmi_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st101_Pakila_1_0" lane="26185622_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pakila_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Pakila_1_1" lane="26185622_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pakila_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Pakila_1_2" lane="26185622_2" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pakila_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Pakila_1_3" lane="26185622_3" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pakila_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Pakila_2_0" lane="24404873_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pakila_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Pakila_2_1" lane="24404873_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pakila_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Pakila_2_2" lane="24404873_2" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pakila_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Pakila_2_3" lane="24404873_3" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pakila_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pakila_1_0" lane="26185622_0" pos="20" file="reduced_detector_outputs/st101_Pakila_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pakila_1_1" lane="26185622_1" pos="20" file="reduced_detector_outputs/st101_Pakila_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pakila_1_2" lane="26185622_2" pos="20" file="reduced_detector_outputs/st101_Pakila_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pakila_1_3" lane="26185622_3" pos="20" file="reduced_detector_outputs/st101_Pakila_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pakila_2_0" lane="24404873_0" pos="20" file="reduced_detector_outputs/st101_Pakila_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pakila_2_1" lane="24404873_1" pos="20" file="reduced_detector_outputs/st101_Pakila_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pakila_2_2" lane="24404873_2" pos="20" file="reduced_detector_outputs/st101_Pakila_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pakila_2_3" lane="24404873_3" pos="20" file="reduced_detector_outputs/st101_Pakila_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st101_Pukinmaki_1_0" lane="25561690_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pukinmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Pukinmaki_1_1" lane="25561690_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pukinmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="st101_Pukinmaki_2_0" lane="25561761_0" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pukinmaki_2_output.xml" period="3600"/>
-    <inductionLoop id="st101_Pukinmaki_2_1" lane="25561761_1" pos="20" file="../output/simulation/reduced_detector_outputs/st101_Pukinmaki_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pukinmaki_1_0" lane="25561690_0" pos="20" file="reduced_detector_outputs/st101_Pukinmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pukinmaki_1_1" lane="25561690_1" pos="20" file="reduced_detector_outputs/st101_Pukinmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pukinmaki_2_0" lane="25561761_0" pos="20" file="reduced_detector_outputs/st101_Pukinmaki_2_output.xml" period="3600"/>
+    <inductionLoop id="st101_Pukinmaki_2_1" lane="25561761_1" pos="20" file="reduced_detector_outputs/st101_Pukinmaki_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st103_Satamatie_1_0" lane="121494987_0" pos="20" file="../output/simulation/reduced_detector_outputs/st103_Satamatie_1_output.xml" period="3600"/>
-    <inductionLoop id="st103_Satamatie_1_1" lane="121494987_1" pos="20" file="../output/simulation/reduced_detector_outputs/st103_Satamatie_1_output.xml" period="3600"/>
-    <inductionLoop id="st103_Satamatie_2_0" lane="231936745_0" pos="0" file="../output/simulation/reduced_detector_outputs/st103_Satamatie_2_output.xml" period="3600"/>
-    <inductionLoop id="st103_Satamatie_2_1" lane="231936745_1" pos="0" file="../output/simulation/reduced_detector_outputs/st103_Satamatie_2_output.xml" period="3600"/>
+    <inductionLoop id="st103_Satamatie_1_0" lane="121494987_0" pos="20" file="reduced_detector_outputs/st103_Satamatie_1_output.xml" period="3600"/>
+    <inductionLoop id="st103_Satamatie_1_1" lane="121494987_1" pos="20" file="reduced_detector_outputs/st103_Satamatie_1_output.xml" period="3600"/>
+    <inductionLoop id="st103_Satamatie_2_0" lane="231936745_0" pos="0" file="reduced_detector_outputs/st103_Satamatie_2_output.xml" period="3600"/>
+    <inductionLoop id="st103_Satamatie_2_1" lane="231936745_1" pos="0" file="reduced_detector_outputs/st103_Satamatie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st120_Pitajanmaki_1_0" lane="443551693_0" pos="20" file="../output/simulation/reduced_detector_outputs/st120_Pitajanmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="st120_Pitajanmaki_1_1" lane="443551693_1" pos="20" file="../output/simulation/reduced_detector_outputs/st120_Pitajanmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="st120_Pitajanmaki_1_2" lane="443551693_2" pos="20" file="../output/simulation/reduced_detector_outputs/st120_Pitajanmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="st120_Pitajanmaki_2_0" lane="243759680_0" pos="20" file="../output/simulation/reduced_detector_outputs/st120_Pitajanmaki_2_output.xml" period="3600"/>
-    <inductionLoop id="st120_Pitajanmaki_2_1" lane="243759680_1" pos="20" file="../output/simulation/reduced_detector_outputs/st120_Pitajanmaki_2_output.xml" period="3600"/>
+    <inductionLoop id="st120_Pitajanmaki_1_0" lane="443551693_0" pos="20" file="reduced_detector_outputs/st120_Pitajanmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="st120_Pitajanmaki_1_1" lane="443551693_1" pos="20" file="reduced_detector_outputs/st120_Pitajanmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="st120_Pitajanmaki_1_2" lane="443551693_2" pos="20" file="reduced_detector_outputs/st120_Pitajanmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="st120_Pitajanmaki_2_0" lane="243759680_0" pos="20" file="reduced_detector_outputs/st120_Pitajanmaki_2_output.xml" period="3600"/>
+    <inductionLoop id="st120_Pitajanmaki_2_1" lane="243759680_1" pos="20" file="reduced_detector_outputs/st120_Pitajanmaki_2_output.xml" period="3600"/>
 
-    <inductionLoop id="st170_Kulosaari_1_0" lane="23228988_0" pos="60.00" file="../output/simulation/reduced_detector_outputs/st170_Kulosaari_1_output.xml" period="3600"/>
-    <inductionLoop id="st170_Kulosaari_1_1" lane="23228988_1" pos="60.00" file="../output/simulation/reduced_detector_outputs/st170_Kulosaari_1_output.xml" period="3600"/>
-    <inductionLoop id="st170_Kulosaari_1_2" lane="23228988_2" pos="60.00" file="../output/simulation/reduced_detector_outputs/st170_Kulosaari_1_output.xml" period="3600"/>
-    <inductionLoop id="st170_Kulosaari_2_0" lane="351247164_0" pos="0.00" file="../output/simulation/reduced_detector_outputs/st170_Kulosaari_2_output.xml" period="3600"/>
-    <inductionLoop id="st170_Kulosaari_2_1" lane="351247164_1" pos="0.00" file="../output/simulation/reduced_detector_outputs/st170_Kulosaari_2_output.xml" period="3600"/>
-    <inductionLoop id="st170_Kulosaari_2_2" lane="351247164_2" pos="0.00" file="../output/simulation/reduced_detector_outputs/st170_Kulosaari_2_output.xml" period="3600"/>
+    <inductionLoop id="st170_Kulosaari_1_0" lane="23228988_0" pos="60.00" file="reduced_detector_outputs/st170_Kulosaari_1_output.xml" period="3600"/>
+    <inductionLoop id="st170_Kulosaari_1_1" lane="23228988_1" pos="60.00" file="reduced_detector_outputs/st170_Kulosaari_1_output.xml" period="3600"/>
+    <inductionLoop id="st170_Kulosaari_1_2" lane="23228988_2" pos="60.00" file="reduced_detector_outputs/st170_Kulosaari_1_output.xml" period="3600"/>
+    <inductionLoop id="st170_Kulosaari_2_0" lane="351247164_0" pos="0.00" file="reduced_detector_outputs/st170_Kulosaari_2_output.xml" period="3600"/>
+    <inductionLoop id="st170_Kulosaari_2_1" lane="351247164_1" pos="0.00" file="reduced_detector_outputs/st170_Kulosaari_2_output.xml" period="3600"/>
+    <inductionLoop id="st170_Kulosaari_2_2" lane="351247164_2" pos="0.00" file="reduced_detector_outputs/st170_Kulosaari_2_output.xml" period="3600"/>
 
-    <inductionLoop id="vt1_Munkkiniemi_1_0" lane="272043198_0" pos="0" file="../output/simulation/reduced_detector_outputs/vt1_Munkkiniemi_1_output.xml" period="3600"/>
-    <inductionLoop id="vt1_Munkkiniemi_1_1" lane="272043198_1" pos="0" file="../output/simulation/reduced_detector_outputs/vt1_Munkkiniemi_1_output.xml" period="3600"/>
-    <inductionLoop id="vt1_Munkkiniemi_2_0" lane="330192679_0" pos="0" file="../output/simulation/reduced_detector_outputs/vt1_Munkkiniemi_2_output.xml" period="3600"/>
-    <inductionLoop id="vt1_Munkkiniemi_2_1" lane="330192679_1" pos="0" file="../output/simulation/reduced_detector_outputs/vt1_Munkkiniemi_2_output.xml" period="3600"/>
-    <inductionLoop id="vt1_Munkkiniemi_2_2" lane="330192679_2" pos="0" file="../output/simulation/reduced_detector_outputs/vt1_Munkkiniemi_2_output.xml" period="3600"/>
+    <inductionLoop id="vt1_Munkkiniemi_1_0" lane="272043198_0" pos="0" file="reduced_detector_outputs/vt1_Munkkiniemi_1_output.xml" period="3600"/>
+    <inductionLoop id="vt1_Munkkiniemi_1_1" lane="272043198_1" pos="0" file="reduced_detector_outputs/vt1_Munkkiniemi_1_output.xml" period="3600"/>
+    <inductionLoop id="vt1_Munkkiniemi_2_0" lane="330192679_0" pos="0" file="reduced_detector_outputs/vt1_Munkkiniemi_2_output.xml" period="3600"/>
+    <inductionLoop id="vt1_Munkkiniemi_2_1" lane="330192679_1" pos="0" file="reduced_detector_outputs/vt1_Munkkiniemi_2_output.xml" period="3600"/>
+    <inductionLoop id="vt1_Munkkiniemi_2_2" lane="330192679_2" pos="0" file="reduced_detector_outputs/vt1_Munkkiniemi_2_output.xml" period="3600"/>
 
-    <inductionLoop id="vt3_Hakuninmaa_1_0" lane="207295788_0" pos="50" file="../output/simulation/reduced_detector_outputs/vt3_Hakuninmaa_1_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Hakuninmaa_1_1" lane="207295788_1" pos="50" file="../output/simulation/reduced_detector_outputs/vt3_Hakuninmaa_1_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Hakuninmaa_1_2" lane="207295788_2" pos="50" file="../output/simulation/reduced_detector_outputs/vt3_Hakuninmaa_1_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Hakuninmaa_2_0" lane="132855653_0" pos="50" file="../output/simulation/reduced_detector_outputs/vt3_Hakuninmaa_2_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Hakuninmaa_2_1" lane="132855653_1" pos="50" file="../output/simulation/reduced_detector_outputs/vt3_Hakuninmaa_2_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Hakuninmaa_2_2" lane="132855653_2" pos="50" file="../output/simulation/reduced_detector_outputs/vt3_Hakuninmaa_2_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Hakuninmaa_1_0" lane="207295788_0" pos="50" file="reduced_detector_outputs/vt3_Hakuninmaa_1_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Hakuninmaa_1_1" lane="207295788_1" pos="50" file="reduced_detector_outputs/vt3_Hakuninmaa_1_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Hakuninmaa_1_2" lane="207295788_2" pos="50" file="reduced_detector_outputs/vt3_Hakuninmaa_1_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Hakuninmaa_2_0" lane="132855653_0" pos="50" file="reduced_detector_outputs/vt3_Hakuninmaa_2_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Hakuninmaa_2_1" lane="132855653_1" pos="50" file="reduced_detector_outputs/vt3_Hakuninmaa_2_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Hakuninmaa_2_2" lane="132855653_2" pos="50" file="reduced_detector_outputs/vt3_Hakuninmaa_2_output.xml" period="3600"/>
 
-    <inductionLoop id="vt3_Kivihaka_1_0" lane="41844429_0" pos="0" file="../output/simulation/reduced_detector_outputs/vt3_Kivihaka_1_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Kivihaka_1_1" lane="41844429_1" pos="0" file="../output/simulation/reduced_detector_outputs/vt3_Kivihaka_1_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Kivihaka_2_0" lane="314159875_0" pos="0" file="../output/simulation/reduced_detector_outputs/vt3_Kivihaka_2_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Kivihaka_2_1" lane="314159875_1" pos="0" file="../output/simulation/reduced_detector_outputs/vt3_Kivihaka_2_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Kivihaka_2_2" lane="314159875_2" pos="0" file="../output/simulation/reduced_detector_outputs/vt3_Kivihaka_2_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Kivihaka_1_0" lane="41844429_0" pos="0" file="reduced_detector_outputs/vt3_Kivihaka_1_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Kivihaka_1_1" lane="41844429_1" pos="0" file="reduced_detector_outputs/vt3_Kivihaka_1_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Kivihaka_2_0" lane="314159875_0" pos="0" file="reduced_detector_outputs/vt3_Kivihaka_2_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Kivihaka_2_1" lane="314159875_1" pos="0" file="reduced_detector_outputs/vt3_Kivihaka_2_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Kivihaka_2_2" lane="314159875_2" pos="0" file="reduced_detector_outputs/vt3_Kivihaka_2_output.xml" period="3600"/>
 
-    <inductionLoop id="vt3_Pirkkola_1_0" lane="108954251_0" pos="20" file="../output/simulation/reduced_detector_outputs/vt3_Pirkkola_1_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Pirkkola_1_1" lane="108954251_1" pos="20" file="../output/simulation/reduced_detector_outputs/vt3_Pirkkola_1_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Pirkkola_2_0" lane="18647496_0" pos="20" file="../output/simulation/reduced_detector_outputs/vt3_Pirkkola_2_output.xml" period="3600"/>
-    <inductionLoop id="vt3_Pirkkola_2_1" lane="18647496_1" pos="20" file="../output/simulation/reduced_detector_outputs/vt3_Pirkkola_2_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Pirkkola_1_0" lane="108954251_0" pos="20" file="reduced_detector_outputs/vt3_Pirkkola_1_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Pirkkola_1_1" lane="108954251_1" pos="20" file="reduced_detector_outputs/vt3_Pirkkola_1_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Pirkkola_2_0" lane="18647496_0" pos="20" file="reduced_detector_outputs/vt3_Pirkkola_2_output.xml" period="3600"/>
+    <inductionLoop id="vt3_Pirkkola_2_1" lane="18647496_1" pos="20" file="reduced_detector_outputs/vt3_Pirkkola_2_output.xml" period="3600"/>
 
-    <inductionLoop id="vt4_Jakomaki_1_0" lane="235669581_0" pos="1500" file="../output/simulation/reduced_detector_outputs/vt4_Jakomaki_1_output.xml" period="3600"/>
-    <inductionLoop id="vt4_Jakomaki_1_1" lane="235669581_1" pos="1500" file="../output/simulation/reduced_detector_outputs/vt4_Jakomaki_1_output.xml" period="3600"/>
-    <inductionLoop id="vt4_Jakomaki_2_0" lane="132797926_0" pos="800" file="../output/simulation/reduced_detector_outputs/vt4_Jakomaki_2_output.xml" period="3600"/>
-    <inductionLoop id="vt4_Jakomaki_2_1" lane="132797926_1" pos="800" file="../output/simulation/reduced_detector_outputs/vt4_Jakomaki_2_output.xml" period="3600"/>
+    <inductionLoop id="vt4_Jakomaki_1_0" lane="235669581_0" pos="1500" file="reduced_detector_outputs/vt4_Jakomaki_1_output.xml" period="3600"/>
+    <inductionLoop id="vt4_Jakomaki_1_1" lane="235669581_1" pos="1500" file="reduced_detector_outputs/vt4_Jakomaki_1_output.xml" period="3600"/>
+    <inductionLoop id="vt4_Jakomaki_2_0" lane="132797926_0" pos="800" file="reduced_detector_outputs/vt4_Jakomaki_2_output.xml" period="3600"/>
+    <inductionLoop id="vt4_Jakomaki_2_1" lane="132797926_1" pos="800" file="reduced_detector_outputs/vt4_Jakomaki_2_output.xml" period="3600"/>
 
-    <inductionLoop id="vt4_Viikinmaki_1_0" lane="172879174_0" pos="0" file="../output/simulation/reduced_detector_outputs/vt4_Viikinmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="vt4_Viikinmaki_1_1" lane="172879174_1" pos="0" file="../output/simulation/reduced_detector_outputs/vt4_Viikinmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="vt4_Viikinmaki_1_2" lane="172879174_2" pos="0" file="../output/simulation/reduced_detector_outputs/vt4_Viikinmaki_1_output.xml" period="3600"/>
-    <inductionLoop id="vt4_Viikinmaki_2_0" lane="206112920_0" pos="1000" file="../output/simulation/reduced_detector_outputs/vt4_Viikinmaki_2_output.xml" period="3600"/>
-    <inductionLoop id="vt4_Viikinmaki_2_1" lane="206112920_1" pos="1000" file="../output/simulation/reduced_detector_outputs/vt4_Viikinmaki_2_output.xml" period="3600"/>
-    <inductionLoop id="vt4_Viikinmaki_2_2" lane="206112920_2" pos="1000" file="../output/simulation/reduced_detector_outputs/vt4_Viikinmaki_2_output.xml" period="3600"/>
+    <inductionLoop id="vt4_Viikinmaki_1_0" lane="172879174_0" pos="0" file="reduced_detector_outputs/vt4_Viikinmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="vt4_Viikinmaki_1_1" lane="172879174_1" pos="0" file="reduced_detector_outputs/vt4_Viikinmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="vt4_Viikinmaki_1_2" lane="172879174_2" pos="0" file="reduced_detector_outputs/vt4_Viikinmaki_1_output.xml" period="3600"/>
+    <inductionLoop id="vt4_Viikinmaki_2_0" lane="206112920_0" pos="1000" file="reduced_detector_outputs/vt4_Viikinmaki_2_output.xml" period="3600"/>
+    <inductionLoop id="vt4_Viikinmaki_2_1" lane="206112920_1" pos="1000" file="reduced_detector_outputs/vt4_Viikinmaki_2_output.xml" period="3600"/>
+    <inductionLoop id="vt4_Viikinmaki_2_2" lane="206112920_2" pos="1000" file="reduced_detector_outputs/vt4_Viikinmaki_2_output.xml" period="3600"/>
 
-    <inductionLoop id="vt7_Helsinki_Backnas_1_0" lane="125604928_0" pos="1500" file="../output/simulation/reduced_detector_outputs/vt7_Helsinki_Backnas_1_output.xml" period="3600"/>
-    <inductionLoop id="vt7_Helsinki_Backnas_1_1" lane="125604928_1" pos="1500" file="../output/simulation/reduced_detector_outputs/vt7_Helsinki_Backnas_1_output.xml" period="3600"/>
-    <inductionLoop id="vt7_Helsinki_Backnas_2_0" lane="156341823_0" pos="2000" file="../output/simulation/reduced_detector_outputs/vt7_Helsinki_Backnas_2_output.xml" period="3600"/>
-    <inductionLoop id="vt7_Helsinki_Backnas_2_1" lane="156341823_1" pos="2000" file="../output/simulation/reduced_detector_outputs/vt7_Helsinki_Backnas_2_output.xml" period="3600"/>
+    <inductionLoop id="vt7_Helsinki_Backnas_1_0" lane="125604928_0" pos="1500" file="reduced_detector_outputs/vt7_Helsinki_Backnas_1_output.xml" period="3600"/>
+    <inductionLoop id="vt7_Helsinki_Backnas_1_1" lane="125604928_1" pos="1500" file="reduced_detector_outputs/vt7_Helsinki_Backnas_1_output.xml" period="3600"/>
+    <inductionLoop id="vt7_Helsinki_Backnas_2_0" lane="156341823_0" pos="2000" file="reduced_detector_outputs/vt7_Helsinki_Backnas_2_output.xml" period="3600"/>
+    <inductionLoop id="vt7_Helsinki_Backnas_2_1" lane="156341823_1" pos="2000" file="reduced_detector_outputs/vt7_Helsinki_Backnas_2_output.xml" period="3600"/>
     
-    <inductionLoop id="vt7_Helsinki_Itasalmi_1_0" lane="125604917_0" pos="20" file="../output/simulation/reduced_detector_outputs/vt7_Helsinki_Itasalmi_1_output.xml" period="3600"/>
-    <inductionLoop id="vt7_Helsinki_Itasalmi_1_1" lane="125604917_1" pos="20" file="../output/simulation/reduced_detector_outputs/vt7_Helsinki_Itasalmi_1_output.xml" period="3600"/>
-    <inductionLoop id="vt7_Helsinki_Itasalmi_2_0" lane="125604922_0" pos="20" file="../output/simulation/reduced_detector_outputs/vt7_Helsinki_Itasalmi_2_output.xml" period="3600"/>
-    <inductionLoop id="vt7_Helsinki_Itasalmi_2_1" lane="125604922_1" pos="20" file="../output/simulation/reduced_detector_outputs/vt7_Helsinki_Itasalmi_2_output.xml" period="3600"/>
+    <inductionLoop id="vt7_Helsinki_Itasalmi_1_0" lane="125604917_0" pos="20" file="reduced_detector_outputs/vt7_Helsinki_Itasalmi_1_output.xml" period="3600"/>
+    <inductionLoop id="vt7_Helsinki_Itasalmi_1_1" lane="125604917_1" pos="20" file="reduced_detector_outputs/vt7_Helsinki_Itasalmi_1_output.xml" period="3600"/>
+    <inductionLoop id="vt7_Helsinki_Itasalmi_2_0" lane="125604922_0" pos="20" file="reduced_detector_outputs/vt7_Helsinki_Itasalmi_2_output.xml" period="3600"/>
+    <inductionLoop id="vt7_Helsinki_Itasalmi_2_1" lane="125604922_1" pos="20" file="reduced_detector_outputs/vt7_Helsinki_Itasalmi_2_output.xml" period="3600"/>
 
     <!-- HKI -->
-    <inductionLoop id="HEL409_Hameentien silta_1_0" lane="17101265_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL409_Hameentien silta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL409_Hameentien silta_1_1" lane="17101265_1" pos="0" file="../output/simulation/reduced_detector_outputs/HEL409_Hameentien silta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL409_Hameentien silta_2_0" lane="78663382_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL409_Hameentien silta_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL409_Hameentien silta_2_1" lane="78663382_1" pos="0" file="../output/simulation/reduced_detector_outputs/HEL409_Hameentien silta_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL409_Hameentien silta_1_0" lane="17101265_0" pos="0" file="reduced_detector_outputs/HEL409_Hameentien silta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL409_Hameentien silta_1_1" lane="17101265_1" pos="0" file="reduced_detector_outputs/HEL409_Hameentien silta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL409_Hameentien silta_2_0" lane="78663382_0" pos="0" file="reduced_detector_outputs/HEL409_Hameentien silta_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL409_Hameentien silta_2_1" lane="78663382_1" pos="0" file="reduced_detector_outputs/HEL409_Hameentien silta_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL411_Kaivokatu_1_0" lane="29690379#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL411_Kaivokatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL411_Kaivokatu_1_1" lane="29690379#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL411_Kaivokatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL411_Kaivokatu_1_0" lane="29690379#0_0" pos="20" file="reduced_detector_outputs/HEL411_Kaivokatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL411_Kaivokatu_1_1" lane="29690379#0_1" pos="20" file="reduced_detector_outputs/HEL411_Kaivokatu_1_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL412_Paciuksenkatu_1_0" lane="4227182#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL412_Paciuksenkatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL412_Paciuksenkatu_1_1" lane="4227182#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL412_Paciuksenkatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL412_Paciuksenkatu_1_2" lane="4227182#0_2" pos="20" file="../output/simulation/reduced_detector_outputs/HEL412_Paciuksenkatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL412_Paciuksenkatu_2_0" lane="73204591#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL412_Paciuksenkatu_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL412_Paciuksenkatu_2_1" lane="73204591#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL412_Paciuksenkatu_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL412_Paciuksenkatu_2_2" lane="73204591#0_2" pos="20" file="../output/simulation/reduced_detector_outputs/HEL412_Paciuksenkatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL412_Paciuksenkatu_1_0" lane="4227182#0_0" pos="20" file="reduced_detector_outputs/HEL412_Paciuksenkatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL412_Paciuksenkatu_1_1" lane="4227182#0_1" pos="20" file="reduced_detector_outputs/HEL412_Paciuksenkatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL412_Paciuksenkatu_1_2" lane="4227182#0_2" pos="20" file="reduced_detector_outputs/HEL412_Paciuksenkatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL412_Paciuksenkatu_2_0" lane="73204591#0_0" pos="20" file="reduced_detector_outputs/HEL412_Paciuksenkatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL412_Paciuksenkatu_2_1" lane="73204591#0_1" pos="20" file="reduced_detector_outputs/HEL412_Paciuksenkatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL412_Paciuksenkatu_2_2" lane="73204591#0_2" pos="20" file="reduced_detector_outputs/HEL412_Paciuksenkatu_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL501_Ruskeasuo_1_0" lane="29712378#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL501_Ruskeasuo_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL501_Ruskeasuo_1_1" lane="29712378#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL501_Ruskeasuo_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL501_Ruskeasuo_2_0" lane="362987788_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL501_Ruskeasuo_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL501_Ruskeasuo_2_1" lane="362987788_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL501_Ruskeasuo_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL501_Ruskeasuo_2_2" lane="362987788_2" pos="20" file="../output/simulation/reduced_detector_outputs/HEL501_Ruskeasuo_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL501_Ruskeasuo_1_0" lane="29712378#0_0" pos="20" file="reduced_detector_outputs/HEL501_Ruskeasuo_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL501_Ruskeasuo_1_1" lane="29712378#0_1" pos="20" file="reduced_detector_outputs/HEL501_Ruskeasuo_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL501_Ruskeasuo_2_0" lane="362987788_0" pos="20" file="reduced_detector_outputs/HEL501_Ruskeasuo_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL501_Ruskeasuo_2_1" lane="362987788_1" pos="20" file="reduced_detector_outputs/HEL501_Ruskeasuo_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL501_Ruskeasuo_2_2" lane="362987788_2" pos="20" file="reduced_detector_outputs/HEL501_Ruskeasuo_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL504_Hameenlinnanvayla_1_0" lane="207297484_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL504_Hameenlinnanvayla_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL504_Hameenlinnanvayla_1_1" lane="207297484_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL504_Hameenlinnanvayla_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL504_Hameenlinnanvayla_2_0" lane="132814897_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL504_Hameenlinnanvayla_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL504_Hameenlinnanvayla_2_1" lane="132814897_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL504_Hameenlinnanvayla_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL504_Hameenlinnanvayla_1_0" lane="207297484_0" pos="20" file="reduced_detector_outputs/HEL504_Hameenlinnanvayla_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL504_Hameenlinnanvayla_1_1" lane="207297484_1" pos="20" file="reduced_detector_outputs/HEL504_Hameenlinnanvayla_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL504_Hameenlinnanvayla_2_0" lane="132814897_0" pos="20" file="reduced_detector_outputs/HEL504_Hameenlinnanvayla_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL504_Hameenlinnanvayla_2_1" lane="132814897_1" pos="20" file="reduced_detector_outputs/HEL504_Hameenlinnanvayla_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL507_Helsinginkatu_1_0" lane="30284759#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL507_Helsinginkatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL507_Helsinginkatu_1_1" lane="30284759#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL507_Helsinginkatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL507_Helsinginkatu_2_0" lane="15242735_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL507_Helsinginkatu_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL507_Helsinginkatu_2_1" lane="15242735_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL507_Helsinginkatu_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL507_Helsinginkatu_2_2" lane="15242735_2" pos="20" file="../output/simulation/reduced_detector_outputs/HEL507_Helsinginkatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL507_Helsinginkatu_1_0" lane="30284759#0_0" pos="20" file="reduced_detector_outputs/HEL507_Helsinginkatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL507_Helsinginkatu_1_1" lane="30284759#0_1" pos="20" file="reduced_detector_outputs/HEL507_Helsinginkatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL507_Helsinginkatu_2_0" lane="15242735_0" pos="20" file="reduced_detector_outputs/HEL507_Helsinginkatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL507_Helsinginkatu_2_1" lane="15242735_1" pos="20" file="reduced_detector_outputs/HEL507_Helsinginkatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL507_Helsinginkatu_2_2" lane="15242735_2" pos="20" file="reduced_detector_outputs/HEL507_Helsinginkatu_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL508_Hakaniemen silta_1_0" lane="28638258_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL508_Hakaniemen silta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL508_Hakaniemen silta_1_1" lane="28638258_1" pos="0" file="../output/simulation/reduced_detector_outputs/HEL508_Hakaniemen silta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL508_Hakaniemen silta_2_0" lane="181031633_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL508_Hakaniemen silta_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL508_Hakaniemen silta_2_1" lane="181031633_1" pos="0" file="../output/simulation/reduced_detector_outputs/HEL508_Hakaniemen silta_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL508_Hakaniemen silta_1_0" lane="28638258_0" pos="0" file="reduced_detector_outputs/HEL508_Hakaniemen silta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL508_Hakaniemen silta_1_1" lane="28638258_1" pos="0" file="reduced_detector_outputs/HEL508_Hakaniemen silta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL508_Hakaniemen silta_2_0" lane="181031633_0" pos="0" file="reduced_detector_outputs/HEL508_Hakaniemen silta_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL508_Hakaniemen silta_2_1" lane="181031633_1" pos="0" file="reduced_detector_outputs/HEL508_Hakaniemen silta_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL509_Lauttasaarensilta_1_0" lane="78491113#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL509_Lauttasaarensilta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL509_Lauttasaarensilta_1_1" lane="78491113#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL509_Lauttasaarensilta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL509_Lauttasaarensilta_1_2" lane="78491113#0_2" pos="20" file="../output/simulation/reduced_detector_outputs/HEL509_Lauttasaarensilta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL509_Lauttasaarensilta_2_0" lane="98101777#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL509_Lauttasaarensilta_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL509_Lauttasaarensilta_2_1" lane="98101777#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL509_Lauttasaarensilta_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL509_Lauttasaarensilta_2_2" lane="98101777#0_2" pos="20" file="../output/simulation/reduced_detector_outputs/HEL509_Lauttasaarensilta_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL509_Lauttasaarensilta_1_0" lane="78491113#0_0" pos="20" file="reduced_detector_outputs/HEL509_Lauttasaarensilta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL509_Lauttasaarensilta_1_1" lane="78491113#0_1" pos="20" file="reduced_detector_outputs/HEL509_Lauttasaarensilta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL509_Lauttasaarensilta_1_2" lane="78491113#0_2" pos="20" file="reduced_detector_outputs/HEL509_Lauttasaarensilta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL509_Lauttasaarensilta_2_0" lane="98101777#0_0" pos="20" file="reduced_detector_outputs/HEL509_Lauttasaarensilta_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL509_Lauttasaarensilta_2_1" lane="98101777#0_1" pos="20" file="reduced_detector_outputs/HEL509_Lauttasaarensilta_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL509_Lauttasaarensilta_2_2" lane="98101777#0_2" pos="20" file="reduced_detector_outputs/HEL509_Lauttasaarensilta_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL510_Makelankatu_1_0" lane="24445013_0" pos="500" file="../output/simulation/reduced_detector_outputs/HEL510_Makelankatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL510_Makelankatu_1_1" lane="24445013_1" pos="500" file="../output/simulation/reduced_detector_outputs/HEL510_Makelankatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL510_Makelankatu_1_2" lane="24445013_2" pos="500" file="../output/simulation/reduced_detector_outputs/HEL510_Makelankatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL510_Makelankatu_2_0" lane="37286066_0" pos="100" file="../output/simulation/reduced_detector_outputs/HEL510_Makelankatu_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL510_Makelankatu_2_1" lane="37286066_1" pos="100" file="../output/simulation/reduced_detector_outputs/HEL510_Makelankatu_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL510_Makelankatu_2_2" lane="37286066_2" pos="100" file="../output/simulation/reduced_detector_outputs/HEL510_Makelankatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL510_Makelankatu_1_0" lane="24445013_0" pos="500" file="reduced_detector_outputs/HEL510_Makelankatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL510_Makelankatu_1_1" lane="24445013_1" pos="500" file="reduced_detector_outputs/HEL510_Makelankatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL510_Makelankatu_1_2" lane="24445013_2" pos="500" file="reduced_detector_outputs/HEL510_Makelankatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL510_Makelankatu_2_0" lane="37286066_0" pos="100" file="reduced_detector_outputs/HEL510_Makelankatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL510_Makelankatu_2_1" lane="37286066_1" pos="100" file="reduced_detector_outputs/HEL510_Makelankatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL510_Makelankatu_2_2" lane="37286066_2" pos="100" file="reduced_detector_outputs/HEL510_Makelankatu_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL513_Koskelantie_1_0" lane="78655540_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL513_Koskelantie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL513_Koskelantie_1_1" lane="78655540_1" pos="0" file="../output/simulation/reduced_detector_outputs/HEL513_Koskelantie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL513_Koskelantie_2_0" lane="746491549_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL513_Koskelantie_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL513_Koskelantie_2_1" lane="746491549_1" pos="0" file="../output/simulation/reduced_detector_outputs/HEL513_Koskelantie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL513_Koskelantie_1_0" lane="78655540_0" pos="0" file="reduced_detector_outputs/HEL513_Koskelantie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL513_Koskelantie_1_1" lane="78655540_1" pos="0" file="reduced_detector_outputs/HEL513_Koskelantie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL513_Koskelantie_2_0" lane="746491549_0" pos="0" file="reduced_detector_outputs/HEL513_Koskelantie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL513_Koskelantie_2_1" lane="746491549_1" pos="0" file="reduced_detector_outputs/HEL513_Koskelantie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL516_Metsalantie_1_0" lane="-97855055_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL516_Metsalantie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL516_Metsalantie_2_0" lane="28912318_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL516_Metsalantie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL516_Metsalantie_1_0" lane="-97855055_0" pos="20" file="reduced_detector_outputs/HEL516_Metsalantie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL516_Metsalantie_2_0" lane="28912318_0" pos="20" file="reduced_detector_outputs/HEL516_Metsalantie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL528_Kallvikintie_1_0" lane="48835358_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL528_Kallvikintie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL528_Kallvikintie_2_0" lane="48835132_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL528_Kallvikintie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL528_Kallvikintie_1_0" lane="48835358_0" pos="20" file="reduced_detector_outputs/HEL528_Kallvikintie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL528_Kallvikintie_2_0" lane="48835132_0" pos="20" file="reduced_detector_outputs/HEL528_Kallvikintie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL529_Ratapihantie_1_0" lane="87235562_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL529_Ratapihantie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL529_Ratapihantie_1_1" lane="87235562_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL529_Ratapihantie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL529_Ratapihantie_2_0" lane="73177826#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL529_Ratapihantie_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL529_Ratapihantie_2_1" lane="73177826#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL529_Ratapihantie_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL529_Ratapihantie_2_2" lane="73177826#0_2" pos="20" file="../output/simulation/reduced_detector_outputs/HEL529_Ratapihantie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL529_Ratapihantie_1_0" lane="87235562_0" pos="20" file="reduced_detector_outputs/HEL529_Ratapihantie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL529_Ratapihantie_1_1" lane="87235562_1" pos="20" file="reduced_detector_outputs/HEL529_Ratapihantie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL529_Ratapihantie_2_0" lane="73177826#0_0" pos="20" file="reduced_detector_outputs/HEL529_Ratapihantie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL529_Ratapihantie_2_1" lane="73177826#0_1" pos="20" file="reduced_detector_outputs/HEL529_Ratapihantie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL529_Ratapihantie_2_2" lane="73177826#0_2" pos="20" file="reduced_detector_outputs/HEL529_Ratapihantie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL533_Siltasaarenkatu_1_0" lane="30148322#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL533_Siltasaarenkatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL533_Siltasaarenkatu_1_1" lane="30148322#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL533_Siltasaarenkatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL533_Siltasaarenkatu_2_0" lane="74308977_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL533_Siltasaarenkatu_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL533_Siltasaarenkatu_2_1" lane="74308977_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL533_Siltasaarenkatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL533_Siltasaarenkatu_1_0" lane="30148322#0_0" pos="20" file="reduced_detector_outputs/HEL533_Siltasaarenkatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL533_Siltasaarenkatu_1_1" lane="30148322#0_1" pos="20" file="reduced_detector_outputs/HEL533_Siltasaarenkatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL533_Siltasaarenkatu_2_0" lane="74308977_0" pos="20" file="reduced_detector_outputs/HEL533_Siltasaarenkatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL533_Siltasaarenkatu_2_1" lane="74308977_1" pos="20" file="reduced_detector_outputs/HEL533_Siltasaarenkatu_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL537_Runeberginkatu_1_0" lane="202637399#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL537_Runeberginkatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL537_Runeberginkatu_1_1" lane="202637399#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL537_Runeberginkatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL537_Runeberginkatu_2_0" lane="57046509#4_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL537_Runeberginkatu_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL537_Runeberginkatu_2_1" lane="57046509#4_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL537_Runeberginkatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL537_Runeberginkatu_1_0" lane="202637399#0_0" pos="20" file="reduced_detector_outputs/HEL537_Runeberginkatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL537_Runeberginkatu_1_1" lane="202637399#0_1" pos="20" file="reduced_detector_outputs/HEL537_Runeberginkatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL537_Runeberginkatu_2_0" lane="57046509#4_0" pos="20" file="reduced_detector_outputs/HEL537_Runeberginkatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL537_Runeberginkatu_2_1" lane="57046509#4_1" pos="20" file="reduced_detector_outputs/HEL537_Runeberginkatu_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL539_Ilmalankatu_1_0" lane="-32732359_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL539_Ilmalankatu_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL539_Ilmalankatu_2_0" lane="301503276_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL539_Ilmalankatu_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL539_Ilmalankatu_1_0" lane="-32732359_0" pos="0" file="reduced_detector_outputs/HEL539_Ilmalankatu_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL539_Ilmalankatu_2_0" lane="301503276_0" pos="0" file="reduced_detector_outputs/HEL539_Ilmalankatu_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL542_Meilahdentie_1_0" lane="-4554311_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL542_Meilahdentie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL542_Meilahdentie_2_0" lane="865028100_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL542_Meilahdentie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL542_Meilahdentie_1_0" lane="-4554311_0" pos="0" file="reduced_detector_outputs/HEL542_Meilahdentie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL542_Meilahdentie_2_0" lane="865028100_0" pos="0" file="reduced_detector_outputs/HEL542_Meilahdentie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL543_Vanha Suutarilantie_1_0" lane="158762132#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL543_Vanha Suutarilantie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL543_Vanha Suutarilantie_1_1" lane="158762132#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL543_Vanha Suutarilantie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL543_Vanha Suutarilantie_2_0" lane="158762138#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL543_Vanha Suutarilantie_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL543_Vanha Suutarilantie_2_1" lane="158762138#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL543_Vanha Suutarilantie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL543_Vanha Suutarilantie_1_0" lane="158762132#0_0" pos="20" file="reduced_detector_outputs/HEL543_Vanha Suutarilantie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL543_Vanha Suutarilantie_1_1" lane="158762132#0_1" pos="20" file="reduced_detector_outputs/HEL543_Vanha Suutarilantie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL543_Vanha Suutarilantie_2_0" lane="158762138#0_0" pos="20" file="reduced_detector_outputs/HEL543_Vanha Suutarilantie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL543_Vanha Suutarilantie_2_1" lane="158762138#0_1" pos="20" file="reduced_detector_outputs/HEL543_Vanha Suutarilantie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL545_Veturitie_1_0" lane="574637022_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL545_Veturitie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL545_Veturitie_2_0" lane="980528922_0" pos="0" file="../output/simulation/reduced_detector_outputs/HEL545_Veturitie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL545_Veturitie_1_0" lane="574637022_0" pos="0" file="reduced_detector_outputs/HEL545_Veturitie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL545_Veturitie_2_0" lane="980528922_0" pos="0" file="reduced_detector_outputs/HEL545_Veturitie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL608_Vanha Turuntie_1_0" lane="-224035477_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL608_Vanha Turuntie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL608_Vanha Turuntie_2_0" lane="24820643#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL608_Vanha Turuntie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL608_Vanha Turuntie_1_0" lane="-224035477_0" pos="20" file="reduced_detector_outputs/HEL608_Vanha Turuntie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL608_Vanha Turuntie_2_0" lane="24820643#0_0" pos="20" file="reduced_detector_outputs/HEL608_Vanha Turuntie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL601_Itavayla_1_0" lane="48835134_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL601_Itavayla_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL601_Itavayla_2_0" lane="48835360_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL601_Itavayla_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL601_Itavayla_1_0" lane="48835134_0" pos="20" file="reduced_detector_outputs/HEL601_Itavayla_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL601_Itavayla_2_0" lane="48835360_0" pos="20" file="reduced_detector_outputs/HEL601_Itavayla_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL609_Lapinlahdensilta_1_0" lane="138570807_0" pos="10" file="../output/simulation/reduced_detector_outputs/HEL609_Lapinlahdensilta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL609_Lapinlahdensilta_1_1" lane="138570807_1" pos="10" file="../output/simulation/reduced_detector_outputs/HEL609_Lapinlahdensilta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL609_Lapinlahdensilta_1_2" lane="138570807_2" pos="10" file="../output/simulation/reduced_detector_outputs/HEL609_Lapinlahdensilta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL609_Lapinlahdensilta_1_3" lane="138570807_3" pos="10" file="../output/simulation/reduced_detector_outputs/HEL609_Lapinlahdensilta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL609_Lapinlahdensilta_2_0" lane="138570799_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL609_Lapinlahdensilta_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL609_Lapinlahdensilta_2_1" lane="138570799_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL609_Lapinlahdensilta_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL609_Lapinlahdensilta_1_0" lane="138570807_0" pos="10" file="reduced_detector_outputs/HEL609_Lapinlahdensilta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL609_Lapinlahdensilta_1_1" lane="138570807_1" pos="10" file="reduced_detector_outputs/HEL609_Lapinlahdensilta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL609_Lapinlahdensilta_1_2" lane="138570807_2" pos="10" file="reduced_detector_outputs/HEL609_Lapinlahdensilta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL609_Lapinlahdensilta_1_3" lane="138570807_3" pos="10" file="reduced_detector_outputs/HEL609_Lapinlahdensilta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL609_Lapinlahdensilta_2_0" lane="138570799_0" pos="20" file="reduced_detector_outputs/HEL609_Lapinlahdensilta_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL609_Lapinlahdensilta_2_1" lane="138570799_1" pos="20" file="reduced_detector_outputs/HEL609_Lapinlahdensilta_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL612_Vanha Porvoontie_1_0" lane="94541974#1_0" pos="30" file="../output/simulation/reduced_detector_outputs/HEL612_Vanha Porvoontie_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL612_Vanha Porvoontie_2_0" lane="1015224130#0_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL612_Vanha Porvoontie_2_output.xml" period="3600"/>
-    <inductionLoop id="HEL612_Vanha Porvoontie_2_1" lane="1015224130#0_1" pos="20" file="../output/simulation/reduced_detector_outputs/HEL612_Vanha Porvoontie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL612_Vanha Porvoontie_1_0" lane="94541974#1_0" pos="30" file="reduced_detector_outputs/HEL612_Vanha Porvoontie_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL612_Vanha Porvoontie_2_0" lane="1015224130#0_0" pos="20" file="reduced_detector_outputs/HEL612_Vanha Porvoontie_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL612_Vanha Porvoontie_2_1" lane="1015224130#0_1" pos="20" file="reduced_detector_outputs/HEL612_Vanha Porvoontie_2_output.xml" period="3600"/>
 
-    <inductionLoop id="HEL614_Otaniemensilta_1_0" lane="4298740_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL614_Otaniemensilta_1_output.xml" period="3600"/>
-    <inductionLoop id="HEL614_Otaniemensilta_2_0" lane="-81178546_0" pos="20" file="../output/simulation/reduced_detector_outputs/HEL614_Otaniemensilta_2_output.xml" period="3600"/>
+    <inductionLoop id="HEL614_Otaniemensilta_1_0" lane="4298740_0" pos="20" file="reduced_detector_outputs/HEL614_Otaniemensilta_1_output.xml" period="3600"/>
+    <inductionLoop id="HEL614_Otaniemensilta_2_0" lane="-81178546_0" pos="20" file="reduced_detector_outputs/HEL614_Otaniemensilta_2_output.xml" period="3600"/>
 
 </additional>

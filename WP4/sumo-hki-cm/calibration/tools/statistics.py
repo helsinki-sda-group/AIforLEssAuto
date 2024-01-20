@@ -31,7 +31,7 @@ try:
     SUMO_DETECTOR_OUTPUT_DIR = sys.argv[2]
     print("SUMO detector count directory set to {}.".format(SUMO_DETECTOR_OUTPUT_DIR))
 except:
-    SUMO_DETECTOR_OUTPUT_DIR = "sumo_files/output/simulation/reduced_detector_outputs"
+    SUMO_DETECTOR_OUTPUT_DIR = "sumo_files/output/simulation/geo_runner/reduced_detector_outputs"
     print("SUMO detector output directory defaulted to {}.".format(SUMO_DETECTOR_OUTPUT_DIR))
 detectionData = getRealRoadStationData()
 DETECTORS_STATS_COLUMNS = ["real", "SUMO", "MAPE", "GEH"]
@@ -55,11 +55,11 @@ def main():
     df["RMSE"] = np.append(np.array(calculateRMSE(df)), np.full((len(df["MAPE"])-1), np.nan))
     df = addSumRow(df)
 
-    OD_df = createODStats()
+    # OD_df = createODStats()
 
     with pd.ExcelWriter(OUTPUT_FILE) as writer:
         df.to_excel(writer, sheet_name="Detectors")
-        OD_df.to_excel(writer, sheet_name="OD") 
+        #OD_df.to_excel(writer, sheet_name="OD") 
 
 
 def calculateGEH(m, c):
@@ -136,70 +136,70 @@ def shouldBeCounted(interval: ET.Element):
     return begin >= BEGIN_SUMO_COUNT_TIME and end <= END_SUMO_COUNT_TIME
 
     
-def createODStats():
-    # Parse the XML data
-    realCounts = getODCounts(REAL_TAZRELATIONS_FILE)
-    sumoCounts = getODCounts(SUMO_TAZRELATIONS_FILE)
+# def createODStats():
+#     # Parse the XML data
+#     realCounts = getODCounts(REAL_TAZRELATIONS_FILE)
+#     sumoCounts = getODCounts(SUMO_TAZRELATIONS_FILE)
 
-    # Create sets of OD pairs for both original and generated counts
-    realODs = set(realCounts.keys())
-    sumoODs = set(sumoCounts.keys())
+#     # Create sets of OD pairs for both original and generated counts
+#     realODs = set(realCounts.keys())
+#     sumoODs = set(sumoCounts.keys())
 
-    # Create common dictionary with all OD pairs present either in original or generated counts
-    # Format: (from, to): {'real': 321, 'sumo': 213}
-    allODCounts = dict.fromkeys(realODs.union(sumoODs))
-    for ODPair in allODCounts.keys():
-        original = 0 if ODPair not in realCounts else realCounts[ODPair]
-        generated = 0 if ODPair not in sumoCounts else sumoCounts[ODPair]
+#     # Create common dictionary with all OD pairs present either in original or generated counts
+#     # Format: (from, to): {'real': 321, 'sumo': 213}
+#     allODCounts = dict.fromkeys(realODs.union(sumoODs))
+#     for ODPair in allODCounts.keys():
+#         original = 0 if ODPair not in realCounts else realCounts[ODPair]
+#         generated = 0 if ODPair not in sumoCounts else sumoCounts[ODPair]
 
-        allODCounts[ODPair] = {'real': original, 'sumo': generated}
+#         allODCounts[ODPair] = {'real': original, 'sumo': generated}
 
-    # generate columns of the resulting dataframe
-    originsList = []
-    destinationsList = []
-    realCountsList = []
-    sumoCountsList = []
-    diffList = []
+#     # generate columns of the resulting dataframe
+#     originsList = []
+#     destinationsList = []
+#     realCountsList = []
+#     sumoCountsList = []
+#     diffList = []
 
-    for (fromTaz, toTaz), counts in allODCounts.items():
-        originsList.append(fromTaz)
-        destinationsList.append(toTaz)
-        realCountsList.append(counts['real'])
-        sumoCountsList.append(counts['sumo'])
-        diffList.append(abs(counts['real'] - counts['sumo']))
+#     for (fromTaz, toTaz), counts in allODCounts.items():
+#         originsList.append(fromTaz)
+#         destinationsList.append(toTaz)
+#         realCountsList.append(counts['real'])
+#         sumoCountsList.append(counts['sumo'])
+#         diffList.append(abs(counts['real'] - counts['sumo']))
 
-    # create and return the dataframe
-    df = pd.DataFrame({
-        OD_STATS_COLUMNS[0]: originsList,
-        OD_STATS_COLUMNS[1]: destinationsList,
-        OD_STATS_COLUMNS[2]: realCountsList,
-        OD_STATS_COLUMNS[3]: sumoCountsList,
-        OD_STATS_COLUMNS[4]: diffList
-    })
+#     # create and return the dataframe
+#     df = pd.DataFrame({
+#         OD_STATS_COLUMNS[0]: originsList,
+#         OD_STATS_COLUMNS[1]: destinationsList,
+#         OD_STATS_COLUMNS[2]: realCountsList,
+#         OD_STATS_COLUMNS[3]: sumoCountsList,
+#         OD_STATS_COLUMNS[4]: diffList
+#     })
 
-    # add sum row to the bottom
-    df.loc[len(df.index)] = ['sum', None, np.sum(df[OD_STATS_COLUMNS[2]]), np.sum(df[OD_STATS_COLUMNS[3]]), np.sum(df[OD_STATS_COLUMNS[4]])] 
-    return df
+#     # add sum row to the bottom
+#     df.loc[len(df.index)] = ['sum', None, np.sum(df[OD_STATS_COLUMNS[2]]), np.sum(df[OD_STATS_COLUMNS[3]]), np.sum(df[OD_STATS_COLUMNS[4]])] 
+#     return df
 
 
-def getODCounts(tazRelationsFile: str):
-    root = ET.parse(tazRelationsFile).getroot()
+# def getODCounts(tazRelationsFile: str):
+#     root = ET.parse(tazRelationsFile).getroot()
 
-    uniquePairs = {}
+#     uniquePairs = {}
 
-    for interval in root.iter("interval"):
-        for tazRelation in interval.iter("tazRelation"):
+#     for interval in root.iter("interval"):
+#         for tazRelation in interval.iter("tazRelation"):
             
-            fromTaz = tazRelation.get("from")
-            toTaz = tazRelation.get("to")
-            count = int(tazRelation.get("count"))
+#             fromTaz = tazRelation.get("from")
+#             toTaz = tazRelation.get("to")
+#             count = int(tazRelation.get("count"))
 
-            if (fromTaz, toTaz) in uniquePairs.keys():  # one interval contains duplicate od pairs (should not happen)
-                uniquePairs[((fromTaz, toTaz))] += count
-            else:
-                uniquePairs[(fromTaz, toTaz)] = count
+#             if (fromTaz, toTaz) in uniquePairs.keys():  # one interval contains duplicate od pairs (should not happen)
+#                 uniquePairs[((fromTaz, toTaz))] += count
+#             else:
+#                 uniquePairs[(fromTaz, toTaz)] = count
 
-    return uniquePairs
+#     return uniquePairs
 
 
 if __name__ == '__main__':
