@@ -1,0 +1,44 @@
+python3 $SUMO_HOME/tools/route/cutRoutes.py sumo_files/data/reduced_cut_area_2.net.xml sumo_files/output/tools/whole_area_duarouter/verified_trips.rou.xml --verbose --routes-output sumo_files/output/tools/reduction_cutRoutes/verified_cut_trips.rou.xml --orig-net sumo_files/data/whole_area.net.xml --default.departLane="best" --default.departSpeed="max"
+
+python3 $SUMO_HOME/tools/route/route2OD.py -r sumo_files/simulation_output/whole_area_runner/cut_routes.rou.xml -a sumo_files/reduced_cut_districts_2.taz.xml --interval 3600 -o sumo_files/reduced_OD.xml
+!!!!!!AFTER THIS MODIFY REDUCED OD AND SHIFT IT BY ONE HOUR
+
+python3 $SUMO_HOME/tools/route/route2OD.py -r sumo_files/simulation_output/whole_area_runner/cut_routes.rou.xml -a sumo_files/reduced_cut_districts_2.taz.xml -o sumo_files/reduced_OD_undivided.xml
+
+python3 $SUMO_HOME/tools/edgesInDistricts.py -n sumo_files/reduced_cut_area.net.xml -t sumo_files/whole_area_zones.poly.xml -o sumo_files/reduced_cut_districts_2.taz.xml
+
+python3 $SUMO_HOME/tools/routeSampler.py -c sumo_files/reduced_area_routesampler.config.xml --attributes 'departLane="free" departSpeed="max"' -v -V 2>&1 1>sumo_files/output/tools/reduced_area_routesampler/std.log
+
+sumo -c sumo_files/reduced_area_geo_runner.sumocfg 2> sumo_files/output/simulation/geo_runner/stderr.log
+
+duarouter -c sumo_files/whole_area_trips2routes.duarcfg --routing-threads 8
+
+python3 $SUMO_HOME/tools/randomTrips.py \
+-c sumo_files/reduced_area_random_trips.config.xml \
+--duarouter-routing-threads 8 \
+--duarouter-weights.priority-factor 20 \
+2>&1 1>sumo_files/output/tools/reduced_area_random_trips/std.log
+
+
+python3 calibration/tools/statistics.py
+
+python3 calibration/tools/stats2Edgedata.py
+
+python3 $SUMO_HOME/tools/routeSampler.py \
+-c sumo_files/reduced_area_routesampler_iterative.config.xml \
+2>&1 1>sumo_files/output/tools/reduced_area_routesampler/routesampler_std.log
+
+python3 $SUMO_HOME/tools/routeSampler.py -c sumo_files/reduced_area_routesampler_iterative.config.xml
+
+!!!!!!!RUN THIS INSIDE REDUCED_AREA_DUAITERATE OUTPUT FOLDER ALONG WITH THE CONFIG FILE
+python3 $SUMO_HOME/tools/assign/duaIterate.py \
+-c reduced_area_duaIterate.config.xml \
+--skip-first-routing \
+sumo--time-to-teleport.highways.min-speed 0 \
+sumo--ignore-junction-blocker 1 \
+duarouter--routing-threads 8
+
+
+python3 $SUMO_HOME/tools/routeSampler.py \
+-c sumo_files/reduced_area_routesampler_pruning.config.xml \
+2>&1 1>sumo_files/output/tools/reduced_area_routesampler_pruning/routesampler_std.log

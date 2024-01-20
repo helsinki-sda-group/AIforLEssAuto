@@ -1,0 +1,15 @@
+<configuration>
+    <input>
+        <net-file value="reduced_cut_area.net.xml"/>
+        <route-files value="reduced_geo_trips_V2.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="verified_reduced_geo_trips_V2.rou.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+</configuration>

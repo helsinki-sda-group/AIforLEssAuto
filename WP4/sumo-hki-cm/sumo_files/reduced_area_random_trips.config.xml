@@ -1,0 +1,15 @@
+<configuration>
+    <net-file value="sumo_files/data/reduced_cut_area_2.net.xml"/>
+    <period value="0.006872721"/>
+    <speed-exponent value="3.0"/>
+    <max-distance value="5000.0"/>
+    <allow-fringe value="True"/>
+    <random-departpos value="True"/>
+    <random-arrivalpos value="True"/>
+    <lanes value="True"/>
+    <random value="True"/>
+    <output-trip-file value="sumo_files/output/tools/reduced_area_random_trips/random_trips.rou.xml"/>
+    <route-file value="sumo_files/output/tools/reduced_area_random_trips/random_routes.rou.xml"/>
+    <verbose value="True"/>
+</configuration>
+

@@ -1,0 +1,6 @@
+<configuration>
+    <route-file value="sumo_files/output/tools/reduction_cutRoutes/verified_cut_trips_taz_removed.rou.xml"/>
+    <taz-files value="sumo_files/data/reduced_cut_districts_removed_duplicates.taz.xml"/>
+    <output-file value="sumo_files/output/tools/reduction_route2OD/reduced_OD.xml"/>
+    <interval value="3600"/>
+</configuration>

@@ -1,9 +1,3 @@
-mkdir calibration/data/randomness
-mkdir data
-mkdir data/fcd_analysis
-mkdir data/od_matrix_reduction
-mkdir sumo_files/simulation_output
-mkdir sumo_files/simulation_output/detector_outputs
-mkdir sumo_files/simulation_output/reduced_detector_outputs
-mkdir sumo_files/simulation_output/geo_runner
-mkdir sumo_files/simulation_output/geo_router_runner
+mkdir sumo_files/output
+mkdir sumo_files/output/simulation
+mkdir sumo_files/output/tools
