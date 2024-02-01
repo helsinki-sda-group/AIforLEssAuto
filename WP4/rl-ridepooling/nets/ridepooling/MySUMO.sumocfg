@@ -1,6 +1,6 @@
 <configuration>
     <input>
-        <net-file value="MYSUMOfile.net.xml"/>
+        <net-file value="MySUMOFile.net.xml"/>
         <route-files value="randgridmixed.rou.xml"/>
 		<additional-files value="MySUMOparkingareas.add.xml"/>
     </input>

@@ -4,10 +4,11 @@ from gymnasium.utils.env_checker import check_env
 import sys
 
 # sys.path.append("C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\sumo-rl-main")
-sys.path.append("C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\\sumo-rl-main-paper\\sumo-rl-main")
-sys.path.append("C:\\Program Files (x86)\\Eclipse\\Sumo\\tools\\libsumo")
-sys.path.append("C:\\users\\bochenin\\anaconda3\\lib\\site-packages\\libsumo")
+#sys.path.append("C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\\sumo-rl-main-paper\\sumo-rl-main")
+#sys.path.append("C:\\Program Files (x86)\\Eclipse\\Sumo\\tools\\libsumo")
+#sys.path.append("C:\\users\\bochenin\\anaconda3\\lib\\site-packages\\libsumo")
 
+sys.path.append('.')
 #print(sys.path)
 
 import os
@@ -22,8 +23,8 @@ import random
 from stable_baselines3.common.monitor import Monitor
 
 
-if "SUMO_HOME" in os.environ:
-    os.add_dll_directory("C:\\users\\bochenin\\anaconda3\\lib\\site-packages\\libsumo")
+#if "SUMO_HOME" in os.environ:
+#    os.add_dll_directory("C:\\users\\bochenin\\anaconda3\\lib\\site-packages\\libsumo")
 
 
 
@@ -185,7 +186,8 @@ if __name__ == "__main__":
     # for test regime, we load the model from zip archive and evaluate it 
     TEST = True
 
-    log_dir = "C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\sumo-rl-main\\nets\\ridepooling\\logs"
+    #log_dir = "C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\sumo-rl-main\\nets\\ridepooling\\logs"
+    log_dir = os.path.join('nets', 'ridepooling', 'logs')
     os.makedirs(log_dir, exist_ok=True)
 
     
