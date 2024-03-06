@@ -1,0 +1,37 @@
+Using cpu device
+----------------------------------
+| rollout/            |          |
+|    ep_len_mean      | 3e+03    |
+|    ep_rew_mean      | 1.92e+04 |
+|    exploration_rate | 0.01     |
+| time/               |          |
+|    episodes         | 4        |
+|    fps              | 328      |
+|    time_elapsed     | 73       |
+|    total_timesteps  | 24000    |
+| train/              |          |
+|    learning_rate    | 0.001    |
+|    loss             | 7.76     |
+|    n_updates        | 23992    |
+----------------------------------
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 3e+03    |
+|    ep_rew_mean     | 1.92e+04 |
+| time/              |          |
+|    episodes        | 8        |
+|    fps             | 328      |
+|    time_elapsed    | 73       |
+|    total_timesteps | 24000    |
+---------------------------------
+Wrapping the env in a DummyVecEnv.
+Test  1
+Accumulated reward, DQN test  1 : 20195.77000000079
+Test  2
+Accumulated reward, DQN test  2 : 19144.42000000091
+Test  3
+Accumulated reward, DQN test  3 : 20300.910000000527
+Test  4
+Accumulated reward, DQN test  4 : 20549.0300000004
+Test  5
+Accumulated reward, DQN test  5 : 19980.719999999754
