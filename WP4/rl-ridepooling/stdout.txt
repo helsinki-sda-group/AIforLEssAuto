@@ -2,36 +2,41 @@ Using cpu device
 ----------------------------------
 | rollout/            |          |
 |    ep_len_mean      | 3e+03    |
-|    ep_rew_mean      | 1.92e+04 |
+|    ep_rew_mean      | 1.89e+04 |
 |    exploration_rate | 0.01     |
 | time/               |          |
 |    episodes         | 4        |
-|    fps              | 328      |
-|    time_elapsed     | 73       |
+|    fps              | 270      |
+|    time_elapsed     | 44       |
+|    total_timesteps  | 12000    |
+| train/              |          |
+|    learning_rate    | 0.001    |
+|    loss             | 2.38     |
+|    n_updates        | 11996    |
+----------------------------------
+----------------------------------
+| rollout/            |          |
+|    ep_len_mean      | 3e+03    |
+|    ep_rew_mean      | 1.89e+04 |
+|    exploration_rate | 0.01     |
+| time/               |          |
+|    episodes         | 8        |
+|    fps              | 279      |
+|    time_elapsed     | 85       |
 |    total_timesteps  | 24000    |
 | train/              |          |
 |    learning_rate    | 0.001    |
-|    loss             | 7.76     |
-|    n_updates        | 23992    |
+|    loss             | 3.62     |
+|    n_updates        | 23996    |
 ----------------------------------
----------------------------------
-| rollout/           |          |
-|    ep_len_mean     | 3e+03    |
-|    ep_rew_mean     | 1.92e+04 |
-| time/              |          |
-|    episodes        | 8        |
-|    fps             | 328      |
-|    time_elapsed    | 73       |
-|    total_timesteps | 24000    |
----------------------------------
 Wrapping the env in a DummyVecEnv.
 Test  1
-Accumulated reward, DQN test  1 : 20195.77000000079
+Accumulated reward, DQN test  1 : 18350.139999999963
 Test  2
-Accumulated reward, DQN test  2 : 19144.42000000091
+Accumulated reward, DQN test  2 : 18964.729999999716
 Test  3
-Accumulated reward, DQN test  3 : 20300.910000000527
+Accumulated reward, DQN test  3 : 17614.370000000094
 Test  4
-Accumulated reward, DQN test  4 : 20549.0300000004
+Accumulated reward, DQN test  4 : 18897.44000000009
 Test  5
-Accumulated reward, DQN test  5 : 19980.719999999754
+Accumulated reward, DQN test  5 : 18386.599999999922

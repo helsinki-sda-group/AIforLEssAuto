@@ -1,16 +1,11 @@
 import gymnasium as gym
 from gymnasium.utils.env_checker import check_env
+import multiprocessing as mp
 
 import sys
 import time
 
-# sys.path.append("C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\sumo-rl-main")
-#sys.path.append("C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\\sumo-rl-main-paper\\sumo-rl-main")
-#sys.path.append("C:\\Program Files (x86)\\Eclipse\\Sumo\\tools\\libsumo")
-#sys.path.append("C:\\users\\bochenin\\anaconda3\\lib\\site-packages\\libsumo")
-
 sys.path.append('.')
-#print(sys.path)
 
 import os
 
@@ -24,10 +19,6 @@ import random
 from stable_baselines3.common.monitor import Monitor
 
 
-#if "SUMO_HOME" in os.environ:
-#    os.add_dll_directory("C:\\users\\bochenin\\anaconda3\\lib\\site-packages\\libsumo")
-
-
 import sumo_rl_rs
 import sys
 import itertools
@@ -38,7 +29,7 @@ from stable_baselines3.common.callbacks import EventCallback
 
 # step of policy applying (delta=1 means one simulation iteration)
 delta = 1
-NUM_ENVS = 8
+NUM_ENVS = 4
 
 # these functions implement a number of baseline policies
 # when a fixed action is applied to predefined windows
@@ -60,30 +51,6 @@ def make_env():
         return env
     
     return _init
-
-# def test_env_fixed(timesteps, action):
-    
-#     env = gym.make(
-#         "sumo-rl-rs-v0",
-#         #num_seconds=100,
-#         use_gui=False,
-#         delta_time=delta,
-#         cfg_file="nets/ridepooling/MySUMO.sumocfg",
-#         additional_sumo_cmd="--log sumolog.txt",
-#         sumo_seed=4220,
-#         verbose=True,
-#         #route_file="nets/single-intersection/single-intersection.rou.xml",
-#     )
-
-#     env.reset()
-#     # check_env(env.unwrapped, skip_render_check=True)
-#     accumulated_reward = 0
-#     for i in range(0,int(timesteps/delta)):
-#         obs, rewards, terminated, truncated, info = env.step(action)
-#         accumulated_reward += rewards
-#     print("Accumulated reward, max_capacity = ", action, ": ", accumulated_reward)
-
-#     env.close()
 
 def generatePolicies(num_periods, max_action):
     actions = []
@@ -127,6 +94,7 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
     env.close()
 
 if __name__ == "__main__":
+    mp.set_start_method("spawn")
     sys.stdout = open('stdout.txt', 'w')
 
     # to test RL training, we do not need launch baselines so this flag is false
@@ -140,7 +108,6 @@ if __name__ == "__main__":
     # for test regime, we load the model from zip archive and evaluate it 
     TEST = True
 
-    #log_dir = "C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\sumo-rl-main\\nets\\ridepooling\\logs"
     train_log_dir = os.path.join('nets', 'ridepooling', 'logs', 'train')
     test_log_dir = os.path.join('nets', 'ridepooling', 'logs', 'test')
     os.makedirs(train_log_dir, exist_ok=True)
@@ -166,7 +133,6 @@ if __name__ == "__main__":
         start_time = time.time()
 
         vec_env = SubprocVecEnv([make_env() for i in range(NUM_ENVS)])
-
         vec_env = VecMonitor(vec_env, train_log_dir)
  
         # print("Creating model") 
