@@ -2,7 +2,7 @@
 This guide will describe all steps in the pipeline that turns an origin-destination (OD) matrix into a simulation in the traffic simulator [SUMO](https://www.eclipse.org/sumo/) (Simulation of Urban MObility) and how to reduce that simulation to a smaller area using the results from the large simulation.
 
 ## Pre-generated routes
-The pre-generated route files, evaluation results, the .sumocfg file and all the dependencies to re-produce the data is in the `/demo` directory. You can use those files without running the whole pipeline.
+The pre-generated route files, evaluation results and the .sumocfg file to launch the simulation are in the `/demo` directory. You can use those files without running the whole pipeline. If you have already installed sumo, navitate to the `/demo` directory and run `sumo-gui -c rs_iterative.sumocfg`. It should automatically launch the simulation in the GUI. If you don't have sumo installed, please refer to the official documentation on how to install it. https://www.eclipse.org/sumo/
 
 ## Pipeline usage
 > [!WARNING]  
