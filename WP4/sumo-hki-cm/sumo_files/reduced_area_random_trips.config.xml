@@ -1,20 +1,17 @@
 <configuration>
     <net-file value="sumo_files/data/reduced_cut_area_2.net.xml"/>
-    <period value="0.006872721"/>
-    <speed-exponent value="3.0"/>
+    <period value="0.006872721"/>  <!--approx 500,000 routes -->
     <max-distance value="5000.0"/>
     <allow-fringe value="True"/>
-    <random-departpos value="True"/>
-    <random-arrivalpos value="True"/>
     <lanes value="True"/>
     <random value="True"/>
     <length value="True"/>
     <validate value="True"/>
     <remove-loops value="True"/>
-    <trip-attributes value='departLane="best" departSpeed="max" departPos="random"'/>
-    <via-edge-types value="highway.motorway, highway.motorway_link, highway.primary, highway.primary_link, highway.secondary_link, highway.secondary, highway.trunk, highway.trunk_link"/>
-    <output-trip-file value="sumo_files/output/tools/reduced_area_random_trips/random_trips.rou.xml"/>
-    <route-file value="sumo_files/output/tools/reduced_area_random_trips/random_routes.rou.xml"/>
+    <trip-attributes value='departLane="best" departSpeed="max" departPos="random" arrivalPos="random"'/>
+    <via-edge-types value="highway.motorway,highway.motorway_link,highway.primary,highway.primary_link,highway.secondary_link,highway.secondary,highway.trunk,highway.trunk_link"/>
+    <output-trip-file value="sumo_files/output/tools/reduced_area_random_trips/random_trips_1mil.rou.xml"/>
+    <route-file value="sumo_files/output/tools/reduced_area_random_trips/random_routes_1mil.rou.xml"/>
     <verbose value="True"/>
 </configuration>
 
