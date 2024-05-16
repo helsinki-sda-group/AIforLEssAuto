@@ -73,6 +73,7 @@ SUMO_NET_DEF_FILENAME = 'sumo.net.xml'
 
 
 def main():
+    print(f'Using {RANDOM_ROUTES} as random routes')
     # name local input files
     local_edgedata_diff_filename = 'edgedata_real.xml'
     # local_add_file = 'detectors.add.xml'
@@ -84,7 +85,8 @@ def main():
 
     # remove output folder if it already exists
     if (os.path.isdir(WORK_DIR)):
-         shutil.rmtree(WORK_DIR)
+        print(f"Directory {WORK_DIR} already exists. Aborting")
+        return
 
     # copy input files
     create_dir_safe(WORK_DIR)

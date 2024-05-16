@@ -1,7 +1,7 @@
 <configuration>
     <net-file value="sumo_files/data/reduced_cut_area_2.net.xml"/>
-    <period value="0.006872721"/>  <!--approx 500,000 routes -->
-    <max-distance value="5000.0"/>
+    <period value="0.0034363605"/>  <!--approx 1,000,000 routes -->
+    <max-distance value="20000.0"/>
     <allow-fringe value="True"/>
     <lanes value="True"/>
     <random value="True"/>
