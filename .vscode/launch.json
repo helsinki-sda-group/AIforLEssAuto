@@ -11,7 +11,8 @@
             "program": "calibration/tools/statistics.py",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "cwd": "${workspaceFolder}/WP4/sumo-hki-cm"
+            "cwd": "${workspaceFolder}/WP4/sumo-hki-cm",
+            "args": "sumo_files/data/reduced_detector_outputs"
         },
         {
             "name": "Geo Runner",
