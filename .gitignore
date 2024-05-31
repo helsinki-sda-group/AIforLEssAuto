@@ -10,8 +10,11 @@ WP4/sumo-hki-cm/data/*
 
 # sumo_files
 WP4/sumo-hki-cm/sumo_files/data/whole_area.net.xml
+WP4/sumo-hki-cm/sumo_files/data/reduced_detector_outputs/
 output/
 
+# tools
+WP4/sumo-hki-cm/tools/test_tools/
 
 # other
 __pycache__/
