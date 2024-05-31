@@ -104,8 +104,12 @@ def get_options(args=None):
     # weights
     op.add_argument("-l", "--length", category="weights", action="store_true", default=False,
                     help="weight edge probability by length")
+    op.add_argument("-l", "--fringe-length", category="weights", action="store_true", default=False,
+                    help="weight fringe edge probability by length")
     op.add_argument("-L", "--lanes", category="weights", action="store_true", default=False,
                     help="weight edge probability by number of lanes")
+    op.add_argument("-L", "--fringe-lanes", category="weights", action="store_true", default=False,
+                    help="weight fringe edge probability by number of lanes")
     op.add_argument("--edge-param", category="weights", dest="edgeParam",
                     help="use the given edge parameter as factor for edge")
     op.add_argument("--speed-exponent", category="weights", dest="speed_exponent", metavar="FLOAT", type=float,
@@ -136,6 +140,9 @@ def get_options(args=None):
     op.add_argument("--via-edge-types", category="weights", dest="viaEdgeTypes",
                     help="Set list of edge types that cannot be used for departure or arrival " +
                     "(unless being on the fringe)")
+    op.add_argument("--fringe-via-edge-types", category="weights", dest="fringeViaEdgeTypes",
+                    help="Set list of fringe edge types that, when selected, will be treated as a non-fringe edge " +
+                    "(default: via-edge-types)")
     op.add_argument("--allow-roundabouts", category="weights", dest="allowRoundabouts", action="store_true",
                     default=False, help="Permit trips that start or end inside a roundabout")
     # processing
@@ -267,8 +274,14 @@ def get_options(args=None):
         options.edgeFromStops, options.edgeToStops = loadStops(options)
     if options.viaEdgeTypes:
         options.viaEdgeTypes = options.viaEdgeTypes.split(',')
+    if options.fringeViaEdgeTypes:
+        options.fringeViaEdgeTypes = options.fringeViaEdgeTypes.split(',')
     if options.fringe_speed_exponent is None:
         options.fringe_speed_exponent = options.speed_exponent
+    if options.fringe_length is None:
+        options.fringe_length = options.length
+    if options.fringe_lanes is None:
+        options.fringe_lanes = options.lanes
 
     if options.fringe_factor.lower() == MAXIMIZE_FACTOR:
         options.fringe_factor = MAXIMIZE_FACTOR
@@ -448,21 +461,28 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
         if stopDict:
             prob *= len(stopDict[edge.getID()])
         if options.length:
-            if (options.fringe_factor != 1.0 and fringe_bonus is not None and
-                    edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions)):
-                # short fringe edges should not suffer a penalty
-                prob *= max_length
-            else:
+            if not edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions):
+                prob *= edge.getLength()
+        if options.fringe_length:
+            if (edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions) and 
+                    edge.getType() not in options.fringeViaEdgeTypes):
                 prob *= edge.getLength()
         if options.lanes:
-            prob *= edge.getLaneNumber()
-        if edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions):
+            if not edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions):
+                prob *= edge.getLaneNumber()
+        if options.fringe_lanes:
+            if (edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions) and 
+                    edge.getType() not in options.fringeViaEdgeTypes):
+                prob *= edge.getLaneNumber()
+        if (edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions) and
+                edge.getType() not in options.fringeViaEdgeTypes):
             prob *= (edge.getSpeed() ** options.fringe_speed_exponent)
         else:
             prob *= (edge.getSpeed() ** options.speed_exponent)
         if options.fringe_factor != 1.0 and fringe_bonus is not None:
             isFringe = (edge.getSpeed() > options.fringe_threshold and
-                        edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions))
+                        edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions) and
+                        edge.getType() not in options.fringeViaEdgeTypes)
             if isFringe and options.fringe_factor != MAXIMIZE_FACTOR:
                 prob *= options.fringe_factor
             elif not isFringe and options.fringe_factor == MAXIMIZE_FACTOR:
