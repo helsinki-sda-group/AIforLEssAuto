@@ -14,9 +14,6 @@ else:
 import sumolib
 
 # main script parameters
-PRUNE_INACTIVE = True  # Inactive vehicles are those that don't visit a single detector
-PRUNE_SLOW = True  # Slow vehicles are those that don't visit all detectors they had in the their route
-
 CYCLES = -1 # 5 cycles is mostly enough to converge. set to -1, if you want the script to run indefinitely (you will stop it when it converges well enough for you. NOTE: it won't create a final SUMO config automatically for you if you set it to -1)
 RS_ITERATIONS = 3  # how many times to sample routes using routesampler. If RUN_KEEP_FAST_ON_RS is set to False, 1 routesampler iteration is enough
 DUA_STEPS = 50  # if 0, doesn't run duaiterate. if steps are less than 2, will not work because the route files won't appear in the 000 folder (because we skip the first routing)
@@ -37,7 +34,7 @@ get_sumo_launch_command = lambda config_path: f'sumo -c {config_path} 2>/dev/nul
 
 #BASE_DIR = 'sumo-hki-cm/'
 BASE_DIR = ''
-WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative/'
+WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative_no_lanes/'
 
 ROUTESAMPLER_DIR_NAME = 'routesampler'
 DUAITERATE_DIR_NAME = 'duaiterate'
@@ -50,7 +47,7 @@ REAL_WORLD_CMP_FILE = BASE_DIR + 'calibration/data/real_world_comparison.xlsx'  
 SHEET_NAME = 'Detectors'
 ADD_FILE = BASE_DIR + 'sumo_files/data/reduced_cut.add.xml'
 DUAITERATED_OD_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_duaiterate_past_iterations/reduced_area_duaiterate_again_default_cut_trips_to_create_a_better_edgedata_diff_file/047/verified_cut_trips_047.rou.xml'
-RANDOM_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_random_trips/random_routes.rou.xml'
+RANDOM_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_random_trips/routes/random_routes_no_lanes.rou.xml'
 NET_FILE = BASE_DIR + 'sumo_files/data/reduced_cut_area_2_tl_fixed.net.xml'
 
 
@@ -422,54 +419,56 @@ def keep_fast(routes_file, output_file, detector_edges, edges_info=None):
     total_vehs = len(vehs_root)
     
     fast = set()
-    total_slow_pruned_detections = 0
     total_inactive_pruned_vehicles = 0
 
     for vehicle in vehs_root:
         depart = float(vehicle.get('depart'))
         visited_detectors = 0
-        visited_detectors_in_time = 0
+        not_visited_detectors = 0
         arrival = depart
-        is_saved = True
-
         route = vehicle[0]
         edges = route.get('edges').split()
+
+        saved_edges = []
 
         if use_exit_times:
             exit_times = [float(t) for t in route.get('exitTimes').split()]
             for edge_id, exit_time in zip(edges, exit_times):
-                if edge_id in detector_edges:
-                    visited_detectors += 1
+                if exit_time >= 3600:
+                    if edge_id in detector_edges:  # save the detectors that were not visited in time
+                        not_visited_detectors += 1
+                else:  # exit_time < 3600
+                    saved_edges.append(edge_id)
+                    if edge_id in detector_edges:
+                        visited_detectors += 1
 
-                    # if at least one detector edge was not visited completely until the end of the simulation, route is slow
-                    if exit_time > 3600 and PRUNE_SLOW:
-                        is_saved = False
         else:  # extrapolate exit times (the routes come from routesampler)
             for edge in edges:
                 edge_info = edges_info[edge]
                 
                 # detector edge should be visited completely before the simulation end
                 arrival += edge_info['length'] / edge_info['speed']
+                
+                if arrival >= 3600:
+                    if edge in detector_edges:
+                        not_visited_detectors += 1
+                else:  # arrival time < 3600
+                    saved_edges.append(edge)
+                    if edge in detector_edges:
+                        visited_detectors += 1
+        
+        # keep only edges visited within one hour
+        vehicle[0].set('edges', ' '.join(saved_edges))
 
-                if edge in detector_edges:
-                    visited_detectors += 1
-                    
-                    # if at least one detector is not visited in time, slow
-                    if arrival > 3600 and PRUNE_SLOW:
-                        is_saved = False
-
-        if is_saved and visited_detectors != 0:  # if at least one detector is visited and the vehicle is saved
+        if visited_detectors != 0:  # if at least one detector is visited and the vehicle is saved
             fast.add((vehicle.get('id')))
-        elif visited_detectors == 0 and PRUNE_INACTIVE:
-            total_inactive_pruned_vehicles += 1
         else:
-            total_slow_pruned_detections += visited_detectors
+            total_inactive_pruned_vehicles += 1
             
-
     fast_elems = [veh for veh in vehs_root if veh.get('id') in fast]
     vehs_root[:] = fast_elems
     vehs_tree.write(output_file)
-    print('Pruned', total_vehs - len(fast) - total_inactive_pruned_vehicles, 'slow vehicles, which made up', total_slow_pruned_detections, 'detections. Also pruned', total_inactive_pruned_vehicles, 'inactive vehicles.')
+    print(f'Pruned {total_vehs - len(fast)} vehicles, which made up {not_visited_detectors} detections')
             
 
 def update_diff(prev_diff_file, new_saved_routes_file, output_file, allow_negative=False):

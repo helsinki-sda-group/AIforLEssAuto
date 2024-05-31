@@ -1,17 +1,24 @@
 <configuration>
     <net-file value="sumo_files/data/reduced_cut_area_2.net.xml"/>
-    <period value="0.0034363605"/>  <!--approx 1,000,000 routes -->
-    <max-distance value="20000.0"/>
+    <period value="0.1034363605"/>  <!--approx 1,000,000 routes -->
+    <!-- <max-distance value="20000.0"/> -->
     <allow-fringe value="True"/>
-    <lanes value="True"/>
+    <!-- <lanes value="True"/> -->
     <random value="True"/>
     <length value="True"/>
     <validate value="True"/>
     <remove-loops value="True"/>
+
+    <!-- <fringe-factor value="1.2"/> -->
+    <!-- <fringe-speed-exponent value="0.25"/> -->
+    <!-- <fringe-threshold value="13.0"/> -->
+
     <trip-attributes value='departLane="best" departSpeed="max" departPos="random" arrivalPos="random"'/>
     <via-edge-types value="highway.motorway,highway.motorway_link,highway.primary,highway.primary_link,highway.secondary_link,highway.secondary,highway.trunk,highway.trunk_link"/>
-    <output-trip-file value="sumo_files/output/tools/reduced_area_random_trips/random_trips_1mil.rou.xml"/>
-    <route-file value="sumo_files/output/tools/reduced_area_random_trips/random_routes_1mil.rou.xml"/>
+    <fringe-via-edge-types value="highway.living_street,highway.residential,highway.tertiary,highway.tertiary_link,highway.unclassified"/>
     <verbose value="True"/>
+    <output-trip-file value="sumo_files/output/tools/reduced_area_random_trips/trips/test_fringe-via-edge-types.rou.xml"/>
+    <route-file value="sumo_files/output/tools/reduced_area_random_trips/routes/test_fringe-via-edge-types.rou.xml"/>
+    <!-- <duarouter-routing-threads value="10"/> -->
 </configuration>
 
