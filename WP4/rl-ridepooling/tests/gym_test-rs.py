@@ -28,10 +28,12 @@ from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.callbacks import EventCallback
 import datetime
 
+from omegaconf import OmegaConf
+import argparse
+from pathlib import Path
+
 # step of policy applying (delta=1 means one simulation iteration)
 delta = 1
-NUM_ENVS = 15
-
 
 # these functions implement a number of baseline policies
 # when a fixed action is applied to predefined windows
@@ -97,36 +99,43 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
 
 if __name__ == "__main__":
     mp.set_start_method("spawn")
-
+    
+    # get current timestep
     now = datetime.datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
-    prefix = '1000x3600'
-    OUTPUT_DIR = f'nets/ridepooling/output/{now}_{prefix}'
+
+    # parser args
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-c", "--config", type=str, required=True)
+    args = parser.parse_args()
+    cfg_path = args.config.strip()
+    cfg = OmegaConf.load(cfg_path)
+
+    # make dirs
+    OUTPUT_DIR = f'nets/ridepooling/output/{now}_{Path(cfg_path).stem}'
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    # copy config
+    with open(os.path.join(OUTPUT_DIR, 'config.yaml'), 'w+') as cfg_copy:
+        print(OmegaConf.to_yaml(cfg), file=cfg_copy)
 
     sys.stdout = open(f'{OUTPUT_DIR}/stdout.txt', 'w+')
 
     # this is a number of iterations which during the training is read from nets\ridepooling\MySUMO.sumocfg
-    timesteps = 3000
-    total_iters = 200
-    sumocfg = "nets/ridepooling/MySUMO.sumocfg"
+    timesteps = cfg.env.timesteps
+    total_iters = cfg.env.total_iters
+    sumocfg = cfg.env.sumocfg
 
     # to test RL training, we do not need launch baselines so this flag is false
-    TEST_BASELINE = False
-
-    if TEST_BASELINE:
-        test_exhaustive(timesteps,3,1)
-    
-    # if train is True, we train the model and save it to zip archive
-    TRAIN = True
-    # for test regime, we load the model from zip archive and evaluate it 
-    TEST = True
-
+    if cfg.test_baseline:
+        test_exhaustive(timesteps,cfg.baseline.num_periods,cfg.baseline.num_actions)
+   
     train_log_dir = os.path.join(OUTPUT_DIR, 'train')
     test_log_dir = os.path.join(OUTPUT_DIR, 'test')
     os.makedirs(train_log_dir, exist_ok=True)
     os.makedirs(test_log_dir, exist_ok=True)
 
-    if TRAIN:   
+    # if train is True, we train the model and save it to zip archive
+    if cfg.train:
         # wrapping it with monitor
         # Logs will be saved in log_dir/monitor.csv
 
@@ -134,37 +143,34 @@ if __name__ == "__main__":
         env = gym.make(
             "sumo-rl-rs-v0",
             #num_seconds=100,
-            use_gui=False,
+            use_gui=cfg.env.use_gui,
             delta_time=delta,
             cfg_file=sumocfg,
             additional_sumo_cmd=f"--log {OUTPUT_DIR}/sumolog.txt",
-            sumo_seed=4220,
-            verbose=False,
+            sumo_seed=cfg.env.sumo_seed,
+            verbose=cfg.env.verbose,
         )
     
 
         start_time = time.time()
 
-        vec_env = SubprocVecEnv([make_env() for i in range(NUM_ENVS)])
+        vec_env = SubprocVecEnv([make_env() for i in range(cfg.env.num_envs)])
         vec_env = VecMonitor(vec_env, train_log_dir)
  
         # print("Creating model") 
         model = DQN(
             env=vec_env,
-            policy="MlpPolicy",
-            learning_rate=0.01,
-            learning_starts=1,
-            train_freq=1,
-            gradient_steps=-1,
-            target_update_interval=NUM_ENVS,
-            exploration_fraction=0.1,
-            exploration_initial_eps=0.05,
-            exploration_final_eps=0.01,
-            verbose=1,
+            policy=cfg.dqn.policy,
+            learning_rate=cfg.dqn.learning_rate,
+            learning_starts=cfg.dqn.learning_starts,
+            train_freq=cfg.dqn.train_freq,
+            gradient_steps=cfg.dqn.gradient_steps,
+            target_update_interval=cfg.env.num_envs,
+            exploration_fraction=cfg.dqn.exploration_fraction,
+            exploration_initial_eps=cfg.dqn.exploration_initial_eps,
+            exploration_final_eps=cfg.dqn.exploration_final_eps,
+            verbose=cfg.dqn.verbose,
         )
-
-
-
 
         # total_timesteps = 30000 means that we use 10 simulation instances (episodes) for training if we use 3000 steps (3000 steps for one episode * 10 = 30000 steps)
         # for this example, I usually trained for 100-300 episodes but for debugging it is OK to start with smaller number of episodes
@@ -176,22 +182,22 @@ if __name__ == "__main__":
         
         end_time = time.time()
 
-        with open(f'{OUTPUT_DIR}/time.txt', 'w+') as f:
-            print(f"Training time: {end_time - start_time} seconds", file=f)
+        with open(f'{OUTPUT_DIR}/time.txt', 'w+') as time_f:
+            print(f"Training time: {end_time - start_time} seconds", file=time_f)
 
-
-    if TEST:
+    # for test regime, we load the model from zip archive and evaluate it 
+    if cfg.test:
 
         # creating Gym environment
         env = gym.make(
             "sumo-rl-rs-v0",
             #num_seconds=100,
-            use_gui=False,
+            use_gui=cfg.env.use_gui,
             delta_time=delta,
             cfg_file=sumocfg,
             additional_sumo_cmd=f"--log {OUTPUT_DIR}/sumolog.txt",
-            sumo_seed=4220,
-            verbose=False,
+            sumo_seed=cfg.env.sumo_seed,
+            verbose=cfg.env.verbose,
         )
 
         env = Monitor(env, test_log_dir)
@@ -199,7 +205,7 @@ if __name__ == "__main__":
         model = DQN.load(f"{OUTPUT_DIR}/ridepooling_DQN", env=env)
 
         # number of test instances
-        num_tests = 5
+        num_tests = cfg.tests.num_tests
 
         for i in range(0, num_tests):
             print("Test ", str(i+1))

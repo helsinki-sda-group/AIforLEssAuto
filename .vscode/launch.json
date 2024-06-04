@@ -10,7 +10,8 @@
             "request": "launch",
             "program": "tests/gym_test-rs.py",
             "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}/WP4/rl-ridepooling"
+            "cwd": "${workspaceFolder}/WP4/rl-ridepooling",
+            "args": ["-c configs/default.yaml"]
         }
     ]
 }
