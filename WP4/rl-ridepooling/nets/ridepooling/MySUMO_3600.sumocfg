@@ -6,7 +6,7 @@
     </input>
     <time>
         <begin value="0"/>
-        <end value="3000"/>
+        <end value="3600"/>
     </time>
     <taxi_device>
         <device.taxi.dispatch-algorithm value="traci"/>
