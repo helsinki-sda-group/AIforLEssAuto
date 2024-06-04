@@ -26,10 +26,12 @@ import itertools
 from stable_baselines3.common.vec_env import SubprocVecEnv
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.callbacks import EventCallback
+import datetime
 
 # step of policy applying (delta=1 means one simulation iteration)
 delta = 1
-NUM_ENVS = 4
+NUM_ENVS = 15
+
 
 # these functions implement a number of baseline policies
 # when a fixed action is applied to predefined windows
@@ -41,8 +43,8 @@ def make_env():
             #num_seconds=100,
             use_gui=False,
             delta_time=delta,
-            cfg_file="nets/ridepooling/MySUMO.sumocfg",
-            additional_sumo_cmd="--log sumolog.txt",
+            cfg_file=sumocfg,
+            additional_sumo_cmd=f"--log {OUTPUT_DIR}/sumolog.txt",
             sumo_seed=4220,
             verbose=True,
             #route_file="nets/single-intersection/single-intersection.rou.xml",
@@ -66,8 +68,8 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
         #num_seconds=100,
         use_gui=False,
         delta_time=delta,
-        cfg_file="nets/ridepooling/MySUMO.sumocfg",
-        additional_sumo_cmd="--log sumolog.txt",
+        cfg_file=sumocfg,
+        additional_sumo_cmd=f"--log {OUTPUT_DIR}/sumolog.txt",
         sumo_seed=4220,
         verbose=False,
         #route_file="nets/single-intersection/single-intersection.rou.xml",
@@ -95,21 +97,32 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
 
 if __name__ == "__main__":
     mp.set_start_method("spawn")
-    sys.stdout = open('stdout.txt', 'w')
+
+    now = datetime.datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
+    prefix = '1000x3600'
+    OUTPUT_DIR = f'nets/ridepooling/output/{now}_{prefix}'
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    sys.stdout = open(f'{OUTPUT_DIR}/stdout.txt', 'w+')
+
+    # this is a number of iterations which during the training is read from nets\ridepooling\MySUMO.sumocfg
+    timesteps = 3000
+    total_iters = 200
+    sumocfg = "nets/ridepooling/MySUMO.sumocfg"
 
     # to test RL training, we do not need launch baselines so this flag is false
     TEST_BASELINE = False
 
     if TEST_BASELINE:
-        test_exhaustive(3000,3,1)
+        test_exhaustive(timesteps,3,1)
     
     # if train is True, we train the model and save it to zip archive
     TRAIN = True
     # for test regime, we load the model from zip archive and evaluate it 
     TEST = True
 
-    train_log_dir = os.path.join('nets', 'ridepooling', 'logs', 'train')
-    test_log_dir = os.path.join('nets', 'ridepooling', 'logs', 'test')
+    train_log_dir = os.path.join(OUTPUT_DIR, 'train')
+    test_log_dir = os.path.join(OUTPUT_DIR, 'test')
     os.makedirs(train_log_dir, exist_ok=True)
     os.makedirs(test_log_dir, exist_ok=True)
 
@@ -123,8 +136,8 @@ if __name__ == "__main__":
             #num_seconds=100,
             use_gui=False,
             delta_time=delta,
-            cfg_file="nets/ridepooling/MySUMO.sumocfg",
-            additional_sumo_cmd="--log sumolog.txt",
+            cfg_file=sumocfg,
+            additional_sumo_cmd=f"--log {OUTPUT_DIR}/sumolog.txt",
             sumo_seed=4220,
             verbose=False,
         )
@@ -139,7 +152,7 @@ if __name__ == "__main__":
         model = DQN(
             env=vec_env,
             policy="MlpPolicy",
-            learning_rate=0.001,
+            learning_rate=0.01,
             learning_starts=1,
             train_freq=1,
             gradient_steps=-1,
@@ -153,17 +166,17 @@ if __name__ == "__main__":
 
 
 
-        # timesteps = 30000 means that we use 10 simulation instances (episodes) for training (3000 steps for one episode * 10 = 30000 steps)
+        # total_timesteps = 30000 means that we use 10 simulation instances (episodes) for training if we use 3000 steps (3000 steps for one episode * 10 = 30000 steps)
         # for this example, I usually trained for 100-300 episodes but for debugging it is OK to start with smaller number of episodes
-        model.learn(total_timesteps=30000)
+        model.learn(total_timesteps=timesteps*total_iters)
    
-        model.save("ridepooling_DQN")
+        model.save(f"{OUTPUT_DIR}/ridepooling_DQN")
 
         vec_env.close()
         
         end_time = time.time()
 
-        with open('time.txt', 'w') as f:
+        with open(f'{OUTPUT_DIR}/time.txt', 'w+') as f:
             print(f"Training time: {end_time - start_time} seconds", file=f)
 
 
@@ -175,15 +188,15 @@ if __name__ == "__main__":
             #num_seconds=100,
             use_gui=False,
             delta_time=delta,
-            cfg_file="nets/ridepooling/MySUMO.sumocfg",
-            additional_sumo_cmd="--log sumolog.txt",
+            cfg_file=sumocfg,
+            additional_sumo_cmd=f"--log {OUTPUT_DIR}/sumolog.txt",
             sumo_seed=4220,
             verbose=False,
         )
 
         env = Monitor(env, test_log_dir)
         
-        model = DQN.load("ridepooling_DQN", env=env)
+        model = DQN.load("OUTPUT_DIR}/ridepooling_DQN", env=env)
 
         # number of test instances
         num_tests = 5
@@ -194,8 +207,7 @@ if __name__ == "__main__":
             obs, info = env.reset()
         
             accumulated_reward = 0
-            # 3000 is a number of iterations which during the training is read from nets\ridepooling\MySUMO.sumocfg
-            for step in range(0, 3000):
+            for step in range(0, timesteps):
                 # print("Step: ", step)
                 action, _states = model.predict(obs)
                 obs, rewards, terminated, truncated, info = env.step(action)
@@ -206,6 +218,7 @@ if __name__ == "__main__":
     
         env.close()
     
+    print(f'Output saved to {OUTPUT_DIR}')
     sys.stdout.close()
     
 
