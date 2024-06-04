@@ -196,7 +196,7 @@ if __name__ == "__main__":
 
         env = Monitor(env, test_log_dir)
         
-        model = DQN.load("OUTPUT_DIR}/ridepooling_DQN", env=env)
+        model = DQN.load(f"{OUTPUT_DIR}/ridepooling_DQN", env=env)
 
         # number of test instances
         num_tests = 5
