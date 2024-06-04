@@ -16,5 +16,8 @@ output/
 # tools
 WP4/sumo-hki-cm/tools/test_tools/
 
+# outputs
+ridepooling_DQN.zip
+
 # other
 __pycache__/
