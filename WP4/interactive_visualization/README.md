@@ -42,7 +42,7 @@
 1. Check the prerequisites
 2. Clone the repository
 3. Run `sh commands.sh` in the command line in the root folder and follow the instructions
-4. Open `visualization.html` in the browser 
+4. Run `visualization.ipynb` in the browser 
 5. Success!
 
 ### Prerequisites
@@ -79,7 +79,7 @@ The repository is partitioned into the following files:
 
 ## Usage
 
-The picture `Kamppi_demo.png` in the repository shows the plots produced by the pipeline.
+The picture `Kamppi_demo.png` in the repository shows the static plots produced by the pipeline.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
