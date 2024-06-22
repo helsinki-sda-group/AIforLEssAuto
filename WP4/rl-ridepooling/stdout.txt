@@ -1,0 +1,12 @@
+environment closed monitor
+Test  1
+Accumulated reward, DQN test  1 : 18164.420000000257
+Test  2
+Accumulated reward, DQN test  2 : 18840.180000000353
+Test  3
+Accumulated reward, DQN test  3 : 18492.23000000083
+Test  4
+Accumulated reward, DQN test  4 : 17812.600000000304
+Test  5
+Accumulated reward, DQN test  5 : 18857.30000000041
+environment closed monitor

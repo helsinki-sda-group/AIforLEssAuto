@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- generated on 2023-12-04 16:25:58.447433 by randomTrips.py v1_13_0+0000-4b5bca80615
+<configuration>
+    <end value="1500"/>
+    <fringe-factor value="5.0"/>
+    <min-distance value="2500.0"/>
+    <net-file value="C:\Users\bochenin\RL project\materials\ridesharing\toy example\MySUMOfile.net.xml"/>
+    <period value="30.0"/>
+    <route-file value="C:\Users\bochenin\RL project\materials\ridesharing\toy example\MySUMOfile.rou.xml"/>
+    <trip-attributes value="departLane=&quot;best&quot; departSpeed=&quot;max&quot; departPos=&quot;random&quot;"/>
+    <output-trip-file value="C:\Users\bochenin\RL project\materials\ridesharing\toy example\MySUMOfile.trips.xml"/>
+</configuration>
+
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+ <vType color="green" id="taxi" personCapacity="2" vClass="taxi">
+  <param key="has.taxi.device" value="true"/>
+  <param key="device.taxi.pickUpDuration" value="0"/>
+  <param key="device.taxi.dropOffDuration" value="10"/>
+  <param key="device.taxi.parking" value="true"/>
+ </vType>
+ <trip depart="0" from="-1470" id="t0" to="-10681" type="taxi"/>
+ <trip depart="0" from="2343" id="t1" to="-2438" type="taxi"/>
+ <trip depart="0" from="-22350" id="t2" to="-29575" type="taxi"/>
+ <trip depart="0" from="20598" id="t3" to="24622" type="taxi"/>
+ <trip depart="0" from="-14522" id="t4" to="14488" type="taxi"/>
+ <trip depart="0" from="6889" id="t5" to="9543" type="taxi"/>
+ <trip depart="0" from="-29575" id="t6" to="-13990" type="taxi"/>
+ <trip depart="0" from="-22350" id="t7" to="5733" type="taxi"/>
+ <trip depart="0" from="-25594" id="t8" to="14488" type="taxi"/>
+ <trip depart="0" from="-21971" id="t9" to="-2438" type="taxi"/>
+ <trip depart="0" from="10811" id="t10" to="-25827" type="taxi"/>
+ <trip depart="0" from="-29575" id="t11" to="-22265" type="taxi"/>
+ <trip depart="0" from="25184" id="t12" to="-13555" type="taxi"/>
+ <trip depart="0" from="15729" id="t13" to="-21831" type="taxi"/>
+ <trip depart="0" from="-13225" id="t14" to="-13555" type="taxi"/>
+ <person depart="0.00" id="p0">
+  <ride from="-24650" lines="taxi" parkingArea="pa-23790" to="-23790"/>
+ </person>
+ <person depart="30.00" id="p1">
+  <ride from="20598" lines="taxi" parkingArea="pa23440" to="23440"/>
+ </person>
+ <person depart="60.00" id="p2">
+  <ride from="-22265" lines="taxi" parkingArea="pa14116" to="14116"/>
+ </person>
+ <person depart="90.00" id="p3">
+  <ride from="-11628" lines="taxi" parkingArea="pa-22314" to="-22314"/>
+ </person>
+ <person depart="120.00" id="p4">
+  <ride from="24898" lines="taxi" parkingArea="pa-10305" to="-10305"/>
+ </person>
+ <person depart="150.00" id="p5">
+  <ride from="24622" lines="taxi" parkingArea="pa2435" to="2435"/>
+ </person>
+ <person depart="180.00" id="p6">
+  <ride from="-27703" lines="taxi" parkingArea="pa-19822" to="-19822"/>
+ </person>
+ <person depart="210.00" id="p7">
+  <ride from="-8700" lines="taxi" parkingArea="pa8744" to="8744"/>
+ </person>
+ <person depart="240.00" id="p8">
+  <ride from="-29575" lines="taxi" parkingArea="pa16897" to="16897"/>
+ </person>
+ <person depart="270.00" id="p9">
+  <ride from="-22350" lines="taxi" parkingArea="pa-28555" to="-28555"/>
+ </person>
+ <person depart="300.00" id="p10">
+  <ride from="-1470" lines="taxi" parkingArea="pa-24358" to="-24358"/>
+ </person>
+ <person depart="330.00" id="p11">
+  <ride from="-16022" lines="taxi" parkingArea="pa-27195" to="-27195"/>
+ </person>
+ <person depart="360.00" id="p12">
+  <ride from="15154" lines="taxi" parkingArea="pa19871" to="19871"/>
+ </person>
+ <person depart="390.00" id="p13">
+  <ride from="27101" lines="taxi" parkingArea="pa27936" to="27936"/>
+ </person>
+ <person depart="420.00" id="p14">
+  <ride from="-22388" lines="taxi" parkingArea="pa-12283" to="-12283"/>
+ </person>
+ <person depart="450.00" id="p15">
+  <ride from="-21831" lines="taxi" parkingArea="pa6889" to="6889"/>
+ </person>
+ <person depart="480.00" id="p16">
+  <ride from="30429" lines="taxi" parkingArea="pa-30703" to="-30703"/>
+ </person>
+ <person depart="510.00" id="p17">
+  <ride from="11449" lines="taxi" parkingArea="pa4279" to="4279"/>
+ </person>
+ <person depart="540.00" id="p18">
+  <ride from="-30142" lines="taxi" parkingArea="pa-23640" to="-23640"/>
+ </person>
+ <person depart="570.00" id="p19">
+  <ride from="9888" lines="taxi" parkingArea="pa14488" to="14488"/>
+ </person>
+ <person depart="600.00" id="p20">
+  <ride from="-13555" lines="taxi" parkingArea="pa-6887" to="-6887"/>
+ </person>
+ <person depart="630.00" id="p21">
+  <ride from="-10681" lines="taxi" parkingArea="pa25184" to="25184"/>
+ </person>
+ <person depart="660.00" id="p22">
+  <ride from="-2438" lines="taxi" parkingArea="pa21667" to="21667"/>
+ </person>
+ <person depart="690.00" id="p23">
+  <ride from="-16617" lines="taxi" parkingArea="pa1000" to="1000"/>
+ </person>
+ <person depart="720.00" id="p24">
+  <ride from="30302" lines="taxi" parkingArea="pa-25827" to="-25827"/>
+ </person>
+ <person depart="750.00" id="p25">
+  <ride from="-25594" lines="taxi" parkingArea="pa21656" to="21656"/>
+ </person>
+ <person depart="780.00" id="p26">
+  <ride from="12900" lines="taxi" parkingArea="pa-19684" to="-19684"/>
+ </person>
+ <person depart="810.00" id="p27">
+  <ride from="2343" lines="taxi" parkingArea="pa15729" to="15729"/>
+ </person>
+ <person depart="840.00" id="p28">
+  <ride from="-13990" lines="taxi" parkingArea="pa27080" to="27080"/>
+ </person>
+ <person depart="870.00" id="p29">
+  <ride from="22337" lines="taxi" parkingArea="pa-18521" to="-18521"/>
+ </person>
+ <person depart="900.00" id="p30">
+  <ride from="-21423" lines="taxi" parkingArea="pa-30440" to="-30440"/>
+ </person>
+ <person depart="930.00" id="p31">
+  <ride from="-14119" lines="taxi" parkingArea="pa21018" to="21018"/>
+ </person>
+ <person depart="960.00" id="p32">
+  <ride from="28948" lines="taxi" parkingArea="pa-14522" to="-14522"/>
+ </person>
+ <person depart="990.00" id="p33">
+  <ride from="-21971" lines="taxi" parkingArea="pa-18736" to="-18736"/>
+ </person>
+ <person depart="1020.00" id="p34">
+  <ride from="-30873" lines="taxi" parkingArea="pa12072" to="12072"/>
+ </person>
+ <person depart="1050.00" id="p35">
+  <ride from="20031" lines="taxi" parkingArea="pa23304" to="23304"/>
+ </person>
+ <person depart="1080.00" id="p36">
+  <ride from="9136" lines="taxi" parkingArea="pa-16329" to="-16329"/>
+ </person>
+ <person depart="1110.00" id="p37">
+  <ride from="-30310" lines="taxi" parkingArea="pa-4276" to="-4276"/>
+ </person>
+ <person depart="1140.00" id="p38">
+  <ride from="-20635" lines="taxi" parkingArea="pa10811" to="10811"/>
+ </person>
+ <person depart="1170.00" id="p39">
+  <ride from="-23747" lines="taxi" parkingArea="pa5733" to="5733"/>
+ </person>
+ <person depart="1200.00" id="p40">
+  <ride from="9913" lines="taxi" parkingArea="pa30306" to="30306"/>
+ </person>
+ <person depart="1230.00" id="p41">
+  <ride from="27702" lines="taxi" parkingArea="pa-20197" to="-20197"/>
+ </person>
+ <person depart="1260.00" id="p42">
+  <ride from="7710" lines="taxi" parkingArea="pa9543" to="9543"/>
+ </person>
+ <person depart="1290.00" id="p43">
+  <ride from="-19129" lines="taxi" parkingArea="pa-29182" to="-29182"/>
+ </person>
+ <person depart="1320.00" id="p44">
+  <ride from="8533" lines="taxi" parkingArea="pa18581" to="18581"/>
+ </person>
+ <person depart="1350.00" id="p45">
+  <ride from="-13225" lines="taxi" parkingArea="pa18811" to="18811"/>
+ </person>
+ <person depart="1380.00" id="p46">
+  <ride from="-14732" lines="taxi" parkingArea="pa-2169" to="-2169"/>
+ </person>
+ <person depart="1410.00" id="p47">
+  <ride from="-30727" lines="taxi" parkingArea="pa18804" to="18804"/>
+ </person>
+ <person depart="1440.00" id="p48">
+  <ride from="-7765" lines="taxi" parkingArea="pa6333" to="6333"/>
+ </person>
+ <person depart="1470.00" id="p49">
+  <ride from="-26405" lines="taxi" parkingArea="pa26522" to="26522"/>
+ </person>
+</routes>
