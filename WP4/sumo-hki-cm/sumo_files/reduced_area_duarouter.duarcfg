@@ -1,0 +1,22 @@
+<configuration>
+    <input>
+        <net-file value="data/reduced_cut_area.net.xml"/>
+        <route-files value="output/tools/reduction_cutRoutes/verified_cut_trips_taz_removed.rou.xml"/>
+    </input>
+
+    <processing>
+        <routing-threads value="7"/>
+        <weights.random-factor value="2"/>
+        <weights.priority-factor value="20"/>
+    </processing>
+
+    <output>
+        <output-file value="output/tools/reduced_area_duarouter/verified_trips.rou.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <ignore-errors value="true"/>
+        <log value="output/tools/reduced_area_duarouter/.log"/>
+    </report>
+</configuration>

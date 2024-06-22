@@ -32,12 +32,3 @@ duarouter -c sumo_files/geo_duarcfg_file.trips2routes_V2.duarcfg --routing-threa
 echo -e "\nSorting duarouter output routes..."
 python3 tools/departureTimeSorter.py sumo_files/verified_reduced_geo_trips_V2.rou.xml sumo_files/verified_reduced_geo_trips_V2.rou.xml
 python3 tools/indexZeroToN.py sumo_files/verified_reduced_geo_trips_V2.rou.xml
-
-echo -e "\nRunning sumo router runner..."
-python3 sumo_files/geoRouterRunner.py 2> sumo_files/simulation_output/geo_router_runner/stderr.txt
-
-echo -e "\nRunning routesampler..."
-$SUMO_HOME/tools/routeSampler.py -r sumo_files/simulation_output/geo_router_runner/routes.rou.xml --edgedata-files sumo_files/reduced_edgedata.xml -o sumo_files/reduced_routesampler_routes.rou.xml
-
-echo -e "\nSetting depart attributes to routes..."
-python3 tools/setDepartAttributesToRoutes.py

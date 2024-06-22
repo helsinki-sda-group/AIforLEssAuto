@@ -1,0 +1,31 @@
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="output/tools/reduced_area_routesampler_iterative_past_iterations/reduced_area_routesampler_iterative_dua_50_perfect/c005/sumo/001/sumo.net.xml"/>
+        <route-files value="output/tools/reduced_area_routesampler_iterative_past_iterations/reduced_area_routesampler_iterative_dua_50_perfect/c005/sumo/001/sumo_c005_001_routes_fast.rou.xml,output/tools/reduced_area_routesampler_iterative_past_iterations/reduced_area_routesampler_iterative_dua_50_perfect/c006/routesampler/000/routesampler_c006_000_routes_fast.rou.xml"/>
+        <additional-files value="data/reduced_cut_modif_2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+    <processing>
+        <ignore-junction-blocker value="1"/>
+        <time-to-teleport.highways value="200"/>
+        <time-to-teleport.highways.min-speed value="0"/>
+        <time-to-teleport value="300"/>
+    </processing>
+
+    <output>
+        <statistic-output value="output/simulation/geo_runner/geo_runner_stats.xml"/>
+        <vehroute-output value="output/simulation/geo_runner/geo_runner_routes.rou.xml"/>
+        <vehroute-output.sorted value="true"/>
+        <vehroute-output.exit-times value="true"/>
+    </output>
+
+    <report>
+        <error-log value="output/simulation/geo_runner/geo_runner_errors.log"/>
+    </report>
+</configuration>

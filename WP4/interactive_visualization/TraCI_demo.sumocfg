@@ -1,0 +1,14 @@
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="kamppi.net.xml" />
+        <route-files value="TraCI_demo.rou.xml" />
+    </input>
+
+    <output>
+        <emission-output value="simulation_output/emissions_1.xml" />
+        <netstate-dump value="simulation_output/plot_net_dump.xml" />
+	    <fcd-output value="simulation_output/test_fcdresults.xml" />
+    </output>
+
+</configuration>

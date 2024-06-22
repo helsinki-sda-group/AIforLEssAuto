@@ -1,0 +1,5 @@
+<configuration>
+    <route-file value="simulation_output/geo_runner/routes.rou.xml"/>
+    <taz-files value="reduced_cut_districts_2.taz.xml"/>
+    <output-file value="simulation_output/geo_runner/runner_OD.xml"/>
+</configuration>

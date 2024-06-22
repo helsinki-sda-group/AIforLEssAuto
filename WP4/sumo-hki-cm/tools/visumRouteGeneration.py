@@ -93,7 +93,7 @@ def writeFileBeginning():
     with open(OUTPUT_FILE, "w") as f:
         f.write("""$OR;D2
 * From-Time  To-Time
-0.00 0.01
+0.00 1.00
 * Factor
 1.00
 * some
