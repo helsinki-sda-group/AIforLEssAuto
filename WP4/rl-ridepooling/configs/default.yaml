@@ -3,12 +3,12 @@ test: True
 test_baseline: False
 
 env:
-  timesteps: 3000
+  timesteps: 3600
   total_iters: 1000
   delta: 1
-  num_envs: 3
+  num_envs: 4
   sumo_seed: 4220
-  sumocfg: nets/ridepooling/MySUMO.sumocfg
+  sumocfg: nets/ridepooling/MySUMO_3600.sumocfg
   use_gui: False
   verbose: False
 
