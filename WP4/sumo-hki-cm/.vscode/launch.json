@@ -1,0 +1,36 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Statistics",
+            "type": "python",
+            "request": "launch",
+            "program": "calibration/tools/statistics.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/WP4/sumo-hki-cm",
+            "args": "sumo_files/data/reduced_detector_outputs"
+        },
+        {
+            "name": "Geo Runner",
+            "type": "python",
+            "request": "launch",
+            "program": "tools/geoRunner.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/WP4/sumo-hki-cm"
+        },
+        {
+            "name": "Iterative Routesampler",
+            "type": "python",
+            "request": "launch",
+            "program": "tools/iterativeRoutesampler.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/WP4/sumo-hki-cm"
+        }
+    ]
+}

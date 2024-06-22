@@ -1,8 +1,19 @@
 # User guide
-This guide will describe all steps in the pipeline that turns an origin-destination (OD) matrix into a simulation in the traffic simulator [SUMO](https://www.eclipse.org/sumo/) (Simulation of Urban MObility) and how to reduce that simulation to a smaller area using the results from the large simulation.
+This guide will describe the structure of the repository and all steps in the pipeline that turns this guide will describe all steps in the pipeline that turns random routes into a simulation in the traffic simulator [SUMO](https://www.eclipse.org/sumo/) (Simulation of Urban MObility) and how to reduce that simulation to a smaller area using the results from the large simulation.
+
+# Pre-generated demand data
+If you just need the demand data for the Helsinki area, navigate into the `demo`. The strucutre of that directory is the following:
+* `helsinki.net.xml` represents the network file containing the entire network for HKI area. This network was extracted from [OpenStreetMaps](https://www.openstreetmap.org/). 
+* `demand_base.rou.xml` contains the route files for the Helsinki area.
+* `demand_add.rou.xml` is an optional route file for the Heslinki area that can be added to improve the accuracy of the simulation for the traffic counting stations. However, adding this file makes the simulation more unnatural and causes some unrealistic traffic jams.
+* `real_world_comparison.xlsx` compares the simulated traffic counts to real-world traffic counts obtained from [Digitraffic](https://www.digitraffic.fi/en/road-traffic/#current-data-from-tms-stations).
+* `smaller_areas` contains the networks and the routes for the smaller areas of Helsinki each of them located around keskuspuisto. Area1 represents the smallest area, and area3 the largest. Area2 is in the middle.
+    * `areaX_disconnected` represents the areas that can potentially have edges disconnected from the rest of the network.
+    * `areaX_connected` keeps only those edges from the disconnected version that form the biggest weakly connected graph. This is useful for routing purposes.
+
 
 ## Pre-generated routes
-The pre-generated route files, evaluation results, the .sumocfg file and all the dependencies to re-produce the data is in the `/demo` directory. You can use those files without running the whole pipeline.
+The pre-generated route files, evaluation results and the .sumocfg file to launch the simulation are in the /demo directory. You can use those files without running the whole pipeline. If you have already installed sumo, navitate to the /demo directory and run sumo-gui -c rs_iterative.sumocfg. It should automatically launch the simulation in the GUI. If you don't have sumo installed, please refer to the official documentation on how to install it. https://www.eclipse.org/sumo/
 
 ## Pipeline usage
 > [!WARNING]  

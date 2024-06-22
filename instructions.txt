@@ -1,3 +1,0 @@
-after iterativeRoutesampler
-launch geoRunner.py
-launch statistics.py
