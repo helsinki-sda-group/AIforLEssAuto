@@ -32,28 +32,30 @@ from omegaconf import OmegaConf
 import argparse
 from pathlib import Path
 
-# step of policy applying (delta=1 means one simulation iteration)
-delta = 1
-
 # these functions implement a number of baseline policies
 # when a fixed action is applied to predefined windows
 
 def make_env():
+    sumo_log_file = os.path.join(OUTPUT_DIR, 'sumolog.txt')
+    env = gym.make(
+        "sumo-rl-rs-v0",
+        #num_seconds=100,
+        use_gui=cfg.env.use_gui,
+        delta_time=cfg.env.delta,
+        cfg_file=cfg.env.sumocfg,
+        additional_sumo_cmd=f"--log {sumo_log_file}",
+        sumo_seed=cfg.env.sumo_seed,
+        verbose=cfg.env.verbose,
+        #route_file="nets/single-intersection/single-intersection.rou.xml",
+    )
+    return env
+
+def env_factory():
     def _init():
-        env = gym.make(
-            "sumo-rl-rs-v0",
-            #num_seconds=100,
-            use_gui=False,
-            delta_time=delta,
-            cfg_file=sumocfg,
-            additional_sumo_cmd=f"--log {OUTPUT_DIR}/sumolog.txt",
-            sumo_seed=4220,
-            verbose=True,
-            #route_file="nets/single-intersection/single-intersection.rou.xml",
-        )
+        env = make_env()
         env.reset()
         return env
-    
+
     return _init
 
 def generatePolicies(num_periods, max_action):
@@ -65,18 +67,7 @@ def generatePolicies(num_periods, max_action):
 
 
 def test_exhaustive(timesteps, num_periods=5, max_action=1):
-    env = gym.make(
-        "sumo-rl-rs-v0",
-        #num_seconds=100,
-        use_gui=False,
-        delta_time=delta,
-        cfg_file=sumocfg,
-        additional_sumo_cmd=f"--log {OUTPUT_DIR}/sumolog.txt",
-        sumo_seed=4220,
-        verbose=False,
-        #route_file="nets/single-intersection/single-intersection.rou.xml",
-    )
-
+    env = make_env()
     env.reset()
     # print("Num periods: ", num_periods)
     policies = generatePolicies(num_periods, max_action)
@@ -111,24 +102,24 @@ if __name__ == "__main__":
     cfg = OmegaConf.load(cfg_path)
 
     # make dirs
-    OUTPUT_DIR = f'nets/ridepooling/output/{now}_{Path(cfg_path).stem}'
+    OUTPUT_DIR = os.path.join('nets', 'ridepooling', 'output', f'{now}_{Path(cfg_path).stem}')
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    # copy config
+    # copy config to output folder
     with open(os.path.join(OUTPUT_DIR, 'config.yaml'), 'w+') as cfg_copy:
         print(OmegaConf.to_yaml(cfg), file=cfg_copy)
 
-    sys.stdout = open(f'{OUTPUT_DIR}/stdout.txt', 'w+')
+    sys.stdout = open(os.path.join(OUTPUT_DIR, 'stdout.txt'), 'w+')
 
     # this is a number of iterations which during the training is read from nets\ridepooling\MySUMO.sumocfg
     timesteps = cfg.env.timesteps
     total_iters = cfg.env.total_iters
-    sumocfg = cfg.env.sumocfg
 
     # to test RL training, we do not need launch baselines so this flag is false
     if cfg.test_baseline:
         test_exhaustive(timesteps,cfg.baseline.num_periods,cfg.baseline.num_actions)
    
+    # Logs will be saved in train/monitor.csv and test/monitor.csv
     train_log_dir = os.path.join(OUTPUT_DIR, 'train')
     test_log_dir = os.path.join(OUTPUT_DIR, 'test')
     os.makedirs(train_log_dir, exist_ok=True)
@@ -136,25 +127,11 @@ if __name__ == "__main__":
 
     # if train is True, we train the model and save it to zip archive
     if cfg.train:
-        # wrapping it with monitor
-        # Logs will be saved in log_dir/monitor.csv
-
-        # # creating Gym environment
-        env = gym.make(
-            "sumo-rl-rs-v0",
-            #num_seconds=100,
-            use_gui=cfg.env.use_gui,
-            delta_time=delta,
-            cfg_file=sumocfg,
-            additional_sumo_cmd=f"--log {OUTPUT_DIR}/sumolog.txt",
-            sumo_seed=cfg.env.sumo_seed,
-            verbose=cfg.env.verbose,
-        )
-    
+        # wrapping it with monitor  
 
         start_time = time.time()
 
-        vec_env = SubprocVecEnv([make_env() for i in range(cfg.env.num_envs)])
+        vec_env = SubprocVecEnv([env_factory() for i in range(cfg.env.num_envs)])
         vec_env = VecMonitor(vec_env, train_log_dir)
  
         # print("Creating model") 
@@ -176,33 +153,20 @@ if __name__ == "__main__":
         # for this example, I usually trained for 100-300 episodes but for debugging it is OK to start with smaller number of episodes
         model.learn(total_timesteps=timesteps*total_iters)
    
-        model.save(f"{OUTPUT_DIR}/ridepooling_DQN")
+        model.save(os.path.join(OUTPUT_DIR, 'ridepooling_DQN'))
 
         vec_env.close()
         
         end_time = time.time()
 
-        with open(f'{OUTPUT_DIR}/time.txt', 'w+') as time_f:
+        with open(os.path.join(OUTPUT_DIR, 'time.txt'), 'w+') as time_f:
             print(f"Training time: {end_time - start_time} seconds", file=time_f)
 
     # for test regime, we load the model from zip archive and evaluate it 
     if cfg.test:
-
-        # creating Gym environment
-        env = gym.make(
-            "sumo-rl-rs-v0",
-            #num_seconds=100,
-            use_gui=cfg.env.use_gui,
-            delta_time=delta,
-            cfg_file=sumocfg,
-            additional_sumo_cmd=f"--log {OUTPUT_DIR}/sumolog.txt",
-            sumo_seed=cfg.env.sumo_seed,
-            verbose=cfg.env.verbose,
-        )
-
-        env = Monitor(env, test_log_dir)
+        env = Monitor(make_env(), test_log_dir)
         
-        model = DQN.load(f"{OUTPUT_DIR}/ridepooling_DQN", env=env)
+        model = DQN.load(os.path.join(OUTPUT_DIR, 'ridepooling_DQN'), env=env)
 
         # number of test instances
         num_tests = cfg.tests.num_tests

@@ -3,12 +3,12 @@ test: True
 test_baseline: False
 
 env:
-  timesteps: 3600
+  timesteps: 3000
   total_iters: 1000
   delta: 1
-  num_envs: 3
+  num_envs: 2
   sumo_seed: 4220
-  sumocfg: nets/ridepooling/MySUMO_3600.sumocfg
+  sumocfg: nets/ridepooling/area3_3000.sumocfg
   use_gui: False
   verbose: False
 
@@ -22,13 +22,10 @@ dqn:
   learning_starts: 1
   train_freq: 1
   gradient_steps: -1
-  exploration_fraction: 0.1
-  exploration_initial_eps: 0.75
+  exploration_fraction: 0.05
+  exploration_initial_eps: 0.05
   exploration_final_eps: 0.01
   verbose: 1
 
 tests:
   num_tests: 5
-
-
-  

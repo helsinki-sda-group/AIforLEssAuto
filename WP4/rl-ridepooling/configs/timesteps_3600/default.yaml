@@ -8,7 +8,7 @@ env:
   delta: 1
   num_envs: 4
   sumo_seed: 4220
-  sumocfg: nets/ridepooling/MySUMO_3600.sumocfg
+  sumocfg: nets/ridepooling/area3_3600.sumocfg
   use_gui: False
   verbose: False
 
