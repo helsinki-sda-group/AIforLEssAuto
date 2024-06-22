@@ -1,0 +1,21 @@
+# calibration
+calibration/data/*
+!calibration/data/collection_days_2018.txt
+!calibration/data/road_station_detections.json
+!calibration/data/reduced_edgedata_real.xml
+
+# data
+data/*
+
+# sumo_files
+sumo_files/data/whole_area.net.xml
+sumo_files/data/reduced_detector_outputs/
+sumo_files/output/
+
+# tools
+tools/test_tools/
+
+
+
+# other
+__pycache__/

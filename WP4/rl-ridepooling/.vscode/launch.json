@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "gym_test-rs",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "tests/gym_test-rs.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "args": ["-c", "configs/old_net/default.yaml"]
+        }
+    ]
+}

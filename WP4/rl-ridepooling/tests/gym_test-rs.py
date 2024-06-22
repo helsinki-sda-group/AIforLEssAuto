@@ -1,19 +1,16 @@
 import gymnasium as gym
 from gymnasium.utils.env_checker import check_env
+import multiprocessing as mp
 
 import sys
+import time
 
-# sys.path.append("C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\sumo-rl-main")
-sys.path.append("C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\\sumo-rl-main-paper\\sumo-rl-main")
-sys.path.append("C:\\Program Files (x86)\\Eclipse\\Sumo\\tools\\libsumo")
-sys.path.append("C:\\users\\bochenin\\anaconda3\\lib\\site-packages\\libsumo")
-
-#print(sys.path)
+sys.path.append('.')
 
 import os
 
 from stable_baselines3.dqn.dqn import DQN
-from sumo_rl_rs import SumoEnvironment
+from stable_baselines3.common.vec_env import VecMonitor
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -22,46 +19,44 @@ import random
 from stable_baselines3.common.monitor import Monitor
 
 
-if "SUMO_HOME" in os.environ:
-    os.add_dll_directory("C:\\users\\bochenin\\anaconda3\\lib\\site-packages\\libsumo")
-
-
-
 import sumo_rl_rs
 import sys
 import itertools
 
+from stable_baselines3.common.vec_env import SubprocVecEnv
 from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.callbacks import EventCallback
+import datetime
 
-# step of policy applying (delta=1 means one simulation iteration)
-delta = 1
+from omegaconf import OmegaConf
+import argparse
+from pathlib import Path
 
 # these functions implement a number of baseline policies
 # when a fixed action is applied to predefined windows
 
-def test_env_fixed(timesteps, action):
-    
+def make_env():
+    sumo_log_file = os.path.join(OUTPUT_DIR, 'sumolog.txt')
     env = gym.make(
         "sumo-rl-rs-v0",
         #num_seconds=100,
-        use_gui=False,
-        delta_time=delta,
-        cfg_file="nets/ridepooling/MySUMO.sumocfg",
-        additional_sumo_cmd="--log sumolog.txt",
-        sumo_seed=4220,
-        verbose=True,
+        use_gui=cfg.env.use_gui,
+        delta_time=cfg.env.delta,
+        cfg_file=cfg.env.sumocfg,
+        additional_sumo_cmd=f"--log {sumo_log_file}",
+        sumo_seed=cfg.env.sumo_seed,
+        verbose=cfg.env.verbose,
         #route_file="nets/single-intersection/single-intersection.rou.xml",
     )
+    return env
 
-    env.reset()
-    # check_env(env.unwrapped, skip_render_check=True)
-    accumulated_reward = 0
-    for i in range(0,int(timesteps/delta)):
-        obs, rewards, terminated, truncated, info = env.step(action)
-        accumulated_reward += rewards
-    print("Accumulated reward, max_capacity = ", action, ": ", accumulated_reward)
+def env_factory():
+    def _init():
+        env = make_env()
+        env.reset()
+        return env
 
-    env.close()
+    return _init
 
 def generatePolicies(num_periods, max_action):
     actions = []
@@ -72,18 +67,7 @@ def generatePolicies(num_periods, max_action):
 
 
 def test_exhaustive(timesteps, num_periods=5, max_action=1):
-    env = gym.make(
-        "sumo-rl-rs-v0",
-        #num_seconds=100,
-        use_gui=False,
-        delta_time=delta,
-        cfg_file="nets/ridepooling/MySUMO.sumocfg",
-        additional_sumo_cmd="--log sumolog.txt",
-        sumo_seed=4220,
-        verbose=False,
-        #route_file="nets/single-intersection/single-intersection.rou.xml",
-    )
-
+    env = make_env()
     env.reset()
     # print("Num periods: ", num_periods)
     policies = generatePolicies(num_periods, max_action)
@@ -104,153 +88,88 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
 
     env.close()
 
-def test_env_random(timesteps, max_action=1):
-    env = gym.make(
-        "sumo-rl-rs-v0",
-        #num_seconds=100,
-        use_gui=False,
-        delta_time=delta,
-        cfg_file="nets/ridepooling/MySUMO.sumocfg",
-        additional_sumo_cmd="--log sumolog.txt",
-        sumo_seed=4220,
-        verbose=True,
-        #route_file="nets/single-intersection/single-intersection.rou.xml",
-    )
-
-    env.reset()
-    # check_env(env.unwrapped, skip_render_check=True)
-    accumulated_reward = 0
-    for i in range(0,int(timesteps/delta)):
-        obs, rewards, terminated, truncated, info = env.step(random.randint(0, max_action))
-        accumulated_reward += rewards
-    print("Accumulated reward, random action: ", accumulated_reward)
-
-    env.close()
-
-def test_varying(timesteps, border1, border2):
-
-    env = gym.make(
-        "sumo-rl-rs-v0",
-        #num_seconds=100,
-        use_gui=False,
-        delta_time=delta,
-        cfg_file="nets/ridepooling/MySUMO.sumocfg",
-        additional_sumo_cmd="--log sumolog.txt",
-        sumo_seed=4220,
-        verbose=False,
-        #route_file="nets/single-intersection/single-intersection.rou.xml",
-    )
-
-    env.reset()
-    accumulated_reward = 0
-    for i in range(0,int(border1/delta)):
-        obs, rewards, terminated, truncated, info = env.step(0)
-        accumulated_reward += rewards
-
-    for i in range(int(border1/delta),int(border2/delta)):
-        obs, rewards, terminated, truncated, info = env.step(1)
-        accumulated_reward += rewards
-
-    for i in range(int(border2/delta),int(timesteps/delta)):
-        obs, rewards, terminated, truncated, info = env.step(0)
-        accumulated_reward += rewards
-
-    print("Accumulated reward, borders (", border1, "," , border2 , "): ", accumulated_reward)
-    env.close()
-
 if __name__ == "__main__":
-    sys.stdout = open('stdout.txt', 'w')
+    mp.set_start_method("spawn")
+    
+    # get current timestep
+    now = datetime.datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
+
+    # parser args
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-c", "--config", type=str, required=True)
+    args = parser.parse_args()
+    cfg_path = args.config.strip()
+    cfg = OmegaConf.load(cfg_path)
+
+    # make dirs
+    OUTPUT_DIR = os.path.join('nets', 'ridepooling', 'output', f'{now}_{Path(cfg_path).stem}')
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    # copy config to output folder
+    with open(os.path.join(OUTPUT_DIR, 'config.yaml'), 'w+') as cfg_copy:
+        print(OmegaConf.to_yaml(cfg), file=cfg_copy)
+
+    sys.stdout = open(os.path.join(OUTPUT_DIR, 'stdout.txt'), 'w+')
+
+    # this is a number of iterations which during the training is read from nets\ridepooling\MySUMO.sumocfg
+    timesteps = cfg.env.timesteps
+    total_iters = cfg.env.total_iters
 
     # to test RL training, we do not need launch baselines so this flag is false
-    TEST_BASELINE = False
+    if cfg.test_baseline:
+        test_exhaustive(timesteps,cfg.baseline.num_periods,cfg.baseline.num_actions)
+   
+    # Logs will be saved in train/monitor.csv and test/monitor.csv
+    train_log_dir = os.path.join(OUTPUT_DIR, 'train')
+    test_log_dir = os.path.join(OUTPUT_DIR, 'test')
+    os.makedirs(train_log_dir, exist_ok=True)
+    os.makedirs(test_log_dir, exist_ok=True)
 
-    if TEST_BASELINE:
-        # borders1 = [510, 520, 530, 540, 550, 560, 570, 580, 590, 600]
-        # borders2 = [1700, 1800] 
-        # for border1 in borders1:
-        #     for border2 in borders2:
-        #         test_varying(3000, border1, border2)
-        # test_env_fixed(3000, 0)
-        # test_env_fixed(3000, 1)
-        # test_env_fixed(3000, 2)
-        # test_env_fixed(3000, 3)
-        # test_env_fixed(3000, 4)
-        # test_env_fixed(3000, 5)
-        # test_varying(3000, 500, 2000)
-        # test_env_random(3000)
-        test_exhaustive(3000,3,1)
-    
     # if train is True, we train the model and save it to zip archive
-    TRAIN = True
-    # for test regime, we load the model from zip archive and evaluate it 
-    TEST = True
+    if cfg.train:
+        # wrapping it with monitor  
 
-    log_dir = "C:\\Users\\bochenin\\RL project\\materials\\ridesharing\\sumo-rs-gym\\sumo-rl-main\\nets\\ridepooling\\logs"
-    os.makedirs(log_dir, exist_ok=True)
+        start_time = time.time()
 
-    
-    if TRAIN:   
-        # wrapping it with monitor
-        # Logs will be saved in log_dir/monitor.csv
-
-        # creating Gym environment
-        env = gym.make(
-            "sumo-rl-rs-v0",
-            #num_seconds=100,
-            use_gui=False,
-            delta_time=delta,
-            cfg_file="nets/ridepooling/MySUMO.sumocfg",
-            additional_sumo_cmd="--log sumolog.txt",
-            sumo_seed=4220,
-            verbose=False,
-        )
-
-        env = Monitor(env, log_dir)
+        vec_env = SubprocVecEnv([env_factory() for i in range(cfg.env.num_envs)])
+        vec_env = VecMonitor(vec_env, train_log_dir)
  
-
         # print("Creating model") 
         model = DQN(
-            env=env,
-            policy="MlpPolicy",
-            learning_rate=0.001,
-            learning_starts=1,
-            train_freq=1,
-            target_update_interval=1,
-            exploration_fraction=0.1,
-            exploration_initial_eps=0.05,
-            exploration_final_eps=0.01,
-            verbose=0,
+            env=vec_env,
+            policy=cfg.dqn.policy,
+            learning_rate=cfg.dqn.learning_rate,
+            learning_starts=cfg.dqn.learning_starts,
+            train_freq=cfg.dqn.train_freq,
+            gradient_steps=cfg.dqn.gradient_steps,
+            target_update_interval=cfg.env.num_envs,
+            exploration_fraction=cfg.dqn.exploration_fraction,
+            exploration_initial_eps=cfg.dqn.exploration_initial_eps,
+            exploration_final_eps=cfg.dqn.exploration_final_eps,
+            verbose=cfg.dqn.verbose,
         )
 
-        # timesteps = 30000 means that we use 10 simulation instances (episodes) for training (3000 steps for one episode * 10 = 30000 steps)
+        # total_timesteps = 30000 means that we use 10 simulation instances (episodes) for training if we use 3000 steps (3000 steps for one episode * 10 = 30000 steps)
         # for this example, I usually trained for 100-300 episodes but for debugging it is OK to start with smaller number of episodes
-        model.learn(total_timesteps=30000)
+        model.learn(total_timesteps=timesteps*total_iters)
    
-        model.save("ridepooling_DQN")
+        model.save(os.path.join(OUTPUT_DIR, 'ridepooling_DQN'))
 
-        env.close()
-
-
-    if TEST:
-
-        # creating Gym environment
-        env = gym.make(
-            "sumo-rl-rs-v0",
-            #num_seconds=100,
-            use_gui=False,
-            delta_time=delta,
-            cfg_file="nets/ridepooling/MySUMO.sumocfg",
-            additional_sumo_cmd="--log sumolog.txt",
-            sumo_seed=4220,
-            verbose=False,
-        )
-
-        env = Monitor(env, log_dir)
+        vec_env.close()
         
-        model = DQN.load("ridepooling_DQN", env=env)
+        end_time = time.time()
+
+        with open(os.path.join(OUTPUT_DIR, 'time.txt'), 'w+') as time_f:
+            print(f"Training time: {end_time - start_time} seconds", file=time_f)
+
+    # for test regime, we load the model from zip archive and evaluate it 
+    if cfg.test:
+        env = Monitor(make_env(), test_log_dir)
+        
+        model = DQN.load(os.path.join(OUTPUT_DIR, 'ridepooling_DQN'), env=env)
 
         # number of test instances
-        num_tests = 5
+        num_tests = cfg.tests.num_tests
 
         for i in range(0, num_tests):
             print("Test ", str(i+1))
@@ -258,8 +177,7 @@ if __name__ == "__main__":
             obs, info = env.reset()
         
             accumulated_reward = 0
-            # 3000 is a number of iterations which during the training is read from nets\ridepooling\MySUMO.sumocfg
-            for step in range(0, 3000):
+            for step in range(0, timesteps):
                 # print("Step: ", step)
                 action, _states = model.predict(obs)
                 obs, rewards, terminated, truncated, info = env.step(action)
@@ -270,6 +188,7 @@ if __name__ == "__main__":
     
         env.close()
     
+    print(f'Output saved to {OUTPUT_DIR}')
     sys.stdout.close()
     
 

@@ -277,7 +277,7 @@ class RidePoolController:
         # for non-served - the maximum number of unserved requests for simulation with fixed capacity = 1
         # for occupied taxis - the total number of taxis in the system (that is, the maximum number of occupied taxis)
         # in this way, we mix two targets with the same weights
-        reward = round((non_served/11.0 - occupied_taxis/15.0) * (-10),2)
+        reward = round((non_served/15.0 - occupied_taxis/30.0) * (-10),2)
 
         return reward
 
