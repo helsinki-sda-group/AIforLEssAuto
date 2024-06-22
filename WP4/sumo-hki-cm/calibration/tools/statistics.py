@@ -31,7 +31,7 @@ try:
     SUMO_DETECTOR_OUTPUT_DIR = sys.argv[2]
     print("SUMO detector count directory set to {}.".format(SUMO_DETECTOR_OUTPUT_DIR))
 except:
-    SUMO_DETECTOR_OUTPUT_DIR = "sumo_files/output/simulation/geo_runner/reduced_detector_outputs"
+    SUMO_DETECTOR_OUTPUT_DIR = "sumo_files/output/simulation/reduced_detector_outputs"
     print("SUMO detector output directory defaulted to {}.".format(SUMO_DETECTOR_OUTPUT_DIR))
 detectionData = getRealRoadStationData()
 DETECTORS_STATS_COLUMNS = ["real", "SUMO", "MAPE", "GEH"]
@@ -43,8 +43,6 @@ DIR_2 = "dir2"
 BEGIN_SUMO_COUNT_TIME = 0
 END_SUMO_COUNT_TIME = 111607984
 
-REAL_TAZRELATIONS_FILE = 'sumo_files/output/tools/reduction_route2OD/reduced_OD_one_hour.xml'
-SUMO_TAZRELATIONS_FILE = 'sumo_files/output/simulation/geo_runner/geo_runner_OD.xml'
 
 def main():
     df = pd.DataFrame(columns=DETECTORS_STATS_COLUMNS)

@@ -15,7 +15,8 @@ sumo_files/output/
 # tools
 tools/test_tools/
 
-
+# pipelines
+pipelines
 
 # other
 __pycache__/

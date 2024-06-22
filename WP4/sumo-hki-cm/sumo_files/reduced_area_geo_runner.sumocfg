@@ -6,8 +6,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="data/reduced_cut_area_2.net.xml"/>
-        <route-files value="data/bs_routes_too_lazy_to_save_smwr_else/sumo_c001_routes_fast.rou.xml"/>
+        <net-file value="output/tools/reduced_area_routesampler_iterative_1mil/demo/reduced_cut_area_2_tl_fixed.net.xml"/>
+        <route-files value="output/tools/reduced_area_routesampler_iterative_1mil/demo/best_output/routesampler_c009_000_routes_fast.rou.xml,output/tools/reduced_area_routesampler_iterative_1mil/demo/best_output/sumo_c008_001_routes_fast.rou.xml"/>
         <additional-files value="data/reduced_cut.add.xml"/>
     </input>
 

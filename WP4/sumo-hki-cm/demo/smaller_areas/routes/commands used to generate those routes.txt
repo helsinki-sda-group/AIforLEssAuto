@@ -1,0 +1,62 @@
+(run in demo folder)
+
+### SMALL AREA (AREA 1) ###
+(trips)
+python $SUMO_HOME/tools/route/cutRoutes.py \
+	smaller_areas/nets/area1/area1.net.xml \
+	output/sim_routes.rou.xml \
+	--default.departSpeed max \
+	--default.departLane best \
+	--disconnected-action keep \
+	--trips-output smaller_areas/routes/area1/cut_trips_area1.rou.xml
+
+(routes)	
+python $SUMO_HOME/tools/route/cutRoutes.py \
+	smaller_areas/nets/area1/area1.net.xml \
+	output/sim_routes.rou.xml \
+	--default.departSpeed max \
+	--default.departLane best \
+	--disconnected-action keep \
+	--routes-output smaller_areas/routes/area1/cut_routes_area1.rou.xml
+	
+	
+### MEDIUM AREA (AREA 2) ###
+(trips)
+python $SUMO_HOME/tools/route/cutRoutes.py \
+	smaller_areas/nets/area2/area2.net.xml \
+	output/sim_routes.rou.xml \
+	--default.departSpeed max \
+	--default.departLane best \
+	--disconnected-action keep \
+	--trips-output smaller_areas/routes/area2/cut_trips_area2.rou.xml
+
+(routes)	
+python $SUMO_HOME/tools/route/cutRoutes.py \
+	smaller_areas/nets/area2/area2.net.xml \
+	output/sim_routes.rou.xml \
+	--default.departSpeed max \
+	--default.departLane best \
+	--disconnected-action keep \
+	--routes-output smaller_areas/routes/area2/cut_routes_area2.rou.xml
+	
+	
+### LARGE AREA (AREA 3) ###
+(trips)
+python $SUMO_HOME/tools/route/cutRoutes.py \
+	smaller_areas/nets/area3/area3.net.xml \
+	output/sim_routes.rou.xml \
+	--default.departSpeed max \
+	--default.departLane best \
+	--disconnected-action keep \
+	--trips-output smaller_areas/routes/area3/cut_trips_area3.rou.xml
+
+(routes)	
+python $SUMO_HOME/tools/route/cutRoutes.py \
+	smaller_areas/nets/area3/area3.net.xml \
+	output/sim_routes.rou.xml \
+	--default.departSpeed max \
+	--default.departLane best \
+	--disconnected-action keep \
+	--routes-output smaller_areas/routes/area3/cut_routes_area3.rou.xml
+	
+

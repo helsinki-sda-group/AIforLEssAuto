@@ -14,42 +14,34 @@ else:
 import sumolib
 
 # main script parameters
-CYCLES = 5 # 5 cycles is mostly enough to converge. set to -1, if you want the script to run indefinitely (you will stop it when it converges well enough for you. NOTE: it won't create a final SUMO config automatically for you if you set it to -1)
+CYCLES = -1 # 5 cycles is mostly enough to converge. set to -1, if you want the script to run indefinitely (you will stop it when it converges well enough for you. NOTE: it won't create a final SUMO config automatically for you if you set it to -1)
 RS_ITERATIONS = 3  # how many times to sample routes using routesampler. If RUN_KEEP_FAST_ON_RS is set to False, 1 routesampler iteration is enough
 DUA_STEPS = 50  # if 0, doesn't run duaiterate. if steps are less than 2, will not work because the route files won't appear in the 000 folder (because we skip the first routing)
-SUMO_ITERATIONS = 2  # how many times to run sumo iterations to remove slow routes
-RUN_KEEP_FAST_ON_RS = True  # if set to True, from each iteration of routesampler removes route that are too slow based on the provided network edges lengths and maximum speed
+SUMO_ITERATIONS = 2  # how many times to run sumo iterations to remove slow or inactive routes
+RUN_KEEP_FAST_ON_RS = True  # if set to True, from each iteration of routesampler removes route that are too slow (don't visit all detectors) based on the provided network edges lengths and maximum speed (the arrival times will be interpolated from network)
 
-
-# functions that take a config file path as a parameter and return a command (MODIFY THIS IF YOU'RE ON WINDOWS)
-get_rs_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/routeSampler.py -c {config_path}'
-get_dua_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/assign/duaIterate.py -c {config_path} --skip-first-routing sumo--time-to-teleport.highways.min-speed 0 sumo--ignore-junction-blocker 1 duarouter--routing-threads 8 1>/dev/null'
-get_sumo_launch_command = lambda config_path: f'sumo -c {config_path} 2>/dev/null'
-
-
-
-# TODO: don't copy files when running duaiterate and sumo, but the config in the root folder
-# duaiterate doesn't work this way by default because it creates a lot of folders in the root dirs,
-# but maybe there are arguments for that?
-# maybe find a root directory using some sort of script and base your path from that? (think about what if there are multiple occurences of the directory in the path)
-
-#BASE_DIR = 'sumo-hki-cm/'
 BASE_DIR = ''
-WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative/'
+WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative_no_lanes/'
 
 ROUTESAMPLER_DIR_NAME = 'routesampler'
 DUAITERATE_DIR_NAME = 'duaiterate'
 SUMO_DIR_NAME = 'sumo'
 FINAL_SUMO_DIR_NAME = 'final'
 
-# # paths to input files
+# paths to input files
 EDGEDATA_DIFF_FILE = BASE_DIR + 'calibration/data/reduced_edgedata_real.xml'
-REAL_WORLD_CMP_FILE = BASE_DIR + 'calibration/data/real_world_comparison.xlsx'  # doesn't matter if contains valid data. only used to retrieve station names and real counts
 SHEET_NAME = 'Detectors'
 ADD_FILE = BASE_DIR + 'sumo_files/data/reduced_cut.add.xml'
 DUAITERATED_OD_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_duaiterate_past_iterations/reduced_area_duaiterate_again_default_cut_trips_to_create_a_better_edgedata_diff_file/047/verified_cut_trips_047.rou.xml'
-RANDOM_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_random_trips_past_iterations/reduced_area_random_trips_shorter/shorter_random_routes_net_2.rou.xml'
-NET_FILE = BASE_DIR + 'sumo_files/data/reduced_cut_area_2.net.xml'
+RANDOM_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_random_trips/routes/random_routes_no_lanes.rou.xml'
+NET_FILE = BASE_DIR + 'sumo_files/data/reduced_cut_area_2_tl_fixed.net.xml'
+
+
+# functions that take a config file path as a parameter and return a command (probably change this if you're on windows)
+get_rs_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/routeSampler.py -c {config_path}'
+get_dua_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/assign/duaIterate.py -c {config_path} --skip-first-routing sumo--time-to-teleport.highways.min-speed 0 sumo--ignore-junction-blocker 1 duarouter--routing-threads 8 1>/dev/null'
+get_sumo_launch_command = lambda config_path: f'sumo -c {config_path} 2>/dev/null'
+
 
 
 # DO NOT MODIFY ANYTHING BELOW THIS COMMENT UNLESS SOMETHING DOESN'T WORK AND YOU'RE SURE THE COMMANDS ARE OK
@@ -71,10 +63,11 @@ SUMO_NET_DEF_FILENAME = 'sumo.net.xml'
 
 
 def main():
+    print(f'Using {RANDOM_ROUTES} as random routes')
     # name local input files
     local_edgedata_diff_filename = 'edgedata_real.xml'
     # local_add_file = 'detectors.add.xml'
-    local_duaiterated_od_routes_filename = 'duaiterated_od.rou.xml'
+    #local_duaiterated_od_routes_filename = 'duaiterated_od.rou.xml'
     local_random_routes_filename = 'random.rou.xml'
     local_net_filename = 'local.net.xml'
     local_add_filename = 'local.add.xml'
@@ -82,13 +75,14 @@ def main():
 
     # remove output folder if it already exists
     if (os.path.isdir(WORK_DIR)):
-         shutil.rmtree(WORK_DIR)
+        print(f"Directory {WORK_DIR} already exists. Aborting")
+        return
 
     # copy input files
     create_dir_safe(WORK_DIR)
     copy_file_safe(EDGEDATA_DIFF_FILE, WORK_DIR + local_edgedata_diff_filename)
     # copy_file_safe(ADD_FILE, WORK_DIR + local_add_file)
-    copy_file_safe(DUAITERATED_OD_ROUTES, WORK_DIR + local_duaiterated_od_routes_filename)
+    #copy_file_safe(DUAITERATED_OD_ROUTES, WORK_DIR + local_duaiterated_od_routes_filename)
     copy_file_safe(RANDOM_ROUTES, WORK_DIR + local_random_routes_filename)
     copy_file_safe(NET_FILE, WORK_DIR + local_net_filename)
     copy_file_safe(ADD_FILE, WORK_DIR + local_add_filename)
@@ -116,8 +110,8 @@ def main():
             if (i == 0):
                 # first cycle, first iteration:
                 if (cycle == 0):
-                    # use duaiterated od trips as input to routeseampler
-                    input_routes = WORK_DIR + local_duaiterated_od_routes_filename
+                    # use random trips as input to routeseampler
+                    input_routes = WORK_DIR + local_random_routes_filename
                     # use real edgedata file as the first diff
                     prev_diff_file = WORK_DIR + local_edgedata_diff_filename
                 # non-first cycle, first iteration:
@@ -133,8 +127,8 @@ def main():
 
                 # non-first iteration, first cycle
                 if (cycle == 0):
-                    # get duaiterated od routes for routesampler
-                    input_routes = WORK_DIR + local_duaiterated_od_routes_filename
+                    # get random routes for routesampler
+                    input_routes = WORK_DIR + local_random_routes_filename
                 # non-first iteration, non-frst cycle
                 else:
                     # get random input routes for routesampler
@@ -225,6 +219,7 @@ def main():
 
             # update SUMO diff (since in sumo we combine routes from all iterations and cycles, we create diff file from real edgedata)
             # the diff file for the last sumo iteration will be used by routesampler in the next cycle
+            # the dif is calculated 
             update_diff(WORK_DIR + local_edgedata_diff_filename, keep_fast_output_file, get_sumo_iter_dir(cycle, i) + 'diff.xml')
         
     # when done, create a config file that can be used to launch the simulation and place it in the work dir
@@ -417,61 +412,63 @@ def keep_fast(routes_file, output_file, detector_edges, edges_info=None):
     total_vehs = len(vehs_root)
     
     fast = set()
-    total_slow_pruned_detections = 0
     total_inactive_pruned_vehicles = 0
 
     for vehicle in vehs_root:
         depart = float(vehicle.get('depart'))
         visited_detectors = 0
-        visited_detectors_in_time = 0
+        not_visited_detectors = 0
         arrival = depart
-        is_fast = True
-
         route = vehicle[0]
         edges = route.get('edges').split()
+
+        saved_edges = []
 
         if use_exit_times:
             exit_times = [float(t) for t in route.get('exitTimes').split()]
             for edge_id, exit_time in zip(edges, exit_times):
-                if edge_id in detector_edges:
-                    visited_detectors += 1
+                if exit_time >= 3600:
+                    if edge_id in detector_edges:  # save the detectors that were not visited in time
+                        not_visited_detectors += 1
+                else:  # exit_time < 3600
+                    saved_edges.append(edge_id)
+                    if edge_id in detector_edges:
+                        visited_detectors += 1
 
-                    # if at least one detector edge was not visited completely until the end of the simulation, route is slow
-                    if exit_time > 3600:
-                        is_fast = False
         else:  # extrapolate exit times (the routes come from routesampler)
             for edge in edges:
                 edge_info = edges_info[edge]
                 
                 # detector edge should be visited completely before the simulation end
                 arrival += edge_info['length'] / edge_info['speed']
+                
+                if arrival >= 3600:
+                    if edge in detector_edges:
+                        not_visited_detectors += 1
+                else:  # arrival time < 3600
+                    saved_edges.append(edge)
+                    if edge in detector_edges:
+                        visited_detectors += 1
+        
+        # keep only edges visited within one hour
+        vehicle[0].set('edges', ' '.join(saved_edges))
 
-                if edge in detector_edges:
-                    visited_detectors += 1
-                    
-                    # if at least one detector is not visited in time, slow
-                    if arrival > 3600:
-                        is_fast = False
-
-        if is_fast and visited_detectors != 0:  # if at least one detector is visited and the vehicle is fast enough
+        if visited_detectors != 0:  # if at least one detector is visited and the vehicle is saved
             fast.add((vehicle.get('id')))
-        elif visited_detectors == 0:
-            total_inactive_pruned_vehicles += 1
         else:
-            total_slow_pruned_detections += visited_detectors
+            total_inactive_pruned_vehicles += 1
             
-
     fast_elems = [veh for veh in vehs_root if veh.get('id') in fast]
     vehs_root[:] = fast_elems
     vehs_tree.write(output_file)
-    print('Pruned', total_vehs - len(fast) - total_inactive_pruned_vehicles, 'slow vehicles, which made up', total_slow_pruned_detections, 'detections. Also pruned', total_inactive_pruned_vehicles, 'inactive vehicles.')
+    print(f'Pruned {total_vehs - len(fast)} vehicles, which made up {not_visited_detectors} detections')
             
 
-def update_diff(prev_diff_file, new_fast_routes_file, output_file, allow_negative=False):
+def update_diff(prev_diff_file, new_saved_routes_file, output_file, allow_negative=False):
     '''
-    diff_1 = real - fast_1
-    diff_2 = real - fast_1 - fast_2 = diff_1 - fast_2
-    (fast routes file for current iteration should already exist)
+    diff_1 = real - saved_1
+    diff_2 = real - saved_1 - saved_2 = diff_1 - saved_2
+    (saved routes file for current iteration should already exist)
     '''
 
     # get prev diff counts for each edge as a dictionary
@@ -481,8 +478,8 @@ def update_diff(prev_diff_file, new_fast_routes_file, output_file, allow_negativ
     for edge_elem in prev_diff_root[0]:
         prev_diff_counts[edge_elem.get('id')] = int(edge_elem.get('entered'))
 
-    # get fast routes from current iteration
-    veh_tree = ET.parse(new_fast_routes_file)
+    # get saved routes from current iteration
+    veh_tree = ET.parse(new_saved_routes_file)
     veh_root = veh_tree.getroot()
 
     # calculate new diffs for all the edges
