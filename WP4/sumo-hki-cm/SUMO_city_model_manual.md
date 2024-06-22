@@ -1,90 +1,52 @@
 # User guide
 This guide will describe the structure of the repository and all steps in the pipeline that turns this guide will describe all steps in the pipeline that turns random routes into a simulation in the traffic simulator [SUMO](https://www.eclipse.org/sumo/) (Simulation of Urban MObility) and how to reduce that simulation to a smaller area using the results from the large simulation.
 
-# Pre-generated demand data
+## Pre-generated demand data
 If you just need the demand data for the Helsinki area, navigate into the `demo`. The strucutre of that directory is the following:
 * `helsinki.net.xml` represents the network file containing the entire network for HKI area. This network was extracted from [OpenStreetMaps](https://www.openstreetmap.org/). 
 * `demand_base.rou.xml` contains the route files for the Helsinki area.
 * `demand_add.rou.xml` is an optional route file for the Heslinki area that can be added to improve the accuracy of the simulation for the traffic counting stations. However, adding this file makes the simulation more unnatural and causes some unrealistic traffic jams.
 * `real_world_comparison.xlsx` compares the simulated traffic counts to real-world traffic counts obtained from [Digitraffic](https://www.digitraffic.fi/en/road-traffic/#current-data-from-tms-stations).
-* `smaller_areas` contains the networks and the routes for the smaller areas of Helsinki each of them located around keskuspuisto. Area1 represents the smallest area, and area3 the largest. Area2 is in the middle.
-    * `areaX_disconnected` represents the areas that can potentially have edges disconnected from the rest of the network.
-    * `areaX_connected` keeps only those edges from the disconnected version that form the biggest weakly connected graph. This is useful for routing purposes.
+* `sumo_launch.sumocfg` contains the [SUMO config](https://sumo.dlr.de/docs/Other/File_Extensions.html) file that can be used to launch the simulation.
+* `smaller_areas` contains the networks and the routes for the smaller areas of Helsinki each of them located around keskuspuisto. Area1 represents the smallest area, and area3 the largest. Area2 is the second largest.
 
 
-## Pre-generated routes
-The pre-generated route files, evaluation results and the .sumocfg file to launch the simulation are in the /demo directory. You can use those files without running the whole pipeline. If you have already installed sumo, navitate to the /demo directory and run sumo-gui -c rs_iterative.sumocfg. It should automatically launch the simulation in the GUI. If you don't have sumo installed, please refer to the official documentation on how to install it. https://www.eclipse.org/sumo/
+## Environment
 
-## Pipeline usage
-> [!WARNING]  
-> Code was written on Linux and will most likely not work on Windows
-
-I kept launch.json file in .vscode directory so you can look at how the code is supposed to be launched
-
-More comprehensible guide to script parameters and updated documentation coming soon.
-
-### Generating routes
-If you want to run the whole pipeline all the way from OD and traffic data to SUMO route files, do the following steps:
-1. navigate to WP4/sumo-hki-cm/tools and launch iterativeRoutesampler.py (you can tweak the parameters of the script there) or use the corresponding configuration in launch.json
-2. if you specified the number of cycles, then you can find the generated `final.sumocfg.xml` that can be used to launch the simulation directly. if you didn't, you'll have to create the config file yourself using the routes from the latest iteration of sumo of the last cycle (will be called something like `sumo_c005_001_routes_fast.rou.xml`). You can also try adding the results from the next cycle, first iteration of routesampler. This sometimes improves the results. This is also what was done in the "demo" case.
-
-> [!NOTE]  
-> iterativeRoutesampler.py uses a lot of disk space and time because of duaiterate. (Each cycle uses about 12.5 GB and takes 15 minutes for each duaiterate step individually)
-
-### Testing the simulation and comparing to real-world data
-Real-world data is provided in the `calibration/data` directory. If you want to see the code that was used to extract real-world data, please contact the research group.
-
-After you ran the iterativeRoutesampler.py and got the sumo config file:
-1. launch geoRunner.py (GeoRunner preset in launch.json)
-2. launch statistics.py (Statistics preset in launch.json) 
-
-
-## Environment used
-
-During development I used these core dependencies:
+During development the following core dependencies were used:
 
 * SUMO 1.19.0
 * Python 3.10.12
 * sumolib, libsumo 1.18.0
 
+> [!WARNING]  
+> The code was developed and tested on Linux (Ubuntu 22.04.4) and most likely will not work on Windows
+
+The `launch.json` file was kept, that contains the configurations for Statistics, Geo Runner and Iterative Routesampler. More information about all of these steps can be found in the pipeline explanation section.
 
 ## Pipeline explanation
 
-> [!NOTE]  
-> This section is WIP as there are changes to the pipeline since last update
+The pipeline works by taking the network file for the area, and the demand data in the form of traffic counts for arbitrary edges. The format of the demand data can be seen in `calibration/data/reduced_edgedata_real.xml`.
 
-The goal in this project was to create a realistic simulation of the traffic Helsinki. While no OD data was available specifically for Helsinki, the public transport company HSL had created a demand model for a larger area. While this data can be used as is to simulate the larger area, the time needed to run a one hour instance is much longer (around 6.5 hours instead of 10 minutes). However, to create a reduced OD matrix one needs to know when and where external traffic enters and exits Helsinki. By external traffic we mean vehicles that have their origin in Helsinki and destination outstide Helsinki (in-out), origin outside Helsinki and destination inside Helsinki (out-in) and origin and destination outside Helsinki, but enter Helsinki at some point (out-out). To create such a reduced matrix a simulation of the large area was first run, after which a reduction process was run to make a reduced simulation of Helsinki possible. This GitHub repository contains the code used for this reduction process.
+You don't have to run the pipeline if you just want to get the demand data. For this, refer to pre-generated routes section of this documentation. However, you might use this repository to generate the demand data for a different network. For this, you'd need to do the steps similar. If you do this, keep in mind that you would need to convert your demand data so that it has the same format as `calibration/data/reduced_edgedata_real.xml`. For this, you would need to figure out the mapping between the edge inside the network and the location of the detector used to collect traffic counts (i.e. traffic counting stations) 
 
-The pipeline can be run with the file `completePipeline.sh` in the root directory.
+The most important tool you need to pay attention to is `iterativeRoutesampler.py` from `tools` directory. The tool works by having multiple cycles, in each of which it calls [RouteSampler](https://sumo.dlr.de/docs/Tools/Turns.html) from SUMO toolkit to pick a subset of routes that tries to match the desired vehicle counts, followed by [DuaIterate](https://sumo.dlr.de/docs/Tools/Trip.html), to compute the dynamic user equilibrium for that data. It then runs the SUMO simulation to discover how closely the simulated traffic counts match the target counts, and removes the portion of the routes that didn't make it to their traffic stations in time before the simulation ended. It then calculates the difference between those two counts and runs RouteSampler to fill in that difference. The process is repeated a specified number of cycles.
 
-<img src="media/pipeline.png" alt= “” width="900" height="value">
+### Generating random initial set of routes
+First create the random routes using [RandomTrips](https://sumo.dlr.de/docs/Tools/Trip.html) tool from SUMO toolkit. If you're using this pipeline to create demand data for a different network, the random trips must be generated for that network.
 
-### Step 1: Data processing 
+### Iterative Routesampler
+Head into `tools/iterativeRoutesampler.py` and modify the variables under `main script parameters` and `paths to input files`. 
 
-`visumRouteGeneration.py`
-To run this file the user needs to have a dBase database file (.dbf) containing the zones in the `data` directory. This file is used for pairing zone indices in the OD matrix with their actual number. Only the columns `FID_1` and `SIJ2019` are used in this step. The image below is a screenshot of the data in HSL's database file.
+> [!WARNING]  
+> If you're using `IterativeRoutesampler.py`, keep in mind that setting a large number for `DUA_STEPS` variable significantly increases the running time and the space on your hard drive. This is due to the use of [DuaIterate](https://sumo.dlr.de/docs/Tools/Trip.html) tool from SUMO toolkit, that computes the dynamic user equilibrium (DUA) for the vehicles in the simulation. It iteratively runs the simulation to discover travel times and then assigns alternative routes to some of the vehicles according to them. This improves the accuracy of the simulation at the cost of longer running time and disk usage. (Each cycle uses about 12.5 GB and takes 15 minutes for each duaiterate step individually)
 
-![DBF file](media/dbf_file.png)
+### Running the final simulation
+Use `tools/geoRunner.py` to produce the final simulation using the demand data. You would need to modify the variables pointing to the SUMO config file, as well as the `.add` file that contains the locations of traffic detectors inside the network. You can use `sumo_files/data/reduced_cut_modif_2.add.xml` as an example.
 
-The output is an OD file in [O-format (VISUM/VISSIM)](https://sumo.dlr.de/docs/Demand/Importing_O/D_Matrices.html#the_o-format_visumvissim). SUMO's built-in tool  os2trips takes the generated OD file and writes trips by picking random edges from the TAZs (zones) that the trips have as origin or destination. Since the network may contain edges that are disconnected from the rest of the edges these trips are potentially invalid and need to be checked to avoid errors during the simulation.
-
-SUMO's built-in tool Duarouter is used for verifying these trips. The extra keywork `--write-trips true` is used when Duarouter is started to write trips instead of routes (complete path consisting of all edges between the origin and destination).
-
-`randomDepartureTimes.py`, `departureTimeSorter.py` and `indexZeroToN.py` (not included in the image describing the pipeline) do just what the names suggest. Since the only definition of the departures of the vehicles in HSL's OD data was that the depart sometime during the one hour period, the vehicles are given a random departure time from 0 to 3600 using `randomDepartureTimes.py`. `departureTimeSorter.py` is used to sort the trips by departure time since all trips need to be sorted when the simulation starts. Finally, `indexZeroToN.py` gives the trips indices from 0 to n, where n is the number of trips. This step is necessary because `fcdDataExtraction.py` (used later) assumes that an array with the length of n can be created to store origins and destinations of the vehicles.
-
-### Step 2: Running the large simulation: `runner.py`
-`runner.py` launches an instance of the large simulation defined in `1_hour_whole_area.sumocfg` using [TraCI](https://sumo.dlr.de/docs/TraCI.html). The position of every vehicle at every time step is saved to the file `fcdresults.xml`.
-
-### Step 3: Reduction of the large simulation
-In this step a reduced OD matrix is created for in-out, out-in and out-out vehicles with `fcdDataAnalysisV5.py`. The vehicle positions in `fcdresults.xml` are used to determine when and where vehicles enter and exit Helsinki (or any chosen smaller area in the large simulation). The output is an Excel file called `departure_times_V5.xlsx`, with each row representing a vehicle. The origin, destination and departure time is included. If a vehicle's origin or destination is in Helsinki, it is saved as a TAZ id and otherwise it is represented as coordinates.
-
-![departure_times_V5.xlsx example](media/departure_times_V5_example.png)\
-*An example of the output of fcdDataExtractionV5*
-
-After `fcdDataAnalysisV5.py` has been run `departure_times_V5.xlsx` is used to generate a new trip file for the simulation of the smaller area, which in this case Helsinki. `coordinateODToTripsV2.py` generates the trip file using `departure_times_V5.xlsx` for the external traffic and the original OD matrix for in-in traffic. After that the same preparation process is run as before the large simulation.
-
-### Step 4: Running the reduced simulation
-As a last step the reduced simulation is launched through TraCI in `geoRunnerV2.py`. After that `statistics.py` is run to create a file where real world traffic counts are compared to the corresponding points in the simulation (implemented using induction loops in SUMO).
+### Statistics
+After the simulation finishes, you can use `tools/statistics.py` to get the results of the simulation. For this, you would need the data about the target counts in the same format as `calibration/data/road_station_detections.json`. Alternatively, you could modify the script to work with the same format as `calibration/data/reduced_edgedata_real.xml`. The `statistics.py` script creates `calibration/data/real_world_comparison.xlsx` file that computes [MAPE](https://en.wikipedia.org/wiki/Mean_absolute_percentage_error), [GEH](https://en.wikipedia.org/wiki/GEH_statistic) and [RMSE](https://en.wikipedia.org/wiki/Root_mean_square_deviation) statistics between the simulated and target counts.
+![screenshot of the real world comparison file produced by statistics.py script](media/real_world_comp_demo.png)
 
 <!-- ## Changes that could improve the project
 Rename the output file in `visumRouteGeneration.py` to "SUMO_OD_file.od". -->

@@ -20,19 +20,6 @@ DUA_STEPS = 50  # if 0, doesn't run duaiterate. if steps are less than 2, will n
 SUMO_ITERATIONS = 2  # how many times to run sumo iterations to remove slow or inactive routes
 RUN_KEEP_FAST_ON_RS = True  # if set to True, from each iteration of routesampler removes route that are too slow (don't visit all detectors) based on the provided network edges lengths and maximum speed (the arrival times will be interpolated from network)
 
-# functions that take a config file path as a parameter and return a command (MODIFY THIS IF YOU'RE ON WINDOWS)
-get_rs_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/routeSampler.py -c {config_path}'
-get_dua_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/assign/duaIterate.py -c {config_path} --skip-first-routing sumo--time-to-teleport.highways.min-speed 0 sumo--ignore-junction-blocker 1 duarouter--routing-threads 8 1>/dev/null'
-get_sumo_launch_command = lambda config_path: f'sumo -c {config_path} 2>/dev/null'
-
-
-
-# TODO: don't copy files when running duaiterate and sumo, but the config in the root folder
-# duaiterate doesn't work this way by default because it creates a lot of folders in the root dirs,
-# but maybe there are arguments for that?
-# maybe find a root directory using some sort of script and base your path from that? (think about what if there are multiple occurences of the directory in the path)
-
-#BASE_DIR = 'sumo-hki-cm/'
 BASE_DIR = ''
 WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative_no_lanes/'
 
@@ -41,14 +28,20 @@ DUAITERATE_DIR_NAME = 'duaiterate'
 SUMO_DIR_NAME = 'sumo'
 FINAL_SUMO_DIR_NAME = 'final'
 
-# # paths to input files
+# paths to input files
 EDGEDATA_DIFF_FILE = BASE_DIR + 'calibration/data/reduced_edgedata_real.xml'
-REAL_WORLD_CMP_FILE = BASE_DIR + 'calibration/data/real_world_comparison.xlsx'  # doesn't matter if contains valid data. only used to retrieve station names and real counts
 SHEET_NAME = 'Detectors'
 ADD_FILE = BASE_DIR + 'sumo_files/data/reduced_cut.add.xml'
 DUAITERATED_OD_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_duaiterate_past_iterations/reduced_area_duaiterate_again_default_cut_trips_to_create_a_better_edgedata_diff_file/047/verified_cut_trips_047.rou.xml'
 RANDOM_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_random_trips/routes/random_routes_no_lanes.rou.xml'
 NET_FILE = BASE_DIR + 'sumo_files/data/reduced_cut_area_2_tl_fixed.net.xml'
+
+
+# functions that take a config file path as a parameter and return a command (probably change this if you're on windows)
+get_rs_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/routeSampler.py -c {config_path}'
+get_dua_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/assign/duaIterate.py -c {config_path} --skip-first-routing sumo--time-to-teleport.highways.min-speed 0 sumo--ignore-junction-blocker 1 duarouter--routing-threads 8 1>/dev/null'
+get_sumo_launch_command = lambda config_path: f'sumo -c {config_path} 2>/dev/null'
+
 
 
 # DO NOT MODIFY ANYTHING BELOW THIS COMMENT UNLESS SOMETHING DOESN'T WORK AND YOU'RE SURE THE COMMANDS ARE OK
