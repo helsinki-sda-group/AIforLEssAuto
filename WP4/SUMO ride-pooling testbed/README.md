@@ -1,5 +1,7 @@
 # SUMO ride-pooling testbed
 
+![Status](https://img.shields.io/badge/Status-Completed-green)
+
 ## General description
 
 This repository contains scripts for calculating the metrics for SUMO ride-pooling algorithms, performing batched experiments for the range of parameters, aggregating and visualizing the results. 
