@@ -1,4 +1,6 @@
 # User guide
+![Status](https://img.shields.io/badge/Status-Completed-green)
+
 This guide will describe the structure of the repository and all steps in the pipeline that turns this guide will describe all steps in the pipeline that turns random routes into a simulation in the traffic simulator [SUMO](https://www.eclipse.org/sumo/) (Simulation of Urban MObility) and how to reduce that simulation to a smaller area using the results from the large simulation.
 
 ## Pre-generated demand data
