@@ -1,4 +1,5 @@
 # RL for ride-pooling (SUMO, Gym)
+![Status](https://img.shields.io/badge/Status-In_Progress-yellow)
 
 This repository contains the implementation of SUMO Gym environment for ride-pooling and tests for it. The implementation is based on https://github.com/LucasAlegre/sumo-rl.
 
