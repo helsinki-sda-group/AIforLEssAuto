@@ -12,9 +12,6 @@ sumo_files/data/whole_area.net.xml
 sumo_files/data/reduced_detector_outputs/
 sumo_files/output/
 
-# tools
-tools/test_tools/
-
 # pipelines
 pipelines
 
