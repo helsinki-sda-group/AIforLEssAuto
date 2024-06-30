@@ -21,7 +21,7 @@ SUMO_ITERATIONS = 2  # how many times to run sumo iterations to remove slow or i
 RUN_KEEP_FAST_ON_RS = True  # if set to True, from each iteration of routesampler removes route that are too slow (don't visit all detectors) based on the provided network edges lengths and maximum speed (the arrival times will be interpolated from network)
 
 BASE_DIR = ''
-WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative_no_lanes/'
+WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative_outputs/reduced_area_routesampler_iterative_no_lanes/'
 
 ROUTESAMPLER_DIR_NAME = 'routesampler'
 DUAITERATE_DIR_NAME = 'duaiterate'
@@ -33,12 +33,12 @@ EDGEDATA_DIFF_FILE = BASE_DIR + 'calibration/data/reduced_edgedata_real.xml'
 SHEET_NAME = 'Detectors'
 ADD_FILE = BASE_DIR + 'sumo_files/data/reduced_cut.add.xml'
 DUAITERATED_OD_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_duaiterate_past_iterations/reduced_area_duaiterate_again_default_cut_trips_to_create_a_better_edgedata_diff_file/047/verified_cut_trips_047.rou.xml'
-RANDOM_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_random_trips/routes/random_routes_no_lanes.rou.xml'
+RANDOM_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_random_trips/routes/random_routes_no_lanes_and_length.rou.xml'
 NET_FILE = BASE_DIR + 'sumo_files/data/reduced_cut_area_2_tl_fixed.net.xml'
 
 
 # functions that take a config file path as a parameter and return a command (probably change this if you're on windows)
-get_rs_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/routeSampler.py -c {config_path}'
+get_rs_launch_command = lambda config_path, out, err: f'python3 $SUMO_HOME/tools/routeSampler.py -c {config_path} 1>{out} 2>{err}'
 get_dua_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/assign/duaIterate.py -c {config_path} --skip-first-routing sumo--time-to-teleport.highways.min-speed 0 sumo--ignore-junction-blocker 1 duarouter--routing-threads 8 1>/dev/null'
 get_sumo_launch_command = lambda config_path: f'sumo -c {config_path} 2>/dev/null'
 
@@ -50,6 +50,8 @@ get_rs_config_def_filename = lambda c, i: f'routesampler_c{format_number(c)}_{fo
 get_rs_routes_output_def_filename = lambda c, i: f'routesampler_c{format_number(c)}_{format_number(i)}_routes.rou.xml'
 get_rs_fast_routes_output_def_filename = lambda c, i: f'routesampler_c{format_number(c)}_{format_number(i)}_routes_fast.rou.xml'
 get_rs_mismatch_output_def_filename = lambda c, i: f'routesampler_c{format_number(c)}_{format_number(i)}_mismatch.rou.xml'
+get_rs_stdout_def_filename = lambda c, i: f'routesampler_c{format_number(c)}_{format_number(i)}_stdout.log'
+get_rs_stderr_def_filename = lambda c, i: f'routesampler_c{format_number(c)}_{format_number(i)}_stderr.log'
 
 DUA_CONFIG_DEF_FILENAME = 'dua.config.xml'
 DUA_NET_DEF_FILENAME = 'dua.net.xml'
@@ -62,8 +64,21 @@ get_sumo_errors_log_def_filename = lambda c, i: f'sumo_c{format_number(c)}_{form
 SUMO_NET_DEF_FILENAME = 'sumo.net.xml'
 
 
+# Custom Logger class that logs both to terminal and specified file
+class DualLogger:
+    def __init__(self, filepath, mode='a'):
+        self.terminal = sys.stdout
+        self.log = open(filepath, mode)
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
 def main():
-    print(f'Using {RANDOM_ROUTES} as random routes')
     # name local input files
     local_edgedata_diff_filename = 'edgedata_real.xml'
     # local_add_file = 'detectors.add.xml'
@@ -72,6 +87,7 @@ def main():
     local_net_filename = 'local.net.xml'
     local_add_filename = 'local.add.xml'
     output_filename = 'output.rou.xml'
+    log_filename = 'stdout.log'
 
     # remove output folder if it already exists
     if (os.path.isdir(WORK_DIR)):
@@ -86,6 +102,11 @@ def main():
     copy_file_safe(RANDOM_ROUTES, WORK_DIR + local_random_routes_filename)
     copy_file_safe(NET_FILE, WORK_DIR + local_net_filename)
     copy_file_safe(ADD_FILE, WORK_DIR + local_add_filename)
+
+    # redirect output to log
+    sys.stdout = DualLogger(WORK_DIR + log_filename) # log to both 
+
+    print(f'Using {RANDOM_ROUTES} as random routes')
 
     # create diff file    
     stations_info = get_stations_info(WORK_DIR + local_edgedata_diff_filename)
@@ -273,6 +294,10 @@ def run_routesampler(cycle, iter_number, edgedata_file, route_files:list[str]):
     output_routes_file = rs_iter_dir + get_rs_routes_output_def_filename(cycle, iter_number)
     output_mismatch_file = rs_iter_dir + get_rs_mismatch_output_def_filename(cycle, iter_number)
     
+    # log files
+    rs_stdout = rs_iter_dir + get_rs_stdout_def_filename(cycle, iter_number)
+    rs_stderr = rs_iter_dir + get_rs_stderr_def_filename(cycle, iter_number)
+
     # create config
     config_path = rs_iter_dir + get_rs_config_def_filename(cycle, iter_number)
     config_xml_tree = create_routesampler_config(
@@ -285,7 +310,7 @@ def run_routesampler(cycle, iter_number, edgedata_file, route_files:list[str]):
     config_xml_tree.write(config_path)
     
     # run routesampler
-    os.system(get_rs_launch_command(config_path))
+    os.system(get_rs_launch_command(config_path, rs_stdout, rs_stderr))
 
 
 def run_duaiterate(cycle, route_files:list[str], steps):
@@ -409,15 +434,14 @@ def keep_fast(routes_file, output_file, detector_edges, edges_info=None):
     # keep fast routes
     vehs_tree = ET.parse(routes_file)
     vehs_root = vehs_tree.getroot()
-    total_vehs = len(vehs_root)
     
-    fast = set()
+    total_not_visited_detectors = 0
     total_inactive_pruned_vehicles = 0
+    active = set()
 
     for vehicle in vehs_root:
         depart = float(vehicle.get('depart'))
         visited_detectors = 0
-        not_visited_detectors = 0
         arrival = depart
         route = vehicle[0]
         edges = route.get('edges').split()
@@ -429,7 +453,7 @@ def keep_fast(routes_file, output_file, detector_edges, edges_info=None):
             for edge_id, exit_time in zip(edges, exit_times):
                 if exit_time >= 3600:
                     if edge_id in detector_edges:  # save the detectors that were not visited in time
-                        not_visited_detectors += 1
+                        total_not_visited_detectors += 1
                 else:  # exit_time < 3600
                     saved_edges.append(edge_id)
                     if edge_id in detector_edges:
@@ -444,7 +468,7 @@ def keep_fast(routes_file, output_file, detector_edges, edges_info=None):
                 
                 if arrival >= 3600:
                     if edge in detector_edges:
-                        not_visited_detectors += 1
+                        total_not_visited_detectors += 1
                 else:  # arrival time < 3600
                     saved_edges.append(edge)
                     if edge in detector_edges:
@@ -453,15 +477,15 @@ def keep_fast(routes_file, output_file, detector_edges, edges_info=None):
         # keep only edges visited within one hour
         vehicle[0].set('edges', ' '.join(saved_edges))
 
-        if visited_detectors != 0:  # if at least one detector is visited and the vehicle is saved
-            fast.add((vehicle.get('id')))
+        if visited_detectors != 0:  # if at least one detector is visited, the vehicle is considered active and is saved
+            active.add((vehicle.get('id')))
         else:
             total_inactive_pruned_vehicles += 1
             
-    fast_elems = [veh for veh in vehs_root if veh.get('id') in fast]
+    fast_elems = [veh for veh in vehs_root if veh.get('id') in active]
     vehs_root[:] = fast_elems
     vehs_tree.write(output_file)
-    print(f'Pruned {total_vehs - len(fast)} vehicles, which made up {not_visited_detectors} detections')
+    print(f'Pruned {total_inactive_pruned_vehicles} inactive vehicles, in total {total_not_visited_detectors} detections were not registered.')
             
 
 def update_diff(prev_diff_file, new_saved_routes_file, output_file, allow_negative=False):
@@ -660,7 +684,7 @@ def get_cycle_dir(cycle):
 
 def create_dir_safe(dir_path):
     if not os.path.isdir(dir_path):
-        os.mkdir(dir_path)
+        os.makedirs(dir_path)
 
 
 def copy_file_safe(input, output):
