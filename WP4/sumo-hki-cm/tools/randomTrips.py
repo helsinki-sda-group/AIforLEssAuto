@@ -104,11 +104,11 @@ def get_options(args=None):
     # weights
     op.add_argument("-l", "--length", category="weights", action="store_true", default=False,
                     help="weight edge probability by length")
-    op.add_argument("-l", "--fringe-length", category="weights", action="store_true", default=False,
+    op.add_argument("--fringe-length", category="weights", action="store_true", default=False,
                     help="weight fringe edge probability by length")
     op.add_argument("-L", "--lanes", category="weights", action="store_true", default=False,
                     help="weight edge probability by number of lanes")
-    op.add_argument("-L", "--fringe-lanes", category="weights", action="store_true", default=False,
+    op.add_argument("--fringe-lanes", category="weights", action="store_true", default=False,
                     help="weight fringe edge probability by number of lanes")
     op.add_argument("--edge-param", category="weights", dest="edgeParam",
                     help="use the given edge parameter as factor for edge")
@@ -141,8 +141,9 @@ def get_options(args=None):
                     help="Set list of edge types that cannot be used for departure or arrival " +
                     "(unless being on the fringe)")
     op.add_argument("--fringe-via-edge-types", category="weights", dest="fringeViaEdgeTypes",
-                    help="Set list of fringe edge types that, when selected, will be treated as a non-fringe edge " +
-                    "(default: via-edge-types)")
+                    help="Set list of edge types that, when selected as a departure or arrival, " + 
+                    "will be treated as a non-fringe edge, even if located at the finge of the network " +
+                    "(default: None)")
     op.add_argument("--allow-roundabouts", category="weights", dest="allowRoundabouts", action="store_true",
                     default=False, help="Permit trips that start or end inside a roundabout")
     # processing
@@ -465,7 +466,7 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
                 prob *= edge.getLength()
         if options.fringe_length:
             if (edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions) and 
-                    edge.getType() not in options.fringeViaEdgeTypes):
+                    edge.getType() not in options.fringeViaEdgeTypes):  # apply the effect of the fringe multiplier only if the edge should be treated as fringe (fringeViaEdgeTypes option)
                 prob *= edge.getLength()
         if options.lanes:
             if not edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions):

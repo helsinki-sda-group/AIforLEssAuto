@@ -37,6 +37,8 @@ The most important tool you need to pay attention to is `iterativeRoutesampler.p
 ### Generating random initial set of routes
 First create the random routes using [RandomTrips](https://sumo.dlr.de/docs/Tools/Trip.html) tool from SUMO toolkit. If you're using this pipeline to create demand data for a different network, the random trips must be generated for that network.
 
+The file `tools/randomTrips.py` contains a slightly modified version of the original randomTrips.py file from SUMO toolkit. It adds a few options that we considered useful to have when generating routes, such as fringe-via-edge-types which allows us to better control which of the edges would be considered as origin or destination. It is not mandatory to use this file to generate your random trips.
+
 ### Iterative Routesampler
 Head into `tools/iterativeRoutesampler.py` and modify the variables under `main script parameters` and `paths to input files`. 
 

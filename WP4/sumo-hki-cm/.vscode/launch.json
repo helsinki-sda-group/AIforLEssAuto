@@ -29,6 +29,15 @@
             "program": "tools/iterativeRoutesampler.py",
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            "name": "Random Trips",
+            "type": "python",
+            "request": "launch",
+            "program": "tools/randomTrips.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["-c", "sumo_files/configs/randomTrips/test_random_trips.xml", "--duarouter-routing-threads", "20"]
         }
     ]
 }
