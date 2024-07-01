@@ -9,7 +9,7 @@ import matplotlib.cm as cm
 from pprint import pprint
 
 routes_default = 'sumo_files/output/tools/reduced_area_random_trips/routes/test_default.rou.xml'
-routes_test = 'sumo_files/output/tools/reduced_area_random_trips/routes/test_fringe_length_work.rou.xml'
+routes_test = 'sumo_files/output/tools/reduced_area_random_trips/routes/test_fringe_lanes_length_work.rou.xml'
 net_file = 'sumo_files/data/reduced_cut_area_2_tl_fixed.net.xml'
 
 
@@ -20,13 +20,13 @@ def main():
     routes_default_vehs_tree = ET.parse(routes_default)
     routes_test_vehs_tree = ET.parse(routes_test)
     
-    # print('ROUTES FRINGE FACTOR FOR DEFAULT ROUTES')
-    # get_routes_fringe_factor(routes_default_vehs_tree, net)
+    print('ROUTES FRINGE FACTOR FOR DEFAULT ROUTES')
+    get_routes_fringe_factor(routes_default_vehs_tree, net)
 
-    # print('ROUTES FRINGE FACTOR FOR TEST ROUTES')
-    # get_routes_fringe_factor(routes_test_vehs_tree, net)
+    print('ROUTES FRINGE FACTOR FOR TEST ROUTES')
+    get_routes_fringe_factor(routes_test_vehs_tree, net)
 
-    plot_lane_multiplies(routes_default_vehs_tree, routes_test_vehs_tree, net)
+    #plot_lane_multiplies(routes_default_vehs_tree, routes_test_vehs_tree, net)
 
     
 

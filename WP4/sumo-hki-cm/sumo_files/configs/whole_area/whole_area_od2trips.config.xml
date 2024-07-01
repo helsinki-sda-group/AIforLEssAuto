@@ -1,0 +1,10 @@
+<configuration>
+    <input>
+        <taz-files value="whole_area_districts.taz.xml"/>
+        <od-matrix-files value="OD_file.od"/>
+    </input>
+
+    <output>
+        <output-file value="trips.odtrips.rou.xml"/>
+    </output>
+</configuration>

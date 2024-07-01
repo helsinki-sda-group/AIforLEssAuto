@@ -1,0 +1,17 @@
+<configuration>
+    <input>
+        <od-files value="reduced_OD.xml"/>
+        <taz-files value="whole_area_districts.taz.xml"/>
+        <edgedata-files value="reduced_edgedata_undivided.xml"/>
+        <route-files value="verified_trips.rou.alt.xml"/>
+        <optimize value="full"/>
+        <extra-od value="True"/>
+        <minimize-vehicles value="1"/>
+        <!-- <attributes value="departLane=\"free\" departSpeed=\"max\""/> -->
+    </input>
+
+    <output>
+        <output-file value="simulation_output/routesampler/routes.rou.xml"/>
+        <mismatch-output value="simulation_output/routesampler/mismatch_output.xml"/>
+    </output>
+</configuration>

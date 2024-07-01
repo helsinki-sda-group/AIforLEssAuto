@@ -1,0 +1,22 @@
+<configuration>
+    <input>
+        <net-file value="data/whole_area.net.xml"/>
+        <route-files value="output/tools/whole_area_od2trips/trips.odtrips.rou.xml"/>
+    </input>
+
+    <processing>
+        <max-alternatives value="30"/>
+        <weights.random-factor value="2"/>
+        <keep-all-routes value="true"/>
+    </processing>
+
+    <output>
+        <output-file value="output/tools/whole_area_duarouter/verified_trips.rou.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <ignore-errors value="true"/>
+        <log value="output/tools/whole_area_duarouter/.log"/>
+    </report>
+</configuration>
