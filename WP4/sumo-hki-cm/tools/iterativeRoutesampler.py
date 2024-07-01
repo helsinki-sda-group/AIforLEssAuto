@@ -16,12 +16,13 @@ import sumolib
 # main script parameters
 CYCLES = -1 # 5 cycles is mostly enough to converge. set to -1, if you want the script to run indefinitely (you will stop it when it converges well enough for you. NOTE: it won't create a final SUMO config automatically for you if you set it to -1)
 RS_ITERATIONS = 3  # how many times to sample routes using routesampler. If RUN_KEEP_FAST_ON_RS is set to False, 1 routesampler iteration is enough
-DUA_STEPS = 50  # if 0, doesn't run duaiterate. if steps are less than 2, will not work because the route files won't appear in the 000 folder (because we skip the first routing)
+DUA_STEPS = 10  # if 0, doesn't run duaiterate. if steps are less than 2, will not work because the route files won't appear in the 000 folder (because we skip the first routing)
 SUMO_ITERATIONS = 2  # how many times to run sumo iterations to remove slow or inactive routes
 RUN_KEEP_FAST_ON_RS = True  # if set to True, from each iteration of routesampler removes route that are too slow (don't visit all detectors) based on the provided network edges lengths and maximum speed (the arrival times will be interpolated from network)
+DUAROUTER_ROUTING_THREADS = 10
 
 BASE_DIR = ''
-WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative_outputs/reduced_area_routesampler_iterative_no_lanes/'
+WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative_outputs/test_fringe_lanes_length_work/'
 
 ROUTESAMPLER_DIR_NAME = 'routesampler'
 DUAITERATE_DIR_NAME = 'duaiterate'
@@ -33,13 +34,13 @@ EDGEDATA_DIFF_FILE = BASE_DIR + 'calibration/data/reduced_edgedata_real.xml'
 SHEET_NAME = 'Detectors'
 ADD_FILE = BASE_DIR + 'sumo_files/data/reduced_cut.add.xml'
 DUAITERATED_OD_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_duaiterate_past_iterations/reduced_area_duaiterate_again_default_cut_trips_to_create_a_better_edgedata_diff_file/047/verified_cut_trips_047.rou.xml'
-RANDOM_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_random_trips/routes/random_routes_no_lanes_and_length.rou.xml'
+RANDOM_ROUTES = BASE_DIR + 'sumo_files/output/tools/reduced_area_random_trips/routes/test_fringe_lanes_length_work.rou.xml'
 NET_FILE = BASE_DIR + 'sumo_files/data/reduced_cut_area_2_tl_fixed.net.xml'
 
 
 # functions that take a config file path as a parameter and return a command (probably change this if you're on windows)
 get_rs_launch_command = lambda config_path, out, err: f'python3 $SUMO_HOME/tools/routeSampler.py -c {config_path} 1>{out} 2>{err}'
-get_dua_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/assign/duaIterate.py -c {config_path} --skip-first-routing sumo--time-to-teleport.highways.min-speed 0 sumo--ignore-junction-blocker 1 duarouter--routing-threads 8 1>/dev/null'
+get_dua_launch_command = lambda config_path: f'python3 $SUMO_HOME/tools/assign/duaIterate.py -c {config_path} --skip-first-routing sumo--time-to-teleport.highways.min-speed 0 sumo--ignore-junction-blocker 1 duarouter--routing-threads {DUAROUTER_ROUTING_THREADS} 1>/dev/null'
 get_sumo_launch_command = lambda config_path: f'sumo -c {config_path} 2>/dev/null'
 
 
