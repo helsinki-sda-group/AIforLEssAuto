@@ -1,5 +1,8 @@
 # LUMI SUMO manual
 
+> [!WARNING]  
+> Currently there's an error when following the exact steps in this manual. We are working on fixing it.
+
 ## Logging into LUMI
 
 Before running the installation script, log into LUMI. Please refer to the following guide for setting up an SSH key pair:

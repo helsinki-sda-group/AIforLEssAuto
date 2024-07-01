@@ -15,7 +15,7 @@ import sumolib
 
 # main script parameters
 CYCLES = -1 # 5 cycles is mostly enough to converge. set to -1, if you want the script to run indefinitely (you will stop it when it converges well enough for you. NOTE: it won't create a final SUMO config automatically for you if you set it to -1)
-RS_ITERATIONS = 3  # how many times to sample routes using routesampler. If RUN_KEEP_FAST_ON_RS is set to False, 1 routesampler iteration is enough
+RS_ITERATIONS = 3  # how many times to sample routes using routesampler. If RUN_KEEP_FAST_ON_RS is set to False, 3 routesampler iteration is mostly enough. After this the improvement becomes negligeable
 DUA_STEPS = 10  # if 0, doesn't run duaiterate. if steps are less than 2, will not work because the route files won't appear in the 000 folder (because we skip the first routing)
 SUMO_ITERATIONS = 2  # how many times to run sumo iterations to remove slow or inactive routes
 RUN_KEEP_FAST_ON_RS = True  # if set to True, from each iteration of routesampler removes route that are too slow (don't visit all detectors) based on the provided network edges lengths and maximum speed (the arrival times will be interpolated from network)
