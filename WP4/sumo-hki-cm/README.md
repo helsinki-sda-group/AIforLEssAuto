@@ -37,7 +37,7 @@ The most important tool in this pipeline is `iterativeRoutesampler.py` from `too
 
 
 ### Ground truth data extraction
-The traffic counts from traffic counting stations extracted from the API of [digitraffic](https://www.digitraffic.fi/en/road-traffic/) serves as the ground truth data with which we use to model the traffic inside SUMO. The locations of all the detectors that we used can be found on the [map for the AIForLEssAuto project](https://www.google.com/maps/d/viewer?mid=111A6COcjj4kDMDeImVg7X4D_rm_3of8&usp=sharing).
+The traffic counts from traffic counting stations extracted from the API of [digitraffic](https://www.digitraffic.fi/en/road-traffic/) from autumn 2018 serve as the ground truth data with which we use to model the traffic inside SUMO. The locations of all the detectors that we used can be found on the [map for the AIForLEssAuto project](https://www.google.com/maps/d/viewer?mid=111A6COcjj4kDMDeImVg7X4D_rm_3of8&usp=sharing). The tools that were used for extracting the data can be found in `calibration/tools` and `calibration/tools/traffic_counts_retrieval_2018`.
 
 ![the image showing all digitraffic detectors used as ground truth data](media/all_detectors_helsinki.png)
 
