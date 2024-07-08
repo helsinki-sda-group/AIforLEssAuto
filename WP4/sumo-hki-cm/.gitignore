@@ -7,6 +7,9 @@ calibration/data/*
 # data
 data/*
 
+# demo
+demo/output
+
 # sumo_files
 sumo_files/data/whole_area.net.xml
 sumo_files/data/reduced_detector_outputs/

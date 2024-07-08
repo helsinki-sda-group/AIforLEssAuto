@@ -1,0 +1,27 @@
+<configuration>
+    <input>
+        <net-file value="nets/area2/area2_disconnected.net.xml" />
+        <route-files value="routes/area2/disconnected/area2_disconnected_routes.rou.xml" />
+        <additional-files value="../../sumo_files/data/area1_digitraffic_detectors.add.xml" />
+    </input>
+    <processing>
+        <ignore-junction-blocker value="1" />
+        <time-to-teleport.highways value="200" />
+        <time-to-teleport.highways.min-speed value="0" />
+        <time-to-teleport value="300" />
+    </processing>
+    <!-- <output>
+        <statistic-output value="output/stats.xml" />
+        <vehroute-output value="output/sim_routes.rou.xml" />
+        <vehroute-output.sorted value="true" />
+        <vehroute-output.exit-times value="true" />
+        <vehroute-output.speedfactor value="false" />
+    </output>
+    <report>
+        <error-log value="output/errors.log" />
+    </report> -->
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+</configuration>

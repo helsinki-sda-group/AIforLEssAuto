@@ -1,0 +1,21 @@
+(run in demo folder)
+
+Note that after running these scripts you might also need to delete uknown vehicle classes occurences from all the lanes (in our case it was cable_car and subway)
+
+### SMALL AREA ### (~5-6 km width)
+
+netconvert --keep-edges.in-boundary "132163.13,76092.44 137705.06,77236.69 137841.69,76109.51 137687.99,72565.75 134161.30,72480.36 132709.64,72480.36 132077.74,75989.97 132163.13,76092.44" -s helsinki.net.xml -o smaller_areas/nets/area1/area1_disconnected.net.xml
+
+netconvert --keep-edges.in-boundary "132163.13,76092.44 137705.06,77236.69 137841.69,76109.51 137687.99,72565.75 134161.30,72480.36 132709.64,72480.36 132077.74,75989.97 132163.13,76092.44" --keep-edges.components 1 -s helsinki.net.xml -o smaller_areas/nets/area1/area1_connected.net.xml
+
+### MEDIUM AREA ### (~10 km width)
+
+netconvert --keep-edges.in-boundary "131464.22,77138.95 139529.32,77068.73 139950.63,73307.02 138365.70,71962.84 131283.65,72073.18 131464.22,77138.95" -s helsinki.net.xml -o smaller_areas/nets/area2/area2_disconnected.net.xml
+
+netconvert --keep-edges.in-boundary "131464.22,77138.95 139529.32,77068.73 139950.63,73307.02 138365.70,71962.84 131283.65,72073.18 131464.22,77138.95" -s helsinki.net.xml -o smaller_areas/nets/area2/area2_connected.net.xml --keep-edges.components 1
+
+### LARGE AREA ### (~13-14 km width)
+
+netconvert --keep-edges.in-boundary "130368.23,79431.58 132812.20,79639.31 139587.84,80031.44 143536.50,79639.31 143262.92,75781.85 143135.25,74213.33 143180.84,71523.13 143188.14,69911.75 132123.70,70002.04 130368.23,79431.58" -s helsinki.net.xml -o smaller_areas/nets/area3/area3_disconnected.net.xml
+
+netconvert --keep-edges.in-boundary "130368.23,79431.58 132812.20,79639.31 139587.84,80031.44 143536.50,79639.31 143262.92,75781.85 143135.25,74213.33 143180.84,71523.13 143188.14,69911.75 132123.70,70002.04 130368.23,79431.58" -s helsinki.net.xml -o smaller_areas/nets/area3/area3_connected.net.xml --keep-edges.components 1

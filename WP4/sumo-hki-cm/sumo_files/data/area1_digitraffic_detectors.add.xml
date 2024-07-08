@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-03-20 19:01:17 by Eclipse SUMO netedit Version 1.19.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <inductionLoop id="kt45_Oulunkyla_1_0" lane="131271487_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_1_output.xml"/>
+    <inductionLoop id="kt45_Oulunkyla_1_1" lane="131271487_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_1_output.xml"/>
+    <inductionLoop id="kt45_Oulunkyla_1_2" lane="131271487_2" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_1_output.xml"/>
+    <inductionLoop id="kt45_Oulunkyla_2_0" lane="117654832#0_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_2_output.xml"/>
+    <inductionLoop id="kt45_Oulunkyla_2_1" lane="117654832#0_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_2_output.xml"/>
+    <inductionLoop id="kt45_Oulunkyla_2_2" lane="117654832#0_2" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/kt45_Oulunkyla_2_output.xml"/>
+    <inductionLoop id="st100_Kivihaan_tunneli_1_0" lane="25153048_0" pos="400.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st100_Kivihaan_tunneli_1_output.xml"/>
+    <inductionLoop id="st100_Kivihaan_tunneli_1_1" lane="25153048_1" pos="400.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st100_Kivihaan_tunneli_1_output.xml"/>
+    <inductionLoop id="st100_Kivihaan_tunneli_2_0" lane="25153039#0_0" pos="50.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st100_Kivihaan_tunneli_2_output.xml"/>
+    <inductionLoop id="st100_Kivihaan_tunneli_2_1" lane="25153039#0_1" pos="50.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st100_Kivihaan_tunneli_2_output.xml"/>
+    <inductionLoop id="st101_Kannelmaki_1_0" lane="78714806_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_1_output.xml"/>
+    <inductionLoop id="st101_Kannelmaki_1_1" lane="78714806_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_1_output.xml"/>
+    <inductionLoop id="st101_Kannelmaki_1_2" lane="78714806_2" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_1_output.xml"/>
+    <inductionLoop id="st101_Kannelmaki_2_0" lane="301710114_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_2_output.xml"/>
+    <inductionLoop id="st101_Kannelmaki_2_1" lane="301710114_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_2_output.xml"/>
+    <inductionLoop id="st101_Kannelmaki_2_2" lane="301710114_2" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Kannelmaki_2_output.xml"/>
+    <inductionLoop id="st101_Lansi-Pakila_1_0" lane="132816269_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_1_output.xml"/>
+    <inductionLoop id="st101_Lansi-Pakila_1_1" lane="132816269_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_1_output.xml"/>
+    <inductionLoop id="st101_Lansi-Pakila_1_2" lane="132816269_2" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_1_output.xml"/>
+    <inductionLoop id="st101_Lansi-Pakila_2_0" lane="4952731_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml"/>
+    <inductionLoop id="st101_Lansi-Pakila_2_1" lane="4952731_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml"/>
+    <inductionLoop id="st101_Lansi-Pakila_2_2" lane="4952731_2" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml"/>
+    <inductionLoop id="st101_Lansi-Pakila_2_3" lane="4952731_3" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Lansi-Pakila_2_output.xml"/>
+    <inductionLoop id="st101_Pakila_1_0" lane="26185622_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Pakila_1_output.xml"/>
+    <inductionLoop id="st101_Pakila_1_1" lane="26185622_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Pakila_1_output.xml"/>
+    <inductionLoop id="st101_Pakila_1_2" lane="26185622_2" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Pakila_1_output.xml"/>
+    <inductionLoop id="st101_Pakila_1_3" lane="26185622_3" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Pakila_1_output.xml"/>
+    <inductionLoop id="st101_Pakila_2_0" lane="24404873_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Pakila_2_output.xml"/>
+    <inductionLoop id="st101_Pakila_2_1" lane="24404873_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Pakila_2_output.xml"/>
+    <inductionLoop id="st101_Pakila_2_2" lane="24404873_2" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Pakila_2_output.xml"/>
+    <inductionLoop id="st101_Pakila_2_3" lane="24404873_3" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st101_Pakila_2_output.xml"/>
+    <inductionLoop id="st120_Pitajanmaki_1_0" lane="443551693_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st120_Pitajanmaki_1_output.xml"/>
+    <inductionLoop id="st120_Pitajanmaki_1_1" lane="443551693_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st120_Pitajanmaki_1_output.xml"/>
+    <inductionLoop id="st120_Pitajanmaki_1_2" lane="443551693_2" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st120_Pitajanmaki_1_output.xml"/>
+    <inductionLoop id="st120_Pitajanmaki_2_0" lane="243759680_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st120_Pitajanmaki_2_output.xml"/>
+    <inductionLoop id="st120_Pitajanmaki_2_1" lane="243759680_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/st120_Pitajanmaki_2_output.xml"/>
+    <inductionLoop id="vt3_Kivihaka_1_0" lane="41844429_0" pos="0.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/vt3_Kivihaka_1_output.xml"/>
+    <inductionLoop id="vt3_Kivihaka_1_1" lane="41844429_1" pos="0.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/vt3_Kivihaka_1_output.xml"/>
+    <inductionLoop id="vt3_Kivihaka_2_0" lane="314159875_0" pos="0.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/vt3_Kivihaka_2_output.xml"/>
+    <inductionLoop id="vt3_Kivihaka_2_1" lane="314159875_1" pos="0.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/vt3_Kivihaka_2_output.xml"/>
+    <inductionLoop id="vt3_Kivihaka_2_2" lane="314159875_2" pos="0.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/vt3_Kivihaka_2_output.xml"/>
+    <inductionLoop id="vt3_Pirkkola_1_0" lane="108954251_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/vt3_Pirkkola_1_output.xml"/>
+    <inductionLoop id="vt3_Pirkkola_1_1" lane="108954251_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/vt3_Pirkkola_1_output.xml"/>
+    <inductionLoop id="vt3_Pirkkola_2_0" lane="18647496_0" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/vt3_Pirkkola_2_output.xml"/>
+    <inductionLoop id="vt3_Pirkkola_2_1" lane="18647496_1" pos="20.00" period="3600.00" file="../output/simulation/reduced_detector_outputs/vt3_Pirkkola_2_output.xml"/>
+</additional>

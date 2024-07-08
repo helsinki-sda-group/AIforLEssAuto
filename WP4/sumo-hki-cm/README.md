@@ -10,7 +10,9 @@ If you just need the demand data for the Helsinki area, navigate into the `demo`
 * `demand_add.rou.xml` is an optional route file for the Heslinki area that can be added to improve the accuracy of the simulation for the traffic counting stations. However, adding this file makes the simulation more unnatural and causes some unrealistic traffic jams.
 * `real_world_comparison.xlsx` compares the simulated traffic counts to real-world traffic counts obtained from [Digitraffic](https://www.digitraffic.fi/en/road-traffic/#current-data-from-tms-stations).
 * `sumo_launch.sumocfg` contains the [SUMO config](https://sumo.dlr.de/docs/Other/File_Extensions.html) file that can be used to launch the simulation.
-* `smaller_areas` contains the networks and the routes for the smaller areas of Helsinki each of them located around keskuspuisto. Area1 represents the smallest area, and area3 the largest. Area2 is the second largest.
+* `smaller_areas` contains the networks and the routes for the smaller areas of Helsinki each of them located around keskuspuisto. Area1 represents the smallest area, area2 is a bit bigger, and area3 is the largest.
+    * `areaX_disconnected.net.xml`: these network files are the result of using `cutRoutes` while keeping all the edges in the boundaries defined as a polygon. These network files might have disconnected parts.
+    * `areaX_connected.net.xml`: these network files keep only the largest weakly-connected component of all the edges in the same boundaries. Note that these network files are not fully-connected, so it is not guaranteed that every combination of origin and destination is possible.
 
 
 ## Environment
@@ -32,7 +34,15 @@ The pipeline works by taking the network file for the area, and the demand data 
 
 You don't have to run the pipeline if you just want to get the demand data. For this, refer to pre-generated routes section of this documentation. However, you might use this repository to generate the demand data for a different network. For this, you'd need to do the steps similar. If you do this, keep in mind that you would need to convert your demand data so that it has the same format as `calibration/data/edgedata_real.xml`. For this, you would need to figure out the mapping between the edge inside the network and the location of the detector used to collect traffic counts (i.e. traffic counting stations) 
 
-The most important tool you need to pay attention to is `iterativeRoutesampler.py` from `tools` directory. The tool works by having multiple cycles, in each of which it calls [RouteSampler](https://sumo.dlr.de/docs/Tools/Turns.html) from SUMO toolkit to pick a subset of routes that tries to match the desired vehicle counts, followed by [DuaIterate](https://sumo.dlr.de/docs/Tools/Trip.html), to compute the dynamic user equilibrium for that data. It then runs the SUMO simulation to discover how closely the simulated traffic counts match the target counts, and removes the portion of the routes that didn't make it to their traffic stations in time before the simulation ended. It then calculates the difference between those two counts and runs RouteSampler to fill in that difference. The process is repeated a specified number of cycles.
+The most important tool in this pipeline is `iterativeRoutesampler.py` from `tools` directory. The tool works by having multiple cycles, in each of which it calls [RouteSampler](https://sumo.dlr.de/docs/Tools/Turns.html) from SUMO toolkit to pick a subset of routes that tries to match the desired vehicle counts, followed by [DuaIterate](https://sumo.dlr.de/docs/Tools/Trip.html), to compute the dynamic user equilibrium for that data. It then runs the SUMO simulation to discover how closely the simulated traffic counts match the target counts, and removes the portion of the routes that didn't make it to their traffic stations in time before the simulation ended. It then calculates the difference between those two counts and runs RouteSampler to fill in that difference. The process is repeated a specified number of cycles.
+
+
+### Ground truth data extraction
+The traffic counts from traffic counting stations extracted from the API of [digitraffic](https://www.digitraffic.fi/en/road-traffic/) serves as the ground truth data with which we use to model the traffic inside SUMO. The locations of all the detectors that we used can be found on the [map for the AIForLEssAuto project](https://www.google.com/maps/d/viewer?mid=111A6COcjj4kDMDeImVg7X4D_rm_3of8&usp=sharing).
+
+![the image showing all digitraffic detectors used as ground truth data](media/all_detectors_helsinki.png)
+
+
 
 ### Generating random initial set of routes
 First create the random routes using [RandomTrips](https://sumo.dlr.de/docs/Tools/Trip.html) tool from SUMO toolkit. If you're using this pipeline to create demand data for a different network, the random trips must be generated for that network.

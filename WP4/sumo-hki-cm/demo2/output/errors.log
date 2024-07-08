@@ -1,0 +1,90 @@
+Warning: Unused states in tlLogic 'GS_cluster_1536595734_1536595800_25970827', program '0' in phase 0 after tl-index 2
+Warning: At actuated tlLogic 'GS_cluster_1536595734_1536595800_25970827', actuated phase 4 has no controlling detector.
+Warning: At actuated tlLogic 'GS_cluster_1937424908_1937424929_26418447', actuated phase 2 has no controlling detector.
+Warning: At actuated tlLogic 'GS_cluster_1937424908_1937424929_26418447', actuated phase 4 has no controlling detector.
+Warning: Program '0' at tlLogic 'joinedS_26' is incompatible with logic at junction 'cluster_288996157_288996180' (mutual conflict between link indices 3,7 tl indices 5,9 phase 0).
+  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
+  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
+Warning: Vehicle 'rs_c000_i001_649' performs emergency braking on lane ':979855770_1_0' with decel=9.00, wished=4.50, severity=1.00, time=556.00.
+Warning: Vehicle 'rs_c000_i000_2681' performs emergency braking on lane ':25572804_2_1' with decel=9.00, wished=4.50, severity=1.00, time=880.00.
+Warning: Teleporting vehicle 'rs_c000_i001_758'; junction collision with vehicle 'rs_c000_i000_10062', lane=':846597954_1_0', gap=-7.05, time=933.00 stage=move.
+Warning: Vehicle 'rs_c000_i001_758' ends teleporting on edge '29690382#1', time=936.00.
+Warning: Vehicle 'rs_c001_i001_180' performs emergency braking on lane ':cluster_27374386_279062842_76468580_4_0' with decel=9.00, wished=4.50, severity=1.00, time=1064.00.
+Warning: Vehicle 'rs_c000_i000_11994' performs emergency braking on lane ':746781140_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1106.00.
+Warning: Vehicle 'rs_c001_i000_664' performs emergency braking on lane ':444208161_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1175.00.
+Warning: Vehicle 'rs_c000_i000_5594' performs emergency braking on lane ':cluster_288996147_288996149_288996161_288996162_1_1' with decel=9.00, wished=4.50, severity=1.00, time=1295.00.
+Warning: Teleporting vehicle 'rs_c000_i000_2711'; collision with vehicle 'rs_c000_i000_13417', lane='892377262_1', gap=-6.63, time=1297.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_2711' ends teleporting on edge '30528714', time=1299.00.
+Warning: Teleporting vehicle 'rs_c000_i000_14274'; junction collision with vehicle 'rs_c000_i000_2540', lane=':25572805_2_0', gap=-6.71, time=1309.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_14274' ends teleporting on edge '17434665#0', time=1311.00.
+Warning: Teleporting vehicle 'rs_c000_i000_1156'; waited too long (wrong lane, highway), lane='15878994_0', time=1316.00.
+Warning: Vehicle 'rs_c000_i000_1156' ends teleporting on edge '15878996', time=1316.00.
+Warning: Teleporting vehicle 'rs_c000_i000_14762'; junction collision with vehicle 'rs_c000_i000_13046', lane=':846597954_1_0', gap=-7.27, time=1398.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_14762' ends teleporting on edge '8014831', time=1400.00.
+Warning: Teleporting vehicle 'rs_c000_i000_13090'; junction collision with vehicle 'rs_c000_i000_14323', lane=':846597954_1_0', gap=-4.56, time=1557.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_13090' ends teleporting on edge '29690382#1', time=1560.00.
+Warning: Vehicle 'rs_c000_i000_1265' performs emergency braking on lane ':746781140_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1562.00.
+Warning: Vehicle 'rs_c000_i000_16203' performs emergency braking on lane ':746781140_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1578.00.
+Warning: Teleporting vehicle 'rs_c000_i000_1171'; waited too long (wrong lane, highway), lane='15878994_1', time=1613.00.
+Warning: Teleporting vehicle 'rs_c000_i000_1119'; waited too long (wrong lane, highway), lane='15878994_0', time=1613.00.
+Warning: Vehicle 'rs_c000_i000_1119' ends teleporting on edge '15878996', time=1613.00.
+Warning: Vehicle 'rs_c000_i000_1171' ends teleporting on edge '-75394382', time=1613.00.
+Warning: Teleporting vehicle 'rs_c000_i000_16847'; junction collision with vehicle 'rs_c001_i000_983', lane=':25572805_2_1', gap=-7.43, time=1623.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_16847' ends teleporting on edge '17434665#0', time=1625.00.
+Warning: Vehicle 'rs_c000_i000_14004' performs emergency braking on lane ':cluster_1516418620_1516418622_3158390719_3158390720_11_1' with decel=9.00, wished=4.50, severity=1.00, time=1749.00.
+Warning: Teleporting vehicle 'rs_c000_i000_15165'; junction collision with vehicle 'rs_c000_i001_2684', lane=':846597954_1_0', gap=-6.91, time=1755.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_15165' ends teleporting on edge '29690382#1', time=1758.00.
+Warning: Teleporting vehicle 'rs_c000_i000_19838'; junction collision with vehicle 'rs_c000_i000_15707', lane=':846597954_1_0', gap=-7.06, time=1771.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_19838' ends teleporting on edge '8014831', time=1773.00.
+Warning: Teleporting vehicle 'rs_c000_i000_15909'; waited too long (wrong lane, highway), lane='521818832#1_1', time=1792.00.
+Warning: Teleporting vehicle 'rs_c000_i000_8308'; waited too long (wrong lane, highway), lane='521818832#1_0', time=1792.00.
+Warning: Vehicle 'rs_c000_i000_8308' ends teleporting on edge '521818831', time=1792.00.
+Warning: Vehicle 'rs_c000_i000_15909' ends teleporting on edge '694610191', time=1792.00.
+Warning: Teleporting vehicle 'rs_c000_i000_7903'; waited too long (wrong lane, highway), lane='15878994_1', time=1821.00.
+Warning: Teleporting vehicle 'rs_c000_i000_774'; waited too long (wrong lane, highway), lane='15878994_0', time=1821.00.
+Warning: Vehicle 'rs_c000_i000_774' ends teleporting on edge '15878996', time=1821.00.
+Warning: Vehicle 'rs_c000_i000_7903' ends teleporting on edge '-75394382', time=1821.00.
+Warning: Vehicle 'rs_c000_i000_20420' performs emergency braking on lane '34826491#0_2' with decel=9.00, wished=4.50, severity=1.00, time=1885.00.
+Warning: Teleporting vehicle 'rs_c000_i000_16007'; collision with vehicle 'rs_c000_i000_2097', lane='892377262_1', gap=-7.30, time=1911.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_16007' ends teleporting on edge '17434665#0', time=1913.00.
+Warning: Teleporting vehicle 'rs_c000_i000_19241'; collision with vehicle 'rs_c000_i001_1637', lane='17244015#1_0', gap=-7.25, time=1916.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_19241' ends teleporting on edge '60684995', time=1920.00.
+Warning: Teleporting vehicle 'rs_c000_i000_5858'; collision with vehicle 'rs_c000_i000_8135', lane='35360074-AddedOnRampEdge_1', gap=-2.58, time=1946.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_5858' ends teleporting on edge '35360074', time=1947.00.
+Warning: Vehicle 'rs_c000_i000_10615' performs emergency braking on lane ':30641170_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2016.00.
+Warning: Teleporting vehicle 'rs_c000_i000_4362'; waited too long (wrong lane, highway), lane='15878994_0', time=2039.00.
+Warning: Vehicle 'rs_c000_i000_4362' ends teleporting on edge '15878996', time=2040.00.
+Warning: Teleporting vehicle 'rs_c000_i000_8701'; collision with vehicle 'rs_c000_i000_13110', lane='35360074-AddedOnRampEdge_1', gap=-0.14, time=2054.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_8701' ends teleporting on edge '35360074', time=2054.00.
+Warning: Teleporting vehicle 'rs_c001_i000_2030'; waited too long (wrong lane, highway), lane='160377250#0_1', time=2153.00.
+Warning: Vehicle 'rs_c001_i000_2030' ends teleporting on edge '28912203', time=2153.00.
+Warning: Teleporting vehicle 'rs_c001_i001_366'; junction collision with vehicle 'rs_c000_i001_718', lane=':25572805_2_1', gap=-7.18, time=2195.00 stage=move.
+Warning: Vehicle 'rs_c001_i001_366' ends teleporting on edge '17434665#0', time=2197.00.
+Warning: Vehicle 'rs_c001_i000_1811' performs emergency braking on lane ':cluster_262595876_28835381_76463636_76463637_15_2' with decel=9.00, wished=4.50, severity=1.00, time=2311.00.
+Warning: Teleporting vehicle 'rs_c000_i000_21174'; junction collision with vehicle 'rs_c000_i000_8921', lane=':1371751515_1_0', gap=-6.51, time=2347.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_21174' ends teleporting on edge '183090995', time=2349.00.
+Warning: Vehicle 'rs_c000_i001_3650' performs emergency braking on lane ':27274456_1_0' with decel=9.00, wished=4.50, severity=1.00, time=2390.00.
+Warning: Teleporting vehicle 'rs_c000_i000_14591'; junction collision with vehicle 'rs_c000_i000_25409', lane=':25572805_2_1', gap=-7.16, time=2404.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_14591' ends teleporting on edge '30528714', time=2406.00.
+Warning: Teleporting vehicle 'rs_c000_i000_25262'; waited too long (wrong lane, highway), lane='521818832#1_1', time=2522.00.
+Warning: Teleporting vehicle 'rs_c000_i000_24557'; waited too long (wrong lane, highway), lane='521818832#1_0', time=2522.00.
+Warning: Vehicle 'rs_c000_i000_24557' ends teleporting on edge '521818831', time=2522.00.
+Warning: Vehicle 'rs_c000_i000_25262' ends teleporting on edge '694610191', time=2522.00.
+Warning: Teleporting vehicle 'rs_c000_i000_27747'; junction collision with vehicle 'rs_c000_i000_25754', lane=':25572805_2_0', gap=-6.14, time=2526.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_27747' ends teleporting on edge '17434665#0', time=2528.00.
+Warning: Teleporting vehicle 'rs_c001_i000_2450'; waited too long (wrong lane, highway), lane='521818832#1_0', time=2787.00.
+Warning: Vehicle 'rs_c001_i000_2450' ends teleporting on edge '521818831', time=2787.00.
+Warning: Teleporting vehicle 'rs_c000_i000_30182'; junction collision with vehicle 'rs_c000_i000_18345', lane=':25572805_2_1', gap=-7.24, time=2793.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_30182' ends teleporting on edge '17434665#0', time=2795.00.
+Warning: Vehicle 'rs_c000_i000_33014' performs emergency braking on lane ':cluster_27374386_279062842_76468580_4_0' with decel=9.00, wished=4.50, severity=1.00, time=2992.00.
+Warning: Teleporting vehicle 'rs_c000_i000_20334'; junction collision with vehicle 'rs_c000_i000_17045', lane=':1371751505_0_0', gap=-6.80, time=3081.00 stage=move.
+Warning: Teleporting vehicle 'rs_c001_i000_2472'; junction collision with vehicle 'rs_c000_i000_30136', lane=':25572805_2_1', gap=-7.18, time=3110.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_20334' ends teleporting on edge '119613503', time=3111.00.
+Warning: Vehicle 'rs_c001_i000_2472' ends teleporting on edge '30528714', time=3112.00.
+Warning: Teleporting vehicle 'rs_c000_i000_23438'; junction collision with vehicle 'rs_c000_i000_33318', lane=':25572805_2_1', gap=-7.49, time=3310.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_23438' ends teleporting on edge '30528714', time=3312.00.
+Warning: Vehicle 'rs_c001_i000_3827' performs emergency braking on lane '1006265805#3_0' with decel=9.00, wished=4.50, severity=1.00, time=3332.00.
+Warning: Teleporting vehicle 'rs_c000_i000_29301'; collision with vehicle 'rs_c000_i001_4901', lane='-61281861_0', gap=-3.88, time=3477.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_29301' ends teleporting on edge '-10357406#2', time=3480.00.
+Warning: Teleporting vehicle 'rs_c000_i000_28431'; collision with vehicle 'rs_c001_i000_3535', lane='122876617#0_1', gap=-6.87, time=3570.00 stage=move.
+Warning: Vehicle 'rs_c000_i000_28431' ends teleporting on edge '35062275', time=3570.00.
