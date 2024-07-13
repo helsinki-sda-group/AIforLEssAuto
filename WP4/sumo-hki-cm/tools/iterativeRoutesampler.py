@@ -22,7 +22,7 @@ RUN_KEEP_FAST_ON_RS = True  # if set to True, from each iteration of routesample
 DUAROUTER_ROUTING_THREADS = 20
 
 BASE_DIR = ''
-WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative_outputs/fringe_lanes_length_2mil/'
+WORK_DIR = BASE_DIR + 'sumo_files/output/tools/reduced_area_routesampler_iterative_outputs/fringe_lanes_length_2mil_free/'
 
 ROUTESAMPLER_DIR_NAME = 'routesampler'
 DUAITERATE_DIR_NAME = 'duaiterate'
@@ -276,7 +276,7 @@ def remove_bs_attrs(input_file, output_file):
         vehicle.attrib.pop('speedFactor', None)
         vehicle.attrib.pop('arrival', None)
         vehicle.set('departSpeed', 'max')
-        vehicle.set('departLane', 'best')
+        vehicle.set('departLane', 'free')
 
         route = vehicle[0]
         route.attrib.pop('exitTimes', None)
@@ -566,7 +566,7 @@ def create_routesampler_config(edgedata_file, route_files:list[str], prefix, see
     ET.SubElement(input_elem, "edgedata-files", value=edgedata_file)
     ET.SubElement(input_elem, "route-files", value=','.join(route_files))
     ET.SubElement(input_elem, "verbose", value="True")
-    ET.SubElement(input_elem, "attributes", value='departLane="best" departSpeed="max"')
+    ET.SubElement(input_elem, "attributes", value='departLane="free" departSpeed="max"')
     ET.SubElement(input_elem, "prefix", value=prefix)
     ET.SubElement(input_elem, "seed", value=str(seed))
     ET.SubElement(input_elem, "begin", value=str(0))

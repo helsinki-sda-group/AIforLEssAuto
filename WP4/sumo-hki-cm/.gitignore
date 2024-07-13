@@ -9,6 +9,7 @@ data/*
 
 # demo
 demo/output
+demo2
 
 # sumo_files
 sumo_files/data/whole_area.net.xml

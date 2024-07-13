@@ -3,31 +3,69 @@ from bs4 import BeautifulSoup
 import random
 import xml.etree.ElementTree as ET
 import os
+from omegaconf import OmegaConf
+from datetime import datetime
+import shutil
 
+from pathlib import Path
+
+# Setup the argparse
 parser = argparse.ArgumentParser(description="Generating trip file for a given percentage of passenger requests and percentage of taxis",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+parser.add_argument("-c", "--config", type=str, help="Read arguments from config file. If both config and command line args are specified, command line args will overwrite config arguments")
 parser.add_argument("-t", "--tripfile", help="*.trips.xml file")
-parser.add_argument("-pp", "--percpass", choices=range(0,101), type=int, help="percentage of trips to be served by taxis", metavar="PERCPASS")
-parser.add_argument("-pt", "--perctaxi", choices=range(0,101), type=int, help="percentage of taxis for taxi passengers", metavar="PERCTAXI")
+parser.add_argument("-pp", "--percpass", choices=range(0, 101), type=int, help="Percentage of trips to be served by taxis", metavar="PERCPASS")
+parser.add_argument("-pt", "--perctaxi", choices=range(0, 101), type=int, help="Percentage of taxis for taxi passengers", metavar="PERCTAXI")
 parser.add_argument("-te", "--taxiend", type=int, help="device.taxi.end", metavar="TAXIEND")
 parser.add_argument("-pc", "--capacity", type=int, help="vType person capacity", metavar="CAPACITY")
-parser.add_argument("-pa", "--parkingfile", help="parking areas file")
-parser.add_argument("-o", "--outputfile", help="output trips file", default="demand generation\\area3_connected.rou.xml")
+parser.add_argument("-pa", "--parkingfile", help="Parking areas file")
 
-args = parser.parse_args()
-config = vars(args)
-filename = config["tripfile"]
-percpass = config["percpass"]
-perctaxi = config["perctaxi"]
-taxiend = config["taxiend"]
-capacity = config["capacity"]
-parkingFile = config["parkingfile"]
-outputFile = config["outputfile"]
+# Parse default values
+defaults = {action.dest: action.default for action in parser._actions}
+
+# Parse arguments from command line
+cmd_args = parser.parse_args()
+
+# Determine which arguments were explicitly set by the user
+specified_args = {arg: value for arg, value in vars(cmd_args).items() if arg != 'config' and value != defaults[arg]}
+
+# Read config from YAML file if specified
+if cmd_args.config:
+    config = OmegaConf.load(cmd_args.config)
+    # Convert specified command-line arguments into an OmegaConf dictionary
+    specified_args_conf = OmegaConf.create(specified_args)
+    # Merge config with the command line arguments (command line arguments take precedence)
+    all_args = OmegaConf.merge(config, specified_args_conf)
+else:
+    # If no config file, use command line arguments directly
+    all_args = OmegaConf.create(vars(cmd_args))
+
+# Access variables
+tripFile = all_args.get('tripfile')
+percpass = all_args.get('percpass')
+perctaxi = all_args.get('perctaxi')
+taxiend = all_args.get('taxiend')
+capacity = all_args.get('capacity')
+parkingFile = all_args.get('parkingfile')
+
+# Create output folder
+now = datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
+if cmd_args.config: 
+    prefix = Path(cmd_args.config).stem
+    output_dir_name = f'{now}_{prefix}'
+else:
+    prefix = None
+    output_dir_name = f'{now}'
+output_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'output', output_dir_name)
+
+os.makedirs(output_path, exist_ok=True)
+if cmd_args.config:
+    shutil.copy(cmd_args.config, output_path)
 
 parkingSet = set()
 
-here = os.path.dirname(os.path.abspath(__file__))
-tree = ET.parse(os.path.join(here, parkingFile))
+tree = ET.parse(parkingFile)
 root = tree.getroot()
 
 for pArea in root.findall('parkingArea'):
@@ -38,7 +76,7 @@ for pArea in root.findall('parkingArea'):
 validOrigDestNum = len(parkingSet)
 print("Origins/destinations with parking slots: ", validOrigDestNum)
 
-tree = ET.parse(os.path.join(here, filename))
+tree = ET.parse(tripFile)
 root = tree.getroot()
 
 validTripNum = 0
@@ -57,11 +95,11 @@ newPercPass = int( (tripNum * percpass) / float(validTripNum) )
 print("New perc pass: ", newPercPass)
 
 
-summaryFile = open("output/stats/summary.txt", "w")
+summaryFile = open(os.path.join(output_path, 'summary.txt'), "w")
 summaryFile.write("EXPERIMENT PARAMETERS\n")
 summaryFile.write("---------------------------------------------------------------------\n")
 
-with open(filename, "r") as f:
+with open(tripFile, "r") as f:
     data = f.read()
 f.close()
 
@@ -161,7 +199,7 @@ for i in range(0, taxiCount):
 summaryFile.write("Taxi finishing time: " + str(taxiend) + "\n")
 
 # get other parameters from sumocfg
-with open("randgrid.sumocfg", "r") as f:
+with open(os.path.join('nets', 'ridepooling', 'older_networks', "randgrid.sumocfg"), "r") as f:
     data = f.read()
 
 f.close()
@@ -180,7 +218,11 @@ summaryFile.write("Routing algorithm: " + str(routingAlgorithm) + "\n")
 summaryFile.write("Taxi capacity: " + str(capacity) + "\n")
 summaryFile.write("---------------------------------------------------------------------" + "\n")
 
-f = open(os.path.join(here, outputFile), "w")
+if prefix != None:
+    output_taxis_filename = f'{prefix}_taxis.rou.xml'
+else:
+    output_taxis_filename = 'taxis.rou.xml'
+f = open(os.path.join(output_path, output_taxis_filename), "w")
 f.write(soup.prettify())
 f.close()
 summaryFile.close()

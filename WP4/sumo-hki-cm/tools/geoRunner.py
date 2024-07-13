@@ -16,9 +16,9 @@ import numpy as np
 import xml.etree.ElementTree as ET
 import traci
 
-CONFIG_FILE = 'demo2/smaller_areas/area2.sumocfg.xml'
+CONFIG_FILE = 'demo2/sumo_launch.sumocfg.xml'
 
-ADD_FILE = 'sumo_files/data/area1_digitraffic_detectors.add.xml'
+ADD_FILE = 'sumo_files/data/helsinki_all_detectors.add.xml'
 
 OUTPUT_DETECTORS_VISITING_VEHICLES_FILE = 'sumo_files/output/simulation/geo_runner/detector_vehicles.xml'
 

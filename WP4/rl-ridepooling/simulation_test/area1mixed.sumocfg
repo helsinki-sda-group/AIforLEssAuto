@@ -1,12 +1,12 @@
 <configuration>
     <input>
         <net-file value="area1_connected.net.xml"/>
-        <route-files value="area1_connected_sampled_0.2.rou.xml"/>
+        <route-files value="area1_sampled_0.2_taxis.rou.xml"/>
 		<additional-files value="area1_gcc_parkingareas_plain.add.xml"/>
     </input>
     <time>
         <begin value="0"/>
-        <end value="2500"/>
+        <end value="3600"/>
     </time>
     <taxi_device>
         <device.taxi.dispatch-algorithm value="greedyClosest"/>

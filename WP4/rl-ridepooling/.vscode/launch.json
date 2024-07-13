@@ -11,7 +11,16 @@
             "program": "tests/gym_test-rs.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
-            "args": ["-c", "configs/old_net/default.yaml"]
+            "args": ["-c", "configs/policy_training/old_net/default.yaml"]
+        },
+        {
+            "name": "genPassengers.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "demand generation/genPassengers.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "args": ["-c", "configs/gen_passangers/area1/area1_sampled_0.2.yaml"]
         }
     ]
 }
