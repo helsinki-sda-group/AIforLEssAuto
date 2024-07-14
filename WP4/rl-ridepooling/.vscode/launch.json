@@ -8,7 +8,7 @@
             "name": "gym_test-rs",
             "type": "debugpy",
             "request": "launch",
-            "program": "tests/gym_test-rs.py",
+            "program": "src/tests/gym_test-rs.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "args": ["-c", "configs/policy_training/old_net/default.yaml"]

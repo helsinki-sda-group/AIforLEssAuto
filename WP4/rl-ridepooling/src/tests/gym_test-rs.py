@@ -5,7 +5,7 @@ import multiprocessing as mp
 import sys
 import time
 
-sys.path.append('.')
+sys.path.append('./src')
 
 import os
 
