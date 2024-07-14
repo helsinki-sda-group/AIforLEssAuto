@@ -6,7 +6,6 @@ import os
 import shutil
 import sys
 
-
 sys.path.append('./src')
 from utils.config import Config
 
@@ -21,7 +20,10 @@ parser.add_argument("-pt", "--perctaxi", choices=range(0, 101), type=int, help="
 parser.add_argument("-te", "--taxiend", type=int, help="device.taxi.end", metavar="TAXIEND")
 parser.add_argument("-pc", "--capacity", type=int, help="vType person capacity", metavar="CAPACITY")
 parser.add_argument("-pa", "--parkingfile", help="Parking areas file")
+parser.add_argument("-nt", "--netfile", help="Input network file (for creating simulation test folder)")
+parser.add_argument("-sv", "--sumoviewfile", help="Input sumoview file (for creating simulation test folder)")
 
+# Instantiate the config
 cfg = Config(parser)
 
 # Access variables
@@ -31,9 +33,10 @@ perctaxi = cfg.opt.get('perctaxi')
 taxiend = cfg.opt.get('taxiend')
 capacity = cfg.opt.get('capacity')
 parkingFile = cfg.opt.get('parkingfile')
+netFile = cfg.opt.get('netfile')
+sumoviewFile = cfg.opt.get('sumoviewfile')
 
 # Create output folder
-
 outputPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 
                           'output', 
                           cfg.output_dir_name)
@@ -204,9 +207,99 @@ if cfg.prefix != None:
     outputTaxisFilename = f'{cfg.prefix}_taxis.rou.xml'
 else:
     outputTaxisFilename = 'taxis.rou.xml'
-f = open(os.path.join(outputPath, outputTaxisFilename), "w")
+outputTaxisPath = os.path.join(outputPath, outputTaxisFilename)
+f = open(outputTaxisPath, "w")
 f.write(soup.prettify())
 f.close()
 summaryFile.close()
 
 
+def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, path_to_folder, sumocfg_file_name):
+    """
+    Creates the simulation folder for quickly testing the simulation.
+    Copies the network, route, parking areas files, and creates the config file.
+    Also creates the sumoview.xml file
+    """
+    def createSimulationConfig(net_file, route_files, additional_files, sumoview_file, output_path):
+        """
+        Creates the simulation config file and places it inside the output_path
+        """
+        # Create the root element
+        configuration = ET.Element("configuration")
+        
+        # Input section
+        input_section = ET.SubElement(configuration, "input")
+        ET.SubElement(input_section, "net-file", value=net_file)
+        ET.SubElement(input_section, "route-files", value=route_files)
+        ET.SubElement(input_section, "additional-files", value=additional_files)
+        
+        # Time section
+        time_section = ET.SubElement(configuration, "time")
+        ET.SubElement(time_section, "begin", value="0")
+        ET.SubElement(time_section, "end", value="3600")
+        
+        # Taxi device section
+        taxi_device = ET.SubElement(configuration, "taxi_device")
+        ET.SubElement(taxi_device, "device.taxi.dispatch-algorithm", value="greedyClosest")
+        ET.SubElement(taxi_device, "device.taxi.idle-algorithm", value="stop")
+        ET.SubElement(taxi_device, "device.taxi.dispatch-period", value="1")
+        ET.SubElement(taxi_device, "device.taxi.dispatch-algorithm", params="relLossThreshold:0.2")
+        
+        # GUI only section
+        gui_only = ET.SubElement(configuration, "gui_only")
+        ET.SubElement(gui_only, "gui-settings-file", value=sumoview_file)
+        
+        # Output section
+        output_section = ET.SubElement(configuration, "output")
+        ET.SubElement(output_section, "tripinfo-output", value="output/tripinfo.xml")
+        ET.SubElement(output_section, "tripinfo-output.write-unfinished", value="True")
+        ET.SubElement(output_section, "emission-output", value="output/emissions.xml")
+        ET.SubElement(output_section, "tripinfo-output.write-undeparted", value="True")
+        
+        # Report section
+        report_section = ET.SubElement(configuration, "report")
+        ET.SubElement(report_section, "verbose", value="True")
+        ET.SubElement(report_section, "message-log", value="message.xml")
+        ET.SubElement(report_section, "error-log", value="error.xml")
+        ET.SubElement(report_section, "duration-log.statistics", value="True")
+        
+        # Convert the tree to a byte stream
+        tree = ET.ElementTree(configuration)
+        tree.write(output_path, encoding='utf-8', xml_declaration=True)
+
+
+    def copy_safe(input, dest):
+        """
+        Copy file only if it's specified. if not, pass
+        Returns the path to the newly created file
+        """
+        if input:
+            return shutil.copy(input, dest)
+
+
+    # create output folder
+    os.makedirs(path_to_folder, exist_ok=True)
+
+    # copy input files
+    local_net_file = copy_safe(net_file, path_to_folder)
+    local_route_file = copy_safe(route_file, path_to_folder)
+    local_parking_file = copy_safe(parking_file, path_to_folder)
+    local_sumoview_file = copy_safe(sumoview_file, path_to_folder)
+
+    # create sumo config
+    local_cfg_file = os.path.join(path_to_folder, sumocfg_file_name)
+    createSimulationConfig(local_net_file, local_route_file, local_parking_file, local_sumoview_file, local_cfg_file)
+
+    # create output folder so sumo doesn't crash
+    os.makedirs(os.path.join(path_to_folder, 'output'))
+
+
+# create simulation folder for quick testing
+simulationFolderPath = os.path.join(outputPath, 'simulation')
+launchFilename = 'sumo_launch.sumocfg.xml'
+createSimulationFolder(netFile, outputTaxisPath, parkingFile, sumoviewFile, simulationFolderPath, launchFilename)
+
+# launch sumo
+launchFilePath = os.path.join(simulationFolderPath, launchFilename)
+launchSumoGUICommand = f'sumo-gui -c "{launchFilePath}"'
+os.system(launchSumoGUICommand)

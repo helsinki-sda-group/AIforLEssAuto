@@ -2,3 +2,4 @@ Warning: At actuated tlLogic 'GS_cluster_24982794_25095364_288691807_288691810',
 Warning: At actuated tlLogic 'cluster_1403923070_1403923164_1403923574_1403924126_25238281_6646078538_6646078551_6646078552', linkIndex 7,8,9 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_276646808_276646836_34658886_34658887', linkIndex 3,4,5,6 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_23', linkIndex 19,20,21 has no controlling detector.
+Warning: All customers left vehicle 't318' at time=3600.00 but there are 1 remaining stops

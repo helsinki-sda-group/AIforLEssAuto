@@ -2,3 +2,34 @@ Loading net-file from '/home/beimukvo/prj/AIforLEssAuto/WP4/rl-ridepooling/simul
 Loading additional-files from '/home/beimukvo/prj/AIforLEssAuto/WP4/rl-ridepooling/simulation_test/area1_gcc_parkingareas_plain.add.xml' ... done (55ms).
 Loading done.
 Simulation started with time: 0.00.
+Simulation ended at time: 3600.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 65079.01s
+ Real time factor: 0.0553174
+ UPS: 20.217657
+ UPS-Persons: 1.988936
+Vehicles: 
+ Inserted: 1535
+ Running: 359
+ Waiting: 0
+Persons: 
+ Inserted: 1199
+ Running: 0
+Statistics (avg of 1535):
+ RouteLength: 792.09
+ Speed: 8.87
+ Duration: 857.16
+ WaitingTime: 11.09
+ TimeLoss: 25.52
+ DepartDelay: 0.41
+ DepartDelayWaiting: 0.00
+Ride Statistics (avg of 1199 rides):
+ WaitingTime: 72.78
+ RouteLength: 236.53
+ Duration: 34.25
+ Taxi: 1191
+ Aborted: 8
+
+DijkstraRouter answered 458422 queries and explored 1420.87 edges on average.
+DijkstraRouter spent 262.21s answering queries (0.57ms on average).
