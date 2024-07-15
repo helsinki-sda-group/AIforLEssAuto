@@ -6,14 +6,14 @@ here = os.path.dirname(os.path.abspath(__file__))
 
 G = nx.DiGraph()
 
-connFile = "plain.con.xml"
-edgeFile = "plain.edg.xml"
-nodeFile = "plain.nod.xml"
-tllFile = "plain.tll.xml"
-newConnFile = "area3_gcc_plain.con.xml"
-newEdgeFile = "area3_gcc_plain.edg.xml"
-newNodeFile = "area3_gcc_plain.nod.xml"
-newTllFile = "area3_gcc_plain.tll.xml"
+connFile = "../../nets/ridepooling/Helsinki updated areas/area1/plain/plain.con.xml"
+edgeFile = "../../nets/ridepooling/Helsinki updated areas/area1/plain/plain.edg.xml"
+nodeFile = "../../nets/ridepooling/Helsinki updated areas/area1/plain/plain.nod.xml"
+tllFile = "../../nets/ridepooling/Helsinki updated areas/area1/plain/plain.tll.xml"
+newConnFile = "../../nets/ridepooling/Helsinki updated areas/area1/plain/area1_gcc_plain.con.xml"
+newEdgeFile = "../../nets/ridepooling/Helsinki updated areas/area1/plain/area1_gcc_plain.edg.xml"
+newNodeFile = "../../nets/ridepooling/Helsinki updated areas/area1/plain/area1_gcc_plain.nod.xml"
+newTllFile = "../../nets/ridepooling/Helsinki updated areas/area1/plain/area1_gcc_plain.tll.xml"
 
 tree = ET.parse(os.path.join(here, connFile))
 root = tree.getroot()
