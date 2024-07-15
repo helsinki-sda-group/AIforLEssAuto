@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-15 12:38:47.823260 by generateParkingAreas.py UNKNOWN
+<!-- generated on 2024-07-11 17:47:45.078428 by generateParkingAreas.py v1_19_0+2078-88426099c44
 <configuration>
-    <net-file value="area1_gcc_plain.net.xml"/>
-    <output-file value="area1_gcc_parkingareas_plain.add.xml"/>
+    <net-file value="C:\Users\bochenin\RL project\materials\ridesharing\Helsinki\toy example\demand generation\area1_gcc_plain.net.xml"/>
+    <output-file value="C:\Users\bochenin\RL project\materials\ridesharing\Helsinki\toy example\demand generation\area1_gcc_parkingareas_plain.add.xml"/>
 </configuration>
 -->
 
