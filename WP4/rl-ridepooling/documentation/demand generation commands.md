@@ -15,3 +15,8 @@ Then the result is moved to area1/plain to keep folder structure intact
 (run in `helsinki updated areas/area1/plain`)
 `netconvert -n area1_gcc_plain.nod.xml -e area1_gcc_plain.edg.xml -x area1_gcc_plain.con.xml -i area1_gcc_plain.tll.xml -t plain.typ.xml -o area1_gcc_plain.net.xml`
 The output file would be `area1_gcc_plain.net.xml`
+
+### Step 4
+(run in `helsinki updated areas/area1/plain`)
+`python $SUMO_HOME/tools/generateParkingAreas.py -n area1_gcc_plain.net.xml -o area1_gcc_parkingareas_plain.add.xml`
+The output file would be `area1_gcc_parkingareas_plain.add.xml`
