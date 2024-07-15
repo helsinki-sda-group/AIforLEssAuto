@@ -20,3 +20,15 @@ The output file would be `area1_gcc_plain.net.xml`
 (run in `helsinki updated areas/area1/plain`)
 `python $SUMO_HOME/tools/generateParkingAreas.py -n area1_gcc_plain.net.xml -o area1_gcc_parkingareas_plain.add.xml`
 The output file would be `area1_gcc_parkingareas_plain.add.xml`
+
+### Step 5
+1. Here's the command to run genGCCtrips.py (sampling ratio is set to 1 by default). Run this command inside the root folder `rl-ridepooling`. Keep in mind that in this script everything is related to file location so `../../` refers to root folder `rl-ridepooling`
+
+```
+python "src/demand generation/genGCCtrips.py" \
+    --connectednet "../../nets/ridepooling/Helsinki updated areas/area1/plain/area1_gcc_plain.net.xml" \
+    --disconnectedtrips "../../../sumo-hki-cm/demo/smaller_areas/routes/area1/disconnected/area1_disconnected_trips.rou.xml" \
+    --disconnectedroutes "../../../sumo-hki-cm/demo/smaller_areas/routes/area1/disconnected/area1_disconnected_routes.rou.xml" \
+    --output "../../nets/ridepooling/Helsinki updated areas/area1/area1_connected_sampled_fixed_1.trips.xml"
+```
+The output file would be `area1_connected_sampled_fixed_1.trips.xml`

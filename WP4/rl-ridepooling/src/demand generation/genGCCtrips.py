@@ -158,7 +158,7 @@ for trip in soup.find_all("trip"):
         newDepTime = subroute[0]
         subrouteList = subroute[1].split(" ")
         newOrigin = subrouteList[0]
-        newDestination = subrouteList[1]
+        newDestination = subrouteList[-1]
         trip["depart"] = newDepTime
         trip["from"] = newOrigin
         trip["to"] = newDestination
