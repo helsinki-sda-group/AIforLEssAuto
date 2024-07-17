@@ -26,3 +26,17 @@ his step generates parking areas for the strongly connected network
 Run the following command in `helsinki updated areas/area2/plain`:
 `python $SUMO_HOME/tools/generateParkingAreas.py -n area2_gcc_plain.net.xml -o area2_gcc_parkingareas_plain.add.xml`
 The output file would be `area2_gcc_parkingareas_plain.add.xml`
+
+### Step 5
+This step extracts the parts of the existing routes that are valid within the strongly connected network
+1. Here's the command to run genGCCtrips.py (sampling ratio is set to 1 by default). Run this command inside the root folder `rl-ridepooling`. Keep in mind that in this script everything is related to file location so `../../` refers to root folder `rl-ridepooling`
+
+```
+python "src/demand generation/genGCCtrips.py" \
+    --connectednet "../../nets/ridepooling/Helsinki updated areas/area2/plain/area2_gcc_plain.net.xml" \
+    --disconnectedtrips "../../../sumo-hki-cm/demo/smaller_areas/routes/area2/disconnected/area2_disconnected_trips.rou.xml" \
+    --disconnectedroutes "../../../sumo-hki-cm/demo/smaller_areas/routes/area2/disconnected/area2_disconnected_routes.rou.xml" \
+    --samplingratio 1 \
+    --output "../../nets/ridepooling/Helsinki updated areas/area2/area2_connected_sampled_fixed_1.trips.xml"
+```
+The output file would be `area2_connected_sampled_fixed_1.trips.xml`
