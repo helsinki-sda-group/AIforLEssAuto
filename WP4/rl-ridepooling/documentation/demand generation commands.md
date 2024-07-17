@@ -4,7 +4,7 @@
 (run in `helsinki updated areas/area1`)
 `netconvert -s area1_connected.net.xml -p plain`
 
-Then the result is moved to area1/plain to keep folder structure intact
+Then the result should be moved to area1/plain to keep folder structure intact
 
 ### Step 2
 1. Change the local variables inside the script `plain_scc.py` so that they point to `Helsinki updated areas/area1/plain/...` (The addresses are all prepended with `here` which indicates directory of the script, so you need to use `../../` to refer to the root folder `rl-ridepooling`)
@@ -29,6 +29,16 @@ python "src/demand generation/genGCCtrips.py" \
     --connectednet "../../nets/ridepooling/Helsinki updated areas/area1/plain/area1_gcc_plain.net.xml" \
     --disconnectedtrips "../../../sumo-hki-cm/demo/smaller_areas/routes/area1/disconnected/area1_disconnected_trips.rou.xml" \
     --disconnectedroutes "../../../sumo-hki-cm/demo/smaller_areas/routes/area1/disconnected/area1_disconnected_routes.rou.xml" \
+    --samplingratio 1 \
     --output "../../nets/ridepooling/Helsinki updated areas/area1/area1_connected_sampled_fixed_1.trips.xml"
 ```
 The output file would be `area1_connected_sampled_fixed_1.trips.xml`
+
+
+## AREA 2
+
+### Step 1
+(run in `helsinki updated areas/area2`)
+`netconvert -s area2_connected.net.xml -p plain`
+
+Then the result should be moved to area2/plain to keep folder structure intact
