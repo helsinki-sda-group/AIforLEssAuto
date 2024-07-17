@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 import os
 import shutil
 import sys
+from xml.dom import minidom
 
 sys.path.append('./src')
 from utils.config import Config
@@ -264,8 +265,12 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
         ET.SubElement(report_section, "duration-log.statistics", value="True")
         
         # Convert the tree to a byte stream
-        tree = ET.ElementTree(configuration)
-        tree.write(output_path, encoding='utf-8', xml_declaration=True)
+        rough_string = ET.tostring(configuration, 'utf-8')
+        reparsed = minidom.parseString(rough_string)
+        pretty_xml_as_string = reparsed.toprettyxml()
+
+        with open(output_path, 'w') as f:
+            f.write(pretty_xml_as_string)
 
 
     def copy_safe(input, dest):
