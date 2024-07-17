@@ -6,14 +6,14 @@ here = os.path.dirname(os.path.abspath(__file__))
 
 G = nx.DiGraph()
 
-connFile = "../../nets/ridepooling/Helsinki updated areas/area2/plain/plain.con.xml"
-edgeFile = "../../nets/ridepooling/Helsinki updated areas/area2/plain/plain.edg.xml"
-nodeFile = "../../nets/ridepooling/Helsinki updated areas/area2/plain/plain.nod.xml"
-tllFile = "../../nets/ridepooling/Helsinki updated areas/area2/plain/plain.tll.xml"
-newConnFile = "../../nets/ridepooling/Helsinki updated areas/area2/plain/area2_gcc_plain.con.xml"
-newEdgeFile = "../../nets/ridepooling/Helsinki updated areas/area2/plain/area2_gcc_plain.edg.xml"
-newNodeFile = "../../nets/ridepooling/Helsinki updated areas/area2/plain/area2_gcc_plain.nod.xml"
-newTllFile = "../../nets/ridepooling/Helsinki updated areas/area2/plain/area2_gcc_plain.tll.xml"
+connFile = "../../nets/ridepooling/Helsinki updated areas/area3/plain/plain.con.xml"
+edgeFile = "../../nets/ridepooling/Helsinki updated areas/area3/plain/plain.edg.xml"
+nodeFile = "../../nets/ridepooling/Helsinki updated areas/area3/plain/plain.nod.xml"
+tllFile = "../../nets/ridepooling/Helsinki updated areas/area3/plain/plain.tll.xml"
+newConnFile = "../../nets/ridepooling/Helsinki updated areas/area3/plain/area3_gcc_plain.con.xml"
+newEdgeFile = "../../nets/ridepooling/Helsinki updated areas/area3/plain/area3_gcc_plain.edg.xml"
+newNodeFile = "../../nets/ridepooling/Helsinki updated areas/area3/plain/area3_gcc_plain.nod.xml"
+newTllFile = "../../nets/ridepooling/Helsinki updated areas/area3/plain/area3_gcc_plain.tll.xml"
 
 tree = ET.parse(os.path.join(here, connFile))
 root = tree.getroot()
