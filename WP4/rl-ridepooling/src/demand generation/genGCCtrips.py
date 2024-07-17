@@ -31,7 +31,7 @@ dtrips = config["disconnectedtrips"]
 droutes = config["disconnectedroutes"]
 lastdeptime = config["lastdeparture"]
 mine = config["minimumedges"]
-samplingRate = config["samplingratio"]
+samplingRate = float(config["samplingratio"])
 output = config["output"]
 
 here = os.path.dirname(os.path.abspath(__file__))
