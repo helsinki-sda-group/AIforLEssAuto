@@ -6,6 +6,7 @@ import os
 import shutil
 import sys
 from xml.dom import minidom
+import subprocess
 
 sys.path.append('./src')
 from utils.config import Config
@@ -305,6 +306,15 @@ launchFilename = 'sumo_launch.sumocfg.xml'
 createSimulationFolder(netFile, outputTaxisPath, parkingFile, sumoviewFile, simulationFolderPath, launchFilename)
 
 # launch sumo
-launchFilePath = os.path.join(simulationFolderPath, launchFilename)
-launchSumoGUICommand = f'sumo-gui -c "{launchFilePath}"'
-os.system(launchSumoGUICommand)
+launchFilePath = os.path.join('src', 'demand generation', 'simulationTestLaunch.py')
+launchFileConfigPath = os.path.join(simulationFolderPath, launchFilename)
+result = subprocess.run(["python", launchFilePath, launchFileConfigPath], capture_output=True, text=True)
+
+# Extract and print stdout
+output = result.stdout.strip()
+print(f"Captured stdout: {output}")
+
+# Extract and print stderr if present
+if result.stderr:
+    error_output = result.stderr.strip()
+    print(f"Captured stderr: {error_output}")

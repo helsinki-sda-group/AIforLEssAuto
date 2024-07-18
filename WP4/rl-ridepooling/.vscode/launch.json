@@ -20,7 +20,7 @@
             "program": "src/demand generation/genPassengers.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
-            "args": ["-c", "configs/gen_passangers/area1/area1_sampled_0.2.yaml"]
+            "args": ["-c", "configs/gen_passengers/area1/area1_sampled_0.4.yaml"]
         }
     ]
 }

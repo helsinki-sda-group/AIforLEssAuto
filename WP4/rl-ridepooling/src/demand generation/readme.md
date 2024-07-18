@@ -1,1 +1,1 @@
-
+Read `SUMO Ridepooling Generation of strongly connected network.docx` to understand how the demand generation works and `documentation/demand generation commands` to get the exact commands used to produce the outputs
