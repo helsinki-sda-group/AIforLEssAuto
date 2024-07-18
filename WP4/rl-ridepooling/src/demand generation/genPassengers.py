@@ -308,13 +308,6 @@ createSimulationFolder(netFile, outputTaxisPath, parkingFile, sumoviewFile, simu
 # launch sumo
 launchFilePath = os.path.join('src', 'demand generation', 'simulationTestLaunch.py')
 launchFileConfigPath = os.path.join(simulationFolderPath, launchFilename)
-result = subprocess.run(["python", launchFilePath, launchFileConfigPath], capture_output=True, text=True)
-
-# Extract and print stdout
-output = result.stdout.strip()
-print(f"Captured stdout: {output}")
-
-# Extract and print stderr if present
-if result.stderr:
-    error_output = result.stderr.strip()
-    print(f"Captured stderr: {error_output}")
+sumoLaunchCmd = ["python", launchFilePath, launchFileConfigPath]
+print('launching the command:', sumoLaunchCmd)
+subprocess.run(sumoLaunchCmd)
