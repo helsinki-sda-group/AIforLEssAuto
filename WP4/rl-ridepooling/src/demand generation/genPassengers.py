@@ -234,7 +234,7 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
     # create output folder
     os.makedirs(path_to_folder, exist_ok=True)
 
-    def createSimulationConfig(net_file, route_files, additional_files, sumoview_file, output_sumo_path, output_file_path):
+    def createSimulationConfig(net_file, route_files, additional_files, sumoview_file, routing_alg, output_sumo_path, output_file_path):
         """
         Creates the simulation config file and places it inside the output_path
         """
@@ -258,7 +258,7 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
         
         # Taxi device section
         taxi_device = ET.SubElement(configuration, "taxi_device")
-        ET.SubElement(taxi_device, "device.taxi.dispatch-algorithm", value="greedyClosest")
+        ET.SubElement(taxi_device, "device.taxi.dispatch-algorithm", value=routing_alg)
         ET.SubElement(taxi_device, "device.taxi.idle-algorithm", value="stop")
         ET.SubElement(taxi_device, "device.taxi.dispatch-period", value="1")
         ET.SubElement(taxi_device, "device.taxi.dispatch-algorithm", params="relLossThreshold:0.2")
@@ -311,8 +311,23 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
     # create sumo configs
     output_cli_cfg_path = os.path.join(path_to_folder, sumocfg_filename)
     output_gui_cfg_path = os.path.join(path_to_folder, sumocfg_gui_filename)
-    createSimulationConfig(local_net_file, local_route_file, local_parking_file, local_sumoview_file, 'output', output_cli_cfg_path)
-    createSimulationConfig(local_net_file, local_route_file, local_parking_file, local_sumoview_file, 'gui_output', output_gui_cfg_path)
+    createSimulationConfig(local_net_file, 
+                           local_route_file, 
+                           local_parking_file, 
+                           local_sumoview_file, 
+                           'greedyClosest', 
+                           'output', 
+                           output_cli_cfg_path)
+    
+    createSimulationConfig(local_net_file, 
+                           local_route_file, 
+                           local_parking_file, 
+                           local_sumoview_file, 
+                           'greedyClosest', 
+                           'gui_output', 
+                           output_gui_cfg_path)
+    
+    createSimulationConfig(local_net_file)
 
 
 # create simulation folder for quick testing
