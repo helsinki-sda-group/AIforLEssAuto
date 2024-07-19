@@ -7,6 +7,7 @@ import shutil
 import sys
 from xml.dom import minidom
 import subprocess
+from pathlib import Path
 
 sys.path.append('./src')
 from utils.config import Config
@@ -302,16 +303,16 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
             return shutil.copy(input, dest)
 
     # copy input files
-    local_net_file = copy_safe(net_file, path_to_folder)
-    local_route_file = copy_safe(route_file, path_to_folder)
-    local_parking_file = copy_safe(parking_file, path_to_folder)
-    local_sumoview_file = copy_safe(sumoview_file, path_to_folder)
+    local_net_file = Path(copy_safe(net_file, path_to_folder)).name
+    local_route_file = Path(copy_safe(route_file, path_to_folder)).name
+    local_parking_file = Path(copy_safe(parking_file, path_to_folder)).name
+    local_sumoview_file = Path(copy_safe(sumoview_file, path_to_folder)).name
 
     # create sumo configs
-    local_cfg_file = os.path.join(path_to_folder, sumocfg_filename)
-    local_gui_cfg_file = os.path.join(path_to_folder, sumocfg_gui_filename)
-    createSimulationConfig(local_net_file, local_route_file, local_parking_file, local_sumoview_file, 'output', local_cfg_file)
-    createSimulationConfig(local_net_file, local_route_file, local_parking_file, local_sumoview_file, 'gui_output', local_gui_cfg_file)
+    output_cli_cfg_path = os.path.join(path_to_folder, sumocfg_filename)
+    output_gui_cfg_path = os.path.join(path_to_folder, sumocfg_gui_filename)
+    createSimulationConfig(local_net_file, local_route_file, local_parking_file, local_sumoview_file, 'output', output_cli_cfg_path)
+    createSimulationConfig(local_net_file, local_route_file, local_parking_file, local_sumoview_file, 'gui_output', output_gui_cfg_path)
 
 
 # create simulation folder for quick testing
