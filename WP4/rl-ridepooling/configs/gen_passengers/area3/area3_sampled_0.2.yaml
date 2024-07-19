@@ -1,0 +1,9 @@
+tripfile: nets/ridepooling/Helsinki updated areas/area3/area3_connected_sampled_0.2.trips.xml
+percpass: 30
+perctaxi: 10
+capacity: 2
+parkingfile: nets/ridepooling/Helsinki updated areas/area3/plain/area3_gcc_parkingareas_plain.add.xml
+netfile: nets/ridepooling/Helsinki updated areas/area3/area3_connected.net.xml
+sumoviewfile: simulation_test/sumoview.xml
+run_gui_sim: True  # set to True to visualize the routes
+run_cli_sim: True  # set to True to get taxi stats

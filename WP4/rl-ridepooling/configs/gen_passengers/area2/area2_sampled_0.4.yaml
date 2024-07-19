@@ -1,0 +1,7 @@
+tripfile: nets/ridepooling/Helsinki updated areas/area2/area2_connected_sampled_0.4.trips.xml
+percpass: 30
+perctaxi: 10
+capacity: 2
+parkingfile: nets/ridepooling/Helsinki updated areas/area2/plain/area2_gcc_parkingareas_plain.add.xml
+netfile: nets/ridepooling/Helsinki updated areas/area2/area2_connected.net.xml
+sumoviewfile: simulation_test/sumoview.xml

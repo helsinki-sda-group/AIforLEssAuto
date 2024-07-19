@@ -1,4 +1,4 @@
-tripfile: nets/ridepooling/Helsinki updated areas/area1/area1_connected_sampled_0.2.trips.xml
+tripfile: nets/ridepooling/Helsinki updated areas/area1/area1_connected_sampled_0.6.trips.xml
 percpass: 30
 perctaxi: 10
 capacity: 2
