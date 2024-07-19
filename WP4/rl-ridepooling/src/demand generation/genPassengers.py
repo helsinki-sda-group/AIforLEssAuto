@@ -37,6 +37,12 @@ capacity = cfg.opt.get('capacity')
 parkingFile = cfg.opt.get('parkingfile')
 netFile = cfg.opt.get('netfile')
 sumoviewFile = cfg.opt.get('sumoviewfile')
+run_gui_sim = cfg.opt.get('run_gui_sim')
+run_cli_sim = cfg.opt.get('run_cli_sim')
+
+print('Perc pass:', percpass)
+print('Perc taxi:', perctaxi)
+print('Capacity:', capacity)
 
 # Create output folder
 outputPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 
@@ -164,6 +170,8 @@ taxiCount = int(passengerCount * perctaxi/100.0)
 
 print("Taxis added: ", taxiCount)
 
+print('Pass/Taxi ratio:', passengerCount / taxiCount)
+
 summaryFile.write("Number of trips: " + str(tripsCount) + "\n")
 summaryFile.write("Percentage of taxi passengers: " + str(percpass) + "\n")
 summaryFile.write("Number of taxi passengers: " + str(passengerCount) + "\n")
@@ -205,7 +213,7 @@ summaryFile.write("Routing algorithm: " + str(routingAlgorithm) + "\n")
 summaryFile.write("Taxi capacity: " + str(capacity) + "\n")
 summaryFile.write("---------------------------------------------------------------------" + "\n")
 
-if cfg.prefix != None:
+if cfg.prefix != '':
     outputTaxisFilename = f'{cfg.prefix}_taxis.rou.xml'
 else:
     outputTaxisFilename = 'taxis.rou.xml'
@@ -216,13 +224,16 @@ f.close()
 summaryFile.close()
 
 
-def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, path_to_folder, sumocfg_file_name):
+def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, path_to_folder, sumocfg_filename, sumocfg_gui_filename):
     """
     Creates the simulation folder for quickly testing the simulation.
     Copies the network, route, parking areas files, and creates the config file.
     Also creates the sumoview.xml file
     """
-    def createSimulationConfig(net_file, route_files, additional_files, sumoview_file, output_path):
+    # create output folder
+    os.makedirs(path_to_folder, exist_ok=True)
+
+    def createSimulationConfig(net_file, route_files, additional_files, sumoview_file, output_sumo_path, output_file_path):
         """
         Creates the simulation config file and places it inside the output_path
         """
@@ -239,6 +250,10 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
         time_section = ET.SubElement(configuration, "time")
         ET.SubElement(time_section, "begin", value="0")
         ET.SubElement(time_section, "end", value="3600")
+
+        # Processing section
+        processing_section = ET.SubElement(configuration, "processing")
+        ET.SubElement(processing_section, "ignore-junction-blocker", value="1")
         
         # Taxi device section
         taxi_device = ET.SubElement(configuration, "taxi_device")
@@ -253,9 +268,9 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
         
         # Output section
         output_section = ET.SubElement(configuration, "output")
-        ET.SubElement(output_section, "tripinfo-output", value="output/tripinfo.xml")
+        ET.SubElement(output_section, "tripinfo-output", value=f"{output_sumo_path}/tripinfo.xml")
         ET.SubElement(output_section, "tripinfo-output.write-unfinished", value="True")
-        ET.SubElement(output_section, "emission-output", value="output/emissions.xml")
+        ET.SubElement(output_section, "emission-output", value=f"{output_sumo_path}/emissions.xml")
         ET.SubElement(output_section, "tripinfo-output.write-undeparted", value="True")
         
         # Report section
@@ -270,8 +285,12 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
         reparsed = minidom.parseString(rough_string)
         pretty_xml_as_string = reparsed.toprettyxml()
 
-        with open(output_path, 'w') as f:
+        # write the file
+        with open(output_file_path, 'w') as f:
             f.write(pretty_xml_as_string)
+
+        # create output folder so sumo doesn't crash
+        os.makedirs(os.path.join(path_to_folder, output_sumo_path))
 
 
     def copy_safe(input, dest):
@@ -282,32 +301,34 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
         if input:
             return shutil.copy(input, dest)
 
-
-    # create output folder
-    os.makedirs(path_to_folder, exist_ok=True)
-
     # copy input files
     local_net_file = copy_safe(net_file, path_to_folder)
     local_route_file = copy_safe(route_file, path_to_folder)
     local_parking_file = copy_safe(parking_file, path_to_folder)
     local_sumoview_file = copy_safe(sumoview_file, path_to_folder)
 
-    # create sumo config
-    local_cfg_file = os.path.join(path_to_folder, sumocfg_file_name)
-    createSimulationConfig(local_net_file, local_route_file, local_parking_file, local_sumoview_file, local_cfg_file)
-
-    # create output folder so sumo doesn't crash
-    os.makedirs(os.path.join(path_to_folder, 'output'))
+    # create sumo configs
+    local_cfg_file = os.path.join(path_to_folder, sumocfg_filename)
+    local_gui_cfg_file = os.path.join(path_to_folder, sumocfg_gui_filename)
+    createSimulationConfig(local_net_file, local_route_file, local_parking_file, local_sumoview_file, 'output', local_cfg_file)
+    createSimulationConfig(local_net_file, local_route_file, local_parking_file, local_sumoview_file, 'gui_output', local_gui_cfg_file)
 
 
 # create simulation folder for quick testing
 simulationFolderPath = os.path.join(outputPath, 'simulation')
-launchFilename = 'sumo_launch.sumocfg.xml'
-createSimulationFolder(netFile, outputTaxisPath, parkingFile, sumoviewFile, simulationFolderPath, launchFilename)
+launchFilename = f'sumo_launch_{cfg.prefix}.sumocfg.xml' if cfg.prefix != '' else f'sumo_launch.sumocfg.xml'
+guiLaunchFilename = f'sumo_launch_gui_{cfg.prefix}.sumocfg.xml' if cfg.prefix != '' else f'sumo_launch_gui.sumocfg.xml'
+createSimulationFolder(netFile, outputTaxisPath, parkingFile, sumoviewFile, simulationFolderPath, launchFilename, guiLaunchFilename)
 
-# launch sumo
-launchFilePath = os.path.join('src', 'demand generation', 'simulationTestLaunch.py')
-launchFileConfigPath = os.path.join(simulationFolderPath, launchFilename)
-sumoLaunchCmd = ["python", launchFilePath, launchFileConfigPath]
-print('launching the command:', sumoLaunchCmd)
-subprocess.run(sumoLaunchCmd)
+# launch CLI sumo (to get statistics)
+if run_cli_sim:
+    launchFilePath = os.path.join('src', 'demand generation', 'simulationTestLaunch.py')
+    launchFileConfigPath = os.path.join(simulationFolderPath, launchFilename)
+    simulationOutputFolderPath = os.path.join(simulationFolderPath, 'output')
+
+    subprocess.Popen(["python", launchFilePath, launchFileConfigPath, simulationOutputFolderPath, cfg.prefix, str(percpass), str(perctaxi)])
+
+# launch sumo-gui (to visualize the simulation)
+if run_gui_sim:
+    launchFilePath = os.path.join(simulationFolderPath, guiLaunchFilename)
+    os.system(f'sumo-gui -c "{launchFilePath}"')

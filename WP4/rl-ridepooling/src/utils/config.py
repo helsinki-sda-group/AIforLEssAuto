@@ -32,7 +32,7 @@ class Config:
         cmd_args = parser.parse_args()
 
         # Determine which arguments were explicitly set by the user
-        specified_args = {arg: value for arg, value in vars(cmd_args).items() if arg != 'config' and value != defaults[arg]}
+        specified_args = {arg: value for arg, value in vars(cmd_args).items() if value != defaults[arg]}
 
         # Read config from YAML file if specified
         if cmd_args.config:
@@ -48,6 +48,6 @@ class Config:
         now = datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
         
         # define prefix and output dir name
-        self.prefix = Path(cmd_args.config).stem if cmd_args.config else None
+        self.prefix = Path(cmd_args.config).stem if cmd_args.config else ''
         self.output_dir_name = f'{now}_{self.prefix}' if self.prefix else f'{now}' 
 
