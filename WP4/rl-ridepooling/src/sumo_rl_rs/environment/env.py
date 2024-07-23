@@ -21,6 +21,7 @@ from gymnasium.utils import EzPickle, seeding
 
 from .observations import DefaultObservationFunction, ObservationFunction
 from .ridepool_controller import RidePoolController
+from .taxi_reservations_logger import TaxiReservationsLogger
 
 from bs4 import BeautifulSoup
 
@@ -118,6 +119,7 @@ class SumoEnvironment(gym.Env):
         additional_sumo_cmd: Optional[str] = None,
         render_mode: Optional[str] = None,
         verbose: bool = False,
+        taxi_reservations_logger: TaxiReservationsLogger = None,
     ) -> None:
         """Initialize the environment."""
         assert render_mode is None or render_mode in self.metadata["render_modes"], "Invalid render mode."
@@ -145,6 +147,8 @@ class SumoEnvironment(gym.Env):
         SumoEnvironment.CONNECTION_LABEL += 1
         self.sumo = None
 
+        # Adding taxi logger that logs taxi counts and also reservation counts
+        self.taxi_reservations_logger = taxi_reservations_logger
 
         if LIBSUMO:
             traci.start([sumolib.checkBinary("sumo"), "-c", self._cfg])  # (test connection)
@@ -160,7 +164,7 @@ class SumoEnvironment(gym.Env):
         self.current_step = 0
         self.avg_action = 0
 
-        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.reward_fn, conn, verbose)
+        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.reward_fn, conn, self.taxi_reservations_logger, verbose)
 
         conn.close()
 
@@ -226,7 +230,10 @@ class SumoEnvironment(gym.Env):
             self.sumo_seed = seed
         self._start_simulation()
 
-        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.reward_fn, self.sumo, self.verbose)
+        # reset logger
+        self.taxi_reservations_logger.reset()
+
+        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.reward_fn, self.sumo, self.taxi_reservations_logger, self.verbose)
 
         self.vehicles = dict()
         self.current_step = 0
@@ -331,6 +338,8 @@ class SumoEnvironment(gym.Env):
         """Close the environment and stop the SUMO simulation."""
         if self.sumo is None:
             return
+
+        self.taxi_reservations_logger.make_graph(self.sim_step)
 
         if not LIBSUMO:
             traci.switch(self.label)

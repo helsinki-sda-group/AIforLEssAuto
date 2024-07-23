@@ -11,7 +11,7 @@
             "program": "src/tests/gym_test-rs.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
-            "args": ["-c", "configs/policy_training/old_net/default.yaml"]
+            "args": ["-c", "configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml"]
         },
         {
             "name": "genPassengers.py",
@@ -20,7 +20,7 @@
             "program": "src/demand generation/genPassengers.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
-            "args": ["-c", "configs/gen_passengers/area1/area1_sampled_0.4.yaml"]
+            "args": ["-c", "configs/gen_passengers/area1/area1_sampled_0.2.yaml"]
         }
     ]
 }

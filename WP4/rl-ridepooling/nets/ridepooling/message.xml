@@ -1,0 +1,36 @@
+Loading net-file from 'nets/ridepooling/older_networks/MySUMOFile.net.xml' ... done (530ms).
+Loading additional-files from 'nets/ridepooling/older_networks/MySUMOparkingareas.add.xml' ... done (32ms).
+Loading done.
+Simulation version 1.19.0 started via libsumo with time: 0.00.
+Simulation ended at time: 3000.00
+Reason: Libsumo requested termination.
+Performance: 
+ Duration: 6.30s
+ Real time factor: 476.493
+ UPS: 7147.077510
+ UPS-Persons: 7713.627700
+Vehicles: 
+ Inserted: 15
+ Running: 15
+ Waiting: 0
+Persons: 
+ Inserted: 50
+ Running: 0
+Statistics (avg of 15):
+ RouteLength: 24619.87
+ Speed: 8.21
+ Duration: 2999.87
+ WaitingTime: 10.80
+ TimeLoss: 276.51
+ DepartDelay: 0.13
+ DepartDelayWaiting: 0.00
+Ride Statistics (avg of 50 rides):
+ WaitingTime: 367.68
+ RouteLength: 6988.28
+ Duration: 603.62
+ Taxi: 50
+
+DijkstraRouter answered 402 queries and explored 1687.98 edges on average.
+DijkstraRouter spent 0.34s answering queries (0.85ms on average).
+DijkstraRouter answered 149 queries and explored 1648.46 edges on average.
+DijkstraRouter spent 0.38s answering queries (2.56ms on average).

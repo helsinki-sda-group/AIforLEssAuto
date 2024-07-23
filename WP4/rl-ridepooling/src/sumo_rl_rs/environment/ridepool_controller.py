@@ -12,6 +12,8 @@ else:
 import numpy as np
 from gymnasium import spaces
 
+from .taxi_reservations_logger import TaxiReservationsLogger
+
 class RidePoolController:
     '''
     # Observation Space
@@ -36,6 +38,7 @@ class RidePoolController:
         max_capacity,
         reward_fn: Union[str, Callable],
         sumo,
+        taxi_reservations_logger: TaxiReservationsLogger,
         verbose: bool = False,
     ):
         """Initializes a RidePoolController object.
@@ -51,6 +54,7 @@ class RidePoolController:
         self.last_reward = None
         self.reward_fn = reward_fn
         self.sumo = sumo
+        self.taxi_reservations_logger = taxi_reservations_logger
         self.verbose = verbose
         self.observations_dim = 1 
 
@@ -217,6 +221,42 @@ class RidePoolController:
         reservations = tuple(filter(lambda x: x.state!=4 and x.state!=8, all_reservations))
         # get all taxis
         taxis = self.sumo.vehicle.getTaxiFleet(-1)
+
+        def log_taxis_and_observations():
+            # taxis that 
+            idle_taxis = self.sumo.vehicle.getTaxiFleet(0)
+            
+            # taxis that are en-route to pick up a customer
+            # (either currently empty or have a customer on board already)
+            # taxi states 1 and 3
+            en_route_with_pickup_taxis = self.sumo.vehicle.getTaxiFleet(1)
+
+            # taxis that have a customer on board and driving to drop off
+            # or to pickup a new customer
+            # taxi states 2 and 3
+            occupied_with_pickup_taxis = self.sumo.vehicle.getTaxiFleet(2)
+
+            # taxi has customer on board but will pick up more customers
+            # taxis state 3
+            pickup_occupied_taxis = self.sumo.vehicle.getTaxiFleet(3)
+
+            # taxis only in state 1 (only en route)
+            en_route_taxis = len(en_route_with_pickup_taxis) - len(pickup_occupied_taxis)
+
+            # taxis only in state 2
+            occupied_taxis = len(occupied_with_pickup_taxis) - len(pickup_occupied_taxis)
+
+
+            # sanity check to make sure we cover all taxis
+            if (len(idle_taxis) + en_route_taxis + occupied_taxis + len(pickup_occupied_taxis) != len(self.sumo.vehicle.getTaxiFleet(-1))):
+                print('Warning: taxis are not split correctly')
+
+            self.taxi_reservations_logger.add_idle_count(len(idle_taxis))
+            self.taxi_reservations_logger.add_en_route_count(en_route_taxis)
+            self.taxi_reservations_logger.add_occupied_count(occupied_taxis)
+            self.taxi_reservations_logger.add_pickup_occupied_count(len(pickup_occupied_taxis))
+
+        log_taxis_and_observations()
 
         for person in reservations:
             # assign the taxi

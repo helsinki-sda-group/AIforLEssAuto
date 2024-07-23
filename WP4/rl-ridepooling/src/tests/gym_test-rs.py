@@ -19,7 +19,7 @@ import random
 from stable_baselines3.common.monitor import Monitor
 
 
-import sumo_rl_rs
+from sumo_rl_rs.environment.taxi_reservations_logger import TaxiReservationsLogger
 import sys
 import itertools
 
@@ -35,8 +35,18 @@ from pathlib import Path
 # these functions implement a number of baseline policies
 # when a fixed action is applied to predefined windows
 
-def make_env():
+def make_env(policy = None):
+    """
+    Returns the SUMO gym environment. The policy argument is optional and can be used when testing baselines
+    """
     sumo_log_file = os.path.join(OUTPUT_DIR, 'sumolog.txt')
+
+    # Get the taxi_logger configuration with default values
+    cfg_taxi_logger = cfg.env.get('taxi_reservations_logger', {})
+    log_taxis = cfg_taxi_logger.get('log_taxis', False)
+    log_reservations = cfg_taxi_logger.get('log_reservations', False)
+    show_graph = cfg_taxi_logger.get('show_graph', False)
+
     env = gym.make(
         "sumo-rl-rs-v0",
         #num_seconds=100,
@@ -46,6 +56,7 @@ def make_env():
         additional_sumo_cmd=f"--log {sumo_log_file}",
         sumo_seed=cfg.env.sumo_seed,
         verbose=cfg.env.verbose,
+        taxi_logger=TaxiReservationsLogger(log_taxis, log_reservations, show_graph)
         #route_file="nets/single-intersection/single-intersection.rou.xml",
     )
     return env
@@ -75,6 +86,7 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
     for policy in policies:
         accumulated_reward = 0
         deltaE = int(timesteps/num_periods)
+        env.unwrapped.taxi_logger.output_path = os.path.join(OUTPUT_DIR, f'{now}_{policy}')
         for period in range(0, num_periods):
         
             for i in range(period * deltaE, (period+1) * deltaE):
@@ -88,11 +100,14 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
 
     env.close()
 
+def curr_datetime():
+    return datetime.datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
+
 if __name__ == "__main__":
     mp.set_start_method("spawn")
     
     # get current timestep
-    now = datetime.datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
+    now = curr_datetime()
 
     # parser args
     parser = argparse.ArgumentParser()
