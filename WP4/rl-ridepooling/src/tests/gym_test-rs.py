@@ -56,7 +56,7 @@ def make_env(policy = None):
         additional_sumo_cmd=f"--log {sumo_log_file}",
         sumo_seed=cfg.env.sumo_seed,
         verbose=cfg.env.verbose,
-        taxi_logger=TaxiReservationsLogger(log_taxis, log_reservations, show_graph)
+        taxi_reservations_logger=TaxiReservationsLogger(log_taxis, log_reservations, show_graph)
         #route_file="nets/single-intersection/single-intersection.rou.xml",
     )
     return env
@@ -86,7 +86,7 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
     for policy in policies:
         accumulated_reward = 0
         deltaE = int(timesteps/num_periods)
-        env.unwrapped.taxi_logger.output_path = os.path.join(OUTPUT_DIR, f'{now}_{policy}')
+        env.unwrapped.taxi_reservations_logger.output_path = os.path.join(OUTPUT_DIR, f'{now}_{policy}')
         for period in range(0, num_periods):
         
             for i in range(period * deltaE, (period+1) * deltaE):
