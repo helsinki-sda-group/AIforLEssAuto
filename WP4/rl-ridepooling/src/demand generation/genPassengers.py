@@ -225,7 +225,7 @@ f.close()
 summaryFile.close()
 
 
-def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, path_to_folder, sumocfg_filename, sumocfg_gui_filename):
+def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, path_to_folder, sumocfg_cli_filename, sumocfg_gui_filename, sumocfg_rl_filename):
     """
     Creates the simulation folder for quickly testing the simulation.
     Copies the network, route, parking areas files, and creates the config file.
@@ -309,8 +309,9 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
     local_sumoview_file = Path(copy_safe(sumoview_file, path_to_folder)).name
 
     # create sumo configs
-    output_cli_cfg_path = os.path.join(path_to_folder, sumocfg_filename)
+    output_cli_cfg_path = os.path.join(path_to_folder, sumocfg_cli_filename)
     output_gui_cfg_path = os.path.join(path_to_folder, sumocfg_gui_filename)
+    output_rl_cfg_path = os.path.join(path_to_folder, sumocfg_rl_filename)
     createSimulationConfig(local_net_file, 
                            local_route_file, 
                            local_parking_file, 
@@ -327,14 +328,21 @@ def createSimulationFolder(net_file, route_file, parking_file, sumoview_file, pa
                            'gui_output', 
                            output_gui_cfg_path)
     
-    createSimulationConfig(local_net_file)
+    createSimulationConfig(local_net_file,
+                           local_route_file,
+                           local_parking_file,
+                           local_sumoview_file,
+                           'traci',
+                           'rl_output',
+                           output_rl_cfg_path)
 
 
 # create simulation folder for quick testing
 simulationFolderPath = os.path.join(outputPath, 'simulation')
 launchFilename = f'sumo_launch_{cfg.prefix}.sumocfg.xml' if cfg.prefix != '' else f'sumo_launch.sumocfg.xml'
 guiLaunchFilename = f'sumo_launch_gui_{cfg.prefix}.sumocfg.xml' if cfg.prefix != '' else f'sumo_launch_gui.sumocfg.xml'
-createSimulationFolder(netFile, outputTaxisPath, parkingFile, sumoviewFile, simulationFolderPath, launchFilename, guiLaunchFilename)
+rlLaunchFilename = f'sumo_launch_rl_{cfg.prefix}.sumocfg.xml' if cfg.prefix != '' else f'sumo_launch_rl.sumocfg.xml'
+createSimulationFolder(netFile, outputTaxisPath, parkingFile, sumoviewFile, simulationFolderPath, launchFilename, guiLaunchFilename, rlLaunchFilename)
 
 # launch CLI sumo (to get statistics)
 if run_cli_sim:
