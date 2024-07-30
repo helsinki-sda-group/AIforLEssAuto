@@ -6,9 +6,21 @@ class TaxiReservationsLogger:
     def __init__(self, log_taxis: bool, log_reservations: bool, show_graph: bool = False, output_path: str = None) -> None:
         self.log_taxis = log_taxis
         self.show_graph = show_graph
-        self.output_path = output_path
+
+        self._output_path = None  # Private variable to store the output path
+        self.output_path = output_path  # Use the setter to initialize
 
         self._reset_fields()
+
+    @property
+    def output_path(self):
+        return self._output_path
+
+    @output_path.setter
+    def output_path(self, path):
+        if path:
+            os.makedirs(path, exist_ok=True)  # Create directory if it doesn't exist
+        self._output_path = path
 
     def add_idle_count(self, idle_taxi_count):
         self.idle_taxis_timeline.append(idle_taxi_count)
@@ -22,6 +34,16 @@ class TaxiReservationsLogger:
     def add_pickup_occupied_count(self, pickup_occupied_taxi_count):
         self.pickup_occupied_taxis_timeline.append(pickup_occupied_taxi_count)
 
+    def log(self, sim_time: int):
+        if sim_time == 0:
+            # don't log empty simulation
+            return
+        
+        if self.log_taxis and self.output_path != None:
+            self._save_taxi_logs()
+        
+        self._make_graph(sim_time)
+
     def _sanity_check(self):
         """
         Makes sure that the number of entires in all the arrays is the same
@@ -31,7 +53,7 @@ class TaxiReservationsLogger:
         assert len(self.occupied_taxis_timeline) == num_entries, "Mismatch in occupied_taxis_timeline"
         assert len(self.pickup_occupied_taxis_timeline) == num_entries, "Mismatch in pickup_occupied_taxis_timeline"
 
-    def save_logs(self, output_folder):
+    def _save_taxi_logs(self):
         # Function to save data to CSV
         def _save_to_csv(data, filename, path):
             filepath = os.path.join(path, filename)
@@ -41,12 +63,12 @@ class TaxiReservationsLogger:
                 for second, count in enumerate(data):
                     writer.writerow([second, count])
 
-        _save_to_csv(self.idle_taxis_timeline, 'idle_taxis.csv', output_folder)
-        _save_to_csv(self.en_route_taxis_timeline, 'en_route_taxis.csv', output_folder)
-        _save_to_csv(self.occupied_taxis_timeline, 'occupied_taxis.csv', output_folder)
-        _save_to_csv(self.pickup_occupied_taxis_timeline, 'pickup_occupied_taxis.csv', output_folder)
+        _save_to_csv(self.idle_taxis_timeline, 'idle_taxis.csv', self.output_path)
+        _save_to_csv(self.en_route_taxis_timeline, 'en_route_taxis.csv', self.output_path)
+        _save_to_csv(self.occupied_taxis_timeline, 'occupied_taxis.csv', self.output_path)
+        _save_to_csv(self.pickup_occupied_taxis_timeline, 'pickup_occupied_taxis.csv', self.output_path)
 
-    def make_graph(self, sim_time: int):
+    def _make_graph(self, sim_time: int):
         """
         calls plt.show() if show bool is provided. Saves the file if output_path is provided
         """
@@ -68,14 +90,10 @@ class TaxiReservationsLogger:
         plt.grid(True)  # Enable grid for easier reading of the plot
 
         if self.output_path != None:
-            if not os.path.exists(self.output_path):
-                # make dir if not exists
-                os.mkdir(self.output_path)
             plt.savefig(os.path.join(self.output_path, 'taxis_plot.png'))
         
         if self.show_graph:
             plt.show()
-
 
     def _reset_fields(self):
         self.idle_taxis_timeline = []

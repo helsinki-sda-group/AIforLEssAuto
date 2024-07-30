@@ -86,7 +86,7 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
     for policy in policies:
         accumulated_reward = 0
         deltaE = int(timesteps/num_periods)
-        env.unwrapped.taxi_reservations_logger.output_path = os.path.join(OUTPUT_DIR, f'{now}_{policy}')
+        env.unwrapped.taxi_reservations_logger.output_path = os.path.join(OUTPUT_DIR, 'baselines' ,f'{now}_{policy}')
         for period in range(0, num_periods):
         
             for i in range(period * deltaE, (period+1) * deltaE):
@@ -98,6 +98,8 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
         print("Policy: ", policy, " accumulated reward: ", accumulated_reward)
         env.reset()
 
+    # Set output path to None to prevent logging empty graph
+    env.unwrapped.taxi_reservations_logger.output_path = None
     env.close()
 
 def curr_datetime():
