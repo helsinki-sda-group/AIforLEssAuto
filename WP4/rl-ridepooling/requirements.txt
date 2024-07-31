@@ -1,0 +1,11 @@
+beautifulsoup4==4.12.3
+gymnasium==0.29.1
+libsumo==1.19.0
+matplotlib==3.8.2
+networkx==3.2.1
+numpy==2.0.1
+omegaconf==2.3.0
+pandas==2.2.2
+pyvirtualdisplay==3.0
+stable_baselines3==2.2.1
+sumolib==1.19.0
