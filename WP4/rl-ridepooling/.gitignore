@@ -1,4 +1,10 @@
 # outputs
 ridepooling_DQN.zip
 output/
+
+# pycache
 __pycache__/
+
+# simulation-specific outputs
+rl_output
+gui_output
