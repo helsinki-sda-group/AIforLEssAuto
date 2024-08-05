@@ -112,11 +112,16 @@ if __name__ == "__main__":
     now = curr_datetime()
 
     # parser args
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--config", type=str, required=True)
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("-c", "--config", type=str, required=True, help="Path to the main config file used to provide arguments to the script.")
+    parser.add_argument('-ne', '--num-envs', type=int, help="Number of SUMO environments that can be launched in parallel. (overwrites config file env.num_envs argument)")
     args = parser.parse_args()
     cfg_path = args.config.strip()
     cfg = OmegaConf.load(cfg_path)
+
+    # if num_envs is specified, update cfg.env.num_envs
+    if args.num_envs is not None:
+        cfg.env.num_envs = args.num_envs
 
     # make dirs
     OUTPUT_DIR = os.path.join('nets', 'ridepooling', 'output', f'{now}_{Path(cfg_path).stem}')
