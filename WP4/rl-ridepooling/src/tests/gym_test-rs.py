@@ -113,8 +113,9 @@ if __name__ == "__main__":
 
     # parser args
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("-c", "--config", type=str, required=True, help="Path to the main config file used to provide arguments to the script.")
+    parser.add_argument("-c", "--config", type=str, required=True, help="Path to the main config file used to provide most arguments to the script.")
     parser.add_argument('-ne', '--num-envs', type=int, help="Number of SUMO environments that can be launched in parallel. (overwrites config file env.num_envs argument)")
+    parser.add_argument('-p', '--postfix', type=str, help="Postfix string for the output directory name (will be appended to current date). If not provided, name of the config file will be used by default")
     args = parser.parse_args()
     cfg_path = args.config.strip()
     cfg = OmegaConf.load(cfg_path)
@@ -123,11 +124,17 @@ if __name__ == "__main__":
     if args.num_envs is not None:
         cfg.env.num_envs = args.num_envs
 
+    # determine postfix for the directory name
+    if args.postfix is not None:
+        dir_postfix = args.postfix
+    else:
+        dir_postfix = Path(cfg_path).stem
+
     # make dirs
-    OUTPUT_DIR = os.path.join('nets', 'ridepooling', 'output', f'{now}_{Path(cfg_path).stem}')
+    OUTPUT_DIR = os.path.join('src', 'tests', 'output', f'{now}_{dir_postfix}')
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    # copy config to output folder
+    # print config to output folder
     with open(os.path.join(OUTPUT_DIR, 'config.yaml'), 'w+') as cfg_copy:
         print(OmegaConf.to_yaml(cfg), file=cfg_copy)
 
