@@ -1,11 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=sumo_test
+#SBATCH --job-name="sumo_test_20envs.log"
+#SBATCH --output="output/sumo_test_20envs.log"
 #SBATCH --account=project_462000655
-#SBATCH --time=5
+#SBATCH --time=2:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=2G
+#SBATCH --cpus-per-task=20
+#SBATCH --mem=20G
 #SBATCH --partition=small
 
 export LIBSUMO_AS_TRACI=1
@@ -16,5 +17,4 @@ pwd
 module --force purge
 module load LUMI/23.09 partition/C PyTorch/2.2.0-rocm-5.6.1-python-3.10-singularity-exampleVenv-20240315
 
-
-srun singularity exec --bind /usr/lib64 $SIF python src/tests/gym_test-rs.py
+srun singularity exec --bind /usr/lib64 $SIF python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml --num-envs 20

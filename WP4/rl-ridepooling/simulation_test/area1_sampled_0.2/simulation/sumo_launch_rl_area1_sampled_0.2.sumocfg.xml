@@ -21,12 +21,12 @@
 	<gui_only>
 		<gui-settings-file value="sumoview.xml"/>
 	</gui_only>
-	<output>
+	<!-- <output>
 		<tripinfo-output value="rl_output/tripinfo.xml"/>
 		<tripinfo-output.write-unfinished value="True"/>
 		<emission-output value="rl_output/emissions.xml"/>
 		<tripinfo-output.write-undeparted value="True"/>
-	</output>
+	</output> -->
 	<report>
 		<verbose value="True"/>
 		<message-log value="message.xml"/>

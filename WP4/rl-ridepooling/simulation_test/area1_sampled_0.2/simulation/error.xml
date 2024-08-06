@@ -1,0 +1,31 @@
+Warning: Teleporting vehicle 't44'; waited too long (wrong lane), lane='61279428_0', time=2864.00.
+Warning: Vehicle 't44' ends teleporting on edge '30261169', time=2864.00.
+Warning: Teleporting vehicle 't31'; waited too long (yield), lane='61279428_0', time=2865.00.
+Warning: Vehicle 't31' ends teleporting on edge '28918340#0', time=2865.00.
+Warning: Teleporting vehicle 't27'; waited too long (wrong lane), lane='61279428_0', time=2867.00.
+Warning: Vehicle 't27' ends teleporting on edge '30261169', time=2867.00.
+Warning: Teleporting vehicle 't18'; waited too long (wrong lane), lane='61279428_0', time=2869.00.
+Warning: Vehicle 't18' ends teleporting on edge '30261169', time=2869.00.
+Warning: Teleporting vehicle 't63'; waited too long (wrong lane), lane='24424238#0_3', time=3421.00.
+Warning: Vehicle 't63' ends teleporting on edge '30261169', time=3421.00.
+Warning: Teleporting vehicle 't93'; waited too long (yield), lane='24424238#0_3', time=3428.00.
+Warning: Vehicle 't93' ends teleporting on edge '30261166#0', time=3428.00.
+Warning: All customers left vehicle 't11' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't73' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't7' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't23' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't35' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't45' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't63' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't54' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't66' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't89' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't64' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't81' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't94' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't26' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't41' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't85' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't59' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't62' at time=3600.00 but there are 1 remaining stops
+Warning: All customers left vehicle 't13' at time=3600.00 but there are 2 remaining stops

@@ -4,7 +4,7 @@ test_baseline: False
 
 env:
   timesteps: 3600
-  total_iters: 5
+  total_iters: 20
   delta: 1  # step of policy applying (delta=1 means one simulation iteration)
   num_envs: 7  # change this to control parallelism
   sumo_seed: 4220
