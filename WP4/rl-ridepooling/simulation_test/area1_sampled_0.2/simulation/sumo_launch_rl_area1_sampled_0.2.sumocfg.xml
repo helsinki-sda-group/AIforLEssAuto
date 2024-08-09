@@ -27,10 +27,10 @@
 		<emission-output value="rl_output/emissions.xml"/>
 		<tripinfo-output.write-undeparted value="True"/>
 	</output> -->
-	<report>
+	<!-- <report>
 		<verbose value="True"/>
 		<message-log value="message.xml"/>
 		<error-log value="error.xml"/>
 		<duration-log.statistics value="True"/>
-	</report>
+	</report> -->
 </configuration>
