@@ -106,7 +106,7 @@ def curr_datetime():
     return datetime.datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
 
 if __name__ == "__main__":
-    mp.set_start_method("spawn")
+    # mp.set_start_method("spawn")
     
     # get current timestep
     now = curr_datetime()
@@ -133,6 +133,7 @@ if __name__ == "__main__":
     # make dirs
     OUTPUT_DIR = os.path.join('src', 'tests', 'output', f'{now}_{dir_postfix}')
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+    print('Output folder set to', OUTPUT_DIR)
 
     # print config to output folder
     with open(os.path.join(OUTPUT_DIR, 'config.yaml'), 'w+') as cfg_copy:
