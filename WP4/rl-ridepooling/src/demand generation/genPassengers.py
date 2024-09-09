@@ -18,13 +18,15 @@ parser = argparse.ArgumentParser(description="Generating trip file for a given p
 
 parser.add_argument("-c", "--config", type=str, help="Read arguments from config file. If both config and command line args are specified, command line args will overwrite config arguments")
 parser.add_argument("-t", "--tripfile", help="*.trips.xml file")
-parser.add_argument("-pp", "--percpass", choices=range(0, 101), type=int, help="Percentage of trips to be served by taxis", metavar="PERCPASS")
-parser.add_argument("-pt", "--perctaxi", choices=range(0, 101), type=int, help="Percentage of taxis for taxi passengers", metavar="PERCTAXI")
+parser.add_argument("-pp", "--percpass", choices=range(0, 101), type=int, help="Percentage of trips to be served by taxis (this includes not just taxi passengers, but taxis as well)", metavar="PERCPASS")
+parser.add_argument("-pt", "--perctaxi", choices=range(0, 101), type=int, help="Percentage of taxis for taxi passengers (i.e. out of all the trips that will be served by taxis, how many of those will be taxis themselves)", metavar="PERCTAXI")
 parser.add_argument("-te", "--taxiend", type=int, help="device.taxi.end", metavar="TAXIEND")
 parser.add_argument("-pc", "--capacity", type=int, help="vType person capacity", metavar="CAPACITY")
 parser.add_argument("-pa", "--parkingfile", help="Parking areas file")
 parser.add_argument("-nt", "--netfile", help="Input network file (for creating simulation test folder)")
 parser.add_argument("-sv", "--sumoviewfile", help="Input sumoview file (for creating simulation test folder)")
+parser.add_argument("-cs", "--run_cli_sim", default=False, help="Set to True to get the statistics about taxi usage throughout the simulation (launches the CLI SUMO simulation after the end of the script. You'll need to wait for it to finish running to see the statistics)")
+parser.add_argument("-gs", "--run_gui_sim", default=False, help="Set to True to visualize the routes (launches the GUI SUMO simulation after the end of the script)")
 
 # Instantiate the config
 cfg = Config(parser)
