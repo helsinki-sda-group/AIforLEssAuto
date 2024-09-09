@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="sumo_32envs_32cpus.log"
+#SBATCH --job-name="sumo_24envs_32cpus.log"
 #SBATCH --output="output/%A_%a-%x-stdout.log"
 #SBATCH --error="output/%A_%a-%x-stderr.log"
 #SBATCH --clusters=ukko
