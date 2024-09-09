@@ -1,10 +1,6 @@
 # Demand generation pipeline
 > [!NOTE]  
-> Before running these scripts, make sure you have installed and activated the conda environment specified in `conda_env.yaml` or have installed the neccessary requirements mentioned in `requirements.txt`
-
-> [!NOTE]  
-> The term `areaX` which you will see in this script can refer to either `area1`, `area2` or `area3`. To repeat these commands for any of these three areas, just replace `areaX` with any of those terms.
-
+> Running this pipeline is not mandatory, as the premade demand generation routes can be found in `nets/ridepooling/Helsinki updated areas/areaX/demand_gen_routes`. However, the scripts can be used to alter the demand routes by changing the parameters. The configs used to create the routees are located in the `demand_gen_routes/demand_configs_used`. Before running these scripts, make sure you have installed and activated the conda environment specified in `conda_env.yaml` or have installed the neccessary requirements mentioned in `requirements.txt`. The term `areaX` which you will see in this script can refer to either `area1`, `area2` or `area3`. To repeat these commands for any of these three areas, just replace `areaX` with any of those terms.
 
 ### Step 1
 This step converts the weakly connected area into its "plain" components
