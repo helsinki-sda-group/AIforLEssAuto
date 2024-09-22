@@ -1,9 +1,9 @@
 <?xml version="1.0" ?>
 <configuration>
 	<input>
-		<net-file value="area1_connected.net.xml"/>
-		<route-files value="area1_sampled_0.2_taxis.rou.xml"/>
-		<additional-files value="area1_gcc_parkingareas_plain.add.xml"/>
+		<net-file value="net/area1_connected.net.xml"/>
+		<route-files value="demand_routes/area1_sampled_0.2_taxis.rou.xml"/>
+		<additional-files value="plain/area1_gcc_parkingareas_plain.add.xml"/>
 	</input>
 	<time>
 		<begin value="0"/>
