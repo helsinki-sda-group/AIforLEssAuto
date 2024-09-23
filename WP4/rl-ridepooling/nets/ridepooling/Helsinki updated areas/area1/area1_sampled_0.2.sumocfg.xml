@@ -18,9 +18,9 @@
 		<device.taxi.dispatch-period value="1"/>
 		<device.taxi.dispatch-algorithm params="relLossThreshold:0.2"/>
 	</taxi_device>
-	<gui_only>
+	<!-- <gui_only>
 		<gui-settings-file value="sumoview.xml"/>
-	</gui_only>
+	</gui_only> -->
 	<!-- <output>
 		<tripinfo-output value="rl_output/tripinfo.xml"/>
 		<tripinfo-output.write-unfinished value="True"/>
