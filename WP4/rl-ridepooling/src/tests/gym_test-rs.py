@@ -116,11 +116,12 @@ if __name__ == "__main__":
     parser.add_argument("-c", "--config", type=str, required=True, help="Path to the main config file used to provide most arguments to the script.")
     parser.add_argument('-ne', '--num-envs', type=int, help="Number of SUMO environments that can be launched in parallel. (overwrites config file env.num_envs argument)")
     parser.add_argument('-p', '--postfix', type=str, help="Postfix string for the output directory name (will be appended to current date). If not provided, name of the config file will be used by default")
+    parser.add_argument('-ti', '--total-iters', type=int, help="Number of SUMO iterations to launch in total. (overwrites config file env.total_iters from config file)")
     args = parser.parse_args()
     cfg_path = args.config.strip()
     cfg = OmegaConf.load(cfg_path)
 
-    # if num_envs is specified, update cfg.env.num_envs
+    # if num-envs is specified, update cfg.env.num_envs
     if args.num_envs is not None:
         cfg.env.num_envs = args.num_envs
 
@@ -129,6 +130,10 @@ if __name__ == "__main__":
         dir_postfix = args.postfix
     else:
         dir_postfix = Path(cfg_path).stem
+
+    # if total-iters is specified, update cfg.env.total_iters
+    if args.total_iters is not None:
+        cfg.env.total_iters = args.total_iters
 
     # make dirs
     OUTPUT_DIR = os.path.join('src', 'tests', 'output', f'{now}_{dir_postfix}')
