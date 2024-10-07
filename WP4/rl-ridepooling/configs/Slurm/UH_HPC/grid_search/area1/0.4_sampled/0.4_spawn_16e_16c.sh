@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH --job-name="sumo_16envs_8cpus.log"
+#SBATCH --job-name="0.4_16e_16c_spawn"
 #SBATCH --output="output/%A_%a-%x-stdout.log"
 #SBATCH --error="output/%A_%a-%x-stderr.log"
 #SBATCH --clusters=ukko
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
-#SBATCH --extra-node-info=1-1:8:1
+#SBATCH --cpus-per-task=16
+#SBATCH --extra-node-info=1-1:16:1
 #SBATCH --mem=16G
 #SBATCH --partition=short
 
@@ -40,4 +40,4 @@ python -c 'import torch;print(torch.cuda.device_count())'
 
 taskset -cp $$
 
-srun python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.4.yaml --num-envs 16 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}
+srun python src/tests/gym_test-rs_multiproc.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.4.yaml --num-envs 16 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}

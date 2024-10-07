@@ -8,7 +8,7 @@ env:
   delta: 1  # step of policy applying (delta=1 means one simulation iteration)
   num_envs: 7  # change this to control parallelism
   sumo_seed: 4220
-  sumocfg: "nets/ridepooling/Helsinki updated areas/area1/area1_sampled_0.4.sumocfg.xml"
+  sumocfg: "nets/ridepooling/Helsinki updated areas/area1/area1_sampled_0.8.sumocfg.xml"
   use_gui: False
   verbose: True
   taxi_reservations_logger:
