@@ -9,7 +9,6 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --extra-node-info=1-1:8:1
 #SBATCH --mem=16G
-#SBATCH --exclusive
 
 # exit when any command fails
 
@@ -24,7 +23,7 @@ module load cuDNN/8.6.0.163-CUDA-11.8.0
 
 # activate environment
 source /wrk-vakka/appl/easybuild/opt/Anaconda3/2023.09-0/etc/profile.d/conda.sh
-conda activate rl-ridepooling-2
+conda activate rl-ridepooling-updated
 
 # declare env variables for SUMO
 export LIBSUMO_AS_TRACI=1

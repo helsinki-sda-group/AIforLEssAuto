@@ -1,14 +1,14 @@
 #!/bin/bash
-#SBATCH --job-name="1_0.4_32e_16c"
+#SBATCH --job-name="2_0.2_1e_1c"
 #SBATCH --output="output/%A_%a-%x-stdout.log"
 #SBATCH --error="output/%A_%a-%x-stderr.log"
 #SBATCH --clusters=ukko
-#SBATCH --time=4:00:00
+#SBATCH --time=1:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBATCH --extra-node-info=1-1:16:1
-#SBATCH --mem=32G
+#SBATCH --cpus-per-task=1
+#SBATCH --extra-node-info=1-1:1:1
+#SBATCH --mem=8G
 
 # exit when any command fails
 
@@ -39,4 +39,4 @@ python -c 'import torch;print(torch.cuda.device_count())'
 
 taskset -cp $$
 
-srun --cpu-bind=ldoms --hint=compute_bound python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.4.yaml --total-iters 32  --num-envs 32 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}
+srun --cpu-bind=ldoms --hint=compute_bound python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area2_sampled_0.2.yaml --total-iters 1  --num-envs 1 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}

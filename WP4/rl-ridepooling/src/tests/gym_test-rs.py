@@ -106,7 +106,7 @@ def curr_datetime():
     return datetime.datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
 
 if __name__ == "__main__":
-    # mp.set_start_method("spawn")
+    mp.set_start_method("spawn")
     
     # get current timestep
     now = curr_datetime()
