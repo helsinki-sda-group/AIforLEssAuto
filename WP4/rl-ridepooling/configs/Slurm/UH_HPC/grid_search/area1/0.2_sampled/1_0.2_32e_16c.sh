@@ -39,4 +39,4 @@ python -c 'import torch;print(torch.cuda.device_count())'
 
 taskset -cp $$
 
-srun --cpu-bind=ldoms --hint=compute_bound python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml --total-iters 32  --num-envs 32 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}
+srun  --hint=compute_bound python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml --total-iters 32  --num-envs 32 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}
