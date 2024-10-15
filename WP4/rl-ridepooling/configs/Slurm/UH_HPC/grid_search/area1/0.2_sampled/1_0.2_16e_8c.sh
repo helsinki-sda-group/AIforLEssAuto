@@ -10,6 +10,8 @@
 #SBATCH --extra-node-info=1-1:8:1
 #SBATCH --mem=16G
 
+dmesg -T | egrep -i 'killed process'
+
 # exit when any command fails
 
 # load modules
@@ -39,4 +41,4 @@ python -c 'import torch;print(torch.cuda.device_count())'
 
 taskset -cp $$
 
-srun --cpu-bind=ldoms --hint=compute_bound python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml --total-iters 16  --num-envs 16 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}
+srun  --hint=compute_bound python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml --total-iters 16  --num-envs 16 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}

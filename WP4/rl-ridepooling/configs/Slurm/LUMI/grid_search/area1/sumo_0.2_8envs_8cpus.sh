@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="rl_8e_8c.log"
+#SBATCH --job-name="1_0.2_16e_8c"
 #SBATCH --output="output/%A_%a-%x-stdout.log"
 #SBATCH --error="output/%A_%a-%x-stderr.log"
 #SBATCH --account=project_462000655
@@ -7,8 +7,9 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=8G
+#SBATCH --mem=16G
 #SBATCH --partition=small
+#SBATCH --extra-node-info=1-1:8:1
 
 # load modules
 module --force purge
@@ -30,6 +31,6 @@ pwd
 taskset -cp $$
 srun hybrid_check -n -r
 
-srun singularity exec --bind /usr/lib64 $SIF python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml --num-envs 8 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}
+srun --cpu-bind=ldoms --hint=compute_bound singularity exec --bind /usr/lib64 $SIF python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml --total-iters 16 --num-envs 16 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}
 
 
