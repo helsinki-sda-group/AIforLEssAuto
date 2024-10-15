@@ -1,25 +1,3 @@
-I have a question about reserving CPUs on the nodes in Slurm in the job file. I'm sending an example of the job file that I have. (see example_job_file.sh)
-
-For example, when submitting a job that reserves 16 CPUs with --cpus-per-task=16 and running hybrid_check tool, it shows me that sometimes the CPUs are allocated consecutively and in groups (0-15, 16-31, 32-47, 48-63 etc.), and sometimes they seem to be split randomly in between (for example, as in hybrid_check_example_16_bad.txt, which reserved CPUs 40-55). When running hybrid_check as I do in all my batch scripts, I notice that OpenMP only schedules the threads on CPUs from one NUMA node and doesn't consider the other CPUs. This impacts the performance since in the cases when all CPUs are within one NUMA node, OpenMP is able to see all of them. (see hybrid_check_example_16_good.txt). OpenMP can also see all of the CPUs when I reserve more than 16. (see hybrid_check_example_32.txt), but I get the same issue when reserving 32 cores: OpenMP only sees all cores if all 32 of them are reserved consecutively in groups 0-31, 32-63, etc. (see hybrid_check_example_32_bad.txt)
-
-Is it somehow possible to guarantee using #SBATCH directives that my job gets allocated on the CPUs that all lie within one NUMA node, without reserving the whole node? I tried to play around with --extra-node-info flag, but it doesn't seem to do anything. Alternatively, how do I modify my current script to allow OpenMP to see CPUs from other NUMA nodes? 
-
-files to send:
-hybrid_check_example_16_bad.txt: 8116613_4294967294-2_0.4_32e_16c-stdout.log and 8116624_4294967294-2_0.8_32e_16c-stdout.log
-hy
-hybrid_check_example_16_good.txt: 8116619_4294967294-2_0.6_32e_16c-stdout.log
-
-hybrid_check_example_8_bad.txt: 8169164_4294957294-1_0.2_16e_8c-stdout.log (has the hybrid check output for what happens when reserving a node)
-
-hybrid_check_example_8_good.txt: 8169153_4294967294_1_0.2_16e_8c-stdout.log
-
-hybrid_check_example_32_bad.txt: 8116623_4294967294-2_0.8_64e_32c-stdout.log
-
-hybrid_check_example_32.txt: 8116418_4294967294-1_0.2_64e_32c-stdout.log
-
-example_job_file.sh: area1/0.2_sampled/1_0.2_16e_8c.sh
-
-
 I'm having an issue with my code. During the runtime of the job, sometimes a rather strange error occurs that halts the execution of the entire program. Sadly I'm not able to reproduce the error consistently and it seems to happen at random points in time. For some jobs the error doesn't occur at all, but the longer the job runs and the more CPUs and environments I run in parallel, the more often the error seems to occur. I have attached the example of this error (see eof_error_example.txt). Sometimes the error is accompannied by the message "corrupted double-linked list" or "corrupted size vs. prev_size" right before it.
 
 I have attached the batch file I use for launching the job (see example_job_file.sh) and a python script I use (see train.py). My code is written in python. I installed python through the Singularity container by following this guide: https://lumi-supercomputer.github.io/LUMI-EasyBuild-docs/p/PyTorch/#module-and-wrapper-scripts. My code uses the SubprocVecEnv vectorized environment in stable_baselines3 library, which in turn uses pytorch, and the multiprocessing library to launch multiple instances of the reinforcement learning environment based on SUMO (Simulation of Urban MObility) to simulate traffic data.
