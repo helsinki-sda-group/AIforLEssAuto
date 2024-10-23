@@ -3,7 +3,7 @@
 #SBATCH --output="output/%A_%a-%x-stdout.log"
 #SBATCH --error="output/%A_%a-%x-stderr.log"
 #SBATCH --account=project_462000655
-#SBATCH --time=8:00:00
+#SBATCH --time=24:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=128
