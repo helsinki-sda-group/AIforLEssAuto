@@ -21,6 +21,14 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "args": ["-c", "configs/gen_passengers/area1/area1_sampled_0.2.yaml"]
+        },
+        {
+            "name": "drawPerformanceGraphs",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "src/tests/graphs/draw_performance_graphs.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
         }
     ]
 }
