@@ -3,7 +3,7 @@
 #SBATCH --output="output/%A_%a-%x-stdout.log"
 #SBATCH --error="output/%A_%a-%x-stderr.log"
 #SBATCH --account=project_462000655
-#SBATCH --time=2:00:00
+#SBATCH --time=5:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=128
@@ -33,6 +33,6 @@ pwd
 taskset -cp $$
 srun hybrid_check -n -r
 
-srun --hint=compute_bound singularity exec --bind /usr/lib64 $SIF python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml --total-iters 256 --num-envs 256 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}
+srun singularity exec --bind /usr/lib64 $SIF python src/tests/gym_test-rs.py --config configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml --total-iters 1000 --num-envs 256 --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}
 
 
