@@ -118,6 +118,8 @@ if __name__ == "__main__":
     parser.add_argument('-post', '--postfix', type=str, help="Postfix string for the output directory name (will be appended to current date). If not provided, name of the config file will be used by default")
     parser.add_argument('-pre', '--prefix', type=str, help="Optional prefix string for the output directory name (will be before current date).")
     parser.add_argument('-ti', '--total-iters', type=int, help="Number of SUMO iterations to launch in total. (overwrites config file env.total_iters from config file)")
+    parser.add_argument('--train-freq', help="See dqn.train_freq")
+    parser.add_argument('--delta', help='See env.delta')
     args = parser.parse_args()
     cfg_path = args.config.strip()
     cfg = OmegaConf.load(cfg_path)
@@ -135,6 +137,16 @@ if __name__ == "__main__":
     # if total-iters is specified, update cfg.env.total_iters
     if args.total_iters is not None:
         cfg.env.total_iters = args.total_iters
+
+    if args.train_freq:
+        try:
+            cfg.dqn.train_freq = int(args.train_freq)
+        except:
+            cfg.dqn.train_freq = args.train_freq
+
+    if args.delta:
+        cfg.env.delta = int(args.delta)
+        
 
     # make dirs
     if args.prefix:
