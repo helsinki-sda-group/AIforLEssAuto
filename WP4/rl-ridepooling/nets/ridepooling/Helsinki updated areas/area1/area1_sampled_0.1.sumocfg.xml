@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<configuration>
+	<input>
+		<net-file value="net/area1_connected.net.xml"/>
+		<route-files value="demand_routes/area1_sampled_0.1_taxis.rou.xml"/>
+		<additional-files value="plain/area1_gcc_parkingareas_plain.add.xml"/>
+	</input>
+	<time>
+		<begin value="0"/>
+		<end value="3600"/>
+	</time>
+	<processing>
+		<ignore-junction-blocker value="1"/>
+	</processing>
+	<taxi_device>
+		<device.taxi.dispatch-algorithm value="traci"/>
+		<device.taxi.idle-algorithm value="stop"/>
+		<device.taxi.dispatch-period value="1"/>
+		<device.taxi.dispatch-algorithm params="relLossThreshold:0.2"/>
+	</taxi_device>
+	<!-- <gui_only>
+		<gui-settings-file value="sumoview.xml"/>
+	</gui_only> -->
+	<!-- <output>
+		<tripinfo-output value="rl_output/tripinfo.xml"/>
+		<tripinfo-output.write-unfinished value="True"/>
+		<emission-output value="rl_output/emissions.xml"/>
+		<tripinfo-output.write-undeparted value="True"/>
+	</output> -->
+	<!-- <report>
+		<verbose value="True"/>
+		<message-log value="message.xml"/>
+		<error-log value="error.xml"/>
+		<duration-log.statistics value="True"/>
+	</report> -->
+</configuration>
