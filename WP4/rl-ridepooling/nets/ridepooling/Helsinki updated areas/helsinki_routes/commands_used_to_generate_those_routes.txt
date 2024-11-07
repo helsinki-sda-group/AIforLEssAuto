@@ -1,0 +1,37 @@
+The command to run cutRoutes is `python $SUMO_HOME/tools/route/cutRoutes.py`
+
+The config files contain configurations that were used for cutting routes.
+The exact commands to run these config files are provided below
+
+Before running cutRoutes, you need to have the sim_routes.rou.xml file that contains the exit times
+Note that when getting those routes it's important to run the simulation not for 1 hour, 
+but until all the vehicles reach the destination. 
+This way, the exit times will be compluted for every route, 
+not only for those that made it in time.
+You should also set the 'departLane="free"' and 'departSpeed="max"' attributes for each route in sim_routes.rou.xml
+In the config files, the processed sim_routes.rou.xml file is referred to as sim_routes_depart_attrs_set.rou.xml
+
+Run these commands in the demo folder:
+
+### SMALL AREA (AREA 1) ###
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area1/disconnected/routes.cfg.xml
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area1/disconnected/trips.cfg.xml
+
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area1/connected/routes.cfg.xml
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area1/connected/trips.cfg.xml
+	
+	
+### MEDIUM AREA (AREA 2) ###
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area2/disconnected/routes.cfg.xml
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area2/disconnected/trips.cfg.xml
+
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area2/connected/routes.cfg.xml
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area2/connected/trips.cfg.xml
+	
+	
+### LARGE AREA (AREA 3) ###
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area3/disconnected/routes.cfg.xml
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area3/disconnected/trips.cfg.xml
+
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area3/connected/routes.cfg.xml
+python $SUMO_HOME/tools/route/cutRoutes.py -c smaller_areas/routes/configs/area3/connected/trips.cfg.xml
