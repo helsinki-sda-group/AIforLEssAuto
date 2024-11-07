@@ -29,8 +29,12 @@ Run the following command in `helsinki updated areas/areaX/plain`:
 The output file would be `areaX_gcc_parkingareas_plain.add.xml`
 
 ### Step 5
-This step extracts the parts of the existing routes that are valid within the strongly connected network
-1. Here's the command to run genGCCtrips.py (sampling ratio is set to 1 by default). Run this command inside the root folder `rl-ridepooling`. Keep in mind that in this script every path that starts with `../../` refers to the root folder `rl-ridepooling`. Adding `../../` is needed because by default the script interprets every path relative to the folder where the script is located. (i.e. `src/demand generation`)
+This step extracts parts of existing routes that are valid within the strongly connected network and creates a trip file from them.
+
+The following command will run genGCCtrips.py (sampling ratio is set to 1 by default). Run this command inside the root folder `rl-ridepooling`. The routes stored in `helsinki_routes` have been generated for the city of Helsinki using our `sumo-hki-cm` project and copied from the `demo/smaller_areas` folder.
+
+> [!NOTE]
+> In this command, every path that starts with `../../` refers to the root folder `rl-ridepooling`. Adding `../../` is needed because by default the script interprets every path relative to the folder where the script is located. (i.e. `src/demand generation`)
 
 ```
 python "src/demand generation/genGCCtrips.py" \
@@ -38,12 +42,12 @@ python "src/demand generation/genGCCtrips.py" \
     --disconnectedtrips "../../../sumo-hki-cm/demo/smaller_areas/routes/areaX/disconnected/areaX_disconnected_trips.rou.xml" \
     --disconnectedroutes "../../../sumo-hki-cm/demo/smaller_areas/routes/areaX/disconnected/areaX_disconnected_routes.rou.xml" \
     --samplingratio 1 \
-    --output "../../nets/ridepooling/Helsinki updated areas/areaX/areaX_connected_sampled_fixed_1.trips.xml"
+    --output "../../nets/ridepooling/Helsinki updated areas/areaX/trips/areaX_connected_sampled_1.trips.xml"
 ```
-The output file would be `areaX_connected_sampled_fixed_1.trips.xml`
+The output file would be `areaX_connected_sampled_1.trips.xml`
 
 ### Step 6
-Next step will split the sampled trips obtained in the previous step into taxis and passengers using `genPassengers.py` script. The split will be determined based on the ratio provided as an argument. You can read the details about every argument by typing `python "src/demand generation/genPassengers.py" --help`. The config files with predetermined arguments are located in `configs/gen_passengers/areaX/areaX_sampled_X.yaml`. To launch the script with the premade config file, execute `python "src/demand generation/genPassengers.py" -c configs/gen_passengers/areaX/areaX_sampled_X.yaml` from the project root folder (`rl-ridepooling`)
+Next step will split the sampled trips obtained in the previous step into taxis and passengers, and generate the demand trip file containing both taxis and passengers, using `genPassengers.py` script. The split will be determined based on the ratio provided as an argument. You can read the details about every argument by typing `python "src/demand generation/genPassengers.py" --help`. The config files with predetermined arguments are located in `configs/gen_passengers/areaX/areaX_sampled_X.yaml`. To launch the script with the premade config file, execute `python "src/demand generation/genPassengers.py" -c configs/gen_passengers/areaX/areaX_sampled_X.yaml` from the project root folder (`rl-ridepooling`)
 The output will be stored in `src/demand generation/output`. The folder containing the results will start with the datetime when the script was launched, followed by the name of the config file used (if the script was launched without the config file, then it will consist of only the datetime).
 The output folder will contain the following:
 * copy of the config used to launch the script (if any)
