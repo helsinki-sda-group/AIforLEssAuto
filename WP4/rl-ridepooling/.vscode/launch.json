@@ -29,6 +29,14 @@
             "program": "src/tests/graphs/draw_performance_graphs.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
+        },
+        {
+            "name": "performanceModelParser",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "src/utils/performance_model_output_parser.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
         }
     ]
 }
