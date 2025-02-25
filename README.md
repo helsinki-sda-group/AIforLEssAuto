@@ -16,6 +16,6 @@ The input data are: (i) origin-destination (OD) matrices for traffic assignment 
 
 [Kamppi minidemo](https://github.com/helsinki-sda-group/AIforLEssAuto/tree/main/WP4/kamppi_minidemo) is a small demo about SUMO running traffic simulations in Kamppi for 10 minutes under different scenarios regarding the number of fuel vehicles. The demo creates a static visualisation about the simulation outputs of all scenarios for further analysis.
 
-[Interactive visualization tool](https://github.com/helsinki-sda-group/AIforLEssAuto/tree/main/WP4/interactive_visualization) is a demo for interactive visulizations about SUMO simulation outputs. The repository has a Kamppi simulation evnironment with one scenario for fuel and electric vehicles.
+[Interactive visualization tool](https://github.com/helsinki-sda-group/AIforLEssAuto/tree/main/WP4/interactive_visualization) is a demo for interactive visulizations about SUMO simulation outputs. The repository has a Kamppi simulation environment with one scenario for fuel and electric vehicles.
 
 [Conciliator steering](https://github.com/helsinki-sda-group/conciliator) is another output of AIForLEssAuto project. The repository features an implementation for the RL algorithm described in a paper published in TMLR in 2024. The algorhtm is tested in DeepSeaTreasure v1 environment and doesn't contain a SUMO environment.
