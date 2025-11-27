@@ -23,6 +23,23 @@ class Config:
         a `config` argument pointing to a YAML file. The `Config` class will read this file, integrate it
         with any command line arguments provided, and make this consolidated configuration accessible through
         the `opt` attribute.
+
+        The example workflow when using this class would look like this:
+        ```
+        # define a parser
+        parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+        # define command-line arguments for the parser
+        parser.add_argument("-c", "--config", type=str)
+        parser.add_argument("-o" "--output", type=str)
+        ...
+
+        # Instantiate the config
+        cfg = Config(parser)
+
+        # Access variables
+        output = cfg.opt.output  # or cfg.opt.get('output')
+        ```
     """
     def __init__(self, parser):
         # Parse default values

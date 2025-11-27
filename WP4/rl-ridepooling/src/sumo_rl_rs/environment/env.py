@@ -339,7 +339,7 @@ class SumoEnvironment(gym.Env):
         if self.sumo is None:
             return
 
-        self.taxi_reservations_logger.make_graph(self.sim_step)
+        self.taxi_reservations_logger.log(self.sim_step)
 
         if not LIBSUMO:
             traci.switch(self.label)

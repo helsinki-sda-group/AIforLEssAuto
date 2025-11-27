@@ -1,0 +1,7 @@
+<configuration>
+    <network value="smaller_areas/nets/area3/area3_connected.net.xml"/>
+    <routeFiles value="output/sim_routes_depart_attrs_set.rou.xml"/>
+    <disconnected-action value="keep" />
+    <default.departLane value="free" />
+    <routes-output value="smaller_areas/routes/area3/connected/area3_connected_routes.rou.xml"/>
+</configuration>

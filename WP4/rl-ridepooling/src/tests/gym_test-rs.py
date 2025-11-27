@@ -86,7 +86,7 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
     for policy in policies:
         accumulated_reward = 0
         deltaE = int(timesteps/num_periods)
-        env.unwrapped.taxi_reservations_logger.output_path = os.path.join(OUTPUT_DIR, f'{now}_{policy}')
+        env.unwrapped.taxi_reservations_logger.output_path = os.path.join(OUTPUT_DIR, 'baselines' ,f'{now}_{policy}')
         for period in range(0, num_periods):
         
             for i in range(period * deltaE, (period+1) * deltaE):
@@ -98,6 +98,8 @@ def test_exhaustive(timesteps, num_periods=5, max_action=1):
         print("Policy: ", policy, " accumulated reward: ", accumulated_reward)
         env.reset()
 
+    # Set output path to None to prevent logging empty graph
+    env.unwrapped.taxi_reservations_logger.output_path = None
     env.close()
 
 def curr_datetime():
@@ -110,17 +112,35 @@ if __name__ == "__main__":
     now = curr_datetime()
 
     # parser args
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--config", type=str, required=True)
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("-c", "--config", type=str, required=True, help="Path to the main config file used to provide most arguments to the script.")
+    parser.add_argument('-ne', '--num-envs', type=int, help="Number of SUMO environments that can be launched in parallel. (overwrites config file env.num_envs argument)")
+    parser.add_argument('-p', '--postfix', type=str, help="Postfix string for the output directory name (will be appended to current date). If not provided, name of the config file will be used by default")
+    parser.add_argument('-ti', '--total-iters', type=int, help="Number of SUMO iterations to launch in total. (overwrites config file env.total_iters from config file)")
     args = parser.parse_args()
     cfg_path = args.config.strip()
     cfg = OmegaConf.load(cfg_path)
 
-    # make dirs
-    OUTPUT_DIR = os.path.join('nets', 'ridepooling', 'output', f'{now}_{Path(cfg_path).stem}')
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    # if num-envs is specified, update cfg.env.num_envs
+    if args.num_envs is not None:
+        cfg.env.num_envs = args.num_envs
 
-    # copy config to output folder
+    # determine postfix for the directory name
+    if args.postfix is not None:
+        dir_postfix = args.postfix
+    else:
+        dir_postfix = Path(cfg_path).stem
+
+    # if total-iters is specified, update cfg.env.total_iters
+    if args.total_iters is not None:
+        cfg.env.total_iters = args.total_iters
+
+    # make dirs
+    OUTPUT_DIR = os.path.join('src', 'tests', 'output', f'{now}_{dir_postfix}')
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    print('Output folder set to', OUTPUT_DIR)
+
+    # print config to output folder
     with open(os.path.join(OUTPUT_DIR, 'config.yaml'), 'w+') as cfg_copy:
         print(OmegaConf.to_yaml(cfg), file=cfg_copy)
 
