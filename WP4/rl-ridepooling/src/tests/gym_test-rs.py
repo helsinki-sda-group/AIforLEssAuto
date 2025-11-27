@@ -8,6 +8,7 @@ import time
 sys.path.append('./src')
 
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 from stable_baselines3.dqn.dqn import DQN
 from stable_baselines3.common.vec_env import VecMonitor
@@ -26,6 +27,8 @@ import itertools
 from stable_baselines3.common.vec_env import SubprocVecEnv
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.callbacks import EventCallback
+from stable_baselines3.common.callbacks import EvalCallback
+
 import datetime
 
 from omegaconf import OmegaConf
@@ -166,8 +169,13 @@ if __name__ == "__main__":
 
         start_time = time.time()
 
+        # ------- TRAIN ENV ------- #
         vec_env = SubprocVecEnv([env_factory() for i in range(cfg.env.num_envs)])
         vec_env = VecMonitor(vec_env, train_log_dir)
+
+        # ------- EVAL ENV ------- #
+        eval_vec_env = SubprocVecEnv([env_factory()])  # always 1 eval env
+        eval_vec_env = VecMonitor(eval_vec_env, test_log_dir)
  
         # print("Creating model") 
         model = DQN(
@@ -175,22 +183,36 @@ if __name__ == "__main__":
             policy=cfg.dqn.policy,
             learning_rate=cfg.dqn.learning_rate,
             learning_starts=cfg.dqn.learning_starts,
+            buffer_size=cfg.dqn.buffer_size,
             train_freq=cfg.dqn.train_freq,
             gradient_steps=cfg.dqn.gradient_steps,
-            target_update_interval=cfg.env.num_envs,
+            target_update_interval=5000,    # NB: decoupled from env number
             exploration_fraction=cfg.dqn.exploration_fraction,
             exploration_initial_eps=cfg.dqn.exploration_initial_eps,
             exploration_final_eps=cfg.dqn.exploration_final_eps,
             verbose=cfg.dqn.verbose,
         )
 
+        # -------- EVAL CALLBACK --------
+        eval_callback = EvalCallback(
+            eval_vec_env,
+            best_model_save_path=os.path.join(OUTPUT_DIR, "best_model"),
+            log_path=test_log_dir,
+            eval_freq=10_000,        # adjust to your timesteps; 10k is a decent start
+            n_eval_episodes=1,       # fixed batch for eval
+            deterministic=True,
+            render=False,
+        )
+
+
         # total_timesteps = 30000 means that we use 10 simulation instances (episodes) for training if we use 3000 steps (3000 steps for one episode * 10 = 30000 steps)
         # for this example, I usually trained for 100-300 episodes but for debugging it is OK to start with smaller number of episodes
-        model.learn(total_timesteps=timesteps*total_iters)
+        model.learn(total_timesteps=timesteps*total_iters, callback=eval_callback)
    
         model.save(os.path.join(OUTPUT_DIR, 'ridepooling_DQN'))
 
         vec_env.close()
+        eval_vec_env.close()
         
         end_time = time.time()
 
