@@ -79,7 +79,6 @@ def generatePolicies(num_periods, max_action):
     policies = [item for item in itertools.product(actions, repeat=num_periods)]
     return policies
 
-
 def test_exhaustive(timesteps, num_periods=5, max_action=1):
     env = make_env()
     env.reset()
@@ -222,7 +221,11 @@ if __name__ == "__main__":
     # for test regime, we load the model from zip archive and evaluate it 
     if cfg.test:
         env = Monitor(make_env(), test_log_dir)
-        
+
+        # model = DQN.load("src/tests/output/eval2/ridepooling_DQN.zip", env=env) 
+       
+        # model = DQN.load("src/tests/output/eval2/best_model/best_model.zip", env=env)
+       
         model = DQN.load(os.path.join(OUTPUT_DIR, 'ridepooling_DQN'), env=env)
 
         # number of test instances
@@ -245,6 +248,36 @@ if __name__ == "__main__":
     
         env.close()
     
+    # test with random actions
+    if cfg.test_random:
+        # Make the environment (use the same env_factory as in gym_test-rs.py)
+        env = Monitor(make_env(), test_log_dir)
+
+        num_tests = 10      # number of random episodes to run
+        all_rewards = []
+
+        for i in range(num_tests):
+            obs, info = env.reset()
+            done = False
+            truncated = False
+            ep_reward = 0.0
+
+            while not (done or truncated):
+                action = env.action_space.sample()     # <-- COMPLETELY RANDOM ACTION
+                obs, reward, done, truncated, info = env.step(action)
+                ep_reward += reward
+
+            print(f"Random episode {i}: reward = {ep_reward}")
+            all_rewards.append(ep_reward)
+
+        env.close()
+
+        print("\nRandom baseline:")
+        print("Mean reward:", np.mean(all_rewards))
+        print("Std:", np.std(all_rewards))
+        print("All results:", all_rewards)
+
+
     print(f'Output saved to {OUTPUT_DIR}')
     sys.stdout.close()
     
