@@ -149,21 +149,26 @@ if __name__ == "__main__":
 
     sys.stdout = open(os.path.join(OUTPUT_DIR, 'stdout.txt'), 'w+')
 
-    # this is a number of iterations which during the training is read from nets\ridepooling\MySUMO.sumocfg
-    timesteps = cfg.env.timesteps
+    # sumo steps per episode (e.g. 3000 sec)
+    sumo_steps = cfg.env.timesteps 
+    # delta - duration of decision step (e.g. 30 sec)
+    delta = cfg.env.delta
+    # rl decision steps per episode (e.g. 100)
+    rl_steps = int(cfg.env.timesteps / delta)
+    # number of episodes
     total_iters = cfg.env.total_iters
 
-    # to test RL training, we do not need launch baselines so this flag is false
+    # baseline with static scheduling (exhaustive search for large number of decision steps)
     if cfg.test_baseline:
-        test_exhaustive(timesteps,cfg.baseline.num_periods,cfg.baseline.num_actions)
+        test_exhaustive(rl_steps,cfg.baseline.num_periods,cfg.baseline.num_actions)
    
-    # if train is True, we train the model and save it to zip archive
+    # trained model is saved to ridepooling_DQN.zip
+    # during training, the model is also periodically evaluated in greedy (deterministic) regime
     if cfg.train:
         train_log_dir = os.path.join(OUTPUT_DIR, 'train')
         eval_log_dir = os.path.join(OUTPUT_DIR, 'eval')
         os.makedirs(train_log_dir, exist_ok=True)
         os.makedirs(eval_log_dir, exist_ok=True)
-        # wrapping it with monitor  
 
         start_time = time.time()
 
@@ -184,7 +189,7 @@ if __name__ == "__main__":
             buffer_size=cfg.dqn.buffer_size,
             train_freq=cfg.dqn.train_freq,
             gradient_steps=cfg.dqn.gradient_steps,
-            target_update_interval=5000,    # NB: decoupled from env number
+            target_update_interval=5000/delta,    # NB: decoupled from env number
             exploration_fraction=cfg.dqn.exploration_fraction,
             exploration_initial_eps=cfg.dqn.exploration_initial_eps,
             exploration_final_eps=cfg.dqn.exploration_final_eps,
@@ -196,7 +201,7 @@ if __name__ == "__main__":
             eval_vec_env,
             best_model_save_path=os.path.join(OUTPUT_DIR, "best_model"),
             log_path=eval_log_dir,
-            eval_freq=10_000,        # adjust to your timesteps; 10k is a decent start
+            eval_freq=int(10_000/delta),        # adjust to your timesteps; 10k is a decent start
             n_eval_episodes=1,       # fixed batch for eval
             deterministic=True,
             render=False,
@@ -205,7 +210,26 @@ if __name__ == "__main__":
 
         # total_timesteps = 30000 means that we use 10 simulation instances (episodes) for training if we use 3000 steps (3000 steps for one episode * 10 = 30000 steps)
         # for this example, I usually trained for 100-300 episodes but for debugging it is OK to start with smaller number of episodes
-        model.learn(total_timesteps=timesteps*total_iters, callback=eval_callback)
+        
+        # example for delta = 1 (sumo_steps = rl_steps): 
+        #   rl_steps = 3000, total_iters = 120, total_timesteps = 3000 x 120 = 120 episodes and 3000 decisions per episode
+
+        # two options for training with larger delta
+        # (1) keep the total number of episodes
+        #   delta = 30, rl_steps = 100, total_iters = 120, total_timesteps = 12000 = 120 episodes and 100 decisions per episode
+        #   this will be delta time less samples available for RL algorithm
+        #   NB: there may be a need to scale total_iters, especially for a large delta, to compensate for low number of training samples
+        # (2) keep the total number of RL samples
+        #   delta = 30, rl_steps = 100, (!)total_iters -> 120 * 30 = 3600, total_timesteps = 360000 = 3600 episodes and 100 decisions per episode
+        #   compared to delta = 1, this will slow down training up to x delta times (more SUMO instances)
+        # in practice, in can be intermediate option between (1) and (2)
+        # for this, episodes_scaling_coeff is added
+        #   in [0;1]
+        #   0 - no scaling (option (1) above)
+        #   1 - full scaling (option (2) above)
+        episodes_scaling_coeff = 0
+
+        model.learn(total_timesteps=rl_steps*total_iters*(1 + episodes_scaling_coeff * (delta-1)), callback=eval_callback)
    
         model.save(os.path.join(OUTPUT_DIR, 'ridepooling_DQN'))
 
@@ -239,7 +263,7 @@ if __name__ == "__main__":
             obs, info = env.reset()
         
             accumulated_reward = 0
-            for step in range(0, timesteps):
+            for step in range(0, rl_steps):
                 # print("Step: ", step)
                 action, _states = model.predict(obs)
                 obs, rewards, terminated, truncated, info = env.step(action)
