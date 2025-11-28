@@ -8,6 +8,7 @@ import time
 sys.path.append('./src')
 
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 from stable_baselines3.dqn.dqn import DQN
 from stable_baselines3.common.vec_env import VecMonitor
@@ -26,6 +27,8 @@ import itertools
 from stable_baselines3.common.vec_env import SubprocVecEnv
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.callbacks import EventCallback
+from stable_baselines3.common.callbacks import EvalCallback
+
 import datetime
 
 from omegaconf import OmegaConf
@@ -46,7 +49,7 @@ def make_env(policy = None):
     log_taxis = cfg_taxi_logger.get('log_taxis', False)
     log_reservations = cfg_taxi_logger.get('log_reservations', False)
     show_graph = cfg_taxi_logger.get('show_graph', False)
-
+    
     env = gym.make(
         "sumo-rl-rs-v0",
         #num_seconds=100,
@@ -56,7 +59,8 @@ def make_env(policy = None):
         additional_sumo_cmd=f"--log {sumo_log_file}",
         sumo_seed=cfg.env.sumo_seed,
         verbose=cfg.env.verbose,
-        taxi_reservations_logger=TaxiReservationsLogger(log_taxis, log_reservations, show_graph)
+        taxi_reservations_logger=TaxiReservationsLogger(log_taxis, log_reservations, show_graph),
+        observations_dim = cfg.env.obs_dim
         #route_file="nets/single-intersection/single-intersection.rou.xml",
     )
     return env
@@ -75,7 +79,6 @@ def generatePolicies(num_periods, max_action):
         actions.append(i)
     policies = [item for item in itertools.product(actions, repeat=num_periods)]
     return policies
-
 
 def test_exhaustive(timesteps, num_periods=5, max_action=1):
     env = make_env()
@@ -154,20 +157,23 @@ if __name__ == "__main__":
     if cfg.test_baseline:
         test_exhaustive(timesteps,cfg.baseline.num_periods,cfg.baseline.num_actions)
    
-    # Logs will be saved in train/monitor.csv and test/monitor.csv
-    train_log_dir = os.path.join(OUTPUT_DIR, 'train')
-    test_log_dir = os.path.join(OUTPUT_DIR, 'test')
-    os.makedirs(train_log_dir, exist_ok=True)
-    os.makedirs(test_log_dir, exist_ok=True)
-
     # if train is True, we train the model and save it to zip archive
     if cfg.train:
+        train_log_dir = os.path.join(OUTPUT_DIR, 'train')
+        eval_log_dir = os.path.join(OUTPUT_DIR, 'eval')
+        os.makedirs(train_log_dir, exist_ok=True)
+        os.makedirs(eval_log_dir, exist_ok=True)
         # wrapping it with monitor  
 
         start_time = time.time()
 
+        # ------- TRAIN ENV ------- #
         vec_env = SubprocVecEnv([env_factory() for i in range(cfg.env.num_envs)])
         vec_env = VecMonitor(vec_env, train_log_dir)
+
+        # ------- EVAL ENV ------- #
+        eval_vec_env = SubprocVecEnv([env_factory()])  # always 1 eval env
+        eval_vec_env = VecMonitor(eval_vec_env, eval_log_dir)
  
         # print("Creating model") 
         model = DQN(
@@ -175,22 +181,36 @@ if __name__ == "__main__":
             policy=cfg.dqn.policy,
             learning_rate=cfg.dqn.learning_rate,
             learning_starts=cfg.dqn.learning_starts,
+            buffer_size=cfg.dqn.buffer_size,
             train_freq=cfg.dqn.train_freq,
             gradient_steps=cfg.dqn.gradient_steps,
-            target_update_interval=cfg.env.num_envs,
+            target_update_interval=5000,    # NB: decoupled from env number
             exploration_fraction=cfg.dqn.exploration_fraction,
             exploration_initial_eps=cfg.dqn.exploration_initial_eps,
             exploration_final_eps=cfg.dqn.exploration_final_eps,
             verbose=cfg.dqn.verbose,
         )
 
+        # -------- EVAL CALLBACK --------
+        eval_callback = EvalCallback(
+            eval_vec_env,
+            best_model_save_path=os.path.join(OUTPUT_DIR, "best_model"),
+            log_path=eval_log_dir,
+            eval_freq=10_000,        # adjust to your timesteps; 10k is a decent start
+            n_eval_episodes=1,       # fixed batch for eval
+            deterministic=True,
+            render=False,
+        )
+
+
         # total_timesteps = 30000 means that we use 10 simulation instances (episodes) for training if we use 3000 steps (3000 steps for one episode * 10 = 30000 steps)
         # for this example, I usually trained for 100-300 episodes but for debugging it is OK to start with smaller number of episodes
-        model.learn(total_timesteps=timesteps*total_iters)
+        model.learn(total_timesteps=timesteps*total_iters, callback=eval_callback)
    
         model.save(os.path.join(OUTPUT_DIR, 'ridepooling_DQN'))
 
         vec_env.close()
+        eval_vec_env.close()
         
         end_time = time.time()
 
@@ -199,8 +219,15 @@ if __name__ == "__main__":
 
     # for test regime, we load the model from zip archive and evaluate it 
     if cfg.test:
+        test_log_dir = os.path.join(OUTPUT_DIR, 'test')
+        os.makedirs(test_log_dir, exist_ok=True)
+
         env = Monitor(make_env(), test_log_dir)
-        
+
+        # model = DQN.load("src/tests/output/eval2/ridepooling_DQN.zip", env=env) 
+       
+        # model = DQN.load("src/tests/output/eval2/best_model/best_model.zip", env=env)
+       
         model = DQN.load(os.path.join(OUTPUT_DIR, 'ridepooling_DQN'), env=env)
 
         # number of test instances
@@ -223,6 +250,38 @@ if __name__ == "__main__":
     
         env.close()
     
+    # test with random actions
+    if cfg.test_random:
+        random_log_dir = os.path.join(OUTPUT_DIR, 'test_random')  
+        os.makedirs(random_log_dir, exist_ok=True)
+        # Make the environment (use the same env_factory as in gym_test-rs.py)
+        env = Monitor(make_env(), random_log_dir)
+
+        num_tests = 10      # number of random episodes to run
+        all_rewards = []
+
+        for i in range(num_tests):
+            obs, info = env.reset()
+            done = False
+            truncated = False
+            ep_reward = 0.0
+
+            while not (done or truncated):
+                action = env.action_space.sample()     # <-- COMPLETELY RANDOM ACTION
+                obs, reward, done, truncated, info = env.step(action)
+                ep_reward += reward
+
+            print(f"Random episode {i}: reward = {ep_reward}")
+            all_rewards.append(ep_reward)
+
+        env.close()
+
+        print("\nRandom baseline:")
+        print("Mean reward:", np.mean(all_rewards))
+        print("Std:", np.std(all_rewards))
+        print("All results:", all_rewards)
+
+
     print(f'Output saved to {OUTPUT_DIR}')
     sys.stdout.close()
     
