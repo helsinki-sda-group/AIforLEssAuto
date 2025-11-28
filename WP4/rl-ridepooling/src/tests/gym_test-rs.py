@@ -49,7 +49,7 @@ def make_env(policy = None):
     log_taxis = cfg_taxi_logger.get('log_taxis', False)
     log_reservations = cfg_taxi_logger.get('log_reservations', False)
     show_graph = cfg_taxi_logger.get('show_graph', False)
-
+    
     env = gym.make(
         "sumo-rl-rs-v0",
         #num_seconds=100,
@@ -59,7 +59,8 @@ def make_env(policy = None):
         additional_sumo_cmd=f"--log {sumo_log_file}",
         sumo_seed=cfg.env.sumo_seed,
         verbose=cfg.env.verbose,
-        taxi_reservations_logger=TaxiReservationsLogger(log_taxis, log_reservations, show_graph)
+        taxi_reservations_logger=TaxiReservationsLogger(log_taxis, log_reservations, show_graph),
+        observations_dim = cfg.env.obs_dim
         #route_file="nets/single-intersection/single-intersection.rou.xml",
     )
     return env
@@ -156,14 +157,12 @@ if __name__ == "__main__":
     if cfg.test_baseline:
         test_exhaustive(timesteps,cfg.baseline.num_periods,cfg.baseline.num_actions)
    
-    # Logs will be saved in train/monitor.csv and test/monitor.csv
-    train_log_dir = os.path.join(OUTPUT_DIR, 'train')
-    test_log_dir = os.path.join(OUTPUT_DIR, 'test')
-    os.makedirs(train_log_dir, exist_ok=True)
-    os.makedirs(test_log_dir, exist_ok=True)
-
     # if train is True, we train the model and save it to zip archive
     if cfg.train:
+        train_log_dir = os.path.join(OUTPUT_DIR, 'train')
+        eval_log_dir = os.path.join(OUTPUT_DIR, 'eval')
+        os.makedirs(train_log_dir, exist_ok=True)
+        os.makedirs(eval_log_dir, exist_ok=True)
         # wrapping it with monitor  
 
         start_time = time.time()
@@ -174,7 +173,7 @@ if __name__ == "__main__":
 
         # ------- EVAL ENV ------- #
         eval_vec_env = SubprocVecEnv([env_factory()])  # always 1 eval env
-        eval_vec_env = VecMonitor(eval_vec_env, test_log_dir)
+        eval_vec_env = VecMonitor(eval_vec_env, eval_log_dir)
  
         # print("Creating model") 
         model = DQN(
@@ -196,7 +195,7 @@ if __name__ == "__main__":
         eval_callback = EvalCallback(
             eval_vec_env,
             best_model_save_path=os.path.join(OUTPUT_DIR, "best_model"),
-            log_path=test_log_dir,
+            log_path=eval_log_dir,
             eval_freq=10_000,        # adjust to your timesteps; 10k is a decent start
             n_eval_episodes=1,       # fixed batch for eval
             deterministic=True,
@@ -220,6 +219,9 @@ if __name__ == "__main__":
 
     # for test regime, we load the model from zip archive and evaluate it 
     if cfg.test:
+        test_log_dir = os.path.join(OUTPUT_DIR, 'test')
+        os.makedirs(test_log_dir, exist_ok=True)
+
         env = Monitor(make_env(), test_log_dir)
 
         # model = DQN.load("src/tests/output/eval2/ridepooling_DQN.zip", env=env) 
@@ -250,8 +252,10 @@ if __name__ == "__main__":
     
     # test with random actions
     if cfg.test_random:
+        random_log_dir = os.path.join(OUTPUT_DIR, 'test_random')  
+        os.makedirs(random_log_dir, exist_ok=True)
         # Make the environment (use the same env_factory as in gym_test-rs.py)
-        env = Monitor(make_env(), test_log_dir)
+        env = Monitor(make_env(), random_log_dir)
 
         num_tests = 10      # number of random episodes to run
         all_rewards = []
