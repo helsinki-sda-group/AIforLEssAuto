@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "gym_test-rs",
             "type": "debugpy",
@@ -11,7 +12,7 @@
             "program": "src/tests/gym_test-rs.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
-            "args": ["-c", "configs/policy_training/helsinki_updated_areas/area1_sampled_0.2.yaml",  "--total-iters", "120"]
+            "args": ["-c", "configs/policy_training/old_net/default.yaml",  "--total-iters", "120"]
         },
         {
             "name": "genPassengers.py",
