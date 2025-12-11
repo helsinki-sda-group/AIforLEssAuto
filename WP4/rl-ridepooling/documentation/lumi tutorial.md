@@ -1,4 +1,4 @@
-# LUMI ridepooling manual
+# LUMI ride-pooling manual
 
 ## Logging into LUMI
 

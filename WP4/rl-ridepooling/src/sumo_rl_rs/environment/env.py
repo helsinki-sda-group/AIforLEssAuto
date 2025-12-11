@@ -120,6 +120,7 @@ class SumoEnvironment(gym.Env):
         render_mode: Optional[str] = None,
         verbose: bool = False,
         taxi_reservations_logger: TaxiReservationsLogger = None,
+        observations_dim: int = 1
     ) -> None:
         """Initialize the environment."""
         assert render_mode is None or render_mode in self.metadata["render_modes"], "Invalid render mode."
@@ -136,6 +137,7 @@ class SumoEnvironment(gym.Env):
             self._sumo_binary = sumolib.checkBinary("sumo")
 
         self.delta_time = delta_time  # seconds on sumo at each step
+        self.observations_dim = observations_dim
         self.single_agent = single_agent
         self.reward_fn = reward_fn
         self.sumo_seed = sumo_seed
@@ -164,7 +166,7 @@ class SumoEnvironment(gym.Env):
         self.current_step = 0
         self.avg_action = 0
 
-        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.reward_fn, conn, self.taxi_reservations_logger, verbose)
+        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.observations_dim, self.reward_fn, conn, self.taxi_reservations_logger, verbose)
 
         conn.close()
 
@@ -233,7 +235,7 @@ class SumoEnvironment(gym.Env):
         # reset logger
         self.taxi_reservations_logger.reset()
 
-        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.reward_fn, self.sumo, self.taxi_reservations_logger, self.verbose)
+        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.observations_dim, self.reward_fn, self.sumo, self.taxi_reservations_logger, self.verbose)
 
         self.vehicles = dict()
         self.current_step = 0
