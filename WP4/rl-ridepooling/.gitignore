@@ -11,3 +11,6 @@ gui_output
 
 # LUMI related
 core
+
+# venv
+ridepool-venv
