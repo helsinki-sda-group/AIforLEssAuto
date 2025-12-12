@@ -38,6 +38,7 @@ srun singularity exec \
     bash -c "source ridepool-venv/bin/activate && \
     python src/tests/gym_test-rs.py \
     --config configs/policy_training/old_net/default.yaml \
+    --num-envs 1 \
     --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}"
 
 

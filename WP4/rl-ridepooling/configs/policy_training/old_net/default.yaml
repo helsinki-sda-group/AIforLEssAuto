@@ -5,7 +5,7 @@ test_random: False
 
 env:
   timesteps: 3000
-  total_iters: 5
+  total_iters: 100
   delta: 1  # step of policy applying (delta=1 means one simulation iteration)
   num_envs: 1
   sumo_seed: 4220
