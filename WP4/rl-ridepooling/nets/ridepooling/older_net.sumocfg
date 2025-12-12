@@ -15,7 +15,7 @@
         <!--<device.taxi.idle-algorithm value="randomCircling"/>-->
 		<device.taxi.idle-algorithm value="stop"/>
 		<device.taxi.dispatch-period value="1"/>
-		<device.taxi.dispatch-algorithm params="relLossThreshold:0.2"/>
+		<device.taxi.dispatch-algorithm.params value="relLossThreshold:0.2"/>
     </taxi_device>
 	<gui_only>
 		<gui-settings-file value="settings/sumoview.xml"/>
@@ -31,8 +31,8 @@
 	</output>
 	<report>
 		<verbose value="True"/>
-		<message-log value="message.xml"/>
-		<error-log value="error.xml"/>
+		<!-- <message-log value="message.xml"/>
+		<error-log value="error.xml"/> -->
 		<duration-log.statistics value="True"/>
 	</report>
 </configuration>
