@@ -59,7 +59,7 @@ class RidePoolController:
         self.verbose = verbose
         self.observations_dim = observations_dim 
 
-        if type(self.reward_fn) is str:
+        if isinstance(self.reward_fn, str):
             if self.reward_fn in RidePoolController.reward_fns.keys():
                 self.reward_fn = RidePoolController.reward_fns[self.reward_fn]
             else:
@@ -315,6 +315,7 @@ class RidePoolController:
 
     def compute_reward(self):
         """Computes the reward of the ridepooling controller."""
+        assert callable(self.reward_fn)
         self.last_reward = self.reward_fn(self)
         return self.last_reward   
 

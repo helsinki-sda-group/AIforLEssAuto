@@ -1,9 +1,10 @@
 import os
 import csv
 import matplotlib.pyplot as plt
+from typing import Optional
 
 class TaxiReservationsLogger:
-    def __init__(self, log_taxis: bool, log_reservations: bool, show_graph: bool = False, output_path: str = None) -> None:
+    def __init__(self, log_taxis: bool, log_reservations: bool, show_graph: bool = False, output_path: Optional[str] = None) -> None:
         self.log_taxis = log_taxis
         self.show_graph = show_graph
 
