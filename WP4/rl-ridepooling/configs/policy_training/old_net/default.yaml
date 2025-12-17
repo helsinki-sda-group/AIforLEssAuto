@@ -1,31 +1,41 @@
 train: True
-test: True
+test: False
 test_baseline: False
+test_random: True
 
 env:
-  timesteps: 3000
-  total_iters: 5
-  delta: 1  # step of policy applying (delta=1 means one simulation iteration)
-  num_envs: 3
+  sumo_steps: 3000 # number of SUMO iterations in one episode
+  basic_episodes: 100 # number of episodes for delta = 1 (for delta > 1 is scaled with episodes_scaling_coeff)
+  episodes_scaling_coeff: 0 # in [0;1]. For 0, episodes = basic_episodes, for 1 episodes = basic_episodes * delta.
+  delta: 30  # number of SUMO iterations in one RL step
+  num_envs: 1
+  seed: 42
   sumo_seed: 4220
   sumocfg: nets/ridepooling/older_net.sumocfg
   use_gui: False
   verbose: False
+  obs_dim: 6
 
 baseline:
-  num_periods: 7
+  num_periods: 5
   num_actions: 1
 
 dqn:
   policy: MlpPolicy
-  learning_rate: 0.01
+  learning_rate: 0.0003
   learning_starts: 1
+  buffer_size: 200000           # scaled by delta
   train_freq: 1
-  gradient_steps: -1
-  exploration_fraction: 0.1
-  exploration_initial_eps: 0.05
-  exploration_final_eps: 0.01
+  gradient_steps: 1             # scaled by num_envs
+  target_update_interval: 5000   # scaled by delta
+  exploration_fraction: 0.3
+  exploration_initial_eps: 1
+  exploration_final_eps: 0.2
   verbose: 1
 
+eval:
+  eval_freq: 10000            # scaled by delta
+  
+
 tests:
-  num_tests: 1
+  num_tests: 100

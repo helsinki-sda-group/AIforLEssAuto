@@ -36,6 +36,7 @@ class RidePoolController:
         self,
         env,
         max_capacity,
+        observations_dim,
         reward_fn: Union[str, Callable],
         sumo,
         taxi_reservations_logger: TaxiReservationsLogger,
@@ -56,9 +57,9 @@ class RidePoolController:
         self.sumo = sumo
         self.taxi_reservations_logger = taxi_reservations_logger
         self.verbose = verbose
-        self.observations_dim = 1 
+        self.observations_dim = observations_dim 
 
-        if type(self.reward_fn) is str:
+        if isinstance(self.reward_fn, str):
             if self.reward_fn in RidePoolController.reward_fns.keys():
                 self.reward_fn = RidePoolController.reward_fns[self.reward_fn]
             else:
@@ -281,24 +282,40 @@ class RidePoolController:
 
     # returns maximum values for observations, for setting parameter of gym space box
     def get_max_observations(self):
-        # for test with a single state variable (non-served requests)
-        return np.asarray([np.inf], dtype=np.float32)
+        return np.asarray([np.inf] * self.observations_dim, dtype=np.float32)
 
 
     def get_observation(self):
         # get all reservations (including dispatched ones)
-        reservations = self.sumo.person.getTaxiReservations(0)
-         # get all reservations that have not been assigned to taxi
-        non_served_reservations = tuple(filter(lambda x: x.state!=4 and x.state!=8, reservations))
-        # non-served, thus, is a number of pending requests
-        non_served = len(non_served_reservations)
-        obs1 = np.array(non_served, dtype=np.float32)
+        all_reservations = self.sumo.person.getTaxiReservations(0)
+        if self.observations_dim == 1:
+            not_picked_up = len([x for x in all_reservations if x.state != 8])
+            return np.asarray([float(not_picked_up)], dtype=np.float32)
+        elif self.observations_dim == 6:
+            waiting_pickup = len(self.sumo.person.getTaxiReservations(4))
+            picked_up = len(self.sumo.person.getTaxiReservations(8))
+            non_assigned = len([x for x in all_reservations if x.state not in [4,8]])
 
-        # return np.asarray([obs1, obs2])
-        return np.asarray([obs1])
+            empty_taxis = len(self.sumo.vehicle.getTaxiFleet(0))
+            pickup_taxis = len(self.sumo.vehicle.getTaxiFleet(1))
+            occupied_taxis = len(self.sumo.vehicle.getTaxiFleet(2))
+            ridepool_taxis = len(self.sumo.vehicle.getTaxiFleet(3))
+
+            obs = np.array([
+                waiting_pickup,
+                non_assigned,
+                empty_taxis,
+                pickup_taxis,
+                occupied_taxis,
+                ridepool_taxis
+            ], dtype=np.float32)
+
+            return obs
+
 
     def compute_reward(self):
         """Computes the reward of the ridepooling controller."""
+        assert callable(self.reward_fn)
         self.last_reward = self.reward_fn(self)
         return self.last_reward   
 

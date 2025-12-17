@@ -1,9 +1,10 @@
 import os
 import csv
 import matplotlib.pyplot as plt
+from typing import Optional
 
 class TaxiReservationsLogger:
-    def __init__(self, log_taxis: bool, log_reservations: bool, show_graph: bool = False, output_path: str = None) -> None:
+    def __init__(self, log_taxis: bool, log_reservations: bool, show_graph: bool = False, output_path: Optional[str] = None) -> None:
         self.log_taxis = log_taxis
         self.show_graph = show_graph
 
@@ -41,8 +42,8 @@ class TaxiReservationsLogger:
         
         if self.log_taxis and self.output_path != None:
             self._save_taxi_logs()
-        
-        self._make_graph(sim_time)
+        if self.show_graph and self.output_path != None:
+            self._make_graph(sim_time)
 
     def _sanity_check(self):
         """
@@ -94,6 +95,7 @@ class TaxiReservationsLogger:
         
         if self.show_graph:
             plt.show()
+        plt.close()
 
     def _reset_fields(self):
         self.idle_taxis_timeline = []

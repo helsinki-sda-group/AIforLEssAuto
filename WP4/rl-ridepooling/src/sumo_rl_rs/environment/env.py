@@ -119,7 +119,8 @@ class SumoEnvironment(gym.Env):
         additional_sumo_cmd: Optional[str] = None,
         render_mode: Optional[str] = None,
         verbose: bool = False,
-        taxi_reservations_logger: TaxiReservationsLogger = None,
+        taxi_reservations_logger: Optional[TaxiReservationsLogger] = None,
+        observations_dim: int = 1
     ) -> None:
         """Initialize the environment."""
         assert render_mode is None or render_mode in self.metadata["render_modes"], "Invalid render mode."
@@ -136,6 +137,7 @@ class SumoEnvironment(gym.Env):
             self._sumo_binary = sumolib.checkBinary("sumo")
 
         self.delta_time = delta_time  # seconds on sumo at each step
+        self.observations_dim = observations_dim
         self.single_agent = single_agent
         self.reward_fn = reward_fn
         self.sumo_seed = sumo_seed
@@ -164,7 +166,7 @@ class SumoEnvironment(gym.Env):
         self.current_step = 0
         self.avg_action = 0
 
-        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.reward_fn, conn, self.taxi_reservations_logger, verbose)
+        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.observations_dim, self.reward_fn, conn, self.taxi_reservations_logger, verbose)
 
         conn.close()
 
@@ -233,7 +235,7 @@ class SumoEnvironment(gym.Env):
         # reset logger
         self.taxi_reservations_logger.reset()
 
-        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.reward_fn, self.sumo, self.taxi_reservations_logger, self.verbose)
+        self.ridepool_controller = RidePoolController(self, self.max_capacity, self.observations_dim, self.reward_fn, self.sumo, self.taxi_reservations_logger, self.verbose)
 
         self.vehicles = dict()
         self.current_step = 0
@@ -248,6 +250,7 @@ class SumoEnvironment(gym.Env):
         self.current_step += 1
         self.avg_action += action
         
+        reward = 0.0
        
         for _ in range(self.delta_time):
             if action is None:
@@ -256,10 +259,12 @@ class SumoEnvironment(gym.Env):
             else:
                 self.ridepool_controller.dispatch(action+1)
             self.sumo.simulationStep()
+        # for DQN, summing rewards for delta steps collapses the policy
+        # here the reward is scaled (not a perfect match to delta=1, but good approximation)
+        reward = self._compute_rewards() 
 
         observations = self._compute_observations()
-        rewards = self._compute_rewards()
-        self.total_reward += rewards
+        self.total_reward += reward
         terminated = False  # there are no 'terminal' states in this environment
         truncated = self.sim_step >= self.sim_max_time  # episode ends when sim_step >= max_steps
         info = self._compute_info()
@@ -272,7 +277,7 @@ class SumoEnvironment(gym.Env):
         print("Info: ", info)
         '''
 
-        return observations, rewards, terminated, truncated, info
+        return observations, reward, terminated, truncated, info
 
 
     @property

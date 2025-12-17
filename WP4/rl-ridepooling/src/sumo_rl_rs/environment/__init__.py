@@ -8,3 +8,7 @@ register(
     entry_point="sumo_rl_rs.environment.env:SumoEnvironment",
     kwargs={"single_agent": True},
 )
+
+from .env import SumoEnvironment
+
+__all__ = ["SumoEnvironment"]
