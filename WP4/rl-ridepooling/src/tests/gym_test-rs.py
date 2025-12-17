@@ -14,6 +14,8 @@ from stable_baselines3.dqn.dqn import DQN
 from stable_baselines3.common.vec_env import VecMonitor
 
 import numpy as np
+import matplotlib
+matplotlib.use("Agg") 
 import matplotlib.pyplot as plt
 import random
 
@@ -52,6 +54,11 @@ def make_env(rank: int = 0, policy = None):
     log_taxis = cfg_taxi_logger.get('log_taxis', False)
     log_reservations = cfg_taxi_logger.get('log_reservations', False)
     show_graph = cfg_taxi_logger.get('show_graph', False)
+
+    if cfg.env.verbose:
+        additional_sumo_cmd=f"--log {sumo_log_file}"
+    else:
+        additional_sumo_cmd = ""
     
     env = gym.make(
         "sumo-rl-rs-v0",
@@ -59,7 +66,7 @@ def make_env(rank: int = 0, policy = None):
         use_gui=cfg.env.use_gui,
         delta_time=cfg.env.delta,
         cfg_file=cfg.env.sumocfg,
-        additional_sumo_cmd=f"--log {sumo_log_file}",
+        additional_sumo_cmd=additional_sumo_cmd,
         sumo_seed=cfg.env.sumo_seed + rank,
         verbose=cfg.env.verbose,
         taxi_reservations_logger=TaxiReservationsLogger(log_taxis, log_reservations, show_graph),
