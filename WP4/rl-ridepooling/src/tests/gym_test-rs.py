@@ -41,11 +41,11 @@ from sumo_rl_rs.environment import SumoEnvironment
 # these functions implement a number of baseline policies
 # when a fixed action is applied to predefined windows
 
-def make_env(policy = None):
+def make_env(rank: int = 0, policy = None):
     """
     Returns the SUMO gym environment. The policy argument is optional and can be used when testing baselines
     """
-    sumo_log_file = os.path.join(OUTPUT_DIR, 'sumolog.txt')
+    sumo_log_file = os.path.join(OUTPUT_DIR, f'sumolog_rank{rank}.txt')
 
     # Get the taxi_logger configuration with default values
     cfg_taxi_logger = cfg.env.get('taxi_reservations_logger', {})
@@ -60,7 +60,7 @@ def make_env(policy = None):
         delta_time=cfg.env.delta,
         cfg_file=cfg.env.sumocfg,
         additional_sumo_cmd=f"--log {sumo_log_file}",
-        sumo_seed=cfg.env.sumo_seed,
+        sumo_seed=cfg.env.sumo_seed + rank,
         verbose=cfg.env.verbose,
         taxi_reservations_logger=TaxiReservationsLogger(log_taxis, log_reservations, show_graph),
         observations_dim = cfg.env.obs_dim
@@ -68,10 +68,10 @@ def make_env(policy = None):
     )
     return env
 
-def env_factory():
+def env_factory(rank: int, base_seed: int):
     def _init():
-        env = make_env()
-        env.reset()
+        env = make_env(rank)
+        env.reset(seed=base_seed + rank)
         return env
 
     return _init
@@ -167,6 +167,10 @@ if __name__ == "__main__":
     # rl decision steps per episode (e.g. 100)
     rl_steps = int(sumo_steps / delta)
 
+    base_seed = cfg.env.seed
+    random.seed(base_seed)
+    np.random.seed(base_seed)
+
 
     # baseline with static scheduling (exhaustive search for large number of decision steps)
     if cfg.test_baseline:
@@ -183,11 +187,11 @@ if __name__ == "__main__":
         start_time = time.time()
 
         # ------- TRAIN ENV ------- #
-        vec_env = SubprocVecEnv([env_factory() for i in range(cfg.env.num_envs)])
+        vec_env = SubprocVecEnv([env_factory(rank=i, base_seed=base_seed) for i in range(cfg.env.num_envs)])
         vec_env = VecMonitor(vec_env, train_log_dir)
 
         # ------- EVAL ENV ------- #
-        eval_vec_env = SubprocVecEnv([env_factory()])  # always 1 eval env
+        eval_vec_env = SubprocVecEnv([env_factory(rank = 0, base_seed=10_000)])  # always 1 eval env
         eval_vec_env = VecMonitor(eval_vec_env, eval_log_dir)
  
         # print("Creating model") 
@@ -220,7 +224,7 @@ if __name__ == "__main__":
             log_path=eval_log_dir,
             # evaluation will be triggered after the same number of sumo_steps for all delta
             # each env.step() num_envs transitions is added 
-            # so we need to scale eval_freq by num_env as well
+            # so we need to scale down eval_freq by num_env as well
             eval_freq=int(cfg.eval.eval_freq/delta/cfg.env.num_envs),        
             n_eval_episodes=1,       # fixed batch for eval
             deterministic=True,
