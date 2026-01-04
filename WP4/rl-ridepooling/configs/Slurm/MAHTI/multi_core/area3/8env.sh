@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="8env"
+#SBATCH --job-name="area3_8env"
 #SBATCH --output="slurm_output/%A_%a-%x-stdout.log"
 #SBATCH --error="slurm_output/%A_%a-%x-stderr.log"
 #SBATCH --account=project_2016787
@@ -37,6 +37,6 @@ srun singularity exec \
     "$SING_IMAGE" \
     bash -c "source ridepool-venv/bin/activate && \
     python src/tests/gym_test-rs.py \
-    --config configs/policy_training/old_net/default.yaml \
+    --config configs/policy_training/helsinki_updated_areas/area3_sampled_0.2_3000.yaml \
     --num-envs 8 \
     --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}"

@@ -1,17 +1,17 @@
 #!/bin/bash
-#SBATCH --job-name="8env"
+#SBATCH --job-name="area3_4env"
 #SBATCH --output="slurm_output/%A_%a-%x-stdout.log"
 #SBATCH --error="slurm_output/%A_%a-%x-stderr.log"
 #SBATCH --account=project_2016787
 #SBATCH --time=1:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=6
 #SBATCH --partition=small
 #SBATCH --contiguous
 
 # Mahti: 1 CPU core = 1.875 GiB memory (auto-allocated)
-# 10 cores = ~18.75 GiB memory (8 SUMO envs + main process + buffer)
+# 6 cores = ~11.25 GiB memory (4 SUMO envs + main process + buffer)
 
 # load modules
 module load pytorch
@@ -37,6 +37,6 @@ srun singularity exec \
     "$SING_IMAGE" \
     bash -c "source ridepool-venv/bin/activate && \
     python src/tests/gym_test-rs.py \
-    --config configs/policy_training/old_net/default.yaml \
-    --num-envs 8 \
+    --config configs/policy_training/helsinki_updated_areas/area3_sampled_0.2_3000.yaml \
+    --num-envs 4 \
     --postfix ${SLURM_JOB_ID}_${SLURM_JOB_NAME}"

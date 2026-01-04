@@ -28,7 +28,7 @@ srun singularity exec \
     "$SING_IMAGE" \
     bash -c "source ridepool-venv/bin/activate && \
     python src/tests/plot_results.py \
-    2025-12-12T11-06-22_5609933_interactive 5"
+    2025-12-12T12-53-20_5612096_16env* 1"
 
 # install new package to venv
 module load pytorch

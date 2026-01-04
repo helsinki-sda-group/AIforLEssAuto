@@ -8,6 +8,7 @@ __pycache__/
 # simulation-specific outputs
 rl_output
 gui_output
+slurm_output
 
 # LUMI related
 core

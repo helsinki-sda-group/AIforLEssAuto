@@ -1,14 +1,14 @@
 #!/bin/bash
 #SBATCH --job-name="2env"
-#SBATCH --output="output/%A_%a-%x-stdout.log"
-#SBATCH --error="output/%A_%a-%x-stderr.log"
+#SBATCH --output="slurm_output/%A_%a-%x-stdout.log"
+#SBATCH --error="slurm_output/%A_%a-%x-stderr.log"
 #SBATCH --account=project_2016787
-#SBATCH --time=5
+#SBATCH --time=00:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --partition=debug
-#SBATCH --gres=nvme:5
+#SBATCH --partition=small
+#SBATCH --contiguous
 
 # Mahti: 1 CPU core = 1.875 GiB memory (auto-allocated)
 # 4 cores = ~7.5 GiB memory (2 SUMO envs + main process + buffer)
@@ -27,7 +27,6 @@ cd /projappl/project_2016787/AIforLEssAuto/WP4/rl-ridepooling
 pwd
 
 taskset -cp $$
-srun hybrid_check -n -r
 
 srun echo $OMP_NUM_THREADS
 
