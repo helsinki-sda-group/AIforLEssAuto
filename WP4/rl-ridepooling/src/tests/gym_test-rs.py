@@ -131,7 +131,7 @@ if __name__ == "__main__":
     parser.add_argument('--sumocfg', type=str, help="Path to SUMO config file. (overwrites config file env.sumocfg)")
     parser.add_argument('-p', '--postfix', type=str, help="Postfix string for the output directory name (will be appended to current date). If not provided, name of the config file will be used by default")
     parser.add_argument('-be', '--basic-episodes', type=int, help="Number of episodes for delta =1 (overwrites config file env.basic_episodes from config file)")
-    
+
     args = parser.parse_args()
     cfg_path = args.config.strip()
     cfg = OmegaConf.load(cfg_path)
@@ -166,7 +166,7 @@ if __name__ == "__main__":
         cfg.env.sumocfg = args.sumocfg
 
     if args.scaling_coef is not None:
-        cfg.env.scaling_coef = args.scaling_coef
+        cfg.env.episodes_scaling_coeff = args.scaling_coef
 
     # make dirs
     if args.prefix:
@@ -281,12 +281,6 @@ if __name__ == "__main__":
         #   rl_steps = 100, episodes = 120 * 30 = 3600
         #   total_timesteps = 100 x 3600 (100 rl_steps per episode, 3600 episodes) 
         #   training will slow down up to delta times (more SUMO instances)
-
-        # episodes_scaling_coeff in [0;1] controls the number of episodes
-        # compared to basic_episodes
-        #   0 - no scaling (option (1) above)
-        #   1 - full scaling (option (2) above)
-        episodes_scaling_coeff = cfg.env.scaling_coef
 
 
         # according to notations in the paper:

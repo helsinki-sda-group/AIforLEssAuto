@@ -4,8 +4,9 @@ test_baseline: False
 test_random: False
 
 env:
-  timesteps: 3000
-  total_iters: 126
+  sumo_steps: 3000
+  basic_episodes: 126
+  episodes_scaling_coeff: 0  # episode scaling coefficient in [0,1]. 0=no scaling, 1=full scaling for delta
   delta: 1  # step of policy applying (delta=1 means one simulation iteration)
   num_envs: 1
   sumo_seed: 4220
@@ -13,7 +14,6 @@ env:
   use_gui: False
   verbose: False
   obs_dim: 6
-  scaling_coef: 0  # episode scaling coefficient in [0,1]. 0=no scaling, 1=full scaling for delta
 
 baseline:
   num_periods: 5
