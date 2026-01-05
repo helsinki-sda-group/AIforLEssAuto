@@ -1,19 +1,21 @@
 train: True
 test: True
 test_baseline: False
+test_random: False
 
 env:
   timesteps: 3000
-  total_iters: 1000
+  total_iters: 100
   delta: 1  # step of policy applying (delta=1 means one simulation iteration)
-  num_envs: 3
+  num_envs: 1
   sumo_seed: 4220
-  sumocfg: nets/ridepooling/area3_3000.sumocfg
+  sumocfg: nets/ridepooling/older_net.sumocfg
   use_gui: False
   verbose: False
+  obs_dim: 6
 
 baseline:
-  num_periods: 7
+  num_periods: 5
   num_actions: 1
 
 dqn:
@@ -29,4 +31,4 @@ dqn:
   buffer_size: 200000
 
 tests:
-  num_tests: 5
+  num_tests: 10

@@ -123,6 +123,9 @@ if __name__ == "__main__":
     parser.add_argument('-ti', '--total-iters', type=int, help="Number of SUMO iterations to launch in total. (overwrites config file env.total_iters from config file)")
     parser.add_argument('--train-freq', help="Same as train_freq for DQN in stable baselines. Updates the model every train_freq steps")
     parser.add_argument('--delta', help="The length of one step of the RL algorithm in SUMO steps. The action is applied to a SUMO environment every delta steps")
+    parser.add_argument('--gradient-steps', type=int, help="Number of gradient steps per update. -1 means num_envs. (overwrites config file dqn.gradient_steps)")
+    parser.add_argument('--scaling-coef', type=float, help="Episode scaling coefficient in [0,1]. 0=no scaling, 1=full scaling. (overwrites hardcoded episodes_scaling_coeff)")
+    parser.add_argument('--sumocfg', type=str, help="Path to SUMO config file. (overwrites config file env.sumocfg)")
     args = parser.parse_args()
     cfg_path = args.config.strip()
     cfg = OmegaConf.load(cfg_path)
@@ -149,7 +152,12 @@ if __name__ == "__main__":
 
     if args.delta:
         cfg.env.delta = int(args.delta)
-        
+
+    if args.gradient_steps is not None:
+        cfg.dqn.gradient_steps = args.gradient_steps
+
+    if args.sumocfg is not None:
+        cfg.env.sumocfg = args.sumocfg
 
     # make dirs
     if args.prefix:
@@ -244,7 +252,7 @@ if __name__ == "__main__":
         #   in [0;1]
         #   0 - no scaling (option (1) above)
         #   1 - full scaling (option (2) above)
-        episodes_scaling_coeff = 0
+        episodes_scaling_coeff = args.scaling_coef if args.scaling_coef is not None else 0
 
         model.learn(total_timesteps=rl_steps*total_iters*(1 + episodes_scaling_coeff * (delta-1)), callback=eval_callback)
    
