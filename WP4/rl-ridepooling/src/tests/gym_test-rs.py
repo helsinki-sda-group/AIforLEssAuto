@@ -159,6 +159,9 @@ if __name__ == "__main__":
     if args.sumocfg is not None:
         cfg.env.sumocfg = args.sumocfg
 
+    if args.scaling_coef is not None:
+        cfg.env.scaling_coef = args.scaling_coef
+
     # make dirs
     if args.prefix:
         dir_name = f'{args.prefix}_{now}_{dir_postfix}'
@@ -252,7 +255,7 @@ if __name__ == "__main__":
         #   in [0;1]
         #   0 - no scaling (option (1) above)
         #   1 - full scaling (option (2) above)
-        episodes_scaling_coeff = args.scaling_coef if args.scaling_coef is not None else 0
+        episodes_scaling_coeff = cfg.env.scaling_coef
 
         model.learn(total_timesteps=rl_steps*total_iters*(1 + episodes_scaling_coeff * (delta-1)), callback=eval_callback)
    

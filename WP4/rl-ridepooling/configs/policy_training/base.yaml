@@ -13,6 +13,7 @@ env:
   use_gui: False
   verbose: False
   obs_dim: 6
+  scaling_coef: 0  # episode scaling coefficient in [0,1]. 0=no scaling, 1=full scaling for delta
 
 baseline:
   num_periods: 5
