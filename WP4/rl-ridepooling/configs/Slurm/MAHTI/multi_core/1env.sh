@@ -9,6 +9,8 @@
 #SBATCH --cpus-per-task=3
 #SBATCH --partition=small
 #SBATCH --contiguous
+#SBATCH --mail-user=volodymyr.beimuk@helsinki.fi
+#SBATCH --mail-type=FAIL,TIME_LIMIT
 
 # Mahti: 1 CPU core = 1.875 GiB memory (auto-allocated)
 # 3 cores = ~5.6 GiB memory (1 SUMO env + main process + buffer)

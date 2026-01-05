@@ -324,8 +324,9 @@ if __name__ == "__main__":
 
 
     print(f'Output saved to {OUTPUT_DIR}')
-    sys.stdout.close()
+    sys.stdout.flush()
     
+    os._exit(0)
 
 
 
