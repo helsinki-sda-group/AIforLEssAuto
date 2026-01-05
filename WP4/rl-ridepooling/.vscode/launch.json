@@ -12,7 +12,7 @@
             "program": "src/tests/gym_test-rs.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
-            "args": ["-c", "configs/policy_training/old_net/default.yaml",  "--total-iters", "120"]
+            "args": ["-c", "configs/policy_training/old_net/default.yaml",  "--basic-episodes", "100"]
         },
         {
             "name": "genPassengers.py",
