@@ -110,8 +110,8 @@ for AREA in "${AREAS[@]}"; do
                                     TIME_LIMIT="02:00:00"
                                 fi
                             else
-                                # area3 gets 3 hours
-                                TIME_LIMIT="03:00:00"
+                                # area3 gets 10 hours
+                                TIME_LIMIT="10:00:00"
                             fi
 
                             # Build sbatch command

@@ -79,7 +79,6 @@ srun echo "OMP_NUM_THREADS: $OMP_NUM_THREADS"
 
 srun singularity exec \
     -B "/usr/lib64/libnsl.so.1" \
-    -B /run/nvme \
     -B /users/volodymy \
     "$SING_IMAGE" \
     bash -c "source ridepool-venv/bin/activate && \
