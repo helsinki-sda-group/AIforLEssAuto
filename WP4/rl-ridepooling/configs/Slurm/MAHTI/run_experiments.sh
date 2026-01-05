@@ -44,6 +44,7 @@ SCALING_COEFS=(0 1)
 
 ACCOUNT="project_2016787"
 MAIL_USER="volodymyr.beimuk@helsinki.fi"
+PARTITION="small"
 
 # Base directory (should match where this script is run from on MAHTI)
 PROJECT_DIR="/projappl/project_2016787/AIforLEssAuto/WP4/rl-ridepooling"
@@ -96,10 +97,8 @@ for AREA in "${AREAS[@]}"; do
                             # Determine resources based on NUM_ENVS
                             if [ "$NUM_ENVS" -eq 1 ]; then
                                 CPUS=3
-                                PARTITION="small"
                             else
                                 CPUS=128
-                                PARTITION="medium"
                             fi
 
                             # Determine time limit based on area and num_envs
