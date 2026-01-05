@@ -25,33 +25,8 @@ JOB_NAME="${AREA}_d${DEMAND}_delta${DELTA}_env${NUM_ENVS}_tf${TRAIN_FREQ}_gs${GR
 #SBATCH --mail-user=volodymyr.beimuk@helsinki.fi
 #SBATCH --mail-type=FAIL,TIME_LIMIT
 
-#=============================================================================
-# Dynamic resource allocation based on NUM_ENVS and AREA
-#=============================================================================
-
-# Set CPUs: num_envs + 2
-if [ "$NUM_ENVS" -eq 1 ]; then
-    CPUS=3
-    PARTITION="small"
-else
-    CPUS=128
-    PARTITION="medium"
-fi
-
-# Set time limit based on area
-if [ "$AREA" == "toy" ]; then
-    if [ "$NUM_ENVS" -eq 1 ]; then
-        TIME_LIMIT="00:30:00"
-    else
-        TIME_LIMIT="02:00:00"
-    fi
-else
-    # area3 gets 3 hours for all configurations
-    TIME_LIMIT="03:00:00"
-fi
-
-# Apply dynamic SBATCH directives via srun wrapper
-# Note: These are set via sbatch command line in run_experiments.sh
+# Note: --time, --cpus-per-task, --partition are set dynamically
+# via sbatch command line in run_experiments.sh
 
 #=============================================================================
 # Construct SUMOCFG path based on area and demand
