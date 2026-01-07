@@ -10,6 +10,7 @@ env:
   delta: 1  # step of policy applying (delta=1 means one simulation iteration)
   num_envs: 1
   sumo_seed: 4220
+  seed: 1
   sumocfg: nets/ridepooling/older_net.sumocfg
   use_gui: False
   verbose: False
@@ -23,13 +24,18 @@ dqn:
   policy: MlpPolicy
   learning_rate: 0.0003
   learning_starts: 1
-  train_freq: 1
-  gradient_steps: -1
+  buffer_size: 200000           # scaled by delta
+  train_freq: 4
+  gradient_steps: -1             # scaled by num_envs
+  target_update_interval: 5000   # scaled by delta
   exploration_fraction: 0.3
   exploration_initial_eps: 1
   exploration_final_eps: 0.2
   verbose: 1
-  buffer_size: 200000
+
+
+eval:
+  eval_freq: 10000            # scaled by delta
 
 tests:
   num_tests: 10
