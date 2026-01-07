@@ -5,6 +5,7 @@
 # Required environment variables (passed via sbatch --export):
 #   AREA          - Network area: "toy" or "area1"
 #   BASIC_EPISODES - Number of basic training episodes: 32, 64, 128, 256, 512
+#   SEED          - Random seed for reproducibility: 42, 123, 456, 789, 1024
 #   DELTA         - RL step duration: 1, 3, 9, 30
 #   NUM_ENVS      - Number of parallel SUMO environments: 1, 2, 4, 8, 16, 32
 #   TRAIN_FREQ    - DQN train frequency: 1, 4
@@ -49,6 +50,7 @@ echo "=== Job Parameters ==="
 echo "JOB_NAME: $JOB_NAME"
 echo "AREA: $AREA"
 echo "BASIC_EPISODES: $BASIC_EPISODES"
+echo "SEED: $SEED"
 echo "DELTA: $DELTA"
 echo "NUM_ENVS: $NUM_ENVS"
 echo "TRAIN_FREQ: $TRAIN_FREQ"
@@ -73,6 +75,8 @@ srun singularity exec \
     --config configs/policy_training/base.yaml \
     --num-envs ${NUM_ENVS} \
     --basic-episodes ${BASIC_EPISODES} \
+    --seed ${SEED} \
+    --sumo-seed ${SEED} \
     --delta ${DELTA} \
     --train-freq ${TRAIN_FREQ} \
     --gradient-steps ${GRADIENT_STEPS} \

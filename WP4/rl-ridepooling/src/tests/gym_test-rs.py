@@ -131,6 +131,8 @@ if __name__ == "__main__":
     parser.add_argument('--sumocfg', type=str, help="Path to SUMO config file. (overwrites config file env.sumocfg)")
     parser.add_argument('-p', '--postfix', type=str, help="Postfix string for the output directory name (will be appended to current date). If not provided, name of the config file will be used by default")
     parser.add_argument('-be', '--basic-episodes', type=int, help="Number of episodes for delta =1 (overwrites config file env.basic_episodes from config file)")
+    parser.add_argument('--seed', type=int, help="Random seed for numpy and random. (overwrites config file env.seed)")
+    parser.add_argument('--sumo-seed', type=int, help="Base seed for SUMO simulation. (overwrites config file env.sumo_seed)")
 
     args = parser.parse_args()
     cfg_path = args.config.strip()
@@ -167,6 +169,12 @@ if __name__ == "__main__":
 
     if args.scaling_coef is not None:
         cfg.env.episodes_scaling_coeff = args.scaling_coef
+
+    if args.seed is not None:
+        cfg.env.seed = args.seed
+
+    if args.sumo_seed is not None:
+        cfg.env.sumo_seed = args.sumo_seed
 
     # make dirs
     if args.prefix:
