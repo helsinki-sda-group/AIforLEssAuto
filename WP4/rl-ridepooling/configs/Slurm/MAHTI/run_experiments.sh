@@ -14,29 +14,36 @@
 # PARAMETER CONFIGURATION - Edit these arrays to customize experiments
 #=============================================================================
 
-# Network areas: "toy" (old network) or "area3" (Helsinki area 3)
-AREAS=("toy" "area3")
+# Network areas: "toy" (old network) or "area1" (Helsinki area 1)
+AREAS=("toy" "area1")
 
-# Demand levels: percentage of trips as taxi passengers
-# Note: "toy" network only supports 1.0, combinations with 0.2 will be skipped
-DEMANDS=("0.2" "1.0")
+# Number of parallel SUMO environments and corresponding CPU allocation
+# Format: "num_envs:cpus"
+ENV_CORES_PAIRS=("1:3" "2:4" "4:6" "8:10" "16:18" "32:34")
 
-# Delta: RL step duration in SUMO simulation steps
-DELTAS=(1 30)
+# Delta and Scaling coefficient combinations (specific pairs, not all combinations)
+# Format: "delta:scaling_coef"
+# Delta 1: scaling 0
+# Delta 3: scaling 0, 0.25, 0.5, 0.75, 1
+# Delta 9: scaling 0, 0.1, 0.2, 0.3
+# Delta 30: scaling 0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1
+DELTA_SCALING_PAIRS=(
+    "1:0"
+    "3:0" "3:0.25" "3:0.5" "3:0.75" "3:1"
+    "9:0" "9:0.1" "9:0.2" "9:0.3"
+    "30:0" "30:0.01" "30:0.02" "30:0.03" "30:0.04" "30:0.05" "30:0.1"
+)
 
-# Number of parallel SUMO environments (affects CPU allocation)
-# 1 env -> 3 CPUs, small partition
-# 126 envs -> 128 CPUs, medium partition
-NUM_ENVS_LIST=(1 126)
+# Number of episodes (area-specific)
+# toy: 32, 64, 128
+# area1: 128, 256, 512
+TOY_EPISODES=(32 64 128)
+AREA1_EPISODES=(128 256 512)
 
-# DQN train frequency: update model every N steps
-TRAIN_FREQS=(4 100)
-
-# Gradient steps per update: -1 means use num_envs, 1 means single step
-GRADIENT_STEPS_LIST=(-1 1)
-
-# Episode scaling coefficient: 0 = no scaling, 1 = full scaling for delta
-SCALING_COEFS=(0 1)
+# Gradient steps and train frequency combinations
+# Format: "gradient_steps:train_freq"
+# Note: "n" means use num_envs value, represented as -1
+GRAD_TRAINFREQ_PAIRS=("1:1" "1:4" "-1:1" "-1:4")
 
 #=============================================================================
 # SLURM CONFIGURATION
@@ -72,77 +79,73 @@ mkdir -p "${PROJECT_DIR}/slurm_output"
 #=============================================================================
 
 JOB_COUNT=0
-SKIPPED_COUNT=0
 
 echo "Submitting experiment jobs..."
 echo ""
 
 for AREA in "${AREAS[@]}"; do
-    for DEMAND in "${DEMANDS[@]}"; do
-        # Skip invalid combination: toy network doesn't have 0.2 demand
-        if [ "$AREA" == "toy" ] && [ "$DEMAND" == "0.2" ]; then
-            ((SKIPPED_COUNT++))
-            continue
-        fi
+    # Select episodes based on area
+    if [ "$AREA" == "toy" ]; then
+        EPISODES_LIST=("${TOY_EPISODES[@]}")
+    else
+        EPISODES_LIST=("${AREA1_EPISODES[@]}")
+    fi
 
-        for DELTA in "${DELTAS[@]}"; do
-            for NUM_ENVS in "${NUM_ENVS_LIST[@]}"; do
-                for TRAIN_FREQ in "${TRAIN_FREQS[@]}"; do
-                    for GRADIENT_STEPS in "${GRADIENT_STEPS_LIST[@]}"; do
-                        for SCALING_COEF in "${SCALING_COEFS[@]}"; do
+    for BASIC_EPISODES in "${EPISODES_LIST[@]}"; do
+        for ENV_CORES in "${ENV_CORES_PAIRS[@]}"; do
+            # Parse num_envs and cpus from pair
+            NUM_ENVS="${ENV_CORES%%:*}"
+            CPUS="${ENV_CORES##*:}"
 
-                            # Build job name
-                            JOB_NAME="${AREA}_d${DEMAND}_delta${DELTA}_env${NUM_ENVS}_tf${TRAIN_FREQ}_gs${GRADIENT_STEPS}_sc${SCALING_COEF}"
+            for DELTA_SCALING in "${DELTA_SCALING_PAIRS[@]}"; do
+                # Parse delta and scaling_coef from pair
+                DELTA="${DELTA_SCALING%%:*}"
+                SCALING_COEF="${DELTA_SCALING##*:}"
 
-                            # Determine resources based on NUM_ENVS
-                            if [ "$NUM_ENVS" -eq 1 ]; then
-                                CPUS=3
-                            else
-                                CPUS=128
-                            fi
+                for GRAD_TF in "${GRAD_TRAINFREQ_PAIRS[@]}"; do
+                    # Parse gradient_steps and train_freq from pair
+                    GRADIENT_STEPS="${GRAD_TF%%:*}"
+                    TRAIN_FREQ="${GRAD_TF##*:}"
 
-                            # Determine time limit based on area and num_envs
-                            if [ "$AREA" == "toy" ]; then
-                                if [ "$NUM_ENVS" -eq 1 ]; then
-                                    TIME_LIMIT="00:30:00"
-                                else
-                                    TIME_LIMIT="02:00:00"
-                                fi
-                            else
-                                # area3 gets 10 hours
-                                TIME_LIMIT="10:00:00"
-                            fi
+                    # Build job name
+                    JOB_NAME="${AREA}_ep${BASIC_EPISODES}_env${NUM_ENVS}_delta${DELTA}_sc${SCALING_COEF}_gs${GRADIENT_STEPS}_tf${TRAIN_FREQ}"
 
-                            # Build sbatch command
-                            SBATCH_CMD="sbatch \
-                                --job-name=\"${JOB_NAME}\" \
-                                --output=\"slurm_output/%A-%x-stdout.log\" \
-                                --error=\"slurm_output/%A-%x-stderr.log\" \
-                                --account=${ACCOUNT} \
-                                --time=${TIME_LIMIT} \
-                                --nodes=1 \
-                                --ntasks=1 \
-                                --cpus-per-task=${CPUS} \
-                                --partition=${PARTITION} \
-                                --contiguous \
-                                --mail-user=${MAIL_USER} \
-                                --mail-type=FAIL,TIME_LIMIT \
-                                --export=ALL,AREA=${AREA},DEMAND=${DEMAND},DELTA=${DELTA},NUM_ENVS=${NUM_ENVS},TRAIN_FREQ=${TRAIN_FREQ},GRADIENT_STEPS=${GRADIENT_STEPS},SCALING_COEF=${SCALING_COEF},JOB_NAME=${JOB_NAME} \
-                                ${TEMPLATE_SCRIPT}"
+                    # Determine time limit based on area
+                    if [ "$AREA" == "toy" ]; then
+                        TIME_LIMIT="02:00:00"
+                    else
+                        # area1
+                        TIME_LIMIT="05:00:00"
+                    fi
 
-                            if [ "$DRY_RUN" == true ]; then
-                                echo "[DRY RUN] Would submit: $JOB_NAME"
-                                echo "  Command: $SBATCH_CMD"
-                                echo ""
-                            else
-                                echo "Submitting: $JOB_NAME"
-                                eval $SBATCH_CMD
-                            fi
+                    # Build sbatch command
+                    SBATCH_CMD="sbatch \
+                        --job-name=\"${JOB_NAME}\" \
+                        --output=\"slurm_output/%A-%x-stdout.log\" \
+                        --error=\"slurm_output/%A-%x-stderr.log\" \
+                        --account=${ACCOUNT} \
+                        --time=${TIME_LIMIT} \
+                        --nodes=1 \
+                        --ntasks=1 \
+                        --cpus-per-task=${CPUS} \
+                        --partition=${PARTITION} \
+                        --contiguous \
+                        --mail-user=${MAIL_USER} \
+                        --mail-type=FAIL,TIME_LIMIT \
+                        --export=ALL,AREA=${AREA},BASIC_EPISODES=${BASIC_EPISODES},DELTA=${DELTA},NUM_ENVS=${NUM_ENVS},TRAIN_FREQ=${TRAIN_FREQ},GRADIENT_STEPS=${GRADIENT_STEPS},SCALING_COEF=${SCALING_COEF},JOB_NAME=${JOB_NAME} \
+                        ${TEMPLATE_SCRIPT}"
 
-                            ((JOB_COUNT++))
+                    if [ "$DRY_RUN" == true ]; then
+                        echo "[DRY RUN] Would submit: $JOB_NAME"
+                        echo "  CPUs: $CPUS, Time: $TIME_LIMIT"
+                        echo ""
+                    else
+                        echo "Submitting: $JOB_NAME"
+                        eval $SBATCH_CMD
+                    fi
 
-                        done
-                    done
+                    ((JOB_COUNT++))
+
                 done
             done
         done
@@ -152,8 +155,14 @@ done
 echo ""
 echo "=============================================================================";
 echo "Summary:"
-echo "  Jobs submitted: $JOB_COUNT"
-echo "  Combinations skipped: $SKIPPED_COUNT (toy + 0.2 demand)"
+echo "  Total jobs submitted: $JOB_COUNT"
+echo "  Parameter combinations:"
+echo "    Areas: ${AREAS[*]}"
+echo "    Env-Cores pairs: ${ENV_CORES_PAIRS[*]}"
+echo "    Delta-Scaling pairs: ${#DELTA_SCALING_PAIRS[@]} combinations"
+echo "    Episodes (toy): ${TOY_EPISODES[*]}"
+echo "    Episodes (area1): ${AREA1_EPISODES[*]}"
+echo "    Gradient-TrainFreq pairs: ${GRAD_TRAINFREQ_PAIRS[*]}"
 echo "=============================================================================";
 
 if [ "$DRY_RUN" == true ]; then
