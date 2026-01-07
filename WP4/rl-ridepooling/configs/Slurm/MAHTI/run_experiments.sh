@@ -127,7 +127,7 @@ for AREA in "${AREAS[@]}"; do
                                 --contiguous \
                                 --mail-user=${MAIL_USER} \
                                 --mail-type=FAIL,TIME_LIMIT \
-                                --export=ALL,AREA=${AREA},DEMAND=${DEMAND},DELTA=${DELTA},NUM_ENVS=${NUM_ENVS},TRAIN_FREQ=${TRAIN_FREQ},GRADIENT_STEPS=${GRADIENT_STEPS},SCALING_COEF=${SCALING_COEF} \
+                                --export=ALL,AREA=${AREA},DEMAND=${DEMAND},DELTA=${DELTA},NUM_ENVS=${NUM_ENVS},TRAIN_FREQ=${TRAIN_FREQ},GRADIENT_STEPS=${GRADIENT_STEPS},SCALING_COEF=${SCALING_COEF},JOB_NAME=${JOB_NAME} \
                                 ${TEMPLATE_SCRIPT}"
 
                             if [ "$DRY_RUN" == true ]; then

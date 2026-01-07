@@ -10,23 +10,10 @@
 #   TRAIN_FREQ    - DQN train frequency: 4, 100, etc.
 #   GRADIENT_STEPS - Gradient steps per update: -1, 1, etc.
 #   SCALING_COEF  - Episode scaling coefficient: 0, 1
+#   JOB_NAME      - Constructed job name for logging/identification
 #=============================================================================
-
-# Build job name from parameters
-JOB_NAME="${AREA}_d${DEMAND}_delta${DELTA}_env${NUM_ENVS}_tf${TRAIN_FREQ}_gs${GRADIENT_STEPS}_sc${SCALING_COEF}"
-
-#SBATCH --job-name="${JOB_NAME}"
-#SBATCH --output="slurm_output/%A-%x-stdout.log"
-#SBATCH --error="slurm_output/%A-%x-stderr.log"
-#SBATCH --account=project_2016787
-#SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --contiguous
-#SBATCH --mail-user=volodymyr.beimuk@helsinki.fi
-#SBATCH --mail-type=FAIL,TIME_LIMIT
-
-# Note: --time, --cpus-per-task, --partition are set dynamically
-# via sbatch command line in run_experiments.sh
+# Note: All SBATCH directives are set via sbatch command line in run_experiments.sh
+#=============================================================================
 
 #=============================================================================
 # Construct SUMOCFG path based on area and demand
@@ -59,6 +46,7 @@ pwd
 
 # Debug info
 echo "=== Job Parameters ==="
+echo "JOB_NAME: $JOB_NAME"
 echo "AREA: $AREA"
 echo "DEMAND: $DEMAND"
 echo "DELTA: $DELTA"
@@ -67,7 +55,6 @@ echo "TRAIN_FREQ: $TRAIN_FREQ"
 echo "GRADIENT_STEPS: $GRADIENT_STEPS"
 echo "SCALING_COEF: $SCALING_COEF"
 echo "SUMOCFG: $SUMOCFG"
-echo "JOB_NAME: $JOB_NAME"
 echo "======================"
 
 taskset -cp $$
