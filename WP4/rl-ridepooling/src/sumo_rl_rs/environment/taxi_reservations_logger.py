@@ -36,14 +36,15 @@ class TaxiReservationsLogger:
         self.pickup_occupied_taxis_timeline.append(pickup_occupied_taxi_count)
 
     def log(self, sim_time: int):
-        if sim_time == 0:
-            # don't log empty simulation
-            return
+        return
+        # if sim_time == 0:
+        #     # don't log empty simulation
+        #     return
         
-        if self.log_taxis and self.output_path != None:
-            self._save_taxi_logs()
+        # if self.log_taxis and self.output_path != None:
+        #     self._save_taxi_logs()
         
-        self._make_graph(sim_time)
+        # self._make_graph(sim_time)
 
     def _sanity_check(self):
         """
