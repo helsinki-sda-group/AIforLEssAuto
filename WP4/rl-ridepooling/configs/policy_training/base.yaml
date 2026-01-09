@@ -31,7 +31,7 @@ dqn:
   exploration_fraction: 0.3
   exploration_initial_eps: 1
   exploration_final_eps: 0.2
-  verbose: 1
+  verbose: 0
 
 
 eval:

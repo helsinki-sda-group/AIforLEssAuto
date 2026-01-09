@@ -24,7 +24,7 @@ if [ "$AREA" == "toy" ]; then
     SUMOCFG="nets/ridepooling/older_net.sumocfg"
 else
     # area1 path pattern
-    SUMOCFG="nets/ridepooling/Helsinki updated areas/${AREA}/${AREA}_sampled_1.0_3000.sumocfg.xml"
+    SUMOCFG="nets/ridepooling/Helsinki_updated_areas/${AREA}/${AREA}_sampled_0.6_3000.sumocfg.xml"
 fi
 
 #=============================================================================

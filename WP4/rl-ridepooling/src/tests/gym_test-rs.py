@@ -4,6 +4,7 @@ import multiprocessing as mp
 
 import sys
 import time
+import faulthandler
 
 sys.path.append('./src')
 
@@ -70,6 +71,7 @@ def make_env(rank: int = 0, policy = None):
 
 def env_factory(rank: int, base_seed: int):
     def _init():
+        faulthandler.enable()
         env = make_env(rank)
         env.reset(seed=base_seed + rank)
         return env

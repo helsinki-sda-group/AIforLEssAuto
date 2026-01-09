@@ -2,7 +2,7 @@
 <configuration>
 	<input>
 		<net-file value="net/area1_connected.net.xml"/>
-		<route-files value="demand_routes/area1_sampled_1_taxis.rou.xml"/>
+		<route-files value="demand_routes/area1_sampled_0.8_taxis.rou.xml"/>
 		<additional-files value="plain/area1_gcc_parkingareas_plain.add.xml"/>
 	</input>
 	<time>
@@ -12,6 +12,11 @@
 	<processing>
 		<ignore-junction-blocker value="1"/>
 	</processing>
+	<teleports>
+		<collision.action value="warn"/>
+		<time-to-teleport value="-1"/>
+		<time-to-teleport.highways value="-1"/>
+	</teleports>
 	<taxi_device>
 		<device.taxi.dispatch-algorithm value="traci"/>
 		<device.taxi.idle-algorithm value="stop"/>
@@ -27,7 +32,7 @@
 		<emission-output value="rl_output/emissions.xml"/>
 		<tripinfo-output.write-undeparted value="True"/>
 	</output> -->
-	<report>
+	<!-- <report>
 		<verbose value="True"/>
-	</report>
+	</report> -->
 </configuration>

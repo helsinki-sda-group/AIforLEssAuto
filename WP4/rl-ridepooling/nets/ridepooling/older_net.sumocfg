@@ -10,6 +10,11 @@
         <begin value="0"/>
         <end value="3000"/>
     </time>
+	<teleports>
+		<collision.action value="warn"/>
+		<time-to-teleport value="-1"/>
+		<time-to-teleport.highways value="-1"/>
+	</teleports>
     <taxi_device>
         <device.taxi.dispatch-algorithm value="traci"/>
         <!--<device.taxi.idle-algorithm value="randomCircling"/>-->

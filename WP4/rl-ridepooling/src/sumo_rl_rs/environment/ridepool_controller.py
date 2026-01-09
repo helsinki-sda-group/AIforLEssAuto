@@ -323,7 +323,7 @@ class RidePoolController:
         step = self.sumo.simulation.getCurrentTime() / 1000
         
         # get all reservations (including dispatched ones)
-        all_reservations = self.sumo.person.getTaxiReservations(0)
+        all_reservations = self.sumo.person.getTaxiReservations(0)    # THIS LINE CAUSES SEGFAULT AFTER SOMEONE TELEPORTS (libsumo incorrectly clears memory after teleports)
         # get all reservations that have not been assigned to taxi
         reservations = tuple(filter(lambda x: x.state!=4 and x.state!=8 and x.reservationTime != self.sumo.simulation.getTime(), all_reservations))
         empty_taxis = self.sumo.vehicle.getTaxiFleet(0)
