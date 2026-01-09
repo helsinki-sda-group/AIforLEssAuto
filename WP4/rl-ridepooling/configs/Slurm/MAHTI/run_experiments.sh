@@ -30,15 +30,15 @@ ENV_CORES_PAIRS=("1:3" "2:4" "4:6" "8:10" "16:18" "32:34")
 DELTA_SCALING_PAIRS=(
     "1:0"
     "3:0" "3:0.25" "3:0.5" "3:0.75" "3:1"
-    "9:0" "9:0.1" "9:0.2" "9:0.3"
-    "30:0" "30:0.01" "30:0.02" "30:0.03" "30:0.04" "30:0.05" "30:0.1"
+    "9:0" "9:0.0625" "9:0.125" "9:0.1875" "9:0.25"
+    "30:0" "30:0.017" "30:0.034" "30:0.051" "30:0.068"
 )
 
 # Number of episodes (area-specific)
 # toy: 32, 64, 128
 # area1: 128, 256, 512
 TOY_EPISODES=(32 64 128)
-AREA1_EPISODES=(128 256 512)
+AREA1_EPISODES=(256 512 1024)
 
 # Gradient steps and train frequency combinations
 # Format: "gradient_steps:train_freq"
@@ -116,10 +116,10 @@ for AREA in "${AREAS[@]}"; do
 
                         # Determine time limit based on area
                         if [ "$AREA" == "toy" ]; then
-                            TIME_LIMIT="02:00:00"
+                            TIME_LIMIT="3-00:00:00"
                         else
                             # area1
-                            TIME_LIMIT="12:00:00"
+                            TIME_LIMIT="3-00:00:00"
                         fi
 
                         # Build sbatch command
