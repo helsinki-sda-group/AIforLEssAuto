@@ -84,16 +84,16 @@ get_time_limit() {
         # Toy network: 32env has different times, others share same times
         if [ "$num_envs" -eq 32 ]; then
             case $episodes in
-                32)  echo "00:30:00" ;;
-                64)  echo "00:45:00" ;;
-                128) echo "01:30:00" ;;
+                32)  echo "00:45:00" ;;
+                64)  echo "01:00:00" ;;
+                128) echo "01:45:00" ;;
             esac
         else
             # 1env, 2env, 4env, 8env, 16env all use same times
             case $episodes in
-                32)  echo "00:30:00" ;;
-                64)  echo "01:00:00" ;;
-                128) echo "02:00:00" ;;
+                32)  echo "00:45:00" ;;
+                64)  echo "01:15:00" ;;
+                128) echo "02:30:00" ;;
             esac
         fi
     else
@@ -101,30 +101,30 @@ get_time_limit() {
         case $num_envs in
             1|2|4)
                 case $episodes in
-                    128)  echo "02:00:00" ;;
-                    256)  echo "04:00:00" ;;
-                    1024) echo "16:00:00" ;;
+                    128)  echo "02:15:00" ;;
+                    256)  echo "04:30:00" ;;
+                    1024) echo "17:00:00" ;;
                 esac
                 ;;
             8)
                 case $episodes in
-                    128)  echo "02:00:00" ;;
-                    256)  echo "03:30:00" ;;
-                    1024) echo "14:00:00" ;;
+                    128)  echo "02:30:00" ;;
+                    256)  echo "04:00:00" ;;
+                    1024) echo "17:00:00" ;;
                 esac
                 ;;
             16)
                 case $episodes in
-                    128)  echo "01:30:00" ;;
-                    256)  echo "03:00:00" ;;
-                    1024) echo "10:00:00" ;;
+                    128)  echo "01:45:00" ;;
+                    256)  echo "03:30:00" ;;
+                    1024) echo "11:00:00" ;;
                 esac
                 ;;
             32)
                 case $episodes in
-                    128)  echo "00:45:00" ;;
-                    256)  echo "01:30:00" ;;
-                    1024) echo "06:00:00" ;;
+                    128)  echo "01:00:00" ;;
+                    256)  echo "02:00:00" ;;
+                    1024) echo "07:00:00" ;;
                 esac
                 ;;
         esac
