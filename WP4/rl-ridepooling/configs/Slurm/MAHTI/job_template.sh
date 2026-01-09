@@ -24,7 +24,7 @@ if [ "$AREA" == "toy" ]; then
     SUMOCFG="nets/ridepooling/older_net.sumocfg"
 else
     # area1 path pattern
-    SUMOCFG="nets/ridepooling/Helsinki_updated_areas/${AREA}/${AREA}_sampled_0.6_3000.sumocfg.xml"
+    SUMOCFG="nets/ridepooling/Helsinki_updated_areas/${AREA}/${AREA}_sampled_0.2_3000.sumocfg.xml"
 fi
 
 #=============================================================================
@@ -32,7 +32,7 @@ fi
 #=============================================================================
 
 # Load modules
-module load pytorch
+module load pytorch/2.7
 
 # List all modules
 module list
@@ -40,6 +40,15 @@ module list
 # SUMO environment variables
 export LIBSUMO_AS_TRACI=1
 export SUMO_HOME="/projappl/project_2016787/AIforLEssAuto/WP4/rl-ridepooling/ridepool-venv/bin"
+
+# OMP variables
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export VECLIB_MAXIMUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+
+export OMP_DISPLAY_AFFINITY=true
 
 # Navigate to project directory
 cd /projappl/project_2016787/AIforLEssAuto/WP4/rl-ridepooling
