@@ -12,7 +12,28 @@
             "program": "src/tests/gym_test-rs.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
-            "args": ["-c", "configs/policy_training/old_net/default.yaml",  "--basic-episodes", "100"]
+            "args": ["-c", "configs/policy_training/old_net/default.yaml"]
+        },
+        {
+            "name": "gym_test-rs (Full Parameters)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "src/tests/gym_test-rs.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "--config", "configs/policy_training/base.yaml",
+                "--num-envs", "1",
+                "--basic-episodes", "32",
+                "--seed", "42",
+                "--sumo-seed", "42",
+                "--delta", "1",
+                "--train-freq", "1",
+                "--gradient-steps", "1",
+                "--scaling-coef", "0",
+                "--sumocfg", "nets/ridepooling/Helsinki updated areas/area1/area1_sampled_1.0_3000.sumocfg.xml",
+                "--postfix", "local_test"
+            ]
         },
         {
             "name": "genPassengers.py",
