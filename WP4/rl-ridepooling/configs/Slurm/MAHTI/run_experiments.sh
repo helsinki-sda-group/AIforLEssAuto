@@ -23,10 +23,6 @@ ENV_CORES_PAIRS=("1:3" "2:4" "4:6" "8:10" "16:18" "32:34")
 
 # Delta and Scaling coefficient combinations (specific pairs, not all combinations)
 # Format: "delta:scaling_coef"
-# Delta 1: scaling 0
-# Delta 3: scaling 0, 0.25, 0.5, 0.75, 1
-# Delta 9: scaling 0, 0.1, 0.2, 0.3
-# Delta 30: scaling 0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1
 DELTA_SCALING_PAIRS=(
     "1:0"
     "3:0" "3:0.25" "3:0.5" "3:0.75" "3:1"
@@ -35,10 +31,8 @@ DELTA_SCALING_PAIRS=(
 )
 
 # Number of episodes (area-specific)
-# toy: 32, 64, 128
-# area1: 128, 256, 512
 TOY_EPISODES=(32 64 128)
-AREA1_EPISODES=(256 512 1024)
+AREA1_EPISODES=(128 256 1024)
 
 # Gradient steps and train frequency combinations
 # Format: "gradient_steps:train_freq"
@@ -78,6 +72,66 @@ fi
 mkdir -p "${PROJECT_DIR}/slurm_output"
 
 #=============================================================================
+# FUNCTION: Calculate time limit based on area, num_envs, and episodes
+#=============================================================================
+
+get_time_limit() {
+    local area=$1
+    local num_envs=$2
+    local episodes=$3
+    
+    if [ "$area" == "toy" ]; then
+        # Toy network: 32env has different times, others share same times
+        if [ "$num_envs" -eq 32 ]; then
+            case $episodes in
+                32)  echo "00:30:00" ;;
+                64)  echo "00:45:00" ;;
+                128) echo "01:30:00" ;;
+            esac
+        else
+            # 1env, 2env, 4env, 8env, 16env all use same times
+            case $episodes in
+                32)  echo "00:30:00" ;;
+                64)  echo "01:00:00" ;;
+                128) echo "02:00:00" ;;
+            esac
+        fi
+    else
+        # area1: times vary by num_envs and episodes
+        case $num_envs in
+            1|2|4)
+                case $episodes in
+                    128)  echo "02:00:00" ;;
+                    256)  echo "04:00:00" ;;
+                    1024) echo "16:00:00" ;;
+                esac
+                ;;
+            8)
+                case $episodes in
+                    128)  echo "02:00:00" ;;
+                    256)  echo "03:30:00" ;;
+                    1024) echo "14:00:00" ;;
+                esac
+                ;;
+            16)
+                case $episodes in
+                    128)  echo "01:30:00" ;;
+                    256)  echo "03:00:00" ;;
+                    1024) echo "10:00:00" ;;
+                esac
+                ;;
+            32)
+                case $episodes in
+                    128)  echo "00:45:00" ;;
+                    256)  echo "01:30:00" ;;
+                    1024) echo "06:00:00" ;;
+                esac
+                ;;
+        esac
+    fi
+}
+
+#=============================================================================
 # SUBMIT JOBS FOR ALL PARAMETER COMBINATIONS
 #=============================================================================
 
@@ -114,13 +168,8 @@ for AREA in "${AREAS[@]}"; do
                         # Build job name
                         JOB_NAME="${AREA}_ep${BASIC_EPISODES}_env${NUM_ENVS}_delta${DELTA}_sc${SCALING_COEF}_gs${GRADIENT_STEPS}_tf${TRAIN_FREQ}_seed${SEED}"
 
-                        # Determine time limit based on area
-                        if [ "$AREA" == "toy" ]; then
-                            TIME_LIMIT="3-00:00:00"
-                        else
-                            # area1
-                            TIME_LIMIT="3-00:00:00"
-                        fi
+                        # Calculate time limit
+                        TIME_LIMIT=$(get_time_limit "$AREA" "$NUM_ENVS" "$BASIC_EPISODES")
 
                         # Build sbatch command
                         SBATCH_CMD="sbatch \
