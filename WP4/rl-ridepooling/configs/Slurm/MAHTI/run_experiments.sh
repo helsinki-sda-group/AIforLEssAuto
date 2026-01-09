@@ -59,9 +59,33 @@ TEMPLATE_SCRIPT="${PROJECT_DIR}/configs/Slurm/MAHTI/job_template.sh"
 #=============================================================================
 
 DRY_RUN=false
-if [ "$1" == "--dry-run" ]; then
-    DRY_RUN=true
+START_FROM_JOB=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --dry-run)
+            DRY_RUN=true
+            shift
+            ;;
+        --start-from)
+            START_FROM_JOB="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Usage: $0 [--dry-run] [--start-from <job_name>]"
+            exit 1
+            ;;
+    esac
+done
+
+if [ "$DRY_RUN" == true ]; then
     echo "=== DRY RUN MODE - No jobs will be submitted ==="
+    echo ""
+fi
+
+if [ -n "$START_FROM_JOB" ]; then
+    echo "=== SKIPPING MODE - Will start from job: $START_FROM_JOB ==="
     echo ""
 fi
 
@@ -136,6 +160,14 @@ get_time_limit() {
 #=============================================================================
 
 JOB_COUNT=0
+SKIPPED_COUNT=0
+FOUND_START=false
+FIRST_JOB_TO_RUN=""
+
+# If no start-from job specified, we start immediately
+if [ -z "$START_FROM_JOB" ]; then
+    FOUND_START=true
+fi
 
 echo "Submitting experiment jobs..."
 echo ""
@@ -167,6 +199,23 @@ for AREA in "${AREAS[@]}"; do
 
                         # Build job name
                         JOB_NAME="${AREA}_ep${BASIC_EPISODES}_env${NUM_ENVS}_delta${DELTA}_sc${SCALING_COEF}_gs${GRADIENT_STEPS}_tf${TRAIN_FREQ}_seed${SEED}"
+
+                        # Check if we should skip this job
+                        if [ "$FOUND_START" == false ]; then
+                            if [ "$JOB_NAME" == "$START_FROM_JOB" ]; then
+                                FOUND_START=true
+                                echo ">>> Found starting job: $JOB_NAME <<<"
+                                echo ""
+                            else
+                                ((SKIPPED_COUNT++))
+                                continue
+                            fi
+                        fi
+
+                        # Track first job that will be run
+                        if [ -z "$FIRST_JOB_TO_RUN" ]; then
+                            FIRST_JOB_TO_RUN="$JOB_NAME"
+                        fi
 
                         # Calculate time limit
                         TIME_LIMIT=$(get_time_limit "$AREA" "$NUM_ENVS" "$BASIC_EPISODES")
@@ -208,8 +257,27 @@ done
 
 echo ""
 echo "=============================================================================";
+
+# Calculate total and percentages
+TOTAL_JOBS=$((JOB_COUNT + SKIPPED_COUNT))
+if [ $TOTAL_JOBS -gt 0 ]; then
+    SKIP_PERCENTAGE=$(awk "BEGIN {printf \"%.1f\", ($SKIPPED_COUNT / $TOTAL_JOBS) * 100}")
+    SUBMIT_PERCENTAGE=$(awk "BEGIN {printf \"%.1f\", ($JOB_COUNT / $TOTAL_JOBS) * 100}")
+else
+    SKIP_PERCENTAGE="0.0"
+    SUBMIT_PERCENTAGE="0.0"
+fi
+
 echo "Summary:"
-echo "  Total jobs submitted: $JOB_COUNT"
+if [ -n "$FIRST_JOB_TO_RUN" ]; then
+    echo "  First job to run: $FIRST_JOB_TO_RUN"
+fi
+if [ $SKIPPED_COUNT -gt 0 ]; then
+    echo "  Jobs skipped: $SKIPPED_COUNT ($SKIP_PERCENTAGE%)"
+fi
+echo "  Jobs submitted: $JOB_COUNT ($SUBMIT_PERCENTAGE%)"
+echo "  Total jobs in sequence: $TOTAL_JOBS"
+echo ""
 echo "  Parameter combinations:"
 echo "    Areas: ${AREAS[*]}"
 echo "    Env-Cores pairs: ${ENV_CORES_PAIRS[*]}"
@@ -223,4 +291,10 @@ echo "==========================================================================
 if [ "$DRY_RUN" == true ]; then
     echo ""
     echo "This was a dry run. To actually submit jobs, run without --dry-run flag."
+fi
+
+if [ "$FOUND_START" == false ] && [ -n "$START_FROM_JOB" ]; then
+    echo ""
+    echo "WARNING: Start job '$START_FROM_JOB' was not found in the job sequence!"
+    echo "All jobs were skipped. Please check the job name."
 fi
