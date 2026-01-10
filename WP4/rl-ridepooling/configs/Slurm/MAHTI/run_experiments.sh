@@ -39,9 +39,6 @@ AREA1_EPISODES=(128 256 1024)
 # Note: "n" means use num_envs value, represented as -1
 GRAD_TRAINFREQ_PAIRS=("1:1" "1:4" "-1:1" "-1:4")
 
-# Random seeds for reproducibility (5 different seeds)
-SEEDS=(42 123 456 789 1024)
-
 #=============================================================================
 # SLURM CONFIGURATION
 #=============================================================================
@@ -60,6 +57,7 @@ TEMPLATE_SCRIPT="${PROJECT_DIR}/configs/Slurm/MAHTI/job_template.sh"
 
 DRY_RUN=false
 START_FROM_JOB=""
+SEED=""
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -71,13 +69,24 @@ while [[ $# -gt 0 ]]; do
             START_FROM_JOB="$2"
             shift 2
             ;;
+        --seed)
+            SEED="$2"
+            shift 2
+            ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [--dry-run] [--start-from <job_name>]"
+            echo "Usage: $0 [--dry-run] [--start-from <job_name>] --seed <seed_value>"
             exit 1
             ;;
     esac
 done
+
+# Validate that seed is provided
+if [ -z "$SEED" ]; then
+    echo "Error: --seed argument is required"
+    echo "Usage: $0 [--dry-run] [--start-from <job_name>] --seed <seed_value>"
+    exit 1
+fi
 
 if [ "$DRY_RUN" == true ]; then
     echo "=== DRY RUN MODE - No jobs will be submitted ==="
@@ -98,7 +107,7 @@ mkdir -p "${PROJECT_DIR}/experiment_logs"
 
 # Create timestamped experiment log file
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-EXPERIMENT_LOG_FILE="${PROJECT_DIR}/experiment_logs/experiment_${TIMESTAMP}.txt"
+EXPERIMENT_LOG_FILE="${PROJECT_DIR}/experiment_logs/experiment_${TIMESTAMP}_seed${SEED}.txt"
 
 echo "Experiment log file: $EXPERIMENT_LOG_FILE"
 echo ""
@@ -274,12 +283,10 @@ for AREA in "${AREAS[@]}"; do
     fi
     
     for BASIC_EPISODES in "${EPISODES_LIST[@]}"; do
-        for SEED in "${SEEDS[@]}"; do
-            for ENV_CORES in "${ENV_CORES_PAIRS[@]}"; do
-                for DELTA_SCALING in "${DELTA_SCALING_PAIRS[@]}"; do
-                    for GRAD_TF in "${GRAD_TRAINFREQ_PAIRS[@]}"; do
-                        ((TOTAL_JOBS_PREVIEW++))
-                    done
+        for ENV_CORES in "${ENV_CORES_PAIRS[@]}"; do
+            for DELTA_SCALING in "${DELTA_SCALING_PAIRS[@]}"; do
+                for GRAD_TF in "${GRAD_TRAINFREQ_PAIRS[@]}"; do
+                    ((TOTAL_JOBS_PREVIEW++))
                 done
             done
         done
@@ -304,7 +311,7 @@ if [ "$DRY_RUN" == false ]; then
     echo "  Episodes (toy): ${TOY_EPISODES[*]}"
     echo "  Episodes (area1): ${AREA1_EPISODES[*]}"
     echo "  Gradient-TrainFreq pairs: ${GRAD_TRAINFREQ_PAIRS[*]}"
-    echo "  Seeds: ${SEEDS[*]}"
+    echo "  Seed: ${SEED}"
     echo ""
     echo "Experiment log will be saved to: $EXPERIMENT_LOG_FILE"
     echo ""
@@ -338,74 +345,72 @@ for AREA in "${AREAS[@]}"; do
     fi
 
     for BASIC_EPISODES in "${EPISODES_LIST[@]}"; do
-        for SEED in "${SEEDS[@]}"; do
-            for ENV_CORES in "${ENV_CORES_PAIRS[@]}"; do
-                # Parse num_envs and cpus from pair
-                NUM_ENVS="${ENV_CORES%%:*}"
-                CPUS="${ENV_CORES##*:}"
+        for ENV_CORES in "${ENV_CORES_PAIRS[@]}"; do
+            # Parse num_envs and cpus from pair
+            NUM_ENVS="${ENV_CORES%%:*}"
+            CPUS="${ENV_CORES##*:}"
 
-                for DELTA_SCALING in "${DELTA_SCALING_PAIRS[@]}"; do
-                    # Parse delta and scaling_coef from pair
-                    DELTA="${DELTA_SCALING%%:*}"
-                    SCALING_COEF="${DELTA_SCALING##*:}"
+            for DELTA_SCALING in "${DELTA_SCALING_PAIRS[@]}"; do
+                # Parse delta and scaling_coef from pair
+                DELTA="${DELTA_SCALING%%:*}"
+                SCALING_COEF="${DELTA_SCALING##*:}"
 
-                    for GRAD_TF in "${GRAD_TRAINFREQ_PAIRS[@]}"; do
-                        # Parse gradient_steps and train_freq from pair
-                        GRADIENT_STEPS="${GRAD_TF%%:*}"
-                        TRAIN_FREQ="${GRAD_TF##*:}"
+                for GRAD_TF in "${GRAD_TRAINFREQ_PAIRS[@]}"; do
+                    # Parse gradient_steps and train_freq from pair
+                    GRADIENT_STEPS="${GRAD_TF%%:*}"
+                    TRAIN_FREQ="${GRAD_TF##*:}"
 
-                        # Build job name
-                        JOB_NAME="${AREA}_ep${BASIC_EPISODES}_env${NUM_ENVS}_delta${DELTA}_sc${SCALING_COEF}_gs${GRADIENT_STEPS}_tf${TRAIN_FREQ}_seed${SEED}"
+                    # Build job name
+                    JOB_NAME="${AREA}_ep${BASIC_EPISODES}_env${NUM_ENVS}_delta${DELTA}_sc${SCALING_COEF}_gs${GRADIENT_STEPS}_tf${TRAIN_FREQ}_seed${SEED}"
 
-                        # Check if we should skip this job
-                        if [ "$FOUND_START" == false ]; then
-                            if [ "$JOB_NAME" == "$START_FROM_JOB" ]; then
-                                FOUND_START=true
-                                echo ">>> Found starting job: $JOB_NAME <<<"
-                                echo ""
-                            else
-                                ((SKIPPED_COUNT++))
-                                continue
-                            fi
-                        fi
-
-                        # Track first job that will be run
-                        if [ -z "$FIRST_JOB_TO_RUN" ]; then
-                            FIRST_JOB_TO_RUN="$JOB_NAME"
-                        fi
-
-                        # Calculate time limit
-                        TIME_LIMIT=$(get_time_limit "$AREA" "$NUM_ENVS" "$BASIC_EPISODES")
-
-                        # Build sbatch command
-                        SBATCH_CMD="sbatch \
-                            --job-name=\"${JOB_NAME}\" \
-                            --output=\"slurm_output/%A-%x-stdout.log\" \
-                            --error=\"slurm_output/%A-%x-stderr.log\" \
-                            --account=${ACCOUNT} \
-                            --time=${TIME_LIMIT} \
-                            --nodes=1 \
-                            --ntasks=1 \
-                            --cpus-per-task=${CPUS} \
-                            --partition=${PARTITION} \
-                            --contiguous \
-                            --mail-user=${MAIL_USER} \
-                            --mail-type=FAIL,TIME_LIMIT \
-                            --export=ALL,AREA=${AREA},BASIC_EPISODES=${BASIC_EPISODES},SEED=${SEED},DELTA=${DELTA},NUM_ENVS=${NUM_ENVS},TRAIN_FREQ=${TRAIN_FREQ},GRADIENT_STEPS=${GRADIENT_STEPS},SCALING_COEF=${SCALING_COEF},JOB_NAME=${JOB_NAME} \
-                            ${TEMPLATE_SCRIPT}"
-
-                        if [ "$DRY_RUN" == true ]; then
-                            echo "[DRY RUN] Would submit: $JOB_NAME"
-                            echo "  CPUs: $CPUS, Time: $TIME_LIMIT"
+                    # Check if we should skip this job
+                    if [ "$FOUND_START" == false ]; then
+                        if [ "$JOB_NAME" == "$START_FROM_JOB" ]; then
+                            FOUND_START=true
+                            echo ">>> Found starting job: $JOB_NAME <<<"
                             echo ""
                         else
-                            echo "Submitting: $JOB_NAME"
-                            submit_job "$JOB_NAME" "$SBATCH_CMD"
+                            ((SKIPPED_COUNT++))
+                            continue
                         fi
+                    fi
 
-                        ((JOB_COUNT++))
+                    # Track first job that will be run
+                    if [ -z "$FIRST_JOB_TO_RUN" ]; then
+                        FIRST_JOB_TO_RUN="$JOB_NAME"
+                    fi
 
-                    done
+                    # Calculate time limit
+                    TIME_LIMIT=$(get_time_limit "$AREA" "$NUM_ENVS" "$BASIC_EPISODES")
+
+                    # Build sbatch command
+                    SBATCH_CMD="sbatch \
+                        --job-name=\"${JOB_NAME}\" \
+                        --output=\"slurm_output/%A-%x-stdout.log\" \
+                        --error=\"slurm_output/%A-%x-stderr.log\" \
+                        --account=${ACCOUNT} \
+                        --time=${TIME_LIMIT} \
+                        --nodes=1 \
+                        --ntasks=1 \
+                        --cpus-per-task=${CPUS} \
+                        --partition=${PARTITION} \
+                        --contiguous \
+                        --mail-user=${MAIL_USER} \
+                        --mail-type=FAIL,TIME_LIMIT \
+                        --export=ALL,AREA=${AREA},BASIC_EPISODES=${BASIC_EPISODES},SEED=${SEED},DELTA=${DELTA},NUM_ENVS=${NUM_ENVS},TRAIN_FREQ=${TRAIN_FREQ},GRADIENT_STEPS=${GRADIENT_STEPS},SCALING_COEF=${SCALING_COEF},JOB_NAME=${JOB_NAME} \
+                        ${TEMPLATE_SCRIPT}"
+
+                    if [ "$DRY_RUN" == true ]; then
+                        echo "[DRY RUN] Would submit: $JOB_NAME"
+                        echo "  CPUs: $CPUS, Time: $TIME_LIMIT"
+                        echo ""
+                    else
+                        echo "Submitting: $JOB_NAME"
+                        submit_job "$JOB_NAME" "$SBATCH_CMD"
+                    fi
+
+                    ((JOB_COUNT++))
+
                 done
             done
         done
@@ -449,7 +454,7 @@ echo "    Delta-Scaling pairs: ${#DELTA_SCALING_PAIRS[@]} combinations"
 echo "    Episodes (toy): ${TOY_EPISODES[*]}"
 echo "    Episodes (area1): ${AREA1_EPISODES[*]}"
 echo "    Gradient-TrainFreq pairs: ${GRAD_TRAINFREQ_PAIRS[*]}"
-echo "    Seeds: ${SEEDS[*]}"
+echo "    Seed: ${SEED}"
 echo "=============================================================================";
 
 # Report failed jobs if any
