@@ -90,10 +90,101 @@ if [ -n "$START_FROM_JOB" ]; then
 fi
 
 #=============================================================================
-# CREATE SLURM OUTPUT DIRECTORY
+# CREATE SLURM OUTPUT DIRECTORY AND EXPERIMENT LOG FILE
 #=============================================================================
 
 mkdir -p "${PROJECT_DIR}/slurm_output"
+mkdir -p "${PROJECT_DIR}/experiment_logs"
+
+# Create timestamped experiment log file
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+EXPERIMENT_LOG_FILE="${PROJECT_DIR}/experiment_logs/experiment_${TIMESTAMP}.txt"
+
+echo "Experiment log file: $EXPERIMENT_LOG_FILE"
+echo ""
+
+#=============================================================================
+# QUEUE MONITORING CONFIGURATION
+#=============================================================================
+
+# Time to wait between queue checks (seconds) - 10 minutes
+QUEUE_CHECK_INTERVAL=600
+
+# Counter for successfully submitted jobs
+SUBMITTED_COUNT=0
+
+# Arrays to track job submissions
+declare -a FAILED_JOBS=()
+declare -a FAILED_JOB_CMDS=()
+declare -a SUBMITTED_JOB_IDS=()
+
+#=============================================================================
+# FUNCTION: Get current number of jobs in queue for this user
+#=============================================================================
+
+get_queue_count() {
+    squeue -u "$USER" -h 2>/dev/null | wc -l
+}
+
+#=============================================================================
+# FUNCTION: Wait until queue has space (uses dynamic limit based on submitted jobs)
+#=============================================================================
+
+wait_for_queue_space() {
+    local current_queue=$(get_queue_count)
+    
+    # Dynamic limit: we can submit if queue count is less than what we've submitted
+    # This means some of our jobs have completed, freeing up space
+    while [ "$current_queue" -ge "$SUBMITTED_COUNT" ] && [ "$SUBMITTED_COUNT" -gt 0 ]; do
+        echo "  Queue full ($current_queue jobs, $SUBMITTED_COUNT submitted). Waiting ${QUEUE_CHECK_INTERVAL}s ($(date +%H:%M:%S))..."
+        sleep $QUEUE_CHECK_INTERVAL
+        current_queue=$(get_queue_count)
+    done
+}
+
+#=============================================================================
+# FUNCTION: Submit a job with retry logic (retries indefinitely on queue limit)
+#=============================================================================
+
+submit_job() {
+    local job_name="$1"
+    local sbatch_cmd="$2"
+    
+    while true; do
+        # Wait for queue space before attempting submission (skip on first job)
+        if [ "$SUBMITTED_COUNT" -gt 0 ]; then
+            wait_for_queue_space
+        fi
+        
+        SUBMIT_OUTPUT=$(eval $sbatch_cmd 2>&1)
+        SUBMIT_STATUS=$?
+        
+        if [ $SUBMIT_STATUS -eq 0 ]; then
+            # Extract job ID from output (format: "Submitted batch job XXXXXX")
+            JOB_ID=$(echo "$SUBMIT_OUTPUT" | grep -oP 'Submitted batch job \K[0-9]+')
+            echo "  ✓ Success: $SUBMIT_OUTPUT"
+            SUBMITTED_JOB_IDS+=("$JOB_ID")
+            ((SUBMITTED_COUNT++))
+            echo "$job_name,$JOB_ID,SUBMITTED" >> "$EXPERIMENT_LOG_FILE"
+            return 0
+        else
+            # Check if it's a queue limit error
+            if echo "$SUBMIT_OUTPUT" | grep -qi "limit\|quota\|maximum\|too many\|AssocMaxSubmitJobLimit"; then
+                echo "  ⚠ Queue limit hit: $SUBMIT_OUTPUT"
+                echo "  Waiting ${QUEUE_CHECK_INTERVAL}s before retry ($(date +%H:%M:%S))..."
+                sleep $QUEUE_CHECK_INTERVAL
+                # Continue the loop to retry
+            else
+                # Non-queue-limit error, record and move on
+                echo "  ✗ FAILED: $SUBMIT_OUTPUT"
+                echo "$job_name,NONE,FAILED:$SUBMIT_OUTPUT" >> "$EXPERIMENT_LOG_FILE"
+                FAILED_JOBS+=("$job_name")
+                FAILED_JOB_CMDS+=("$sbatch_cmd")
+                return 1
+            fi
+        fi
+    done
+}
 
 #=============================================================================
 # FUNCTION: Calculate time limit based on area, num_envs, and episodes
@@ -125,30 +216,30 @@ get_time_limit() {
         case $num_envs in
             1|2|4)
                 case $episodes in
-                    128)  echo "02:00:00" ;;
-                    256)  echo "04:00:00" ;;
-                    1024) echo "16:00:00" ;;
+                    128)  echo "1-00:00:00" ;;
+                    256)  echo "1-00:00:00" ;;
+                    1024) echo "2-00:00:00" ;;
                 esac
                 ;;
             8)
                 case $episodes in
-                    128)  echo "02:00:00" ;;
-                    256)  echo "03:30:00" ;;
-                    1024) echo "14:00:00" ;;
+                    128)  echo "1-00:00:00" ;;
+                    256)  echo "1-00:00:00" ;;
+                    1024) echo "2-00:00:00" ;;
                 esac
                 ;;
             16)
                 case $episodes in
-                    128)  echo "01:30:00" ;;
-                    256)  echo "03:00:00" ;;
-                    1024) echo "10:00:00" ;;
+                    128)  echo "1-00:00:00" ;;
+                    256)  echo "1-00:00:00" ;;
+                    1024) echo "2-00:00:00" ;;
                 esac
                 ;;
             32)
                 case $episodes in
-                    128)  echo "00:45:00" ;;
-                    256)  echo "01:30:00" ;;
-                    1024) echo "06:00:00" ;;
+                    128)  echo "1-00:00:00" ;;
+                    256)  echo "1-00:00:00" ;;
+                    1024) echo "2-00:00:00" ;;
                 esac
                 ;;
         esac
@@ -168,6 +259,72 @@ FIRST_JOB_TO_RUN=""
 if [ -z "$START_FROM_JOB" ]; then
     FOUND_START=true
 fi
+
+#=============================================================================
+# COUNT TOTAL JOBS FIRST (for confirmation prompt)
+#=============================================================================
+
+TOTAL_JOBS_PREVIEW=0
+
+for AREA in "${AREAS[@]}"; do
+    if [ "$AREA" == "toy" ]; then
+        EPISODES_LIST=("${TOY_EPISODES[@]}")
+    else
+        EPISODES_LIST=("${AREA1_EPISODES[@]}")
+    fi
+    
+    for BASIC_EPISODES in "${EPISODES_LIST[@]}"; do
+        for SEED in "${SEEDS[@]}"; do
+            for ENV_CORES in "${ENV_CORES_PAIRS[@]}"; do
+                for DELTA_SCALING in "${DELTA_SCALING_PAIRS[@]}"; do
+                    for GRAD_TF in "${GRAD_TRAINFREQ_PAIRS[@]}"; do
+                        ((TOTAL_JOBS_PREVIEW++))
+                    done
+                done
+            done
+        done
+    done
+done
+
+#=============================================================================
+# CONFIRMATION PROMPT (only in non-dry-run mode)
+#=============================================================================
+
+if [ "$DRY_RUN" == false ]; then
+    echo "============================================================================="
+    echo "EXPERIMENT SUBMISSION SUMMARY"
+    echo "============================================================================="
+    echo ""
+    echo "You are about to submit $TOTAL_JOBS_PREVIEW jobs to the cluster."
+    echo ""
+    echo "Parameter combinations:"
+    echo "  Areas: ${AREAS[*]}"
+    echo "  Env-Cores pairs: ${ENV_CORES_PAIRS[*]}"
+    echo "  Delta-Scaling pairs: ${#DELTA_SCALING_PAIRS[@]} combinations"
+    echo "  Episodes (toy): ${TOY_EPISODES[*]}"
+    echo "  Episodes (area1): ${AREA1_EPISODES[*]}"
+    echo "  Gradient-TrainFreq pairs: ${GRAD_TRAINFREQ_PAIRS[*]}"
+    echo "  Seeds: ${SEEDS[*]}"
+    echo ""
+    echo "Experiment log will be saved to: $EXPERIMENT_LOG_FILE"
+    echo ""
+    echo "============================================================================="
+    read -p "Do you want to proceed with job submission? (yes/no): " CONFIRM
+    echo ""
+    
+    if [ "$CONFIRM" != "yes" ] && [ "$CONFIRM" != "y" ] && [ "$CONFIRM" != "Y" ]; then
+        echo "Job submission cancelled by user."
+        exit 0
+    fi
+    
+    echo "Proceeding with job submission..."
+    echo ""
+fi
+
+# Write header to experiment log file
+echo "# Experiment run log - Started at $(date)" > "$EXPERIMENT_LOG_FILE"
+echo "# Format: job_name,job_id,status" >> "$EXPERIMENT_LOG_FILE"
+echo "" >> "$EXPERIMENT_LOG_FILE"
 
 echo "Submitting experiment jobs..."
 echo ""
@@ -243,7 +400,7 @@ for AREA in "${AREAS[@]}"; do
                             echo ""
                         else
                             echo "Submitting: $JOB_NAME"
-                            eval $SBATCH_CMD
+                            submit_job "$JOB_NAME" "$SBATCH_CMD"
                         fi
 
                         ((JOB_COUNT++))
@@ -268,6 +425,9 @@ else
     SUBMIT_PERCENTAGE="0.0"
 fi
 
+# Count successful and failed submissions
+SUCCESSFUL_SUBMISSIONS=$((JOB_COUNT - ${#FAILED_JOBS[@]}))
+
 echo "Summary:"
 if [ -n "$FIRST_JOB_TO_RUN" ]; then
     echo "  First job to run: $FIRST_JOB_TO_RUN"
@@ -275,8 +435,12 @@ fi
 if [ $SKIPPED_COUNT -gt 0 ]; then
     echo "  Jobs skipped: $SKIPPED_COUNT ($SKIP_PERCENTAGE%)"
 fi
-echo "  Jobs submitted: $JOB_COUNT ($SUBMIT_PERCENTAGE%)"
+echo "  Jobs attempted: $JOB_COUNT ($SUBMIT_PERCENTAGE%)"
+echo "  Successful submissions: $SUCCESSFUL_SUBMISSIONS"
+echo "  Failed submissions: ${#FAILED_JOBS[@]}"
 echo "  Total jobs in sequence: $TOTAL_JOBS"
+echo ""
+echo "  Experiment log saved to: $EXPERIMENT_LOG_FILE"
 echo ""
 echo "  Parameter combinations:"
 echo "    Areas: ${AREAS[*]}"
@@ -287,6 +451,17 @@ echo "    Episodes (area1): ${AREA1_EPISODES[*]}"
 echo "    Gradient-TrainFreq pairs: ${GRAD_TRAINFREQ_PAIRS[*]}"
 echo "    Seeds: ${SEEDS[*]}"
 echo "=============================================================================";
+
+# Report failed jobs if any
+if [ ${#FAILED_JOBS[@]} -gt 0 ]; then
+    echo ""
+    echo "WARNING: The following jobs failed to submit after all retries:"
+    for i in "${!FAILED_JOBS[@]}"; do
+        echo "  - ${FAILED_JOBS[$i]}"
+    done
+    echo ""
+    echo "Check $EXPERIMENT_LOG_FILE for details."
+fi
 
 if [ "$DRY_RUN" == true ]; then
     echo ""
