@@ -15,7 +15,7 @@
 #=============================================================================
 
 # Network areas: "toy" (old network) or "area1" (Helsinki area 1)
-AREAS=("area1")
+AREAS=("toy" "area1")
 
 # Number of parallel SUMO environments and corresponding CPU allocation
 # Format: "num_envs:cpus"
@@ -37,7 +37,7 @@ AREA1_EPISODES=(128 256 1024)
 # Gradient steps and train frequency combinations
 # Format: "gradient_steps:train_freq"
 # Note: "n" means use num_envs value, represented as -1
-GRAD_TRAINFREQ_PAIRS=("-1:1")
+GRAD_TRAINFREQ_PAIRS=("1:1" "1:4" "-1:1" "-1:4")
 
 #=============================================================================
 # SLURM CONFIGURATION
