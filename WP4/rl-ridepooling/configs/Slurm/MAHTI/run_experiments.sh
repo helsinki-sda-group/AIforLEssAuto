@@ -58,6 +58,7 @@ TEMPLATE_SCRIPT="${PROJECT_DIR}/configs/Slurm/MAHTI/job_template.sh"
 DRY_RUN=false
 START_FROM_JOB=""
 SEED=""
+AUTO_CONFIRM=false
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -73,9 +74,13 @@ while [[ $# -gt 0 ]]; do
             SEED="$2"
             shift 2
             ;;
+        --yes|-y)
+            AUTO_CONFIRM=true
+            shift
+            ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [--dry-run] [--start-from <job_name>] --seed <seed_value>"
+            echo "Usage: $0 [--dry-run] [--start-from <job_name>] [--yes|-y] --seed <seed_value>"
             exit 1
             ;;
     esac
@@ -84,7 +89,7 @@ done
 # Validate that seed is provided
 if [ -z "$SEED" ]; then
     echo "Error: --seed argument is required"
-    echo "Usage: $0 [--dry-run] [--start-from <job_name>] --seed <seed_value>"
+    echo "Usage: $0 [--dry-run] [--start-from <job_name>] [--yes|-y] --seed <seed_value>"
     exit 1
 fi
 
@@ -293,12 +298,15 @@ if [ "$DRY_RUN" == false ]; then
     echo "Experiment log will be saved to: $EXPERIMENT_LOG_FILE"
     echo ""
     echo "============================================================================="
-    read -p "Do you want to proceed with job submission? (yes/no): " CONFIRM
-    echo ""
     
-    if [ "$CONFIRM" != "yes" ] && [ "$CONFIRM" != "y" ] && [ "$CONFIRM" != "Y" ]; then
-        echo "Job submission cancelled by user."
-        exit 0
+    if [ "$AUTO_CONFIRM" == false ]; then
+        read -p "Do you want to proceed with job submission? (yes/no): " CONFIRM
+        echo ""
+        
+        if [ "$CONFIRM" != "yes" ] && [ "$CONFIRM" != "y" ] && [ "$CONFIRM" != "Y" ]; then
+            echo "Job submission cancelled by user."
+            exit 0
+        fi
     fi
     
     echo "Proceeding with job submission..."
