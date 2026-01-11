@@ -180,15 +180,15 @@ get_time_limit() {
         if [ "$num_envs" -eq 32 ]; then
             case $episodes in
                 32)  echo "00:45:00" ;;
-                64)  echo "01:00:00" ;;
-                128) echo "01:45:00" ;;
+                64)  echo "01:30:00" ;;
+                128) echo "02:45:00" ;;
             esac
         else
             # 1env, 2env, 4env, 8env, 16env all use same times
             case $episodes in
                 32)  echo "00:45:00" ;;
-                64)  echo "01:15:00" ;;
-                128) echo "02:30:00" ;;
+                64)  echo "01:30:00" ;;
+                128) echo "03:30:00" ;;
             esac
         fi
     else
@@ -198,28 +198,28 @@ get_time_limit() {
                 case $episodes in
                     128)  echo "1-00:00:00" ;;
                     256)  echo "1-00:00:00" ;;
-                    1024) echo "2-00:00:00" ;;
+                    1024) echo "3-00:00:00" ;;
                 esac
                 ;;
             8)
                 case $episodes in
                     128)  echo "1-00:00:00" ;;
                     256)  echo "1-00:00:00" ;;
-                    1024) echo "2-00:00:00" ;;
+                    1024) echo "3-00:00:00" ;;
                 esac
                 ;;
             16)
                 case $episodes in
                     128)  echo "1-00:00:00" ;;
                     256)  echo "1-00:00:00" ;;
-                    1024) echo "2-00:00:00" ;;
+                    1024) echo "3-00:00:00" ;;
                 esac
                 ;;
             32)
                 case $episodes in
                     128)  echo "1-00:00:00" ;;
                     256)  echo "1-00:00:00" ;;
-                    1024) echo "2-00:00:00" ;;
+                    1024) echo "3-00:00:00" ;;
                 esac
                 ;;
         esac
