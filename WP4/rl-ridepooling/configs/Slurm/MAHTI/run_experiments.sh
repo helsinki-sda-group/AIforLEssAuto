@@ -128,30 +128,6 @@ declare -a FAILED_JOB_CMDS=()
 declare -a SUBMITTED_JOB_IDS=()
 
 #=============================================================================
-# FUNCTION: Get current number of jobs in queue for this user
-#=============================================================================
-
-get_queue_count() {
-    squeue -u "$USER" -h 2>/dev/null | wc -l
-}
-
-#=============================================================================
-# FUNCTION: Wait until queue has space (uses dynamic limit based on submitted jobs)
-#=============================================================================
-
-wait_for_queue_space() {
-    local current_queue=$(get_queue_count)
-    
-    # Dynamic limit: we can submit if queue count is less than what we've submitted
-    # This means some of our jobs have completed, freeing up space
-    while [ "$current_queue" -ge "$SUBMITTED_COUNT" ] && [ "$SUBMITTED_COUNT" -gt 0 ]; do
-        echo "  Queue full ($current_queue jobs, $SUBMITTED_COUNT submitted). Waiting ${QUEUE_CHECK_INTERVAL}s ($(date +%H:%M:%S))..."
-        sleep $QUEUE_CHECK_INTERVAL
-        current_queue=$(get_queue_count)
-    done
-}
-
-#=============================================================================
 # FUNCTION: Submit a job with retry logic (retries indefinitely on queue limit)
 #=============================================================================
 
@@ -160,11 +136,6 @@ submit_job() {
     local sbatch_cmd="$2"
     
     while true; do
-        # Wait for queue space before attempting submission (skip on first job)
-        if [ "$SUBMITTED_COUNT" -gt 0 ]; then
-            wait_for_queue_space
-        fi
-        
         SUBMIT_OUTPUT=$(eval $sbatch_cmd 2>&1)
         SUBMIT_STATUS=$?
         
