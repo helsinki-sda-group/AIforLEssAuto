@@ -9,6 +9,7 @@ __pycache__/
 rl_output
 gui_output
 slurm_output
+experiment_logs
 
 # LUMI related
 core

@@ -102,15 +102,17 @@ fi
 # CREATE SLURM OUTPUT DIRECTORY AND EXPERIMENT LOG FILE
 #=============================================================================
 
-mkdir -p "${PROJECT_DIR}/slurm_output"
-mkdir -p "${PROJECT_DIR}/experiment_logs"
+if [ "$DRY_RUN" == false ]; then
+    mkdir -p "${PROJECT_DIR}/slurm_output"
+    mkdir -p "${PROJECT_DIR}/experiment_logs"
 
-# Create timestamped experiment log file
-TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-EXPERIMENT_LOG_FILE="${PROJECT_DIR}/experiment_logs/experiment_${TIMESTAMP}_seed${SEED}.txt"
+    # Create timestamped experiment log file
+    TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+    EXPERIMENT_LOG_FILE="${PROJECT_DIR}/experiment_logs/experiment_${TIMESTAMP}_seed${SEED}.txt"
 
-echo "Experiment log file: $EXPERIMENT_LOG_FILE"
-echo ""
+    echo "Experiment log file: $EXPERIMENT_LOG_FILE"
+    echo ""
+fi
 
 #=============================================================================
 # QUEUE MONITORING CONFIGURATION
@@ -145,7 +147,9 @@ submit_job() {
             echo "  ✓ Success: $SUBMIT_OUTPUT"
             SUBMITTED_JOB_IDS+=("$JOB_ID")
             ((SUBMITTED_COUNT++))
-            echo "$job_name,$JOB_ID,SUBMITTED" >> "$EXPERIMENT_LOG_FILE"
+            if [ "$DRY_RUN" == false ]; then
+                echo "$job_name,$JOB_ID,SUBMITTED" >> "$EXPERIMENT_LOG_FILE"
+            fi
             return 0
         else
             # Check if it's a queue limit error
@@ -157,7 +161,9 @@ submit_job() {
             else
                 # Non-queue-limit error, record and move on
                 echo "  ✗ FAILED: $SUBMIT_OUTPUT"
-                echo "$job_name,NONE,FAILED:$SUBMIT_OUTPUT" >> "$EXPERIMENT_LOG_FILE"
+                if [ "$DRY_RUN" == false ]; then
+                    echo "$job_name,NONE,FAILED:$SUBMIT_OUTPUT" >> "$EXPERIMENT_LOG_FILE"
+                fi
                 FAILED_JOBS+=("$job_name")
                 FAILED_JOB_CMDS+=("$sbatch_cmd")
                 return 1
@@ -300,9 +306,11 @@ if [ "$DRY_RUN" == false ]; then
 fi
 
 # Write header to experiment log file
-echo "# Experiment run log - Started at $(date)" > "$EXPERIMENT_LOG_FILE"
-echo "# Format: job_name,job_id,status" >> "$EXPERIMENT_LOG_FILE"
-echo "" >> "$EXPERIMENT_LOG_FILE"
+if [ "$DRY_RUN" == false ]; then
+    echo "# Experiment run log - Started at $(date)" > "$EXPERIMENT_LOG_FILE"
+    echo "# Format: job_name,job_id,status" >> "$EXPERIMENT_LOG_FILE"
+    echo "" >> "$EXPERIMENT_LOG_FILE"
+fi
 
 echo "Submitting experiment jobs..."
 echo ""
@@ -416,8 +424,10 @@ echo "  Successful submissions: $SUCCESSFUL_SUBMISSIONS"
 echo "  Failed submissions: ${#FAILED_JOBS[@]}"
 echo "  Total jobs in sequence: $TOTAL_JOBS"
 echo ""
-echo "  Experiment log saved to: $EXPERIMENT_LOG_FILE"
-echo ""
+if [ "$DRY_RUN" == false ]; then
+    echo "  Experiment log saved to: $EXPERIMENT_LOG_FILE"
+    echo ""
+fi
 echo "  Parameter combinations:"
 echo "    Areas: ${AREAS[*]}"
 echo "    Env-Cores pairs: ${ENV_CORES_PAIRS[*]}"
@@ -436,7 +446,9 @@ if [ ${#FAILED_JOBS[@]} -gt 0 ]; then
         echo "  - ${FAILED_JOBS[$i]}"
     done
     echo ""
-    echo "Check $EXPERIMENT_LOG_FILE for details."
+    if [ "$DRY_RUN" == false ]; then
+        echo "Check $EXPERIMENT_LOG_FILE for details."
+    fi
 fi
 
 if [ "$DRY_RUN" == true ]; then
