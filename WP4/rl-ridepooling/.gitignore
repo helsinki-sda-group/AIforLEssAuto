@@ -10,6 +10,7 @@ rl_output
 gui_output
 slurm_output
 experiment_logs
+experiment_zips
 
 # LUMI related
 core
