@@ -87,7 +87,7 @@ srun singularity exec \
     --seed ${SEED} \
     --sumo-seed ${SEED} \
     --delta ${DELTA} \
-    --train-freq ${TRAIN_FREQ} \
+    --train-freq ${SCALED_TRAIN_FREQ} \
     --gradient-steps ${GRADIENT_STEPS} \
     --scaling-coef ${SCALING_COEF} \
     --sumocfg '${SUMOCFG}' \

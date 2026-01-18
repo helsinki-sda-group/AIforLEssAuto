@@ -178,6 +178,21 @@ submit_job() {
 }
 
 #=============================================================================
+# FUNCTION: Get maximum env value from ENV_CORES_PAIRS
+#=============================================================================
+
+get_max_env() {
+    local max_env=0
+    for pair in "${ENV_CORES_PAIRS[@]}"; do
+        local env="${pair%%:*}"
+        if [ "$env" -gt "$max_env" ]; then
+            max_env=$env
+        fi
+    done
+    echo $max_env
+}
+
+#=============================================================================
 # FUNCTION: Calculate time limit based on area, num_envs, and episodes
 #=============================================================================
 
@@ -280,24 +295,28 @@ done
 #=============================================================================
 
 if [ "$DRY_RUN" == false ]; then
-    echo "============================================================================="
-    echo "EXPERIMENT SUBMISSION SUMMARY"
-    echo "============================================================================="
-    echo ""
-    echo "You are about to submit $TOTAL_JOBS_PREVIEW jobs to the cluster."
-    echo ""
-    echo "Parameter combinations:"
-    echo "  Areas: ${AREAS[*]}"
-    echo "  Env-Cores pairs: ${ENV_CORES_PAIRS[*]}"
-    echo "  Delta-Scaling pairs: ${#DELTA_SCALING_PAIRS[@]} combinations"
-    echo "  Episodes (toy): ${TOY_EPISODES[*]}"
-    echo "  Episodes (area1): ${AREA1_EPISODES[*]}"
-    echo "  Gradient-TrainFreq pairs: ${GRAD_TRAINFREQ_PAIRS[*]}"
-    echo "  Seed: ${SEED}"
-    echo ""
-    echo "Experiment log will be saved to: $EXPERIMENT_LOG_FILE"
-    echo ""
-    echo "============================================================================="
+    # Build summary string that will be displayed and logged
+    SUMMARY_TEXT="============================================================================="
+    SUMMARY_TEXT+="\nEXPERIMENT SUBMISSION SUMMARY"
+    SUMMARY_TEXT+="\n============================================================================="
+    SUMMARY_TEXT+="\n"
+    SUMMARY_TEXT+="\nYou are about to submit $TOTAL_JOBS_PREVIEW jobs to the cluster."
+    SUMMARY_TEXT+="\n"
+    SUMMARY_TEXT+="\nParameter combinations:"
+    SUMMARY_TEXT+="\n  Areas: ${AREAS[*]}"
+    SUMMARY_TEXT+="\n  Env-Cores pairs: ${ENV_CORES_PAIRS[*]}"
+    SUMMARY_TEXT+="\n  Delta-Scaling pairs: ${#DELTA_SCALING_PAIRS[@]} combinations"
+    SUMMARY_TEXT+="\n  Episodes (toy): ${TOY_EPISODES[*]}"
+    SUMMARY_TEXT+="\n  Episodes (area1): ${AREA1_EPISODES[*]}"
+    SUMMARY_TEXT+="\n  Gradient-TrainFreq pairs: ${GRAD_TRAINFREQ_PAIRS[*]}"
+    SUMMARY_TEXT+="\n  Seed: ${SEED}"
+    SUMMARY_TEXT+="\n"
+    SUMMARY_TEXT+="\nExperiment log will be saved to: $EXPERIMENT_LOG_FILE"
+    SUMMARY_TEXT+="\n"
+    SUMMARY_TEXT+="\n============================================================================="
+    
+    # Display summary to stdout
+    echo -e "$SUMMARY_TEXT"
     
     if [ "$AUTO_CONFIRM" == false ]; then
         read -p "Do you want to proceed with job submission? (yes/no): " CONFIRM
@@ -313,14 +332,21 @@ if [ "$DRY_RUN" == false ]; then
     echo ""
 fi
 
-# Write header to experiment log file
+# Write header and summary to experiment log file
 if [ "$DRY_RUN" == false ]; then
     echo "# Experiment run log - Started at $(date)" > "$EXPERIMENT_LOG_FILE"
     echo "# Format: job_name,job_id,status" >> "$EXPERIMENT_LOG_FILE"
     echo "" >> "$EXPERIMENT_LOG_FILE"
+    echo -e "$SUMMARY_TEXT" >> "$EXPERIMENT_LOG_FILE"
+    echo "" >> "$EXPERIMENT_LOG_FILE"
 fi
 
 echo "Submitting experiment jobs..."
+echo ""
+
+# Calculate max env value for scaling
+MAX_ENV=$(get_max_env)
+echo "Using MAX_ENV=$MAX_ENV for train frequency scaling"
 echo ""
 
 for AREA in "${AREAS[@]}"; do
@@ -347,8 +373,11 @@ for AREA in "${AREAS[@]}"; do
                     GRADIENT_STEPS="${GRAD_TF%%:*}"
                     TRAIN_FREQ="${GRAD_TF##*:}"
 
+                    # Calculate scaled train frequency: scaled_train_freq = MAX_ENV * train_freq / num_envs
+                    SCALED_TRAIN_FREQ=$(awk "BEGIN {printf \"%.0f\", $MAX_ENV * $TRAIN_FREQ / $NUM_ENVS}")
+
                     # Build job name
-                    JOB_NAME="${AREA}_ep${BASIC_EPISODES}_env${NUM_ENVS}_delta${DELTA}_sc${SCALING_COEF}_gs${GRADIENT_STEPS}_tf${TRAIN_FREQ}_seed${SEED}"
+                    JOB_NAME="${AREA}_ep${BASIC_EPISODES}_env${NUM_ENVS}_delta${DELTA}_sc${SCALING_COEF}_gs${GRADIENT_STEPS}_tf${TRAIN_FREQ}_stf${SCALED_TRAIN_FREQ}_seed${SEED}"
 
                     # Check if we should skip this job
                     if [ "$FOUND_START" == false ]; then
@@ -384,7 +413,7 @@ for AREA in "${AREAS[@]}"; do
                         --contiguous \
                         --mail-user=${MAIL_USER} \
                         --mail-type=FAIL,TIME_LIMIT \
-                        --export=ALL,AREA=${AREA},BASIC_EPISODES=${BASIC_EPISODES},SEED=${SEED},DELTA=${DELTA},NUM_ENVS=${NUM_ENVS},TRAIN_FREQ=${TRAIN_FREQ},GRADIENT_STEPS=${GRADIENT_STEPS},SCALING_COEF=${SCALING_COEF},JOB_NAME=${JOB_NAME} \
+                        --export=ALL,AREA=${AREA},BASIC_EPISODES=${BASIC_EPISODES},SEED=${SEED},DELTA=${DELTA},NUM_ENVS=${NUM_ENVS},TRAIN_FREQ=${TRAIN_FREQ},SCALED_TRAIN_FREQ=${SCALED_TRAIN_FREQ},GRADIENT_STEPS=${GRADIENT_STEPS},SCALING_COEF=${SCALING_COEF},JOB_NAME=${JOB_NAME} \
                         ${TEMPLATE_SCRIPT}"
 
                     if [ "$DRY_RUN" == true ]; then
