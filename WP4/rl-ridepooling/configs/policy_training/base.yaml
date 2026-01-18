@@ -1,7 +1,7 @@
 train: True
 test: True
-test_baseline: False
-test_random: False
+test_baseline: True
+test_random: True
 
 env:
   sumo_steps: 3000
